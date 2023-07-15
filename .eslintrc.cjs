@@ -18,6 +18,7 @@ module.exports = {
 				varsIgnorePattern: 'React',
 			},
 		],
+		'react/prop-types': 'off',
 		'react/jsx-uses-react': 'error',
 		'react/jsx-uses-vars': 'error',
 		'react-refresh/only-export-components': [
