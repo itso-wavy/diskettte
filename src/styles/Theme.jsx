@@ -3,20 +3,21 @@ export default {
 	// 컬러 테마
 	// 색상
 	// 기본 폰트 사이즈
-};
-export const LARGE_AND_ABOVE = 'largeAndAbove';
+}
+
+export const LARGE_AND_ABOVE = 'largeAndAbove'
 
 const BREAKPOINT_NAMES = {
 	LARGE: 'large',
 	MEDIUM: 'medium',
 	SMALL: 'small',
-};
+}
 
 const breakpoints = {
 	[BREAKPOINT_NAMES.LARGE]: 1128,
 	[BREAKPOINT_NAMES.MEDIUM]: 744,
 	[BREAKPOINT_NAMES.SMALL]: 327,
-};
+}
 
 const responsive = {
 	[LARGE_AND_ABOVE]: `@media (min-width: ${
@@ -26,7 +27,7 @@ const responsive = {
 		breakpoints[BREAKPOINT_NAMES.MEDIUM] - 1
 	}px)`,
 	print: '@media print',
-};
+}
 
 // export default {
 // 	// 색상
