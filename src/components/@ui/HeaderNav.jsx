@@ -1,12 +1,12 @@
 import { Link, NavLink } from 'react-router-dom'
+import styled from 'styled-components'
 import LogoImg from '/logo.svg'
 import SearchImg from '/assets/icons/ion_search-outline.svg'
 import CartImg from '/assets/icons/wavy_cart-outline.svg'
 import LoginImg from '/assets/icons/wavy_log-in-sharp.svg'
 import MyPageImg from '/assets/icons/wavy_person-outline.svg'
-import styled from 'styled-components'
 
-const StyledHeader = styled.header`
+export const StyledHeader = styled.header`
 	display: flex;
 	justify-content: space-between;
 	padding: 22px 3em;
@@ -26,16 +26,16 @@ const StyledHeader = styled.header`
 		display: flex;
 		flex-flow: column;
 		align-items: center;
-		font-weight: 700;
+		font-weight: bold;
 	}
 `
 
-const Categories = styled.ul`
+export const Categories = styled.ul`
 	padding: 22px 3em;
 	display: flex;
 	gap: 3em;
 	font-size: 20px;
-	font-weight: 600;
+	font-weight: bold;
 	border-bottom: 1px solid #f2f2f2;
 
 	& .active {
@@ -43,16 +43,41 @@ const Categories = styled.ul`
 	}
 `
 
-export default function MainNav() {
+export const StyledLink = styled(Link)`
+	visibility: hidden;
+	opacity: 0;
+	position: fixed;
+	bottom: 15px;
+	left: 15px;
+	padding: 1.5em;
+	border-radius: 6px;
+	box-shadow: 0 0 15px 3px #00000050;
+	transition: all 0.1s ease-in-out;
+
+	&:focus {
+		visibility: visible;
+		opacity: 1;
+	}
+`
+
+function SkipNav() {
+	return (
+		<StyledLink focusable to='#site-navigation'>
+			Skip to main navigation
+		</StyledLink>
+	)
+}
+
+export default function HeaderNav() {
 	return (
 		<>
 			<StyledHeader>
+				<SkipNav />
 				<h1>
 					<Link to='/'>
 						<img src={LogoImg} alt='diskettte' />
 					</Link>
 				</h1>
-				{/* <div>hiddenNav</div> */}
 				<nav>
 					<ul>
 						<li>

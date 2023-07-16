@@ -44,8 +44,12 @@ const GlobalStyle = createGlobalStyle`
   } 
 
   /* ===== GENERAL ===== */
+  html {
+    scroll-behavior: smooth
+  }
+  
   body {
-    font-family: SUIT;
+    font-family: 'SUIT';
     font-size: 16px;
     font-weight: 00;
     color: black;
