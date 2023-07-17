@@ -24,6 +24,10 @@ const GlobalStyle = createGlobalStyle`
     max-width: 100%;
   }
 
+  li {
+    list-style: none;
+  }
+  
   a {
     display: inline-block;
 		color: inherit;
@@ -50,18 +54,22 @@ const GlobalStyle = createGlobalStyle`
   
   body {
     font-family: 'SUIT';
-    font-size: 16px;
-    font-weight: 00;
-    color: black;
-    background-color: white;
-    line-height: 1.3em;
+    font-size: 1rem;
+    font-weight: ${({ theme }) => theme.fw.normal};
+    line-height: ${({ theme }) => theme.lh.sm};    background-color: ${({
+	theme,
+}) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.black};
   }
-`
 
-// body {
-//   background-color: ${(props) => props.theme.colors.background};
-//   color: ${(props) => props.theme.colors.text};
-// }
+  .sr-only {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  font-size: 0;
+  color: transparent;
+}
+`
 
 //   ${(props) => {
 //		switch (props.$mode) {

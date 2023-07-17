@@ -1,61 +1,121 @@
-export default {
-	// 반응형 분기점: 360, 768, 1240
-	// 컬러 테마
-	// 색상
-	// 기본 폰트 사이즈
-}
-
-export const LARGE_AND_ABOVE = 'largeAndAbove'
-
-const BREAKPOINT_NAMES = {
-	LARGE: 'large',
-	MEDIUM: 'medium',
-	SMALL: 'small',
-}
-
 const breakpoints = {
-	[BREAKPOINT_NAMES.LARGE]: 1128,
-	[BREAKPOINT_NAMES.MEDIUM]: 744,
-	[BREAKPOINT_NAMES.SMALL]: 327,
+	sm: '360px',
+	md: '768px',
+	lg: '1240px',
 }
 
-const responsive = {
-	[LARGE_AND_ABOVE]: `@media (min-width: ${
-		breakpoints[BREAKPOINT_NAMES.LARGE]
-	}px)`,
-	[BREAKPOINT_NAMES.SMALL]: `@media (max-width: ${
-		breakpoints[BREAKPOINT_NAMES.MEDIUM] - 1
-	}px)`,
-	print: '@media print',
+const height = '3.125rem' // 50px
+
+const colors = {
+	black: '#000',
+	gray: '#CCC',
+	white: '#FFF',
+	safe: '#6F8CFF',
+	error: '#DC3545',
+	shadow: '#00000050',
+	disabled: '#F2F2F2',
+	modal: '#FFFFFFC0',
+	pink: '#F1B0B7',
+	pink2: '#f081a6',
+	pink3: '#E83E8C',
+	red: '#D7373D',
+	red2: '#BD2130',
+	red3: '#B7252A',
+	orange: '#F5F4F2',
+	orange2: '#FCE6C1',
+	orange3: '#FBDCA9',
+	orange4: '#FAD18D',
+	orange5: '#F5A623',
+	orange6: '#DB8C0A',
+	// yellow: '#FCF8E3',
+	// yellow2: '#FFEEBA',
+	// yellow3: '#FFE8A1',
+	// yellow4: '#FFDF7E',
+	yellow: '#FFC107',
+	green: '#CBE9CE',
+	green2: '#C3E6CB',
+	green3: '#B1DFBB',
+	green4: '#9ED6A5',
+	green5: '#8FD19E',
+	green6: '#28A745',
+	green7: '#368C40',
+	green8: '#1E7E34',
+	teal: '#BEE5EB',
+	teal2: '#ABDDE5',
+	teal3: '#86CFDA',
+	teal4: '#17A2B8',
+	teal5: '#117A8B',
+	blue: '#007BFF',
+	darkgray: '#F8F9FA',
+	darkgray2: '#DEE2E6',
+	darkgray3: '#6C757D',
+	darkgray4: '#343A40',
+
+	// C: #FDFDFE,
+	// C: #FBFCFC,
+	// C: #E9ECEF,
+	// C: #ECECF6,
+	// C: #D6D8DB,
+	// C: #C8CBCF,
+	// C: #C6C8CA,
+	// C: #C6C6C6,
+	// C: #B3B7BB,
+	// C: #B8B8B8,
+	// C: #B9BBBE,
+	// C: #B9B9B9,
+	// C: #ABABAB,
+	// C: #95999C,
+	// C: #959595,
+	// C: #7A7A7A,
+	// C: #495057,
+	// C: #454D55,
+	// C: #212529,
 }
 
-// export default {
-// 	// 색상
-// 	color: {
-// 		primary: '#03a9f4', // 주 색상
-// 		secondary: '#795548', // 부 색상
-// 		white: '#FFFFFF',
-// 		gray: '#CCCCCC',
-// 		default: '#999999', // 기본 문자 색상
-// 		error: '#FF0000', // 오류 색상
-// 	},
-// 	// 폰트 사이즈
-// 	size: {
-// 		xg: 24,
-// 		lg: 18,
-// 		md: 14,
-// 		sm: 12,
-// 		xs: 10,
-// 	},
-// 	lineHeight: {
-// 		xg: '60px',
-// 		lg: '54px',
-// 		md: '36px',
-// 		sm: '24px',
-// 		xs: '18px',
-// 	},
-// 	// 길이 단위
-// 	unit: 4,
-// 	// 반응형 미디어 속성
-// 	responsive,
-// };
+const fw = {
+	light: 300,
+	normal: 400,
+	medium: 500,
+	bold: 700,
+}
+
+const lh = {
+	sm: '1.3em',
+	md: '1.6em',
+	lg: '1.8em',
+}
+
+// const fs = {
+// 	xs: '0.5625rem', // 9px
+// 	sm: '0.875rem', // 14px
+// 	md: '1rem', // 16px
+// 	lg: '1.125rem', // 18px
+// 	xl: '1.25rem', // 20px
+// 	'2xl': '1.5rem', // 24px
+// 	'3xl': '2.25rem', // 36px
+// }
+
+// const dx = {
+// 	xs: '0.5625rem', // 9px
+// 	sm: '0.875rem', // 14px
+// 	md: '1rem', // 16px
+// 	lg: '1.125rem', // 18px
+// 	xl: '1.25rem', // 20px
+// 	'2xl': '1.5rem', // 24px
+// 	'3xl': '2.25rem', // 36px
+// }
+
+// const is = {
+// 	small: '0.625rem', // 10px
+// 	normal: '1.5rem', // 24px
+// 	large: '1.8rem', // 32px
+// 	square: '1.8rem', // 40px
+// }
+
+export default {
+	breakpoints,
+	height,
+	colors,
+	fw,
+	lh,
+}
