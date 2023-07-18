@@ -4,25 +4,24 @@ import CloseImg from '/assets/icons/wavy_menu-close.svg'
 
 export const StyledAside = styled.aside`
 	min-height: 40px;
-	display: grid;
-	place-items: center;
-	text-align: center;
-	padding: 0.5rem;
-	background-color: black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	position: relative;
 	font-size: 0.875rem;
+	padding: 0.5rem;
+	background-color: ${({ theme }) => theme.colors.black};
 
 	a {
-		color: white;
+		color: ${({ theme }) => theme.colors.white};
 		text-decoration: underline;
 		margin: 0 0.5rem;
 	}
 
 	.heart {
 		display: inline-block;
-		vertical-align: middle;
 		position: relative;
-		bottom: 1px;
+		top: 3px;
 	}
 
 	.close {
