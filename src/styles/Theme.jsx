@@ -1,8 +1,8 @@
-const breakpoints = {
-	sm: '360px',
-	md: '768px',
-	lg: '1240px',
-}
+// const breakpoints = {
+// 	sm: '360px',
+// 	md: '768px',
+// 	lg: '1240px',
+// }
 
 const height = '3.125rem' // 50px
 
@@ -113,7 +113,7 @@ const lh = {
 // }
 
 export default {
-	breakpoints,
+	// breakpoints,
 	height,
 	colors,
 	fw,
