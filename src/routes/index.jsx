@@ -1,24 +1,24 @@
-import { createBrowserRouter } from '../../node_modules/react-router-dom/dist/index'
+import { createBrowserRouter } from 'react-router-dom'
 import RootLayout from '../components/@layout/RootLayout'
-import ErrorPage from '../pages/ErrorPage/ErrorPage'
-import HomePage, { loading as homeLoading } from '../pages/HomePage/HomePage'
-import AllProductsPage from '../pages/(categories)/AllProductsPage/AllProductsPage'
-import AuthPage from '../pages/(auth)/AuthPage'
-import ExclusivePage from '../pages/(categories)/ExclusivePage/ExclusivePage'
-import NewArrivalsPage from '../pages/(categories)/NewArrivalsPage/NewArrivalsPage'
-import EventPage from '../pages/(categories)/EventPage/EventPage'
-import BrandPage from '../pages/(product)/BrandPage/BrandPage'
-import ProductDetailsPage from '../pages/(product)/ProductDetailsPage/ProductDetailsPage'
-import CartPage from '../pages/(checkout)/CartPage/CartPage'
-import CheckoutPage from '../pages/(checkout)/CheckoutPage/CheckoutPage'
-import OrdersPage from '../pages/(checkout)/OrdersPage/OrdersPage'
-import OrderDetailPage from '../pages/(checkout)/OrderDetailPage/OrderDetailPage'
-import ProfilePage from '../pages/(profile)/ProfilePage/ProfilePage'
-import ProfileEditPage from '../pages/(profile)/ProfileEditPage/ProfileEditPage'
-import SellerPage from '../pages/(seller)/SellerPage/SellerPage'
-import ProductCreatePage from '../pages/(seller)/ProductCreatePage/ProductCreatePage'
-import ProductEditPage from '../pages/(seller)/ProductEditPage/ProductEditPage'
 import MypageRootLayout from '../components/@layout/MypageRootLayout'
+import HomePage from '../pages/HomePage'
+import ErrorPage from '../pages/ErrorPage'
+import AuthPage from '../pages/AuthPage'
+import AllProductsPage from '../pages/(categories)/AllProductsPage'
+import ExclusivePage from '../pages/(categories)/ExclusivePage'
+import NewArrivalsPage from '../pages/(categories)/NewArrivalsPage'
+import EventPage from '../pages/(categories)/EventPage'
+import BrandPage from '../pages/(product)/BrandPage'
+import ProductDetailsPage from '../pages/(product)/ProductDetailsPage'
+import CartPage from '../pages/(checkout)/CartPage'
+import CheckoutPage from '../pages/(checkout)/CheckoutPage'
+import OrdersPage from '../pages/(checkout)/OrdersPage'
+import OrderDetailPage from '../pages/(checkout)/OrderDetailPage'
+import ProfilePage from '../pages/(profile)/ProfilePage'
+import ProfileEditPage from '../pages/(profile)/ProfileEditPage'
+import SellerPage from '../pages/(seller)/SellerPage'
+import ProductCreatePage from '../pages/(seller)/ProductCreatePage'
+import ProductEditPage from '../pages/(seller)/ProductEditPage'
 
 const router = createBrowserRouter([
 	{
@@ -29,7 +29,6 @@ const router = createBrowserRouter([
 			{
 				index: true,
 				element: <HomePage />,
-				loading: homeLoading,
 			},
 			{
 				path: 'categories',

@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
+import Header from './Header'
 import SkipNav from '../@ui/SkipNav'
-import Header from '../@layout/Header'
-import HeaderAside from '../@ui/HeaderAside'
-import HeaderMain from '../@ui/HeaderMain'
-// import HeaderCategories from '../@ui/HeaderCategories'
+import HeaderAside from '../header/HeaderAside'
+import HeaderCategories from '../header/HeaderCategories'
 import Footer from '../@layout/Footer'
 
 export default function RootLayout() {
@@ -22,43 +21,9 @@ export default function RootLayout() {
 			<SkipNav />
 			{showAside && <HeaderAside asideCloseHandler={asideCloseHandler} />}
 			<Header>
-				<HeaderMain />
-				{/* <HeaderCategories className='wrapper'>
-					<li>
-						<NavLink
-							to='/categories/all'
-							className={({ isActive }) => (isActive ? 'active' : undefined)}
-						>
-							All
-						</NavLink>
-					</li>
-					<li>
-						<NavLink
-							to='/categories/new-arrivals'
-							className={({ isActive }) => (isActive ? 'active' : undefined)}
-						>
-							New arrivals
-						</NavLink>
-					</li>
-					<li>
-						<NavLink
-							to='/categories/exclusive'
-							className={({ isActive }) => (isActive ? 'active' : undefined)}
-						>
-							Exclusive
-						</NavLink>
-					</li>
-					<li>
-						<NavLink
-							to='/categories/event'
-							className={({ isActive }) => (isActive ? 'active' : undefined)}
-						>
-							Event
-						</NavLink>
-					</li>
-				</HeaderCategories> */}
+				<HeaderCategories />
 			</Header>
-			<main>
+			<main id='main-content'>
 				<Outlet />
 			</main>
 			<Footer />

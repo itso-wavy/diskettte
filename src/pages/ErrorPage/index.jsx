@@ -30,7 +30,7 @@ const Wapper = styled.div`
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background-color: ${({ theme }) => theme.colors.disabled};
+		background-color: ${({ theme }) => theme.color.disabled};
 		font-weight: ${({ theme }) => theme.fw.medium};
 	}
 `
