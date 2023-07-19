@@ -1,12 +1,8 @@
-// const breakpoints = {
-// 	sm: '360px',
-// 	md: '768px',
-// 	lg: '1240px',
-// }
+const breakpoints = '768px'
 
 const height = '3.125rem' // 50px
 
-const colors = {
+const color = {
 	black: '#000',
 	gray: '#CCC',
 	white: '#FFF',
@@ -15,9 +11,9 @@ const colors = {
 	shadow: '#00000050',
 	disabled: '#F2F2F2',
 	modal: '#FFFFFFC0',
-	pink: '#F1B0B7',
-	pink2: '#f081a6',
-	pink3: '#E83E8C',
+	// pink: '#F1B0B7',
+	pink: '#f081a6',
+	pink2: '#E83E8C',
 	red: '#D7373D',
 	red2: '#BD2130',
 	red3: '#B7252A',
@@ -79,11 +75,11 @@ const fw = {
 	bold: 700,
 }
 
-const lh = {
-	sm: '1.3em',
-	md: '1.6em',
-	lg: '1.8em',
-}
+// const lh = {
+// 	sm: '1.3em',
+// 	md: '1.6em',
+// 	lg: '1.8em',
+// }
 
 // const fs = {
 // 	xs: '0.5625rem', // 9px
@@ -113,9 +109,8 @@ const lh = {
 // }
 
 export default {
-	// breakpoints,
+	breakpoints,
 	height,
-	colors,
+	color,
 	fw,
-	lh,
 }

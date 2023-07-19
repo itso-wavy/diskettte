@@ -55,11 +55,10 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'SUIT';
     font-size: 1rem;
+    line-height: 1.3em;
     font-weight: ${({ theme }) => theme.fw.normal};
-    line-height: ${({ theme }) => theme.lh.sm};    background-color: ${({
-	theme,
-}) => theme.colors.white};
-    color: ${({ theme }) => theme.colors.black};
+    background-color: ${({ theme }) => theme.color.white};
+    color: ${({ theme }) => theme.color.black};
   }
 
   .sr-only {
@@ -70,28 +69,5 @@ const GlobalStyle = createGlobalStyle`
   color: transparent;
 }
 `
-
-//   ${(props) => {
-//		switch (props.$mode) {
-//			case 'dark':
-//				return css`
-//					background-color: #0f172a;
-//					color: white;
-//					input:checked + && {
-//						color: #38bdf8;
-//					}
-//				`;
-//			default:
-//				return css`
-//					background-color: white;
-//					color: #0f172a;
-//					input:checked + && {
-//						color: #38bdf8;
-//					}
-//				`;
-//		}
-//	}}
-//
-// `;
 
 export default GlobalStyle
