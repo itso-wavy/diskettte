@@ -1,8 +1,10 @@
-import styled from 'styled-components'
+import Img from '../@ui/Img'
+import Button from '../@ui/Button'
 import HeartImg from '/assets/icons/ion_heart-outline.svg'
 import CloseImg from '/assets/icons/wavy_menu-close.svg'
+import styled from 'styled-components'
 
-export const StyledAside = styled.aside`
+const StyledAside = styled.aside`
 	min-height: 40px;
 	display: flex;
 	justify-content: center;
@@ -10,26 +12,22 @@ export const StyledAside = styled.aside`
 	position: relative;
 	font-size: 0.875rem;
 	padding: 0.5rem;
-	background-color: ${({ theme }) => theme.colors.black};
+	background-color: ${({ theme }) => theme.color.black};
 
 	a {
-		color: ${({ theme }) => theme.colors.white};
+		color: ${({ theme }) => theme.color.white};
 		text-decoration: underline;
 		margin: 0 0.5rem;
 	}
 
 	.heart {
-		display: inline-block;
-		position: relative;
-		top: 3px;
+		left: 3px;
 	}
 
 	.close {
 		position: absolute;
 		right: 0;
-		margin: 0.5rem;
-		width: 1rem;
-		height: 1rem;
+		margin: 0.6rem;
 	}
 `
 
@@ -37,11 +35,17 @@ export default function HeaderAside({ asideCloseHandler }) {
 	return (
 		<StyledAside>
 			<a href='https://github.com/itso-wavy'>
-				wavy made with <img src={HeartImg} alt='love' className='heart' />
+				wavy made with
+				<Img src={HeartImg} alt='love' $size='1rem' className='heart' />
 			</a>
-			<button onClick={asideCloseHandler} className='close'>
-				<img src={CloseImg} alt='close' />
-			</button>
+			<Button
+				$type='icon'
+				$size='1rem'
+				$img={CloseImg}
+				onClick={asideCloseHandler}
+				ariaLabel='close Ad'
+				className='close'
+			/>
 		</StyledAside>
 	)
 }

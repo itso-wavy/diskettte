@@ -8,9 +8,9 @@ export const StyledLink = styled.a`
 	padding: 1.2em 1.5em;
 	border-radius: 0.4em;
 	font-size: 1.25rem;
-	background-color: ${({ theme }) => theme.colors.safe};
-	color: ${({ theme }) => theme.colors.white};
-	box-shadow: 0 0 10px 1px ${({ theme }) => theme.colors.shadow};
+	background-color: ${({ theme }) => theme.color.safe};
+	color: ${({ theme }) => theme.color.white};
+	box-shadow: 0 0 10px 1px ${({ theme }) => theme.color.shadow};
 	transition: all 0.2s ease-in-out, transform 0.1s ease;
 	outline: none;
 	z-index: 1000;
@@ -21,18 +21,18 @@ export const StyledLink = styled.a`
 	}
 
 	&:focus:hover {
-		box-shadow: 0 0 15px 3px ${({ theme }) => theme.colors.pink2};
+		box-shadow: 0 0 15px 3px ${({ theme }) => theme.color.pink};
 	}
 
 	&:hover:active {
-		box-shadow: 0 0 15px 3px ${({ theme }) => theme.colors.pink2};
-		background-color: ${({ theme }) => theme.colors.white};
-		color: ${({ theme }) => theme.colors.black};
-		outline: 5px solid ${({ theme }) => theme.colors.pink2};
+		box-shadow: 0 0 15px 3px ${({ theme }) => theme.color.pink};
+		background-color: ${({ theme }) => theme.color.white};
+		color: ${({ theme }) => theme.color.black};
+		outline: 5px solid ${({ theme }) => theme.color.pink};
 		outline-offset: -5px;
 	}
 `
 
 export default function SkipNav() {
-	return <StyledLink href='#main-navigation'>Skip to main content</StyledLink>
+	return <StyledLink href='#main-content'>Skip to main content</StyledLink>
 }

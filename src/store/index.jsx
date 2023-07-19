@@ -1,4 +1,4 @@
-import create from 'zustand'
+import { create } from 'zustand'
 
 const getViewport = () => {
 	const width =
@@ -6,12 +6,12 @@ const getViewport = () => {
 		document.documentElement.clientWidth ||
 		document.body.clientWidth
 
-	return width < 768 ? 'mobile' : 'desktop'
+	return width <= 768 ? true : false
 }
 
 const useStore = create(set => ({
-	viewport: getViewport(), // 'mobile' or 'desktop'
-	recheckViewport: () => set(() => ({ viewport: getViewport() })),
+	isMobile: getViewport(),
+	recheckViewport: () => set(() => ({ isMobile: getViewport() })),
 }))
 
 export default useStore
