@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { LogoImg } from '../@ui/Img'
-import Svg from '../@ui/Svg'
 import styled from 'styled-components'
 
 const Title = styled.h1`
@@ -66,7 +65,7 @@ export function HeaderMenu({ children }) {
 export function HeaderMenuItem({ href, onClick, src, ariaLabel, text }) {
 	const innerContents = (
 		<>
-			<Svg src={src} fill='black' aria-hidden />
+			{src}
 			<span>{text}</span>
 		</>
 	)

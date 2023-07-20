@@ -1,13 +1,14 @@
 import { useNavigate } from 'react-router-dom'
 import Button from '../@ui/Button'
-import Svg from '../@ui/Svg'
 import Modal from '../@ui/Modal'
-import DropdownImg from '/public/assets/svg/wavy_dropdown-right-sharp.jsx'
-import PersonImg from '/public/assets/svg/wavy_person-outline.jsx'
-import LoginImg from '/public/assets/svg/wavy_log-in-sharp.jsx'
-import LogoutImg from '/public/assets/svg/wavy_log-out-sharp.jsx'
+import {
+	DropdownSvg,
+	LoginSvg,
+	LogoutSvg,
+	MypageSvg,
+} from '/src/components/@svg'
 import useStore from '../../store'
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 
 const StyledHr = styled.hr`
 	background: ${({ theme }) => theme.color.gray};
@@ -16,13 +17,21 @@ const StyledHr = styled.hr`
 	margin: 2em 0;
 `
 
+const rotate = keyframes`
+from { transform: rotate(0deg) }
+to { transform: rotate(360deg) }
+`
+const $styles = css`
+	animation: ${rotate} 2s linear infinite;
+`
+
 const MobileNavItem = ({
 	url,
 	onClick,
 	ariaLabel,
 	text,
 	$size = 'lg',
-	icon = <DropdownImg />,
+	icon = <DropdownSvg />,
 	...props
 }) => {
 	const navigate = useNavigate()
@@ -37,7 +46,7 @@ const MobileNavItem = ({
 			{...props}
 		>
 			<p>{text}</p>
-			<Svg src={icon} aria-hidden />
+			{icon}
 		</Button>
 	)
 }
@@ -48,7 +57,7 @@ export default function MobileNav({ closeMobileNav }) {
 
 	return (
 		<>
-			<Modal closeMobileNav={closeMobileNav}>
+			<Modal closeMobileNav={closeMobileNav} $styles={$styles}>
 				<MobileNavItem
 					url='/categories/all'
 					ariaLabel='go to all products category'
@@ -74,7 +83,7 @@ export default function MobileNav({ closeMobileNav }) {
 					url='/mypage/profile'
 					ariaLabel='go to exclusive category'
 					text='마이페이지'
-					icon={<PersonImg />}
+					icon={<MypageSvg />}
 					style={style}
 				/>
 				{!isLogin ? (
@@ -82,7 +91,7 @@ export default function MobileNav({ closeMobileNav }) {
 						url='/auth'
 						ariaLabel='signin or signup'
 						text='로그인 / 회원가입'
-						icon={<LoginImg />}
+						icon={<LoginSvg />}
 						style={style}
 					/>
 				) : (
@@ -90,7 +99,7 @@ export default function MobileNav({ closeMobileNav }) {
 						onClick={logout}
 						ariaLabel='logout'
 						text='로그아웃'
-						icon={<LogoutImg />}
+						icon={<LogoutSvg />}
 						style={style}
 					/>
 				)}

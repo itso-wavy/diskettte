@@ -2,11 +2,13 @@ import { createRef } from 'react'
 import { HeaderLogo, HeaderMenu, HeaderMenuItem } from '../header'
 import SearchInput from '../@ui/Input'
 import LogoImg from '/logo.svg'
-import MenuOpenImg from '/public/assets/svg/wavy_menu-open.jsx'
-import CartImg from '/public/assets/svg/wavy_cart-outline.jsx'
-import LoginImg from '/public/assets/svg/wavy_log-in-sharp.jsx'
-import LogoutImg from '/public/assets/svg/wavy_log-out-sharp.jsx'
-import MyPageImg from '/public/assets/svg/wavy_person-outline.jsx'
+import {
+	MenuOpenSvg,
+	CartSvg,
+	LoginSvg,
+	LogoutSvg,
+	MypageSvg,
+} from '/src/components/@svg'
 import useStore from '../../store'
 import styled from 'styled-components'
 
@@ -51,12 +53,12 @@ export default function Header({ children, openMobileNav }) {
 						<>
 							<HeaderMenuItem
 								onClick={openMobileNav}
-								src={<MenuOpenImg />}
+								src={<MenuOpenSvg />}
 								ariaLabel='open menu'
 							/>
 							<HeaderMenuItem
 								href='/cart'
-								src={<CartImg />}
+								src={<CartSvg aria-hidden />}
 								ariaLabel='go to cart'
 							/>
 						</>
@@ -65,27 +67,27 @@ export default function Header({ children, openMobileNav }) {
 							<SearchInput ref={inputRef} placeholder='뭔가 입력해봐!' />
 							<HeaderMenuItem
 								href='/cart'
-								src={<CartImg />}
+								src={<CartSvg />}
 								text='카트'
 								ariaLabel='go to cart'
 							/>
 							<HeaderMenuItem
 								href='/mypage'
-								src={<MyPageImg />}
+								src={<MypageSvg />}
 								text='마이페이지'
 								ariaLabel='go to mypage'
 							/>
 							{!isLogin ? (
 								<HeaderMenuItem
 									href='/auth'
-									src={<LoginImg />}
+									src={<LoginSvg />}
 									text='로그인'
 									ariaLabel='signin or signup'
 								/>
 							) : (
 								<HeaderMenuItem
 									onClick={logout}
-									src={<LogoutImg />}
+									src={<LogoutSvg />}
 									text='로그아웃'
 									ariaLabel='logout'
 								/>
