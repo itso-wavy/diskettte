@@ -8,7 +8,7 @@ import {
 	MypageSvg,
 } from '/src/components/@svg'
 import useStore from '../../store'
-import styled, { css, keyframes } from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const StyledHr = styled.hr`
 	background: ${({ theme }) => theme.color.gray};
@@ -17,12 +17,17 @@ const StyledHr = styled.hr`
 	margin: 2em 0;
 `
 
-const rotate = keyframes`
-from { transform: rotate(0deg) }
-to { transform: rotate(360deg) }
-`
-const $styles = css`
-	animation: ${rotate} 2s linear infinite;
+const $style = css`
+	@keyframes slideIn {
+		from {
+			transform: translateX(-80%);
+		}
+		to {
+			transform: translateX(0);
+		}
+	}
+
+	animation: slideIn 0.15s ease-in-out;
 `
 
 const MobileNavItem = ({
@@ -57,7 +62,7 @@ export default function MobileNav({ closeMobileNav }) {
 
 	return (
 		<>
-			<Modal closeMobileNav={closeMobileNav} $styles={$styles}>
+			<Modal closeMobileNav={closeMobileNav} $style={$style}>
 				<MobileNavItem
 					url='/categories/all'
 					ariaLabel='go to all products category'

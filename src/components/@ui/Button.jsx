@@ -8,7 +8,7 @@ const StyledButton = styled.button`
 	font-size: 1rem;
 	font-weight: ${({ theme }) => theme.fw.medium};
 	border-radius: ${({ $radius }) => $radius || 0};
-	/* transition: all 0.3s ease; */
+	/* transition: all 0.5s ease; */
 
 	img,
 	svg {
