@@ -31,7 +31,7 @@ const StyledAside = styled.aside`
 	}
 `
 
-export default function HeaderAside({ asideCloseHandler }) {
+export function HeaderAside({ asideCloseHandler }) {
 	return (
 		<StyledAside>
 			<a href='https://github.com/itso-wavy'>

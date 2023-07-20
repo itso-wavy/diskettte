@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import useStore from '../../store'
+import { LogoImg } from '../@ui/Img'
+import Svg from '../@ui/Svg'
 import styled from 'styled-components'
 
 const Title = styled.h1`
@@ -17,10 +18,6 @@ const Title = styled.h1`
 			width: fit-content;
 			margin: 0 auto;
 		}
-
-		img {
-			max-height: 24px;
-		}
 	}
 `
 
@@ -33,7 +30,8 @@ const StyleNav = styled.nav`
 		font-weight: bold;
 	}
 
-	li > a {
+	li > a,
+	li > button {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -41,6 +39,9 @@ const StyleNav = styled.nav`
 
 	@media (max-width: ${({ theme }) => theme.breakpoints}) {
 		width: 100%;
+		li span {
+			display: none;
+		}
 	}
 `
 
@@ -48,7 +49,7 @@ export function HeaderLogo({ src, alt }) {
 	return (
 		<Title>
 			<Link to='/'>
-				<img src={src} alt={alt} />
+				<LogoImg src={src} alt={alt} $size='1.5rem' />
 			</Link>
 		</Title>
 	)
@@ -62,24 +63,23 @@ export function HeaderMenu({ children }) {
 	)
 }
 
-export function HeaderMenuItem({ isLink = true, href, imgSrc, imgAlt, text }) {
-	const { isMobile } = useStore()
+export function HeaderMenuItem({ href, onClick, src, ariaLabel, text }) {
+	const innerContents = (
+		<>
+			<Svg src={src} fill='black' aria-hidden />
+			<span>{text}</span>
+		</>
+	)
 
 	return (
 		<li>
-			{isLink ? (
-				<Link to={href}>
-					<img src={imgSrc} alt={imgAlt} />
-					{!isMobile && <span>{text}</span>}
+			{href ? (
+				<Link to={href} aria-label={ariaLabel}>
+					{innerContents}
 				</Link>
 			) : (
-				<button
-					onClick={() => {
-						console.log('😁')
-					}}
-				>
-					<img src={imgSrc} alt={imgAlt} />
-					{!isMobile && <span>{text}</span>}
+				<button onClick={onClick} aria-label={ariaLabel}>
+					{innerContents}
 				</button>
 			)}
 		</li>

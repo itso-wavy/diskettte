@@ -12,6 +12,8 @@ const getViewport = () => {
 const useStore = create(set => ({
 	isMobile: getViewport(),
 	recheckViewport: () => set(() => ({ isMobile: getViewport() })),
+	isLogin: true,
+	logout: () => set(isLogin => ({ isLogin: !isLogin })),
 }))
 
 export default useStore

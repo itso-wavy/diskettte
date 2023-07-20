@@ -1,9 +1,12 @@
-import { HeaderLogo, HeaderMenu, HeaderMenuItem } from '../header/HeaderMain'
+import { createRef } from 'react'
+import { HeaderLogo, HeaderMenu, HeaderMenuItem } from '../header'
+import SearchInput from '../@ui/Input'
 import LogoImg from '/logo.svg'
-import MenuOpenImg from '/assets/icons/wavy_menu-open.svg'
-import CartImg from '/assets/icons/wavy_cart-outline.svg'
-import LoginImg from '/assets/icons/wavy_log-in-sharp.svg'
-import MyPageImg from '/assets/icons/wavy_person-outline.svg'
+import MenuOpenImg from '/public/assets/svg/wavy_menu-open.jsx'
+import CartImg from '/public/assets/svg/wavy_cart-outline.jsx'
+import LoginImg from '/public/assets/svg/wavy_log-in-sharp.jsx'
+import LogoutImg from '/public/assets/svg/wavy_log-out-sharp.jsx'
+import MyPageImg from '/public/assets/svg/wavy_person-outline.jsx'
 import useStore from '../../store'
 import styled from 'styled-components'
 
@@ -19,7 +22,6 @@ export const StyledHeader = styled.header`
 		align-items: center;
 		padding: 1.375em 3em;
 		height: 50px;
-		border: 1px solid green;
 	}
 
 	@media (max-width: ${({ theme }) => theme.breakpoints}) {
@@ -36,8 +38,9 @@ const Wrapper = styled.div`
 	align-items: flex-start;
 `
 
-export default function Header({ children }) {
-	const { isMobile } = useStore()
+export default function Header({ children, openMobileNav }) {
+	const { isMobile, isLogin, logout } = useStore()
+	const inputRef = createRef()
 
 	return (
 		<StyledHeader>
@@ -47,38 +50,46 @@ export default function Header({ children }) {
 					{isMobile ? (
 						<>
 							<HeaderMenuItem
-								isLink={false}
-								imgSrc={MenuOpenImg}
-								imgAlt='menu open'
-								text='메뉴 열기'
+								onClick={openMobileNav}
+								src={<MenuOpenImg />}
+								ariaLabel='open menu'
 							/>
 							<HeaderMenuItem
 								href='/cart'
-								imgSrc={CartImg}
-								imgAlt='cart'
-								text='카트'
+								src={<CartImg />}
+								ariaLabel='go to cart'
 							/>
 						</>
 					) : (
 						<>
+							<SearchInput ref={inputRef} placeholder='뭔가 입력해봐!' />
 							<HeaderMenuItem
 								href='/cart'
-								imgSrc={CartImg}
-								imgAlt='cart'
+								src={<CartImg />}
 								text='카트'
+								ariaLabel='go to cart'
 							/>
 							<HeaderMenuItem
 								href='/mypage'
-								imgSrc={MyPageImg}
-								imgAlt='mypage'
+								src={<MyPageImg />}
 								text='마이페이지'
+								ariaLabel='go to mypage'
 							/>
-							<HeaderMenuItem
-								href='/auth'
-								imgSrc={LoginImg}
-								imgAlt='login'
-								text='로그인'
-							/>
+							{!isLogin ? (
+								<HeaderMenuItem
+									href='/auth'
+									src={<LoginImg />}
+									text='로그인'
+									ariaLabel='signin or signup'
+								/>
+							) : (
+								<HeaderMenuItem
+									onClick={logout}
+									src={<LogoutImg />}
+									text='로그아웃'
+									ariaLabel='logout'
+								/>
+							)}
 						</>
 					)}
 				</HeaderMenu>

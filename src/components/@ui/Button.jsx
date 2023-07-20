@@ -10,27 +10,37 @@ const StyledButton = styled.button`
 	border-radius: ${({ $radius }) => $radius || 0};
 	/* transition: all 0.3s ease; */
 
-	// focus, hover, disabled
+	img,
+	svg {
+		margin-left: auto;
+	}
+
+	&:focus {
+		outline-color: ${({ theme }) => theme.color.safe};
+		outline-offset: 4px;
+	}
 
 	/* TYPE */
 	${({ $type, $size, $img }) =>
 		$type === 'icon' &&
 		css`
+			margin: 0;
 			width: ${$size || '1.5rem'};
 			height: ${$size || '1.5rem'};
 			background: transparent center/contain no-repeat url(${$img});
 		`}
-
 	${({ $type }) =>
 		$type === 'rect' &&
 		css`
 			min-height: 3.125rem;
 			width: 100%;
-			padding: 0.8em 0.8em;
+			padding: 0.8rem 1.1rem;
 			line-height: 1em;
+			/* flex-grow: 1;
+			flex-shrink: 1; */
 		`}
 
-  ${({ $type, $img }) =>
+	${({ $type, $img }) =>
 		$type === 'square' &&
 		css`
 			background: transparent center/contain no-repeat url(${$img});
@@ -43,15 +53,35 @@ const StyledButton = styled.button`
 		($type === 'rect' || $type === 'square') &&
 		css`
 			background-color: ${{
+				primary: theme.color.black,
 				secondary: theme.color.white,
+				count: theme.color.white,
 			}[$style] || theme.color.black};
 			color: ${{
+				primary: theme.color.white,
 				secondary: theme.color.black,
+				count: theme.color.black,
 			}[$style] || theme.color.white};
 			border: ${{
+				primary: 0,
 				secondary: `1px solid ${theme.color.black}`,
 				count: `1px solid ${theme.color.gray}`,
 			}[$style] || 0};
+
+			&:disabled {
+				background-color: ${{
+					primary: theme.color.gray,
+					secondary: theme.color.disabled,
+					count: theme.color.disabled,
+				}[$style] || theme.color.gray};
+				color: ${{
+					secondary: theme.color.gray,
+					count: theme.color.gray,
+				}[$style] || theme.color.white};
+				border-color: ${{
+					secondary: `${theme.color.gray}`,
+				}[$style] || 0};
+			}
 		`}
 
   /* SIZE */
@@ -64,10 +94,11 @@ const StyledButton = styled.button`
 			padding: 0.5em 0.8em;
 			width: auto;
 			min-height: auto;
+			/* justify-content: space-between; */
 
 			img {
-				height: 0.75rem;
-				width: 0.75rem;
+				height: 0.65rem;
+				width: 0.65rem;
 			}
 			&:hover {
 				text-decoration: underline;
@@ -81,17 +112,14 @@ const StyledButton = styled.button`
 			width: auto;
 			min-height: auto;
 		`}
-    ${$size === 'md' &&
+    ${$size === 'lg' &&
 		css`
-			font-size: 0.875rem; // 14px
+			font-size: 1.4rem;
 			font-weight: ${theme.fw.normal};
 
-			img {
-				height: 1.5rem;
-				width: 1.5rem;
-			}
 			&:hover {
-				text-decoration: underline;
+				text-decoration: 2px underline;
+				text-underline-offset: 4px;
 			}
 		`}
 	`}
@@ -101,10 +129,11 @@ const StyledButton = styled.button`
  * @param {$type} 'rect' || 'square' || 'icon'
  * @param {$style} 'primary' || 'secondary' || 'count'
  * @param {$size}: width/height || 'xs'(brand용) || 'sm' || 'md'(mobileNav용) || 'lg'
- * @returns <Button $type='rect' $style $img $size />
+ * @returns <Button $style $size onClick aria-label> + <Img />
  * || <Button	$type='square' $img	$style onClick aria-label />
  * || <Button $type='icon' $size $img onClick aria-label/>
  */
+
 export default function Button({
 	$type = 'rect',
 	$style = 'primary',
