@@ -1,17 +1,4 @@
-import React from 'react'
-import styled from 'styled-components'
-
-const StyledImg = styled.img`
-	width: ${({ $size }) => $size || '100%'};
-	height: ${({ $size }) => $size || '100%'};
-	display: inline-block;
-	vertical-align: middle;
-	position: relative;
-`
-
-const StyledLogo = styled(StyledImg)`
-	width: 100%;
-`
+import { StyledImg, StyledLogo } from './Img.style'
 
 /**
  * @param {$size}: width/height

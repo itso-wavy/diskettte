@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import Button from '../@ui/Button'
 import Modal from '../@ui/Modal'
+import { StyledHr, $style } from './MobileNav.style'
 import {
 	DropdownSvg,
 	LoginSvg,
@@ -8,27 +9,6 @@ import {
 	MypageSvg,
 } from '/src/components/@svg'
 import useStore from '../../store'
-import styled, { css } from 'styled-components'
-
-const StyledHr = styled.hr`
-	background: ${({ theme }) => theme.color.gray};
-	height: 1px;
-	border: 0;
-	margin: 2em 0;
-`
-
-const $style = css`
-	@keyframes slideIn {
-		from {
-			transform: translateX(-80%);
-		}
-		to {
-			transform: translateX(0);
-		}
-	}
-
-	animation: slideIn 0.15s ease-in-out;
-`
 
 const MobileNavItem = ({
 	url,
@@ -56,13 +36,13 @@ const MobileNavItem = ({
 	)
 }
 
-export default function MobileNav({ closeMobileNav }) {
+export function MobileNav({ closeMobileNav }) {
 	const { isLogin, logout } = useStore()
 	const style = { fontSize: '16px' }
 
 	return (
 		<>
-			<Modal closeMobileNav={closeMobileNav} $style={$style}>
+			<Modal closeMobileNav={closeMobileNav} $style={$style} id='mobile-nav'>
 				<MobileNavItem
 					url='/categories/all'
 					ariaLabel='go to all products category'

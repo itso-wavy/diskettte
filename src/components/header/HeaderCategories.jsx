@@ -1,25 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import SearchInput from '../@ui/SearchInput'
+import { Wrapper } from './HeaderCategories.style'
 import useStore from '../../store'
-import styled from 'styled-components'
-
-export const Wrapper = styled.nav`
-	border-bottom: 1px solid ${({ theme }) => theme.color.disabled};
-
-	ul {
-		display: flex;
-		gap: 1em;
-		font-size: 1.25rem;
-		font-weight: ${({ theme }) => theme.fw.bold};
-	}
-
-	a:hover,
-	& .active {
-		text-underline-offset: 4px;
-		text-decoration: underline;
-		text-decoration-thickness: 3px;
-	}
-`
 
 const CategoriesItem = ({ url, ariaLabel, text, ...props }) => {
 	return (
