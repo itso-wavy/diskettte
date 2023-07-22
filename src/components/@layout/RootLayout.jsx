@@ -1,16 +1,18 @@
 import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
-import Header from './Header'
 import SkipNav from '../@ui/SkipNav'
-import { HeaderAside } from '../header'
-import { HeaderCategories } from '../header'
-import MobileNav from '../header/MobileNav'
+import Header from './Header'
+import { HeaderAside, HeaderCategories, MobileNav } from '../header'
 import Footer from '../@layout/Footer'
+import { FooterNav } from '../footer'
 import useStore from '../../store'
 import styled from 'styled-components'
 
 const StyledMain = styled.main`
-	overflow: scroll;
+	/* overflow: scroll; */
+
+	@media (max-width: ${({ theme }) => theme.breakpoints}) {
+	}
 `
 
 export default function RootLayout() {
@@ -35,7 +37,10 @@ export default function RootLayout() {
 		<>
 			<SkipNav />
 			{showAside && <HeaderAside asideCloseHandler={asideCloseHandler} />}
-			<Header openMobileNav={mobileNavToggleHandler}>
+			<Header
+				showMobileNav={showMobileNav}
+				openMobileNav={mobileNavToggleHandler}
+			>
 				<HeaderCategories />
 				{isMobile && showMobileNav && (
 					<MobileNav closeMobileNav={mobileNavToggleHandler} />
@@ -44,7 +49,9 @@ export default function RootLayout() {
 			<StyledMain id='main-content'>
 				<Outlet />
 			</StyledMain>
-			<Footer />
+			<Footer>
+				<FooterNav />
+			</Footer>
 		</>
 	)
 }

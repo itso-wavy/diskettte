@@ -1,15 +1,20 @@
 const breakpoints = '768px'
 
-const height = '3.125rem' // 50px
+const width = {
+	desktop: '2.5rem',
+	mobile: '1.25rem',
+}
+
+// const height = '3.125rem' // 50px
 
 const color = {
 	black: '#000',
 	gray: '#CCC',
+	lightgray: '#F2F2F2',
 	white: '#FFF',
 	safe: '#6F8CFF',
 	error: '#DC3545',
 	shadow: '#00000050',
-	disabled: '#F2F2F2',
 	modal: '#FFFFFFC0',
 	// pink: '#F1B0B7',
 	pink: '#f081a6',
@@ -110,7 +115,8 @@ const fw = {
 
 export default {
 	breakpoints,
-	height,
+	width,
+	// height,
 	color,
 	fw,
 }
