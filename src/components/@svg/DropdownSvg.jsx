@@ -11,8 +11,8 @@ export function DropdownSvg(props) {
 		>
 			<path
 				stroke='currentColor'
-				stroke-linecap='square'
-				stroke-miterlimit='10'
+				strokeLinecap='square'
+				strokeMiterlimit='10'
 				d='m3 9 4-4-4-4'
 			/>
 		</svg>

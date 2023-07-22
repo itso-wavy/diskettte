@@ -1,6 +1,7 @@
+import { useRef } from 'react'
 import { NavLink } from 'react-router-dom'
-import SearchInput from '../@ui/SearchInput'
-import { Wrapper } from './HeaderCategories.style'
+import { SearchInput } from '../@ui/Input'
+import { StyledNav, Wrapper } from './HeaderCategories.style'
 import useStore from '../../store'
 
 const CategoriesItem = ({ url, ariaLabel, text, ...props }) => {
@@ -20,10 +21,16 @@ const CategoriesItem = ({ url, ariaLabel, text, ...props }) => {
 
 export function HeaderCategories() {
 	const { isMobile } = useStore()
+	const inputRef = useRef()
 
-	if (isMobile) return <SearchInput />
+	if (isMobile)
+		return (
+			<Wrapper>
+				<SearchInput ref={inputRef} />
+			</Wrapper>
+		)
 	return (
-		<Wrapper aria-label='Product Categories'>
+		<StyledNav aria-label='Product Categories'>
 			<ul>
 				<CategoriesItem
 					url='/categories/all'
@@ -48,6 +55,6 @@ export function HeaderCategories() {
 					text='Event'
 				/>
 			</ul>
-		</Wrapper>
+		</StyledNav>
 	)
 }

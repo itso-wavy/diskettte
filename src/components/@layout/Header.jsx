@@ -1,6 +1,6 @@
-import { createRef } from 'react'
+import { useRef } from 'react'
 import { HeaderLogo, HeaderMenu, HeaderMenuItem } from '../header'
-import SearchInput from '../@ui/Input'
+import { SearchInput } from '../@ui/Input'
 import LogoImg from '/logo.svg'
 import {
 	MenuOpenSvg,
@@ -10,43 +10,20 @@ import {
 	MypageSvg,
 } from '/src/components/@svg'
 import useStore from '../../store'
-import styled from 'styled-components'
+import { StyledHeader, HeaderMain } from './Header.style'
 
-export const StyledHeader = styled.header`
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	overflow: hidden;
-
-	& > * {
-		width: 100%;
-		display: flex;
-		align-items: center;
-		padding: 1.375em 3em;
-		height: 50px;
-	}
-
-	@media (max-width: ${({ theme }) => theme.breakpoints}) {
-		& > * {
-			padding: 0.5em 0.9375em;
-			height: 38px;
-		}
-	}
-`
-
-const Wrapper = styled.div`
-	justify-content: space-between;
-	position: relative;
-	align-items: flex-start;
-`
-
-export default function Header({ children, openMobileNav }) {
+export default function Header({
+	children,
+	showMobileNav,
+	openMobileNav,
+	...props
+}) {
 	const { isMobile, isLogin, logout } = useStore()
-	const inputRef = createRef()
+	const inputRef = useRef()
 
 	return (
-		<StyledHeader>
-			<Wrapper>
+		<StyledHeader {...props}>
+			<HeaderMain aria-label='Logo and Navigation'>
 				<HeaderLogo src={LogoImg} alt='diskettte' />
 				<HeaderMenu>
 					{isMobile ? (
@@ -55,6 +32,8 @@ export default function Header({ children, openMobileNav }) {
 								onClick={openMobileNav}
 								src={<MenuOpenSvg />}
 								ariaLabel='open menu'
+								aria-expanded={showMobileNav}
+								aria-controls='mobile-nav'
 							/>
 							<HeaderMenuItem
 								href='/cart'
@@ -64,7 +43,9 @@ export default function Header({ children, openMobileNav }) {
 						</>
 					) : (
 						<>
-							<SearchInput ref={inputRef} placeholder='뭔가 입력해봐!' />
+							<div>
+								<SearchInput ref={inputRef} />
+							</div>
 							<HeaderMenuItem
 								href='/cart'
 								src={<CartSvg />}
@@ -95,7 +76,7 @@ export default function Header({ children, openMobileNav }) {
 						</>
 					)}
 				</HeaderMenu>
-			</Wrapper>
+			</HeaderMain>
 			{children}
 		</StyledHeader>
 	)

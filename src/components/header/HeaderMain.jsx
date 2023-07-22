@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 import { LogoImg } from '../@ui/Img'
-import { Title, StyleNav } from './HeaderMain.style'
+import { Title, StyleNav, StyledLi } from './HeaderMain.style'
 
-export function HeaderLogo({ src, alt }) {
+export function HeaderLogo({ src, alt, ...props }) {
 	return (
-		<Title>
+		<Title {...props}>
 			<Link to='/'>
 				<LogoImg src={src} alt={alt} $size='1.5rem' />
 			</Link>
@@ -12,9 +12,9 @@ export function HeaderLogo({ src, alt }) {
 	)
 }
 
-export function HeaderMenu({ children }) {
+export function HeaderMenu({ children, ...props }) {
 	return (
-		<StyleNav role='main menu navigation'>
+		<StyleNav role='main menu navigation' {...props}>
 			<ul>{children}</ul>
 		</StyleNav>
 	)
@@ -36,7 +36,7 @@ export function HeaderMenuItem({
 	)
 
 	return (
-		<li>
+		<StyledLi>
 			{href ? (
 				<Link to={href} aria-label={ariaLabel} {...props}>
 					{innerContents}
@@ -46,6 +46,6 @@ export function HeaderMenuItem({
 					{innerContents}
 				</button>
 			)}
-		</li>
+		</StyledLi>
 	)
 }

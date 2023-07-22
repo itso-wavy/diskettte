@@ -41,3 +41,7 @@ export const StyleNav = styled.nav`
 		}
 	}
 `
+
+export const StyledLi = styled.li`
+	flex-shrink: 0;
+`

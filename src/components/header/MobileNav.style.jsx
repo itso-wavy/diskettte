@@ -8,6 +8,8 @@ export const StyledHr = styled.hr`
 `
 
 export const $style = css`
+	animation: slideIn 0.15s ease-in-out;
+
 	@keyframes slideIn {
 		from {
 			transform: translateX(-80%);
@@ -16,6 +18,4 @@ export const $style = css`
 			transform: translateX(0);
 		}
 	}
-
-	animation: slideIn 0.15s ease-in-out;
 `

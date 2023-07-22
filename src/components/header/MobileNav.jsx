@@ -36,13 +36,18 @@ const MobileNavItem = ({
 	)
 }
 
-export function MobileNav({ closeMobileNav }) {
+export function MobileNav({ closeMobileNav, ...props }) {
 	const { isLogin, logout } = useStore()
 	const style = { fontSize: '16px' }
 
 	return (
 		<>
-			<Modal closeMobileNav={closeMobileNav} $style={$style} id='mobile-nav'>
+			<Modal
+				closeMobileNav={closeMobileNav}
+				$style={$style}
+				id='mobile-nav'
+				{...props}
+			>
 				<MobileNavItem
 					url='/categories/all'
 					ariaLabel='go to all products category'

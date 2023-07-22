@@ -1,8 +1,6 @@
 import styled from 'styled-components'
 
-export const Wrapper = styled.nav`
-	border-bottom: 1px solid ${({ theme }) => theme.color.disabled};
-
+export const StyledNav = styled.nav`
 	ul {
 		display: flex;
 		gap: 1em;
@@ -12,9 +10,14 @@ export const Wrapper = styled.nav`
 
 	a:hover,
 	& .active {
-		/* text-underline-offset: 4px; */
 		text-underline-offset: 1rem;
 		text-decoration: underline;
 		text-decoration-thickness: 3px;
 	}
+`
+
+export const Wrapper = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: center;
 `

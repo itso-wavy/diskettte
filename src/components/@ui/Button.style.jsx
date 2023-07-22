@@ -71,8 +71,8 @@ export const StyledButton = styled.button`
 			&:disabled {
 				background-color: ${{
 					primary: theme.color.gray,
-					secondary: theme.color.disabled,
-					count: theme.color.disabled,
+					secondary: theme.color.lightgray,
+					count: theme.color.lightgray,
 				}[$style] || theme.color.gray};
 				color: ${{
 					secondary: theme.color.gray,
