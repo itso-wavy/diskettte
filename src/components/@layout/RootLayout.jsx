@@ -9,35 +9,24 @@ import ScrollToTop from '../@ui/ScrollToTop'
 import useStore from '../../store'
 
 export default function RootLayout() {
-	const { isMobile } = useStore()
+	const { isMobile, isMobileNavOpen } = useStore()
 
 	const [showAside, setShowAside] = useState(
 		sessionStorage.getItem('show_header_banner') ? false : true
 	)
-
-	const [showMobileNav, setShowMobileNav] = useState(false)
 
 	const asideCloseHandler = () => {
 		setShowAside(showAside => !showAside)
 		sessionStorage.setItem('show_header_banner', 0)
 	}
 
-	const mobileNavToggleHandler = () => {
-		setShowMobileNav(showMobileNav => !showMobileNav)
-	}
-
 	return (
 		<>
 			<SkipNav />
 			{showAside && <HeaderAside asideCloseHandler={asideCloseHandler} />}
-			<Header
-				showMobileNav={showMobileNav}
-				openMobileNav={mobileNavToggleHandler}
-			>
+			<Header>
 				<HeaderCategories />
-				{isMobile && showMobileNav && (
-					<MobileNav closeMobileNav={mobileNavToggleHandler} />
-				)}
+				{isMobile && isMobileNavOpen && <MobileNav />}
 			</Header>
 			<main id='main-content'>
 				<Outlet />

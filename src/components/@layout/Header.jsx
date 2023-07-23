@@ -12,13 +12,9 @@ import {
 import useStore from '../../store'
 import { StyledHeader, HeaderMain } from './Header.style'
 
-export default function Header({
-	children,
-	showMobileNav,
-	openMobileNav,
-	...props
-}) {
-	const { isMobile, isLogin, logout } = useStore()
+export default function Header({ children, ...props }) {
+	const { isMobile, isLogin, logout, isMobileNavOpen, openMobileNav } =
+		useStore()
 	const inputRef = useRef()
 
 	return (
@@ -32,7 +28,7 @@ export default function Header({
 								onClick={openMobileNav}
 								src={<MenuOpenSvg />}
 								ariaLabel='open menu'
-								aria-expanded={showMobileNav}
+								aria-expanded={isMobileNavOpen}
 								aria-controls='mobile-nav'
 							/>
 							<HeaderMenuItem

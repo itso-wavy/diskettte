@@ -1,9 +1,9 @@
 import { createPortal } from 'react-dom'
 import { Backdrop, ModalOverlay } from './Modal.style'
 
-export default function Modal({ closeMobileNav, children, ...props }) {
+export default function Modal({ closeModal, children, ...props }) {
 	const modalLayout = (
-		<Backdrop onClick={closeMobileNav}>
+		<Backdrop onClick={closeModal}>
 			<ModalOverlay {...props}>{children}</ModalOverlay>
 		</Backdrop>
 	)

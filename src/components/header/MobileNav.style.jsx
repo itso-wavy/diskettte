@@ -19,3 +19,5 @@ export const $style = css`
 		}
 	}
 `
+
+export const fs = { fontSize: '16px' } // 리팩대상
