@@ -15,9 +15,9 @@ export function LoginSvg(props) {
 			/>
 			<path
 				stroke='currentColor'
-				stroke-linecap='square'
-				stroke-miterlimit='10'
-				stroke-width='1.8'
+				strokeLinecap='square'
+				strokeMiterlimit='10'
+				strokeWidth='1.8'
 				d='M10.3 8.5 14 12l-3.7 3.5m3.2-3.5H2'
 			/>
 		</svg>

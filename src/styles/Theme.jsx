@@ -5,8 +5,6 @@ const width = {
 	mobile: '1.25rem',
 }
 
-// const height = '3.125rem' // 50px
-
 const color = {
 	black: '#000',
 	gray: '#CCC',
@@ -31,21 +29,20 @@ const color = {
 	// yellow: '#FCF8E3',
 	// yellow2: '#FFEEBA',
 	// yellow3: '#FFE8A1',
-	// yellow4: '#FFDF7E',
-	yellow: '#FFC107',
-	green: '#CBE9CE',
-	green2: '#C3E6CB',
-	green3: '#B1DFBB',
+	yellow: '#ffd453',
+	yellow2: '#FFC107',
+	// green: '#CBE9CE',
+	// green2: '#C3E6CB',
+	lightgreen: '#B1DFBB',
 	green4: '#9ED6A5',
 	green5: '#8FD19E',
 	green6: '#28A745',
 	green7: '#368C40',
 	green8: '#1E7E34',
-	teal: '#BEE5EB',
-	teal2: '#ABDDE5',
-	teal3: '#86CFDA',
-	teal4: '#17A2B8',
-	teal5: '#117A8B',
+	teal: '#86CFDA',
+	teal2: '#17A2B8',
+	teal3: '#117A8B',
+	sora: '#7998e2',
 	blue: '#007BFF',
 	darkgray: '#F8F9FA',
 	darkgray2: '#DEE2E6',
@@ -79,6 +76,8 @@ const fw = {
 	medium: 500,
 	bold: 700,
 }
+
+// const height = '3.125rem' // 50px
 
 // const lh = {
 // 	sm: '1.3em',

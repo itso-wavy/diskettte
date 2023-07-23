@@ -55,28 +55,23 @@ export const StyledButton = styled.button`
 			background-color: ${{
 				primary: theme.color.black,
 				secondary: theme.color.white,
-				count: theme.color.white,
 			}[$style] || theme.color.black};
 			color: ${{
 				primary: theme.color.white,
 				secondary: theme.color.black,
-				count: theme.color.black,
 			}[$style] || theme.color.white};
 			border: ${{
 				primary: 0,
 				secondary: `1px solid ${theme.color.black}`,
-				count: `1px solid ${theme.color.gray}`,
 			}[$style] || 0};
 
 			&:disabled {
 				background-color: ${{
 					primary: theme.color.gray,
 					secondary: theme.color.lightgray,
-					count: theme.color.lightgray,
 				}[$style] || theme.color.gray};
 				color: ${{
 					secondary: theme.color.gray,
-					count: theme.color.gray,
 				}[$style] || theme.color.white};
 				border-color: ${{
 					secondary: `${theme.color.gray}`,

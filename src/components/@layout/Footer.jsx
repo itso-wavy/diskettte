@@ -24,7 +24,7 @@ export default function Footer({ children, ...props }) {
 						(주)diskettte
 					</p>
 				</address>
-				<small>COPYRIGHT 2023 diskettte. ALL RIGHT RESERVED.</small>
+				<small>COPYRIGHT&copy; 2023 diskettte. ALL RIGHT RESERVED.</small>
 			</FooterMain>
 			{children}
 		</StyledFooter>

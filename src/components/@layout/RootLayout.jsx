@@ -5,15 +5,8 @@ import Header from './Header'
 import { HeaderAside, HeaderCategories, MobileNav } from '../header'
 import Footer from '../@layout/Footer'
 import { FooterNav } from '../footer'
+import ScrollToTop from '../@ui/ScrollToTop'
 import useStore from '../../store'
-import styled from 'styled-components'
-
-const StyledMain = styled.main`
-	/* overflow: scroll; */
-
-	@media (max-width: ${({ theme }) => theme.breakpoints}) {
-	}
-`
 
 export default function RootLayout() {
 	const { isMobile } = useStore()
@@ -46,12 +39,13 @@ export default function RootLayout() {
 					<MobileNav closeMobileNav={mobileNavToggleHandler} />
 				)}
 			</Header>
-			<StyledMain id='main-content'>
+			<main id='main-content'>
 				<Outlet />
-			</StyledMain>
+			</main>
 			<Footer>
 				<FooterNav />
 			</Footer>
+			<ScrollToTop />
 		</>
 	)
 }

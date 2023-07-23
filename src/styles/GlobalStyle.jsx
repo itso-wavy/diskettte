@@ -57,6 +57,7 @@ const GlobalStyle = createGlobalStyle`
     scroll-behavior: smooth
   }
   
+
   body {
     font-family: 'SUIT';
     font-size: 1rem;
@@ -76,6 +77,10 @@ const GlobalStyle = createGlobalStyle`
   
   ::-webkit-scrollbar {
     display: none;
+  }
+
+  ::selection {
+    background-color: ${({ theme }) => theme.color.lightgreen};
   }
 `
 
