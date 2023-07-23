@@ -35,7 +35,7 @@ export const Wrapper = styled.div`
 		position: absolute;
 		white-space: nowrap;
 		bottom: 0;
-		transform: translateY(-100%);
+		transform: translateY(-150%);
 	}
 
 	@media (max-width: ${({ theme }) => theme.breakpoints}) {
