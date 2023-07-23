@@ -3,6 +3,8 @@ import { Accordion } from '../@ui/Accordion'
 import { PlusSvg } from '/src/components/@svg'
 import { StyledNav, Wrapper } from './FooterNav.style'
 import useStore from '../../store'
+import { useState } from 'react'
+import { useEffect } from 'react'
 
 function FooterMenuItem({ text, url, ...props }) {
 	return (
@@ -14,12 +16,20 @@ function FooterMenuItem({ text, url, ...props }) {
 
 function FooterNavMenu({ title, children, ...props }) {
 	const { isMobile } = useStore()
+	const [collapsed, setCollapsed] = useState(false)
+
+	useEffect(() => {
+		console.log('FooterNavMenu rendering')
+		// TODO: url 변경시 footer 아코디언 모두 닫기
+		// collapsed로 관리 중
+		setCollapsed(false)
+	}, [])
 
 	return (
 		<Wrapper className='block'>
 			<Accordion
+				collapsed={collapsed}
 				freeze={!isMobile}
-				// title={title.toUpperCase()}
 				title={
 					<>
 						{title.toUpperCase()}

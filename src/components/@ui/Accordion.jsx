@@ -1,6 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { StyledDetails } from './Accordion.style'
-import { useEffect } from 'react'
 
 function AccordionContent({ content, id, ...props }) {
 	return (
@@ -15,9 +14,7 @@ function AccordionTitle({ title, expanded, id, freeze, ...props }) {
 		<summary
 			aria-expanded={expanded}
 			aria-controls={`${id}-content`}
-			className={`trigger ${expanded ? 'active' : ''} ${
-				freeze ? 'freeze' : ''
-			}`}
+			className={`${expanded ? 'active' : ''} ${freeze ? 'freeze' : ''}`}
 			{...props}
 		>
 			{title}
@@ -26,13 +23,20 @@ function AccordionTitle({ title, expanded, id, freeze, ...props }) {
 }
 
 /**
- * @returns <Accordion title, id, freeze?, children />
+ * @returns <Accordion title, id, collapsed, freeze?, children />
  */
-export function Accordion({ freeze, title, id, children, ...props }) {
-	const [expanded, setExpanded] = useState(false)
+export function Accordion({
+	collapsed,
+	freeze,
+	title,
+	id,
+	children,
+	...props
+}) {
+	const [expanded, setExpanded] = useState(collapsed)
 
 	useEffect(() => {
-		setExpanded(freeze)
+		if (freeze) setExpanded(freeze)
 	}, [freeze])
 
 	const toggleHandler = e => {
@@ -43,11 +47,12 @@ export function Accordion({ freeze, title, id, children, ...props }) {
 
 	return (
 		<>
-			<StyledDetails id={id} onClick={toggleHandler} {...props} open={expanded}>
+			<StyledDetails id={id} open={expanded} {...props}>
 				<AccordionTitle
 					title={title}
-					expanded={expanded}
 					id={id}
+					expanded={expanded}
+					onClick={toggleHandler}
 					freeze={freeze}
 				/>
 				<AccordionContent content={children} id={id} />

@@ -12,11 +12,13 @@ export const StyledDetails = styled.details`
 
 	.content {
 		opacity: 0;
-		transition: all 0.5s ease;
+		height: 0;
+		transition: height 1.5s ease, opacity 0.5s ease;
 	}
 
-	.trigger.active + .content {
+	.active + .content {
 		opacity: 1;
+		height: 100%;
 	}
 
 	.freeze {
