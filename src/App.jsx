@@ -1,10 +1,10 @@
-import { ThemeProvider } from 'styled-components'
-import theme from './styles/Theme'
-import GlobalStyle from './styles/GlobalStyle'
+import { useEffect } from 'react'
 import { RouterProvider } from 'react-router-dom'
 import router from './routes'
+import GlobalStyle from './styles/GlobalStyle'
+import theme from './styles/Theme'
+import { ThemeProvider } from 'styled-components'
 import useStore from './store'
-import { useEffect } from 'react'
 
 function App() {
 	const { recheckViewport } = useStore()

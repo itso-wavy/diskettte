@@ -1,19 +1,15 @@
 import { create } from 'zustand'
+import { createViewportSlice } from './viewportSlice'
+import { createAuthSlice } from './authSlice'
+import { createMobileNavSlice } from './modalSlice'
+// import { createBearFishSlice } from './createBearFishSlice'
 
-const getViewport = () => {
-	const width =
-		window.innerWidth ||
-		document.documentElement.clientWidth ||
-		document.body.clientWidth
-
-	return width <= 768 ? true : false
-}
-
-const useStore = create(set => ({
-	isMobile: getViewport(),
-	recheckViewport: () => set(() => ({ isMobile: getViewport() })),
-	isLogin: true,
-	logout: () => set(isLogin => ({ isLogin: !isLogin })),
+// 스토어 슬라이싱 후 바운딩으로 단일 스토어 생성
+const useBoundStore = create((...a) => ({
+	...createViewportSlice(...a),
+	...createAuthSlice(...a),
+	...createMobileNavSlice(...a),
+	// ...createBearFishSlice(...a),
 }))
 
-export default useStore
+export default useBoundStore

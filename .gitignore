@@ -1,7 +1,7 @@
 _diskette.code-workspace
 public/assets/images
 src/pages/*
-style.css
+createBearFishSlice.jsx
 
 # Logs
 logs
