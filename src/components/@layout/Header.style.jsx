@@ -4,7 +4,6 @@ export const StyledHeader = styled.header`
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
-	overflow: hidden;
 	border-bottom: 1px solid ${({ theme }) => theme.color.lightgray};
 
 	& > * {
@@ -18,7 +17,7 @@ export const StyledHeader = styled.header`
 	@media (max-width: ${({ theme }) => theme.breakpoints}) {
 		& > * {
 			padding: 1em ${({ theme }) => theme.width.mobile};
-			height: 40px;
+			height: 38px;
 		}
 	}
 `

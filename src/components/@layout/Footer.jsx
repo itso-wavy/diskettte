@@ -4,7 +4,7 @@ import { StyledFooter, FooterMain } from './Footer.style'
 export default function Footer({ children, ...props }) {
 	return (
 		<StyledFooter {...props}>
-			<FooterMain aria-labelledby='footer-heading'>
+			<FooterMain aria-labelledby='footer-heading' className='block'>
 				<SnsList />
 				<h2 id='footer-heading' className='sr-only'>
 					회사와 사이트 정보

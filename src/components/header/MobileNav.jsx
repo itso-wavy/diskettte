@@ -22,17 +22,19 @@ const MobileNavItem = ({
 	const navigate = useNavigate()
 
 	return (
-		<Button
-			$size={$size}
-			onClick={() => {
-				url ? navigate(url) : onClick()
-			}}
-			ariaLabel={ariaLabel}
-			{...props}
-		>
-			<p>{text}</p>
-			{icon}
-		</Button>
+		<li>
+			<Button
+				$size={$size}
+				onClick={() => {
+					url ? navigate(url) : onClick()
+				}}
+				ariaLabel={ariaLabel}
+				{...props}
+			>
+				<p>{text}</p>
+				{icon}
+			</Button>
+		</li>
 	)
 }
 
@@ -48,51 +50,55 @@ export function MobileNav({ closeMobileNav, ...props }) {
 				id='mobile-nav'
 				{...props}
 			>
-				<MobileNavItem
-					url='/categories/all'
-					ariaLabel='go to all products category'
-					text='All'
-				/>
-				<MobileNavItem
-					url='/categories/new-arrivals'
-					ariaLabel='go to new-arrivals category'
-					text='New arrivals'
-				/>
-				<MobileNavItem
-					url='/categories/exclusive'
-					ariaLabel='go to exclusive category'
-					text='Exclusive'
-				/>
-				<MobileNavItem
-					url='/categories/event'
-					ariaLabel='go to event category'
-					text='Event'
-				/>
-				<StyledHr />
-				<MobileNavItem
-					url='/mypage/profile'
-					ariaLabel='go to exclusive category'
-					text='마이페이지'
-					icon={<MypageSvg />}
-					style={style}
-				/>
-				{!isLogin ? (
-					<MobileNavItem
-						url='/auth'
-						ariaLabel='signin or signup'
-						text='로그인 / 회원가입'
-						icon={<LoginSvg />}
-						style={style}
-					/>
-				) : (
-					<MobileNavItem
-						onClick={logout}
-						ariaLabel='logout'
-						text='로그아웃'
-						icon={<LogoutSvg />}
-						style={style}
-					/>
-				)}
+				<nav>
+					<ul>
+						<MobileNavItem
+							url='/categories/all'
+							ariaLabel='go to all products category'
+							text='All'
+						/>
+						<MobileNavItem
+							url='/categories/new-arrivals'
+							ariaLabel='go to new-arrivals category'
+							text='New arrivals'
+						/>
+						<MobileNavItem
+							url='/categories/exclusive'
+							ariaLabel='go to exclusive category'
+							text='Exclusive'
+						/>
+						<MobileNavItem
+							url='/categories/event'
+							ariaLabel='go to event category'
+							text='Event'
+						/>
+						<StyledHr />
+						<MobileNavItem
+							url='/mypage/profile'
+							ariaLabel='go to exclusive category'
+							text='마이페이지'
+							icon={<MypageSvg />}
+							style={style}
+						/>
+						{!isLogin ? (
+							<MobileNavItem
+								url='/auth'
+								ariaLabel='signin or signup'
+								text='로그인 / 회원가입'
+								icon={<LoginSvg />}
+								style={style}
+							/>
+						) : (
+							<MobileNavItem
+								onClick={logout}
+								ariaLabel='logout'
+								text='로그아웃'
+								icon={<LogoutSvg />}
+								style={style}
+							/>
+						)}
+					</ul>
+				</nav>
 			</Modal>
 		</>
 	)

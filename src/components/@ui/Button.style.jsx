@@ -96,10 +96,10 @@ export const StyledButton = styled.button`
 			min-height: auto;
 			/* justify-content: space-between; */
 
-			img {
+			/* img {
 				height: 0.65rem;
 				width: 0.65rem;
-			}
+			} */
 			&:hover {
 				text-decoration: underline;
 			}

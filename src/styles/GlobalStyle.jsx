@@ -47,6 +47,11 @@ const GlobalStyle = createGlobalStyle`
     }
   } 
 
+  summary {
+    list-style: none;
+    cursor: pointer;
+  }
+
   /* ===== GENERAL ===== */
   html {
     scroll-behavior: smooth
@@ -62,12 +67,16 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .sr-only {
-  position: absolute;
-  top: -9999px;
-  left: -9999px;
-  font-size: 0;
-  color: transparent;
-}
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    font-size: 0;
+    color: transparent;
+  }
+  
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `
 
 export default GlobalStyle

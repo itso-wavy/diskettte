@@ -18,6 +18,7 @@ export const StyledNav = styled.nav`
 
 export const Wrapper = styled.div`
 	width: 100%;
+	margin-bottom: 0.2em;
 	display: flex;
 	justify-content: center;
 `

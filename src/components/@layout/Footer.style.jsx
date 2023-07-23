@@ -10,7 +10,6 @@ const $decoration = css`
 		content: '🌊';
 		position: absolute;
 		font-size: 1.8em;
-		/* animation: fadeIn 0.5s ease-in-out; */
 		animation: floating 0.6s infinite;
 	}
 
@@ -18,11 +17,14 @@ const $decoration = css`
 		0% {
 			transform: translateY(0%);
 		}
-		50% {
+		25% {
 			transform: translateY(10%);
 		}
-		100% {
+		50% {
 			transform: translateY(0%);
+		}
+		75% {
+			transform: translateY(-10%);
 		}
 	}
 `
@@ -38,11 +40,7 @@ export const StyledFooter = styled.footer`
 	color: ${({ theme }) => theme.color.black};
 	border-top: 1px solid ${({ theme }) => theme.color.black};
 
-	& > * {
-		flex-shrink: 0;
-	}
-
-	& section {
+	.block {
 		padding: 42px ${({ theme }) => theme.width.desktop};
 	}
 
@@ -55,7 +53,7 @@ export const StyledFooter = styled.footer`
 			padding: 42px ${({ theme }) => theme.width.mobile} !important;
 		}
 
-		& section {
+		.block {
 			padding: 0;
 		}
 	}
@@ -65,7 +63,6 @@ export const FooterMain = styled.section`
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
-	flex-shrink: 1;
 	order: 1;
 
 	small {
@@ -80,6 +77,6 @@ export const FooterMain = styled.section`
 	@media (max-width: ${({ theme }) => theme.breakpoints}) {
 		order: 10;
 		border-top: 1px solid ${({ theme }) => theme.color.white};
-		/* padding-top: 5em !important; */
+		padding-top: 5em !important;
 	}
 `
