@@ -9,7 +9,7 @@ import { StyledButton } from './Button.style'
  * || <Button $type='icon' $size $img onClick aria-label/>
  */
 
-export default function Button({
+function Button({
 	$type = 'rect',
 	$style = 'primary',
 	$img,
@@ -37,3 +37,5 @@ export default function Button({
 		</StyledButton>
 	)
 }
+
+export { Button }

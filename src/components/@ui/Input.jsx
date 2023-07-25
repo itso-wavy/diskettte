@@ -1,12 +1,19 @@
 import { useState, useRef, forwardRef, useImperativeHandle } from 'react'
-import Button from './Button'
+import { Button } from './Button'
 import EraseImg from '/assets/icons/wavy_erase-sharp.svg'
-import SearchImg from '/assets/icons/ion_search-outline.svg'
+import { SearchSvg } from '/src/components/@svg'
 import { Wrapper } from './Input.style'
 import styled from 'styled-components'
 
 /**
- * @returns <Input ref >
+ * 포커스시 스타일 변화: outline 2px
+ * 블러시 밸리데이션 함수 실행(입력 중엔 밸리데이션하지 않음)
+ * 밸리데이션 불통시 스타일 변화: outline red
+ * (+ 어떤 밸리데이션이 불통인지 메시지 안내)
+ * 모든 인풋의 밸리데이션 통과시 form 전송 버튼 활성화됨
+ * (밸리데이션과 무관하게 취소, 뒤로가기 등의 기능은 가능해야 함)
+ * 데이터 전송 후 서버 밸리데이션 불통시 경고메시지 띄움
+ * @returns <Input />
  */
 const Input = forwardRef(
 	({ type = 'text', label, name, placeholder, extraBtn, ...props }, ref) => {
@@ -65,7 +72,7 @@ const StyledInput = styled(Input)`
 	height: 2.25rem !important;
 `
 
-export const SearchInput = forwardRef((props, ref) => {
+const SearchInput = forwardRef((props, ref) => {
 	const searchKeyword = e => {
 		console.log(e.target)
 	}
@@ -78,14 +85,15 @@ export const SearchInput = forwardRef((props, ref) => {
 				<Button
 					$type='icon'
 					$radius='50%'
-					$img={SearchImg}
 					onClick={searchKeyword}
 					aria-label='search'
-				/>
+				>
+					<SearchSvg />
+				</Button>
 			}
 			{...props}
 		/>
 	)
 })
 
-export default Input
+export { Input, SearchInput }

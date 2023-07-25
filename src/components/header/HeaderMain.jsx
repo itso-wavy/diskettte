@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { SearchInput } from '../@ui/Input'
 import { TitleImg } from '../@ui/Img'
+import { Button } from '../@ui/Button'
 import LogoBImg from '/logo_b.png'
 import LogoWImg from '/logo_w.png'
 import {
@@ -19,7 +20,6 @@ import {
 	StyledLi,
 } from './HeaderMain.style'
 import useStore from '../../store'
-import Button from '../@ui/Button'
 
 function HeaderLogo({ src, alt, ...props }) {
 	return (

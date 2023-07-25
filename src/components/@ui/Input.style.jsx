@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
 		border: 1px solid ${({ theme }) => theme.color.black};
 
 		&::placeholder {
-			color: ${({ theme }) => theme.color.gray};
+			color: ${({ theme }) => theme.color.darkgray};
 		}
 		&:focus {
 			outline: 2px solid ${({ theme }) => theme.color.black};
@@ -28,5 +28,6 @@ export const Wrapper = styled.div`
 		display: flex;
 		align-items: center;
 		gap: 0.2em;
+		color: ${({ theme }) => theme.color.black};
 	}
 `

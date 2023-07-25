@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
-import Button from '../@ui/Button'
-import Modal from '../@ui/Modal'
+import { Button } from '../@ui/Button'
+import { Modal } from '../@ui/Modal'
 import { StyledHr, $style, fs } from './MobileNav.style'
 import {
 	DropdownSvg,

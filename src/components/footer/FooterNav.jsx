@@ -1,10 +1,9 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Accordion } from '../@ui/Accordion'
 import { PlusSvg } from '/src/components/@svg'
 import { StyledNav, Wrapper } from './FooterNav.style'
 import useStore from '../../store'
-import { useState } from 'react'
-import { useEffect } from 'react'
 
 function FooterMenuItem({ text, url, ...props }) {
 	return (

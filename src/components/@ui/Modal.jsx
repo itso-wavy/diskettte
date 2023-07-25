@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { Backdrop, ModalOverlay } from './Modal.style'
 
-export default function Modal({ closeModal, children, ...props }) {
+function Modal({ closeModal, children, ...props }) {
 	const modalRef = useRef()
 
 	const onClickHandler = e => {
@@ -19,3 +19,5 @@ export default function Modal({ closeModal, children, ...props }) {
 
 	return <>{createPortal(modalLayout, document.getElementById('overlays'))}</>
 }
+
+export { Modal }

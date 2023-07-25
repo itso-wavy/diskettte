@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import Button from './Button'
+import { Button } from './Button'
 import PrevImg from '/assets/icons/wavy_chevron-prev.svg'
 import NextImg from '/assets/icons/wavy_chevron-next.svg'
 import {
@@ -11,6 +11,7 @@ import {
 	Indicator,
 	IndicatorItem,
 } from './Carousel.style'
+import PropTypes from 'prop-types'
 
 function NavigationArrows({ prevClick, nextClick }) {
 	return (
@@ -59,9 +60,9 @@ function CarouselItem({ src, alt, url, ariaLabel }) {
 	)
 }
 
-export default function Carousel({ items, autoSlideInterval = 3000 }) {
+function Carousel({ items, autoSlideInterval }) {
 	const [currentIndex, setCurrentIndex] = useState(0)
-	const [isAutoSliding, setAutoSliding] = useState(true)
+	const [isAutoSliding, setAutoSliding] = useState(autoSlideInterval)
 	const containerRef = useRef(null)
 	const intervalIdRef = useRef(null)
 
@@ -84,7 +85,7 @@ export default function Carousel({ items, autoSlideInterval = 3000 }) {
 	}
 
 	const mouseLeaveHandler = () => {
-		setAutoSliding(true)
+		if (autoSlideInterval) setAutoSliding(true)
 	}
 
 	useEffect(() => {
@@ -113,7 +114,7 @@ export default function Carousel({ items, autoSlideInterval = 3000 }) {
 				onMouseLeave={mouseLeaveHandler}
 			>
 				{items.map(item => (
-					<CarouselItem key={items.id} $itemsLength={items.length} {...item} />
+					<CarouselItem key={item.id} {...item} />
 				))}
 			</StyledUl>
 			<NavigationArrows
@@ -128,3 +129,9 @@ export default function Carousel({ items, autoSlideInterval = 3000 }) {
 		</Wrapper>
 	)
 }
+
+Carousel.propTypes = {
+	autoSlideInterval: PropTypes.number,
+}
+
+export { Carousel }

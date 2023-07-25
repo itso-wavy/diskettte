@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import SkipNav from '../@ui/SkipNav'
+import { SkipNav } from '../@ui/SkipNav'
 import { HeaderAside, HeaderMain, HeaderCategories, MobileNav } from '../header'
-import useStore from '../../store'
 import { StyledHeader } from './Header.style'
+import useStore from '../../store'
 
 export default function Header() {
 	const previousYPositionRef = useRef(0)

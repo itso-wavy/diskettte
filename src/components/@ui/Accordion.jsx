@@ -25,9 +25,9 @@ function AccordionTitle({ title, expanded, id, freeze, ...props }) {
 /**
  * @returns <Accordion title, id, collapsed, freeze?, children />
  */
-export function Accordion({
-	collapsed,
-	freeze,
+function Accordion({
+	collapsed = false,
+	freeze = false,
 	title,
 	id,
 	children,
@@ -36,8 +36,8 @@ export function Accordion({
 	const [expanded, setExpanded] = useState(collapsed)
 
 	useEffect(() => {
-		if (freeze) setExpanded(freeze)
-	}, [freeze])
+		collapsed ? setExpanded(collapsed) : setExpanded(freeze)
+	}, [collapsed, freeze])
 
 	const toggleHandler = e => {
 		e.preventDefault()
@@ -60,3 +60,5 @@ export function Accordion({
 		</>
 	)
 }
+
+export { Accordion }

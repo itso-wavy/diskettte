@@ -1,8 +1,8 @@
-import Card from '../../components/@ui/Card'
-import Carousel from '../../components/@ui/Carousel'
-import Grid from '../../components/@ui/Grid'
-import Slider from '../../components/@ui/Slider'
-import { Hero, StyledSection } from './HomePage.style'
+import { Card } from '../../components/@ui/Card'
+import { Carousel } from '../../components/@ui/Carousel'
+import { Grid } from '../../components/@ui/Grid'
+import { Slider } from '../../components/@ui/Slider'
+import { Hero, StyledSection, Heading } from './HomePage.style'
 
 const banners = [
 	{
@@ -104,7 +104,11 @@ export default function HomePage() {
 		<>
 			<Hero>
 				<h2 className='sr-only'>main banner</h2>
-				<Carousel items={banners} />
+				<Carousel items={banners} autoSlideInterval={3000} />
+				<Heading>
+					<p>SIMPLIFY YOUR LIFE</p>
+					<p>JUST FOCUS</p>
+				</Heading>
 			</Hero>
 			<StyledSection>
 				<h2 className='sr-only'>recommand brands</h2>
