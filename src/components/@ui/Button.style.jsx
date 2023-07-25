@@ -27,6 +27,7 @@ export const StyledButton = styled.button`
 			margin: 0;
 			width: ${$size || '1.5rem'};
 			height: ${$size || '1.5rem'};
+			color: inherit;
 			background: transparent center/contain no-repeat url(${$img});
 		`}
 	${({ $type }) =>

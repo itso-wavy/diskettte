@@ -7,11 +7,13 @@ const width = {
 
 const color = {
 	black: '#000',
+	darkgray: '#AAA',
 	gray: '#CCC',
 	lightgray: '#F2F2F2',
 	white: '#FFF',
 	safe: '#6F8CFF',
 	error: '#DC3545',
+	header: '#161617CC',
 	shadow: '#00000050',
 	modal: '#FFFFFFC0',
 	// pink: '#F1B0B7',
@@ -44,8 +46,8 @@ const color = {
 	teal3: '#117A8B',
 	sora: '#7998e2',
 	blue: '#007BFF',
-	darkgray: '#F8F9FA',
-	darkgray2: '#DEE2E6',
+	// darkgray: '#F8F9FA',
+	// darkgray2: '#DEE2E6',
 	darkgray3: '#6C757D',
 	darkgray4: '#343A40',
 

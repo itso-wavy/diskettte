@@ -1,7 +1,10 @@
+import Card from '../../components/@ui/Card'
 import Carousel from '../../components/@ui/Carousel'
-import { Page, Hero } from './HomePage.style'
+import Grid from '../../components/@ui/Grid'
+import Slider from '../../components/@ui/Slider'
+import { Hero, StyledSection } from './HomePage.style'
 
-const items = [
+const banners = [
 	{
 		id: 1,
 		src: '/assets/images/eql/28_26653_2_KOR_20230531092828.jpg',
@@ -45,15 +48,84 @@ const items = [
 		ariaLabel: '',
 	},
 ]
+const brands = [
+	{
+		id: 1,
+		brand: '아몬드봉봉',
+		src: '/assets/images/socks/SDS114-3500_new.jpg',
+		alt: '',
+		url: '/',
+		ariaLabel: '',
+	},
+	{
+		id: 2,
+		brand: '체리쥬빌레',
+		src: '/assets/images/socks/SDS116-7300.jpg',
+		alt: '',
+		url: '/',
+		ariaLabel: '',
+	},
+	{
+		id: 3,
+		brand: '고구마언덕',
+		src: '/assets/images/socks/SIM01-2200_M_small.jpg',
+		alt: '',
+		url: '/',
+		ariaLabel: '',
+	},
+	{
+		id: 4,
+		brand: '도날드덕',
+		src: '/assets/images/socks/SIM01-6000_M_small.jpg',
+		alt: '',
+		url: '/',
+		ariaLabel: '',
+	},
+	{
+		id: 5,
+		brand: '불꽃회오리',
+		src: '/assets/images/socks/SIM01-6500_M_small.jpg',
+		alt: '',
+		url: '/',
+		ariaLabel: '',
+	},
+	{
+		id: 6,
+		brand: '쭈펄봇',
+		src: '/assets/images/socks/SISLYA12-9300_W_SMALL.jpg',
+		alt: '',
+		url: '/',
+		ariaLabel: '',
+	},
+]
 
 export default function HomePage() {
 	return (
-		<Page>
+		<>
 			<Hero>
-				<h2 className='sr-only'>main page banner</h2>
-				<Carousel items={items} />
+				<h2 className='sr-only'>main banner</h2>
+				<Carousel items={banners} />
 			</Hero>
-		</Page>
+			<StyledSection>
+				<h2 className='sr-only'>recommand brands</h2>
+				<Grid>
+					{brands.map((brand, index) => (
+						<li key={index}>
+							<Card>
+								<span>{brand.brand}</span>
+								<img src={brand.src} alt={brand.alt} />
+							</Card>
+						</li>
+					))}
+				</Grid>
+			</StyledSection>
+			{/* <StyledSection>
+				<h2 className='sr-only'>exclusive</h2>
+				<Slider items={brands} />
+				<Slider items={brands} />
+				<Slider items={brands} />
+			</StyledSection> */}
+		</>
 	)
 }
 

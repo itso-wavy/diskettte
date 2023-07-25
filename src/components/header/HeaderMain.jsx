@@ -2,7 +2,8 @@ import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { SearchInput } from '../@ui/Input'
 import { TitleImg } from '../@ui/Img'
-import LogoImg from '/logo_b.png'
+import LogoBImg from '/logo_b.png'
+import LogoWImg from '/logo_w.png'
 import {
 	MenuOpenSvg,
 	CartSvg,
@@ -18,6 +19,7 @@ import {
 	StyledLi,
 } from './HeaderMain.style'
 import useStore from '../../store'
+import Button from '../@ui/Button'
 
 function HeaderLogo({ src, alt, ...props }) {
 	return (
@@ -52,15 +54,20 @@ function HeaderMenuItem({ href, onClick, src, ariaLabel, text, ...props }) {
 					{innerContents}
 				</Link>
 			) : (
-				<button onClick={onClick} aria-label={ariaLabel} {...props}>
+				<Button
+					$type='icon'
+					onClick={onClick}
+					aria-label={ariaLabel}
+					{...props}
+				>
 					{innerContents}
-				</button>
+				</Button>
 			)}
 		</StyledLi>
 	)
 }
 
-export function HeaderMain({ children, ...props }) {
+export function HeaderMain({ $transparent, children, ...props }) {
 	const inputRef = useRef()
 	const { isMobile, isLogin, logout, isMobileNavOpen, openMobileNav } =
 		useStore()
@@ -68,7 +75,7 @@ export function HeaderMain({ children, ...props }) {
 	return (
 		<Wrapper {...props}>
 			<StyledMain aria-label='Logo and Navigation'>
-				<HeaderLogo src={LogoImg} alt='diskettte' />
+				<HeaderLogo src={$transparent ? LogoWImg : LogoBImg} alt='diskettte' />
 				<HeaderMenu>
 					{isMobile ? (
 						<>
