@@ -10,7 +10,7 @@ export default function Img({ src, alt, $size = '1.3rem', ...props }) {
 	)
 }
 
-export function LogoImg({ src, alt, $size, ...props }) {
+export function TitleImg({ src, alt, $size, ...props }) {
 	return (
 		<StyledLogo src={src} alt={alt} $size={$size} aria-label={alt} {...props} />
 	)

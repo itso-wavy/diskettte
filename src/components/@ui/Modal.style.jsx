@@ -4,7 +4,7 @@ export const Backdrop = styled.div`
 	background-color: ${({ theme }) => theme.color.modal};
 	position: fixed;
 	inset: 0;
-	z-index: 10;
+	z-index: 10000;
 `
 
 export const ModalOverlay = styled.div`

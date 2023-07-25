@@ -1,79 +1,47 @@
-import { useRef } from 'react'
-import { HeaderLogo, HeaderMenu, HeaderMenuItem } from '../header'
-import { SearchInput } from '../@ui/Input'
-import LogoImg from '/logo.svg'
-import {
-	MenuOpenSvg,
-	CartSvg,
-	LoginSvg,
-	LogoutSvg,
-	MypageSvg,
-} from '/src/components/@svg'
+import { useEffect, useRef, useState } from 'react'
+import SkipNav from '../@ui/SkipNav'
+import { HeaderAside, HeaderMain, HeaderCategories, MobileNav } from '../header'
 import useStore from '../../store'
-import { StyledHeader, HeaderMain } from './Header.style'
+import { StyledHeader } from './Header.style'
 
-export default function Header({ children, ...props }) {
-	const { isMobile, isLogin, logout, isMobileNavOpen, openMobileNav } =
-		useStore()
-	const inputRef = useRef()
+export default function Header() {
+	const previousYPositionRef = useRef(0)
+	const [isHeaderVisible, setIsHeaderVisible] = useState(true)
+
+	const { isMobile, isMobileNavOpen } = useStore()
+
+	const [showAside, setShowAside] = useState(
+		sessionStorage.getItem('show_header_banner') ? false : true
+	)
+
+	useEffect(() => {
+		const handleScroll = () => {
+			const currentYPosition = window.scrollY
+
+			currentYPosition > previousYPositionRef.current
+				? setIsHeaderVisible(false)
+				: setIsHeaderVisible(true)
+
+			previousYPositionRef.current = currentYPosition
+		}
+
+		window.addEventListener('scroll', handleScroll)
+		return () => window.removeEventListener('scroll', handleScroll)
+	}, [])
+
+	const asideCloseHandler = () => {
+		setShowAside(showAside => !showAside)
+		sessionStorage.setItem('show_header_banner', 0)
+	}
 
 	return (
-		<StyledHeader {...props}>
-			<HeaderMain aria-label='Logo and Navigation'>
-				<HeaderLogo src={LogoImg} alt='diskettte' />
-				<HeaderMenu>
-					{isMobile ? (
-						<>
-							<HeaderMenuItem
-								onClick={openMobileNav}
-								src={<MenuOpenSvg />}
-								ariaLabel='open menu'
-								aria-expanded={isMobileNavOpen}
-								aria-controls='mobile-nav'
-							/>
-							<HeaderMenuItem
-								href='/cart'
-								src={<CartSvg aria-hidden />}
-								ariaLabel='go to cart'
-							/>
-						</>
-					) : (
-						<>
-							<div>
-								<SearchInput ref={inputRef} />
-							</div>
-							<HeaderMenuItem
-								href='/cart'
-								src={<CartSvg />}
-								text='카트'
-								ariaLabel='go to cart'
-							/>
-							<HeaderMenuItem
-								href='/mypage'
-								src={<MypageSvg />}
-								text='마이페이지'
-								ariaLabel='go to mypage'
-							/>
-							{!isLogin ? (
-								<HeaderMenuItem
-									href='/auth'
-									src={<LoginSvg />}
-									text='로그인'
-									ariaLabel='signin or signup'
-								/>
-							) : (
-								<HeaderMenuItem
-									onClick={logout}
-									src={<LogoutSvg />}
-									text='로그아웃'
-									ariaLabel='logout'
-								/>
-							)}
-						</>
-					)}
-				</HeaderMenu>
+		<StyledHeader $visible={isHeaderVisible}>
+			<SkipNav />
+			{showAside && <HeaderAside asideCloseHandler={asideCloseHandler} />}
+			<HeaderMain>
+				<HeaderCategories />
+				{isMobile && isMobileNavOpen && <MobileNav />}
 			</HeaderMain>
-			{children}
 		</StyledHeader>
 	)
 }
