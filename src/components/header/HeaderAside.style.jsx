@@ -12,13 +12,28 @@ export const StyledAside = styled.aside`
 
 	a {
 		color: ${({ theme }) => theme.color.white};
-		text-decoration: underline;
 		margin: 0 0.5rem;
+		position: relative;
+		bottom: -1px;
+		/* bottom: 1px; */
 	}
 
-	.heart {
-		left: 3px;
+	a::after {
+		content: '';
+		display: inline-block;
+		position: absolute;
+		left: 0;
+		bottom: 2px;
+		background-color: white;
+		height: 1px;
+		width: calc(100% - 5px);
+		/* bottom: -1px;
+		width: calc(100% + 3px); */
 	}
+
+	/* .heart {
+		left: 4px;
+	} */
 
 	.close {
 		position: absolute;
