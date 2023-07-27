@@ -1,8 +1,19 @@
+import { Link } from 'react-router-dom'
+import {
+	Carousel,
+	CarouselItem,
+	NavigationArrows,
+	CarouselIndicator,
+	PageIndicator,
+} from '../../components/@ui/Carousel'
 import { Card } from '../../components/@ui/Card'
-import { Carousel } from '../../components/@ui/Carousel'
-import { Grid } from '../../components/@ui/Grid'
-import { Slider } from '../../components/@ui/Slider'
-import { Hero, StyledSection, Heading } from './HomePage.style'
+import {
+	Hero,
+	StyledSection,
+	Heading,
+	ChunkWrapper,
+	StyledFigure,
+} from './HomePage.style'
 
 const banners = [
 	{
@@ -11,6 +22,8 @@ const banners = [
 		alt: '',
 		url: '/',
 		ariaLabel: '',
+		title: 'SIMPLIFY YOUR LIFE',
+		description: 'JUST FOCUS',
 	},
 	{
 		id: 2,
@@ -18,6 +31,8 @@ const banners = [
 		alt: '',
 		url: '/',
 		ariaLabel: '',
+		title: 'ENJOY YOUR LIFE',
+		description: 'JUST A FEELING',
 	},
 	{
 		id: 3,
@@ -25,6 +40,8 @@ const banners = [
 		alt: '',
 		url: '/',
 		ariaLabel: '',
+		title: 'COOL WITH YOU',
+		description: 'HMM...',
 	},
 	{
 		id: 4,
@@ -32,6 +49,8 @@ const banners = [
 		alt: '',
 		url: '/',
 		ariaLabel: '',
+		title: 'SIMPLIFY YOUR LIFE',
+		description: 'JUST FOCUS',
 	},
 	{
 		id: 5,
@@ -39,6 +58,8 @@ const banners = [
 		alt: '',
 		url: '/',
 		ariaLabel: '',
+		title: 'ENJOY YOUR LIFE',
+		description: 'JUST A FEELING',
 	},
 	{
 		id: 6,
@@ -46,12 +67,14 @@ const banners = [
 		alt: '',
 		url: '/',
 		ariaLabel: '',
+		title: 'COOL WITH YOU',
+		description: 'HMM...',
 	},
 ]
 const brands = [
 	{
 		id: 1,
-		brand: '아몬드봉봉',
+		brand: '아몬드봉봉아몬 드봉봉아몬드봉봉아몬드봉봉아 몬드봉봉',
 		src: '/assets/images/socks/SDS114-3500_new.jpg',
 		alt: '',
 		url: '/',
@@ -83,7 +106,7 @@ const brands = [
 	},
 	{
 		id: 5,
-		brand: '불꽃회오리',
+		brand: '쭈펄봇',
 		src: '/assets/images/socks/SIM01-6500_M_small.jpg',
 		alt: '',
 		url: '/',
@@ -91,8 +114,56 @@ const brands = [
 	},
 	{
 		id: 6,
-		brand: '쭈펄봇',
+		brand: '불꽃회오리',
 		src: '/assets/images/socks/SISLYA12-9300_W_SMALL.jpg',
+		alt: '',
+		url: '/',
+		ariaLabel: '',
+	},
+	{
+		id: 7,
+		brand: '쭈키마우스',
+		src: '/assets/images/socks/CFP118-7000.jpg',
+		alt: '',
+		url: '/',
+		ariaLabel: '',
+	},
+	{
+		id: 8,
+		brand: '나는1000재',
+		src: '/assets/images/socks/P000482.jpg',
+		alt: '',
+		url: '/',
+		ariaLabel: '',
+	},
+	{
+		id: 9,
+		brand: '1234567890',
+		src: '/assets/images/socks/filters_quality(60).jpg',
+		alt: '',
+		url: '/',
+		ariaLabel: '',
+	},
+	{
+		id: 10,
+		brand: 'QWERTYY',
+		src: '/assets/images/socks/filters_quality(60) (7).jpg',
+		alt: '',
+		url: '/',
+		ariaLabel: '',
+	},
+	{
+		id: 11,
+		brand: 'aaaaaaaaaaa',
+		src: '/assets/images/socks/XWWF09-0200_new.jpg',
+		alt: '',
+		url: '/',
+		ariaLabel: '',
+	},
+	{
+		id: 12,
+		brand: '00000000000',
+		src: '/assets/images/socks/XSIM09-0200_O.jpg',
 		alt: '',
 		url: '/',
 		ariaLabel: '',
@@ -100,35 +171,70 @@ const brands = [
 ]
 
 export default function HomePage() {
+	const BrandsChunk = []
+	const createArrChunk = (targetArr, brankArr, n) => {
+		for (let i = 0; i < targetArr.length; i += n) {
+			brankArr.push(targetArr.slice(i, i + n))
+		}
+	}
+	createArrChunk(brands, BrandsChunk, 6)
+
 	return (
 		<>
 			<Hero>
 				<h2 className='sr-only'>main banner</h2>
-				<Carousel items={banners} autoSlideInterval={3000} />
-				<Heading>
-					<p>SIMPLIFY YOUR LIFE</p>
-					<p>JUST FOCUS</p>
-				</Heading>
+				<Carousel
+					items={banners}
+					autoSlideInterval={3000}
+					$Arrows={NavigationArrows}
+					$Indicator={CarouselIndicator}
+				>
+					{banners.map(
+						({ id, url, src, alt, ariaLabel, title, description }) => (
+							<CarouselItem key={id} ariaLabel={ariaLabel}>
+								<Link to={url}>
+									<img src={src} alt={alt} draggable='false' />
+								</Link>
+								<Heading>
+									<p>{title}</p>
+									<p>{description}</p>
+								</Heading>
+							</CarouselItem>
+						)
+					)}
+				</Carousel>
 			</Hero>
 			<StyledSection>
 				<h2 className='sr-only'>recommand brands</h2>
-				<Grid>
-					{brands.map((brand, index) => (
-						<li key={index}>
-							<Card>
-								<span>{brand.brand}</span>
-								<img src={brand.src} alt={brand.alt} />
-							</Card>
-						</li>
+				<Carousel
+					items={BrandsChunk}
+					autoSlideInterval={5000}
+					$Arrows={NavigationArrows}
+					// $Indicator={PageIndicator}
+				>
+					{BrandsChunk.map((chunk, index) => (
+						<CarouselItem key={index}>
+							<ChunkWrapper>
+								{chunk.map(({ id, brand, url, src, alt }) => (
+									<Link to={url} key={id}>
+										<StyledFigure key={id}>
+											<Card $direction='row'>
+												<figcaption>
+													<div className='rotate'>{brand}</div>
+												</figcaption>
+												<img src={src} alt={alt} />
+											</Card>
+										</StyledFigure>
+									</Link>
+								))}
+							</ChunkWrapper>
+						</CarouselItem>
 					))}
-				</Grid>
+				</Carousel>
 			</StyledSection>
-			{/* <StyledSection>
+			<StyledSection>
 				<h2 className='sr-only'>exclusive</h2>
-				<Slider items={brands} />
-				<Slider items={brands} />
-				<Slider items={brands} />
-			</StyledSection> */}
+			</StyledSection>
 		</>
 	)
 }

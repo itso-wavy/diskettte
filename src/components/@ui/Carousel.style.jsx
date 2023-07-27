@@ -1,31 +1,40 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	position: relative;
 	height: 100%;
-	overflow: hidden;
+`
+
+export const ShowBox = styled.div`
+	height: 100%;
 	position: relative;
 `
 
 export const StyledUl = styled.ul`
 	display: flex;
-	overflow: hidden;
+	overflow: scroll;
 	height: 100%;
+	order: 1;
 `
 
 export const StyledLi = styled.li`
-	flex: 1 0 100%;
-	background-color: #ddd;
 	display: flex;
+	flex: 1 0 100%;
+	position: relative;
+	background-color: #ddd;
 
-	& > a {
+	& > * {
 		flex: 1 0 100%;
 	}
 
-	img {
-		display: inline-block;
+	& img {
+		display: block;
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		overflow: hidden;
 	}
 `
 
@@ -34,12 +43,21 @@ export const Navigation = styled.div`
 		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);
+		border-radius: 50%;
+		padding: 10px;
+		color: ${({ theme }) => theme.color.white};
+		transition: all 0.1s ease;
 	}
 	.prevClick {
-		left: 0;
+		left: 5px;
 	}
 	.nextClick {
-		right: 0;
+		right: 5px;
+	}
+
+	& *:hover {
+		filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.2))
+			drop-shadow(0 0 3px rgb(0 0 0 / 0.3));
 	}
 `
 
@@ -59,4 +77,25 @@ export const IndicatorItem = styled.li`
 	border-radius: 50%;
 	background-color: ${({ $active }) => ($active ? '#343A40bb' : '#c2c6caba')};
 	cursor: pointer;
+`
+export const Pagination = styled.div`
+	order: -1;
+	display: flex;
+	align-self: flex-end;
+	gap: 0.3rem;
+	margin-right: 2rem;
+	margin-right: ${({ theme }) => theme.width.desktop};
+	margin-bottom: 0.5em;
+	font-size: 1.25rem;
+	font-style: italic;
+	color: ${({ theme }) => theme.color.darkgray};
+
+	.current {
+		color: ${({ theme }) => theme.color.black};
+		margin-right: 0.125em;
+	}
+
+	@media (max-width: ${({ theme }) => theme.breakpoints}) {
+		margin-right: ${({ theme }) => theme.width.mobile};
+	}
 `

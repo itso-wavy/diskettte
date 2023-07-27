@@ -1,21 +1,22 @@
 import { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
 import { Button } from './Button'
 import PrevImg from '/assets/icons/wavy_chevron-prev.svg'
 import NextImg from '/assets/icons/wavy_chevron-next.svg'
 import {
 	Wrapper,
+	ShowBox,
 	StyledUl,
 	StyledLi,
 	Navigation,
 	Indicator,
 	IndicatorItem,
+	Pagination,
 } from './Carousel.style'
 import PropTypes from 'prop-types'
 
-function NavigationArrows({ prevClick, nextClick }) {
+function NavigationArrows({ prevClick, nextClick, ...props }) {
 	return (
-		<Navigation>
+		<Navigation {...props}>
 			<Button
 				$type='icon'
 				$size='2em'
@@ -36,9 +37,19 @@ function NavigationArrows({ prevClick, nextClick }) {
 	)
 }
 
-function CarouselIndicator({ items, currentIndex, onClick }) {
+function PageIndicator({ items, currentIndex, onClick, ...props }) {
 	return (
-		<Indicator>
+		<Pagination {...props}>
+			<p className='current'>{1555}</p>
+			<span>/</span>
+			<p>{items.length}</p>
+		</Pagination>
+	)
+}
+
+function CarouselIndicator({ items, currentIndex, onClick, ...props }) {
+	return (
+		<Indicator {...props}>
 			{items.map((_, index) => (
 				<IndicatorItem
 					key={index}
@@ -50,17 +61,25 @@ function CarouselIndicator({ items, currentIndex, onClick }) {
 	)
 }
 
-function CarouselItem({ src, alt, url, ariaLabel }) {
+function CarouselItem({ ariaLabel, children, ...props }) {
 	return (
-		<StyledLi aria-label={ariaLabel}>
-			<Link to={url}>
-				<img src={src} alt={alt} draggable='false' />
-			</Link>
+		<StyledLi aria-label={ariaLabel} {...props}>
+			{children}
 		</StyledLi>
 	)
 }
 
-function Carousel({ items, autoSlideInterval }) {
+/**
+ * @return <Carousel items autoSlideInterval? $Arrows? $Indicator? >+<CarouselItem ariaLabel/>
+ */
+function Carousel({
+	items,
+	autoSlideInterval,
+	$Arrows,
+	$Indicator,
+	children,
+	...props
+}) {
 	const [currentIndex, setCurrentIndex] = useState(0)
 	const [isAutoSliding, setAutoSliding] = useState(autoSlideInterval)
 	const containerRef = useRef(null)
@@ -88,6 +107,10 @@ function Carousel({ items, autoSlideInterval }) {
 		if (autoSlideInterval) setAutoSliding(true)
 	}
 
+	const resizeHandler = () => {
+		containerRef.current.scrollLeft = 0
+	}
+
 	useEffect(() => {
 		if (isAutoSliding) {
 			intervalIdRef.current = setInterval(nextSlideHandler, autoSlideInterval)
@@ -106,26 +129,37 @@ function Carousel({ items, autoSlideInterval }) {
 		}
 	}, [currentIndex])
 
+	useEffect(() => {
+		window.addEventListener('resize', resizeHandler)
+
+		return () => {
+			window.removeEventListener('resize', resizeHandler)
+		}
+	}, [])
+
 	return (
 		<Wrapper>
-			<StyledUl
-				ref={containerRef}
-				onMouseEnter={mouseEnterHandler}
-				onMouseLeave={mouseLeaveHandler}
-			>
-				{items.map(item => (
-					<CarouselItem key={item.id} {...item} />
-				))}
-			</StyledUl>
-			<NavigationArrows
-				prevClick={prevSlideHandler}
-				nextClick={nextSlideHandler}
-			/>
-			<CarouselIndicator
-				items={items}
-				currentIndex={currentIndex}
-				onClick={indicatorClickHandler}
-			/>
+			<ShowBox>
+				<StyledUl
+					ref={containerRef}
+					onMouseEnter={mouseEnterHandler}
+					onMouseLeave={mouseLeaveHandler}
+					{...props}
+				>
+					{children}
+				</StyledUl>
+				{$Arrows &&
+					$Arrows({
+						prevClick: prevSlideHandler,
+						nextClick: nextSlideHandler,
+					})}
+			</ShowBox>
+			{$Indicator &&
+				$Indicator({
+					items: items,
+					currentIndex: currentIndex,
+					onClick: indicatorClickHandler,
+				})}
 		</Wrapper>
 	)
 }
@@ -134,4 +168,10 @@ Carousel.propTypes = {
 	autoSlideInterval: PropTypes.number,
 }
 
-export { Carousel }
+export {
+	Carousel,
+	CarouselItem,
+	NavigationArrows,
+	CarouselIndicator,
+	PageIndicator,
+}

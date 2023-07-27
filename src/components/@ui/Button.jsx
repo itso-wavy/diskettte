@@ -8,7 +8,6 @@ import { StyledButton } from './Button.style'
  * || <Button	$type='square' $img	$style onClick aria-label />
  * || <Button $type='icon' $size $img onClick aria-label/>
  */
-
 function Button({
 	$type = 'rect',
 	$style = 'primary',

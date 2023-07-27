@@ -61,4 +61,4 @@ function Accordion({
 	)
 }
 
-export { Accordion }
+export { Accordion, AccordionContent }
