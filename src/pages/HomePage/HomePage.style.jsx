@@ -1,5 +1,9 @@
 import styled from 'styled-components'
 
+export const MinusPaddedWrapper = styled.div`
+	margin-bottom: -300px;
+`
+
 export const Hero = styled.section`
 	height: 530px;
 `
@@ -39,7 +43,7 @@ export const StyledSection = styled.section`
 	margin-top: 4.6875rem;
 `
 
-export const ChunkWrapper = styled.div`
+export const ListWrapper = styled.div`
 	display: grid;
 	grid-template-columns: ${({ $itemsPerScreen }) =>
 		`repeat(${$itemsPerScreen}, 1fr)`};
@@ -47,30 +51,10 @@ export const ChunkWrapper = styled.div`
 	background-color: ${({ theme }) => theme.color.white};
 `
 
-export const StyledFigure = styled.figure`
+export const ItemWrapper = styled.div`
 	height: 300px; /* point */
 	border: 1px solid ${({ theme }) => theme.color.black};
 	border-left: 0;
-
-	figcaption {
-		/* width: 80px; */
-		width: min(80px, 100%);
-		background-color: #ffffff;
-		padding: 5px;
-		font-size: 1.375rem;
-		font-weight: ${({ theme }) => theme.fw.medium};
-		text-transform: uppercase;
-		display: flex;
-		justify-content: end;
-		height: 100%;
-	}
-
-	.rotate {
-		transform: rotate(180deg);
-		writing-mode: vertical-rl;
-		text-orientation: sideways;
-		inline-size: 100%;
-	}
 `
 
 export const PaddedWrapper = styled.div`
@@ -86,8 +70,11 @@ export const PaddedWrapper = styled.div`
 		font-size: 3em;
 		line-height: 1em;
 		font-weight: ${({ theme }) => theme.fw.medium};
-		width: 15rem;
+		width: 20rem;
 		/* word-break: break-word; */
+		background: linear-gradient(90deg, #ffa54d, #f07bc5 50%, #43aeff);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
 	}
 
 	a {

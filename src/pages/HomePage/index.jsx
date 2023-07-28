@@ -7,15 +7,16 @@ import {
 	CarouselIndicator,
 	PagenationIndicator,
 } from '../../components/@ui/Carousel'
-import { Card } from '../../components/@ui/Card'
+import { RotatedFigureCard } from '../../components/@ui/Card'
 import { Button } from '../../components/@ui/Button'
 import {
+	MinusPaddedWrapper,
 	Hero,
 	StyledSection,
 	Heading,
-	ChunkWrapper,
-	StyledFigure,
+	ListWrapper,
 	PaddedWrapper,
+	ItemWrapper,
 } from './HomePage.style'
 import useStore from '../../store'
 
@@ -192,14 +193,16 @@ export default function HomePage() {
 	createArrChunk(brands, BrandsChunk, brandsPerScreen)
 
 	return (
-		<>
-			<Hero>
-				<h2 className='sr-only'>main banner</h2>
+		<MinusPaddedWrapper>
+			<Hero aria-labelledby='hero'>
+				<h2 className='sr-only' id='hero'>
+					main banner
+				</h2>
 				<Carousel
 					items={banners}
 					autoSlideInterval={3000}
-					$Arrows={NavigationArrows}
-					$Indicator={CarouselIndicator}
+					Arrows={NavigationArrows}
+					Indicator={CarouselIndicator}
 				>
 					{banners.map(
 						({ id, url, src, alt, ariaLabel, title, description }) => (
@@ -216,64 +219,42 @@ export default function HomePage() {
 					)}
 				</Carousel>
 			</Hero>
-			<StyledSection>
-				<h2 className='sr-only'>recommand brands</h2>
+			<StyledSection aria-labelledby='recommand'>
+				<h2 className='sr-only' id='recommand'>
+					recommand brands
+				</h2>
 				<Carousel
 					items={BrandsChunk}
-					// autoSlideInterval={5000}
-					$Arrows={NavigationArrows}
-					$Indicator={PagenationIndicator}
+					Arrows={NavigationArrows}
+					Indicator={PagenationIndicator}
 					$itemsPerScreen={brandsPerScreen}
 				>
 					{BrandsChunk.map((chunk, index) => (
 						<CarouselItem key={index}>
-							<ChunkWrapper $itemsPerScreen={brandsPerScreen}>
+							<ListWrapper $itemsPerScreen={brandsPerScreen}>
 								{chunk.map(({ id, brand, url, src, alt }) => (
 									<Link to={url} key={id}>
-										<StyledFigure key={id}>
-											<Card $direction='row'>
-												<figcaption>
-													<div className='rotate'>{brand}</div>
-												</figcaption>
-												<img src={src} alt={alt} />
-											</Card>
-										</StyledFigure>
+										<ItemWrapper>
+											<RotatedFigureCard src={src} alt={alt}>
+												{brand}
+											</RotatedFigureCard>
+										</ItemWrapper>
 									</Link>
 								))}
-							</ChunkWrapper>
+							</ListWrapper>
 						</CarouselItem>
 					))}
 				</Carousel>
 			</StyledSection>
-			<StyledSection>
-				<h2 className='sr-only'>exclusive</h2>
-				<Carousel
-					items={BrandsChunk}
-					// autoSlideInterval={5000}
-					$Arrows={NavigationArrows}
-					$Indicator={PagenationIndicator}
-					$itemsPerScreen={brandsPerScreen}
-				>
-					{BrandsChunk.map((chunk, index) => (
-						<CarouselItem key={index}>
-							<ChunkWrapper $itemsPerScreen={brandsPerScreen}>
-								{chunk.map(({ id, brand, url, src, alt }) => (
-									<Link to={url} key={id}>
-										<StyledFigure key={id}>
-											<Card>
-												<figcaption>{brand}</figcaption>
-												<img src={src} alt={alt} />
-											</Card>
-										</StyledFigure>
-									</Link>
-								))}
-							</ChunkWrapper>
-						</CarouselItem>
-					))}
-				</Carousel>
+			<StyledSection aria-labelledby='exclusive'>
+				<h2 className='sr-only' id='exclusive'>
+					exclusive
+				</h2>
 			</StyledSection>
-			<StyledSection>
-				<h2 className='sr-only'>exclusive</h2>
+			<StyledSection aria-labelledby='go to shopping'>
+				<h2 className='sr-only' id='go to shopping'>
+					title
+				</h2>
 				<PaddedWrapper>
 					<p>SIGN UP FOR SMARTER SHOPPING</p>
 					<Link to='/categories/all'>
@@ -286,7 +267,7 @@ export default function HomePage() {
 					</Link>
 				</PaddedWrapper>
 			</StyledSection>
-		</>
+		</MinusPaddedWrapper>
 	)
 }
 

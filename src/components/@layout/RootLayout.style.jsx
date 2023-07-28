@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-export const StickyBox = styled.div`
-	position: sticky;
-	top: 0;
-	z-index: 100;
+export const StyledMain = styled.main`
+	padding-bottom: 300px;
 `

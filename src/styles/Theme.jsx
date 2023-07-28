@@ -7,6 +7,7 @@ const width = {
 
 const color = {
 	black: '#000',
+	darkgray2: '#767676',
 	darkgray: '#AAA',
 	gray: '#CCC',
 	lightgray: '#F2F2F2',
@@ -49,7 +50,6 @@ const color = {
 	blue: '#007BFF',
 	// darkgray: '#F8F9FA',
 	// darkgray2: '#DEE2E6',
-	darkgray2: '#6C757D',
 
 	// C: #FDFDFE,
 	// C: #FBFCFC,

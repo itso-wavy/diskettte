@@ -37,13 +37,7 @@ function NavigationArrows({ prevClick, nextClick, ...props }) {
 	)
 }
 
-function PagenationIndicator({
-	items,
-	$itemsPerScreen,
-	currentIndex,
-	onClick,
-	...props
-}) {
+function PagenationIndicator({ items, currentIndex, onClick, ...props }) {
 	return (
 		<Pagination {...props}>
 			<p className='current'>{currentIndex + 1}</p>
@@ -76,15 +70,15 @@ function CarouselItem({ ariaLabel, children, ...props }) {
 }
 
 /**
- * @param $Arrows? NavigationArrows
- * @param $Indicator? CarouselIndicator || PageIndicator
- * @return <Carousel items autoSlideInterval? $Arrows? $Indicator? >+<CarouselItem ariaLabel/>
+ * @param Arrows? NavigationArrows
+ * @param Indicator? CarouselIndicator || PageIndicator
+ * @return <Carousel items autoSlideInterval? Arrows? Indicator? >+<CarouselItem ariaLabel/>
  */
 function Carousel({
 	items,
 	autoSlideInterval,
-	$Arrows,
-	$Indicator,
+	Arrows,
+	Indicator,
 	$itemsPerScreen = 1,
 	children,
 	...props
@@ -162,14 +156,14 @@ function Carousel({
 				>
 					{children}
 				</StyledUl>
-				{$Arrows &&
-					$Arrows({
+				{Arrows &&
+					Arrows({
 						prevClick: prevSlideHandler,
 						nextClick: nextSlideHandler,
 					})}
 			</ShowBox>
-			{$Indicator &&
-				$Indicator({
+			{Indicator &&
+				Indicator({
 					items: items,
 					$itemsPerScreen,
 					currentIndex,

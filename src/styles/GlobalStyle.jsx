@@ -67,6 +67,11 @@ const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.color.black};
   }
 
+  a:focus {
+		outline-color: ${({ theme }) => theme.color.safe};
+		outline-offset: 4px;
+	}
+
   .sr-only {
     position: absolute;
     top: -9999px;

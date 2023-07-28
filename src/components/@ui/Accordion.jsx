@@ -62,3 +62,7 @@ function Accordion({
 }
 
 export { Accordion, AccordionContent }
+// Accordion.Title = AccordionTitle;
+// Accordion.Content = AccordionContent;
+
+// export default Accordion;
