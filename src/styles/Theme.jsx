@@ -33,6 +33,7 @@ const color = {
 	// yellow3: '#FFE8A1',
 	yellow: '#ffd453',
 	yellow2: '#FFC107',
+	limegreen: '#bffc4f',
 	// green: '#CBE9CE',
 	// green2: '#C3E6CB',
 	lightgreen: '#B1DFBB',
@@ -48,8 +49,7 @@ const color = {
 	blue: '#007BFF',
 	// darkgray: '#F8F9FA',
 	// darkgray2: '#DEE2E6',
-	darkgray3: '#6C757D',
-	darkgray4: '#343A40',
+	darkgray2: '#6C757D',
 
 	// C: #FDFDFE,
 	// C: #FBFCFC,

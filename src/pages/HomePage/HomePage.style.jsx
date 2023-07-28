@@ -41,7 +41,9 @@ export const StyledSection = styled.section`
 
 export const ChunkWrapper = styled.div`
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	grid-template-columns: ${({ $itemsPerScreen }) =>
+		`repeat(${$itemsPerScreen}, 1fr)`};
+	/* grid-template-columns: repeat(auto-fit, minmax(min(400px, 50%), 1fr)); */
 	background-color: ${({ theme }) => theme.color.white};
 `
 
@@ -51,6 +53,7 @@ export const StyledFigure = styled.figure`
 	border-left: 0;
 
 	figcaption {
+		/* width: 80px; */
 		width: min(80px, 100%);
 		background-color: #ffffff;
 		padding: 5px;
@@ -67,5 +70,28 @@ export const StyledFigure = styled.figure`
 		writing-mode: vertical-rl;
 		text-orientation: sideways;
 		inline-size: 100%;
+	}
+`
+
+export const PaddedWrapper = styled.div`
+	display: grid;
+	place-items: center;
+	/* min-height: 500px; */
+	padding: 7em 0 10em;
+	gap: 2em;
+
+	background-color: ${({ theme }) => theme.color.limegreen};
+
+	p {
+		font-size: 3em;
+		line-height: 1em;
+		font-weight: ${({ theme }) => theme.fw.medium};
+		width: 15rem;
+		/* word-break: break-word; */
+	}
+
+	a {
+		display: block;
+		width: 15rem;
 	}
 `

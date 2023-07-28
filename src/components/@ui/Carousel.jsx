@@ -37,10 +37,16 @@ function NavigationArrows({ prevClick, nextClick, ...props }) {
 	)
 }
 
-function PageIndicator({ items, currentIndex, onClick, ...props }) {
+function PagenationIndicator({
+	items,
+	$itemsPerScreen,
+	currentIndex,
+	onClick,
+	...props
+}) {
 	return (
 		<Pagination {...props}>
-			<p className='current'>{1555}</p>
+			<p className='current'>{currentIndex + 1}</p>
 			<span>/</span>
 			<p>{items.length}</p>
 		</Pagination>
@@ -70,6 +76,8 @@ function CarouselItem({ ariaLabel, children, ...props }) {
 }
 
 /**
+ * @param $Arrows? NavigationArrows
+ * @param $Indicator? CarouselIndicator || PageIndicator
  * @return <Carousel items autoSlideInterval? $Arrows? $Indicator? >+<CarouselItem ariaLabel/>
  */
 function Carousel({
@@ -77,13 +85,13 @@ function Carousel({
 	autoSlideInterval,
 	$Arrows,
 	$Indicator,
+	$itemsPerScreen = 1,
 	children,
 	...props
 }) {
 	const [currentIndex, setCurrentIndex] = useState(0)
 	const [isAutoSliding, setAutoSliding] = useState(autoSlideInterval)
 	const containerRef = useRef(null)
-	const intervalIdRef = useRef(null)
 
 	const prevSlideHandler = () => {
 		setCurrentIndex(prevIndex =>
@@ -109,23 +117,29 @@ function Carousel({
 
 	const resizeHandler = () => {
 		containerRef.current.scrollLeft = 0
+		setCurrentIndex(0)
 	}
 
 	useEffect(() => {
-		if (isAutoSliding) {
-			intervalIdRef.current = setInterval(nextSlideHandler, autoSlideInterval)
-		}
+		let slideInterval
+
+		if (isAutoSliding)
+			slideInterval = setInterval(nextSlideHandler, autoSlideInterval)
 
 		return () => {
-			clearInterval(intervalIdRef.current)
+			clearInterval(slideInterval)
 		}
 	}, [isAutoSliding])
 
 	useEffect(() => {
 		if (containerRef.current) {
 			const containerWidth = containerRef.current.clientWidth
-			containerRef.current.scrollLeft =
-				(currentIndex % items.length) * containerWidth
+			const scrollAmount = (currentIndex % items.length) * containerWidth
+
+			containerRef.current.scrollTo({
+				left: scrollAmount,
+				behavior: 'smooth',
+			})
 		}
 	}, [currentIndex])
 
@@ -157,7 +171,8 @@ function Carousel({
 			{$Indicator &&
 				$Indicator({
 					items: items,
-					currentIndex: currentIndex,
+					$itemsPerScreen,
+					currentIndex,
 					onClick: indicatorClickHandler,
 				})}
 		</Wrapper>
@@ -173,5 +188,5 @@ export {
 	CarouselItem,
 	NavigationArrows,
 	CarouselIndicator,
-	PageIndicator,
+	PagenationIndicator,
 }

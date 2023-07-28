@@ -54,26 +54,28 @@ export const StyledButton = styled.button`
 		($type === 'rect' || $type === 'square') &&
 		css`
 			background-color: ${{
-				primary: theme.color.black,
 				secondary: theme.color.white,
 			}[$style] || theme.color.black};
 			color: ${{
-				primary: theme.color.white,
 				secondary: theme.color.black,
 			}[$style] || theme.color.white};
 			border: ${{
-				primary: 0,
 				secondary: `1px solid ${theme.color.black}`,
 			}[$style] || 0};
 
 			&:disabled {
 				background-color: ${{
-					primary: theme.color.gray,
 					secondary: theme.color.lightgray,
 				}[$style] || theme.color.gray};
 				color: ${{
 					secondary: theme.color.gray,
 				}[$style] || theme.color.white};
+				border-color: ${{
+					secondary: `${theme.color.gray}`,
+				}[$style] || theme.color.gray};
+			}
+
+			&:active {
 				border-color: ${{
 					secondary: `${theme.color.gray}`,
 				}[$style] || 0};

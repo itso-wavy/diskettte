@@ -1,19 +1,23 @@
+import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
 	Carousel,
 	CarouselItem,
 	NavigationArrows,
 	CarouselIndicator,
-	PageIndicator,
+	PagenationIndicator,
 } from '../../components/@ui/Carousel'
 import { Card } from '../../components/@ui/Card'
+import { Button } from '../../components/@ui/Button'
 import {
 	Hero,
 	StyledSection,
 	Heading,
 	ChunkWrapper,
 	StyledFigure,
+	PaddedWrapper,
 } from './HomePage.style'
+import useStore from '../../store'
 
 const banners = [
 	{
@@ -74,7 +78,7 @@ const banners = [
 const brands = [
 	{
 		id: 1,
-		brand: '아몬드봉봉아몬 드봉봉아몬드봉봉아몬드봉봉아 몬드봉봉',
+		brand: '아몬드봉봉아몬드봉봉아몬드봉봉 아몬드봉봉아몬드봉봉아몬드봉봉',
 		src: '/assets/images/socks/SDS114-3500_new.jpg',
 		alt: '',
 		url: '/',
@@ -171,13 +175,21 @@ const brands = [
 ]
 
 export default function HomePage() {
+	const { isMobile, isDesktop } = useStore()
 	const BrandsChunk = []
-	const createArrChunk = (targetArr, brankArr, n) => {
+	const [brandsPerScreen, setBrandsPerScreen] = useState(3)
+
+	const createArrChunk = useCallback((targetArr, brankArr, n) => {
 		for (let i = 0; i < targetArr.length; i += n) {
 			brankArr.push(targetArr.slice(i, i + n))
 		}
-	}
-	createArrChunk(brands, BrandsChunk, 6)
+	}, [])
+
+	useEffect(() => {
+		setBrandsPerScreen(isMobile ? 2 : isDesktop ? 3 : 4)
+	}, [isMobile, isDesktop])
+
+	createArrChunk(brands, BrandsChunk, brandsPerScreen)
 
 	return (
 		<>
@@ -208,13 +220,14 @@ export default function HomePage() {
 				<h2 className='sr-only'>recommand brands</h2>
 				<Carousel
 					items={BrandsChunk}
-					autoSlideInterval={5000}
+					// autoSlideInterval={5000}
 					$Arrows={NavigationArrows}
-					// $Indicator={PageIndicator}
+					$Indicator={PagenationIndicator}
+					$itemsPerScreen={brandsPerScreen}
 				>
 					{BrandsChunk.map((chunk, index) => (
 						<CarouselItem key={index}>
-							<ChunkWrapper>
+							<ChunkWrapper $itemsPerScreen={brandsPerScreen}>
 								{chunk.map(({ id, brand, url, src, alt }) => (
 									<Link to={url} key={id}>
 										<StyledFigure key={id}>
@@ -234,6 +247,44 @@ export default function HomePage() {
 			</StyledSection>
 			<StyledSection>
 				<h2 className='sr-only'>exclusive</h2>
+				<Carousel
+					items={BrandsChunk}
+					// autoSlideInterval={5000}
+					$Arrows={NavigationArrows}
+					$Indicator={PagenationIndicator}
+					$itemsPerScreen={brandsPerScreen}
+				>
+					{BrandsChunk.map((chunk, index) => (
+						<CarouselItem key={index}>
+							<ChunkWrapper $itemsPerScreen={brandsPerScreen}>
+								{chunk.map(({ id, brand, url, src, alt }) => (
+									<Link to={url} key={id}>
+										<StyledFigure key={id}>
+											<Card>
+												<figcaption>{brand}</figcaption>
+												<img src={src} alt={alt} />
+											</Card>
+										</StyledFigure>
+									</Link>
+								))}
+							</ChunkWrapper>
+						</CarouselItem>
+					))}
+				</Carousel>
+			</StyledSection>
+			<StyledSection>
+				<h2 className='sr-only'>exclusive</h2>
+				<PaddedWrapper>
+					<p>SIGN UP FOR SMARTER SHOPPING</p>
+					<Link to='/categories/all'>
+						<Button
+							// $style='secondary'
+							aria-label='go to shopping'
+						>
+							쇼핑하러 가기
+						</Button>
+					</Link>
+				</PaddedWrapper>
 			</StyledSection>
 		</>
 	)
