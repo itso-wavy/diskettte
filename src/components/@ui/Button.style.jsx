@@ -21,15 +21,6 @@ export const StyledButton = styled.button`
 	}
 
 	/* TYPE */
-	${({ $type, $size, $img }) =>
-		$type === 'icon' &&
-		css`
-			margin: 0;
-			width: ${$size || '1.5rem'};
-			height: ${$size || '1.5rem'};
-			color: inherit;
-			background: transparent center/contain no-repeat url(${$img});
-		`}
 	${({ $type }) =>
 		$type === 'rect' &&
 		css`
@@ -40,7 +31,6 @@ export const StyledButton = styled.button`
 			/* flex-grow: 1;
 			flex-shrink: 1; */
 		`}
-
 	${({ $type, $img }) =>
 		$type === 'square' &&
 		css`
@@ -48,35 +38,58 @@ export const StyledButton = styled.button`
 			width: 2.5rem;
 			height: 2.5rem;
 		`}
+    ${({ $type, $size, $img }) =>
+		$type === 'icon' &&
+		css`
+			margin: 0;
+			width: ${$size || '1.5rem'};
+			height: ${$size || '1.5rem'};
+			color: inherit;
+			background: transparent center/contain no-repeat url(${$img});
+		`}
+	${({ $type }) =>
+		$type === 'badge' &&
+		css`
+			& :hover {
+				text-decoration: underline;
+			}
+		`}
 
   /* STYLE */
   ${({ $type, $style, theme }) =>
 		($type === 'rect' || $type === 'square') &&
 		css`
 			background-color: ${{
+				primary: theme.color.black,
 				secondary: theme.color.white,
 			}[$style] || theme.color.black};
 			color: ${{
+				primary: theme.color.white,
 				secondary: theme.color.black,
 			}[$style] || theme.color.white};
 			border: ${{
+				primary: 0,
 				secondary: `1px solid ${theme.color.black}`,
 			}[$style] || 0};
 
 			&:disabled {
 				background-color: ${{
+					primary: theme.color.gray,
 					secondary: theme.color.lightgray,
 				}[$style] || theme.color.gray};
 				color: ${{
+					primary: theme.color.white,
 					secondary: theme.color.gray,
 				}[$style] || theme.color.white};
 				border-color: ${{
+					primary: `${theme.color.gray}`,
 					secondary: `${theme.color.gray}`,
 				}[$style] || theme.color.gray};
 			}
 
 			&:active {
 				border-color: ${{
+					primary: 0,
 					secondary: `${theme.color.gray}`,
 				}[$style] || 0};
 			}
@@ -84,33 +97,11 @@ export const StyledButton = styled.button`
 
   /* SIZE */
   ${({ $size, theme }) => css`
-		${$size === 'xs' &&
-		css`
-			font-size: 0.75rem; // 12px
-			font-weight: ${theme.fw.normal};
-			/* gap: 6px; */
-			padding: 0.5em 0.8em;
-			width: auto;
-			min-height: auto;
-			/* justify-content: space-between; */
-
-			/* img {
-				height: 0.65rem;
-				width: 0.65rem;
-			} */
-			&:hover {
-				text-decoration: underline;
-			}
-		`}
 		${$size === 'sm' &&
 		css`
-			font-weight: ${theme.fw.normal};
-			/* height: 1.875rem; */
-			padding: 0.4em 0.8em;
-			width: auto;
 			min-height: auto;
 		`}
-    ${$size === 'lg' &&
+		${$size === 'lg' &&
 		css`
 			font-size: 1.4rem;
 			font-weight: ${theme.fw.normal};

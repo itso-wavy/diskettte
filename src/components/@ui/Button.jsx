@@ -1,9 +1,9 @@
 import { StyledButton } from './Button.style'
 
 /**
- * @param {$type} 'rect' || 'square' || 'icon'
- * @param {$style} 'primary' || 'secondary' || 'count'
- * @param {$size}: width/height || 'xs'(brand용) || 'sm' || 'md'(mobileNav용) || 'lg'
+ * @param $type 'rect' || 'square' || 'icon' || 'badge'
+ * @param $style 'primary' || 'secondary' || 'count'
+ * @param $size width/height || 'sm' || 'md'(mobileNav용) || 'lg'
  * @returns <Button $style $size onClick aria-label> + <Img />
  * || <Button	$type='square' $img	$style onClick aria-label />
  * || <Button $type='icon' $size $img onClick aria-label/>
