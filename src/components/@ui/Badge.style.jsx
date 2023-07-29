@@ -22,19 +22,39 @@ export const Wrapper = styled.div`
 		height: 0.625rem;
 	}
 
-	${({ $style, theme }) =>
-		css`
+	${({ $style, theme }) => {
+		const color = theme.color
+
+		switch ($style) {
+			case 'primary':
+				return css`
+					background-color: ${color.black};
+					color: ${color.white};
+					border: 0;
+				`
+			case 'secondary':
+				return css`
+					background-color: ${color.white};
+					color: 1px solid ${color.darkgray2};
+					border: 0;
+				`
+			default:
+				return css``
+		}
+	}}
+`
+/* 
+		return css`
 			background-color: ${{
-				primary: theme.color.black,
-				secondary: theme.color.white,
-			}[$style] || theme.color.black};
+				primary: color.black,
+				secondary: color.white,
+			}[$style] || color.black};
 			color: ${{
-				primary: theme.color.white,
-				secondary: theme.color.darkgray2,
-			}[$style] || theme.color.white};
+				primary: color.white,
+				secondary: color.darkgray2,
+			}[$style] || color.white};
 			border: ${{
 				primary: 0,
-				secondary: `1px solid ${theme.color.darkgray2}`,
+				secondary: `1px solid ${color.darkgray2}`,
 			}[$style] || 0};
-		`}
-`
+ */

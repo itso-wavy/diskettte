@@ -1,5 +1,103 @@
 import styled, { css } from 'styled-components'
 
+const $typeStyles = ({ $type, $img, $size }) => {
+	switch ($type) {
+		case 'rect':
+			return css`
+				min-height: 3.125rem;
+				width: 100%;
+				padding: 0.8rem 1.1rem;
+				line-height: 1em;
+				/* flex-grow: 1;
+			flex-shrink: 1; */
+			`
+		case 'square':
+			return css`
+				background: transparent center/contain no-repeat url(${$img});
+				width: 2.5rem;
+				height: 2.5rem;
+			`
+		case 'icon':
+			return css`
+				margin: 0;
+				width: ${$size || '1.5rem'};
+				height: ${$size || '1.5rem'};
+				color: inherit;
+				background: transparent center/contain no-repeat url(${$img});
+			`
+		case 'badge':
+			return css`
+				& :hover {
+					text-decoration: underline;
+				}
+			`
+		default:
+			return css``
+	}
+}
+
+const $styleStyles = ({ $type, $style, theme }) => {
+	const color = theme.color
+
+	if ($type === 'rect' || $type === 'square') {
+		switch ($style) {
+			case 'primary':
+				return css`
+					background-color: ${color.black};
+					color: ${color.white};
+					border: 0;
+
+					&:disabled {
+						background-color: ${color.gray};
+						color: ${color.white};
+						border-color: ${color.gray};
+					}
+
+					&:active {
+						border-color: 0;
+					}
+				`
+			case 'secondary':
+				return css`
+					background-color: ${color.white};
+					color: ${color.black};
+					border: 1px solid ${color.black};
+
+					&:disabled {
+						background-color: ${color.lightgray};
+						color: ${color.gray};
+						border-color: ${color.gray};
+					}
+
+					&:active {
+						border-color: ${color.gray};
+					}
+				`
+		}
+	}
+}
+
+const $sizeStyles = ({ $size, theme }) => {
+	switch ($size) {
+		case 'sm':
+			return css`
+				min-height: auto;
+			`
+		case 'lg':
+			return css`
+				font-size: 1.4rem;
+				font-weight: ${theme.fw.normal};
+
+				&:hover {
+					text-decoration: 2px underline;
+					text-underline-offset: 4px;
+				}
+			`
+		default:
+			return css``
+	}
+}
+
 export const StyledButton = styled.button`
 	display: inline-flex;
 	justify-content: center;
@@ -20,16 +118,21 @@ export const StyledButton = styled.button`
 		outline-offset: 4px;
 	}
 
-	/* TYPE */
-	${({ $type }) =>
+	${$typeStyles}
+	${$styleStyles}
+  ${$sizeStyles}
+`
+
+/* TYPE */
+/* ${({ $type }) =>
 		$type === 'rect' &&
 		css`
 			min-height: 3.125rem;
 			width: 100%;
 			padding: 0.8rem 1.1rem;
 			line-height: 1em;
-			/* flex-grow: 1;
-			flex-shrink: 1; */
+			flex-grow: 1;
+			flex-shrink: 1;
 		`}
 	${({ $type, $img }) =>
 		$type === 'square' &&
@@ -53,10 +156,10 @@ export const StyledButton = styled.button`
 			& :hover {
 				text-decoration: underline;
 			}
-		`}
+		`} */
 
-  /* STYLE */
-  ${({ $type, $style, theme }) =>
+/* STYLE */
+/*  ${({ $type, $style, theme }) =>
 		($type === 'rect' || $type === 'square') &&
 		css`
 			background-color: ${{
@@ -93,10 +196,10 @@ export const StyledButton = styled.button`
 					secondary: `${theme.color.gray}`,
 				}[$style] || 0};
 			}
-		`}
+		`} */
 
-  /* SIZE */
-  ${({ $size, theme }) => css`
+/* SIZE */
+/* ${({ $size, theme }) => css`
 		${$size === 'sm' &&
 		css`
 			min-height: auto;
@@ -111,5 +214,4 @@ export const StyledButton = styled.button`
 				text-underline-offset: 4px;
 			}
 		`}
-	`}
-`
+	`} */
