@@ -21,7 +21,7 @@ import {
 import useStore from '../../store'
 import { banners, brands } from '../../lib/utils/dummyData'
 
-export default function HomePage() {
+export function HomePage() {
 	const { isMobile, isDesktop } = useStore()
 	const BrandsChunk = []
 	const [brandsPerScreen, setBrandsPerScreen] = useState(3)

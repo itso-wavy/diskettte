@@ -1,5 +1,5 @@
 import React from 'react'
 
-export default function ProductEditPage() {
+export function ProductEditPage() {
 	return <div>ProductEditPage</div>
 }

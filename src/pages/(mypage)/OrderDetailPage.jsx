@@ -1,5 +1,5 @@
 import React from 'react'
 
-export default function OrderDetailPage() {
+export function OrderDetailPage() {
 	return <div>OrderDetailPage</div>
 }

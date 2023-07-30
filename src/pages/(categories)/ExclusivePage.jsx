@@ -3,7 +3,7 @@ import { ProductList, ProductItem } from '../../components/product'
 import { products } from '../../lib/utils/dummyData'
 import { Wrapper } from './ExclusivePage.style'
 
-export default function ExclusivePage() {
+export function ExclusivePage() {
 	return (
 		<>
 			<Hero sectionTitle='brand hero'>

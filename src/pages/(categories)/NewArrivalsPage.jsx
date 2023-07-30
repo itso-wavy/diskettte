@@ -1,7 +1,7 @@
 import { ProductList, ProductItem } from '../../components/product'
 import { products } from '../../lib/utils/dummyData'
 
-export default function NewArrivalsPage() {
+export function NewArrivalsPage() {
 	return (
 		<>
 			<section aria-labelledby='product list'>

@@ -1,7 +1,7 @@
 import { ProductList, ProductItem } from '../../components/product'
 import { products } from '../../lib/utils/dummyData'
 
-export default function BrandPage() {
+export function BrandPage() {
 	return (
 		<>
 			<section aria-labelledby='brand banner'>

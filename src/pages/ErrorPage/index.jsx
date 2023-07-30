@@ -4,7 +4,7 @@ import { Img } from '../../components/@ui/Img'
 import floppyImg from '/floppy.png'
 import { Wapper } from './ErrorPage.style'
 
-export default function ErrorPage() {
+export function ErrorPage() {
 	const navigate = useNavigate()
 	const status = 404 // 수정 예정
 

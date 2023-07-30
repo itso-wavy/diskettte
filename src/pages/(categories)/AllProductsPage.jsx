@@ -2,7 +2,7 @@ import { ProductList, ProductItem } from '../../components/product'
 import { products } from '../../lib/utils/dummyData'
 // import { Wrapper } from './AllProductsPage.style'
 
-export default function AllProductsPage() {
+export function AllProductsPage() {
 	return (
 		<>
 			<section aria-labelledby='product list'>

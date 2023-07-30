@@ -1,5 +1,5 @@
 import React from 'react'
 
-export default function ProductDetailPage() {
+export function ProductDetailPage() {
 	return <div>ProductDetailPage</div>
 }
