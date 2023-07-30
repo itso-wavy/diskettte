@@ -1,24 +1,30 @@
 import { createBrowserRouter } from 'react-router-dom'
-import RootLayout from '../components/@layout/RootLayout'
-import MypageRootLayout from '../components/@layout/MypageRootLayout'
+import {
+	RootLayout,
+	CategoriesRootLayout,
+	MypageRootLayout,
+	SellerRootLayout,
+	AuthRootLayout,
+} from '../components/@layout'
 import HomePage from '../pages/HomePage'
 import ErrorPage from '../pages/ErrorPage'
-import AuthPage from '../pages/AuthPage'
 import AllProductsPage from '../pages/(categories)/AllProductsPage'
 import ExclusivePage from '../pages/(categories)/ExclusivePage'
 import NewArrivalsPage from '../pages/(categories)/NewArrivalsPage'
 import EventPage from '../pages/(categories)/EventPage'
-import BrandPage from '../pages/(product)/BrandPage'
-import ProductDetailsPage from '../pages/(product)/ProductDetailsPage'
+import BrandPage from '../pages/(brand)/BrandPage'
+import ProductDetailPage from '../pages/(brand)/ProductDetailPage'
 import CartPage from '../pages/(checkout)/CartPage'
 import CheckoutPage from '../pages/(checkout)/CheckoutPage'
-import OrdersPage from '../pages/(checkout)/OrdersPage'
-import OrderDetailPage from '../pages/(checkout)/OrderDetailPage'
-import ProfilePage from '../pages/(profile)/ProfilePage'
-import ProfileEditPage from '../pages/(profile)/ProfileEditPage'
-import SellerPage from '../pages/(seller)/SellerPage'
+import OrdersPage from '../pages/(mypage)/OrdersPage'
+import OrderDetailPage from '../pages/(mypage)/OrderDetailPage'
+import ProfilePage from '../pages/(mypage)/ProfilePage'
+import ProfileEditPage from '../pages/(mypage)/ProfileEditPage'
+import ProductsPage from '../pages/(seller)/ProductsPage'
 import ProductCreatePage from '../pages/(seller)/ProductCreatePage'
 import ProductEditPage from '../pages/(seller)/ProductEditPage'
+import SigninPage from '../pages/(auth)/SigninPage'
+import SignupPage from '../pages/(auth)/SignupPage'
 
 const router = createBrowserRouter([
 	{
@@ -32,9 +38,9 @@ const router = createBrowserRouter([
 			},
 			{
 				path: 'categories',
+				element: <CategoriesRootLayout />,
 				children: [
 					{
-						index: true,
 						path: 'all',
 						element: <AllProductsPage />,
 					},
@@ -53,19 +59,12 @@ const router = createBrowserRouter([
 				],
 			},
 			{
-				path: 'brand',
-				element: <AllProductsPage />,
-				children: [
-					{
-						index: true,
-						path: ':productId',
-						element: <BrandPage />,
-					},
-					{
-						path: ':productId',
-						element: <ProductDetailsPage />,
-					},
-				],
+				path: 'brand/:brandId',
+				element: <BrandPage />,
+			},
+			{
+				path: 'brand/:productId',
+				element: <ProductDetailPage />,
 			},
 			{
 				path: 'cart',
@@ -76,67 +75,60 @@ const router = createBrowserRouter([
 				element: <CheckoutPage />,
 			},
 			{
-				path: 'orders',
-				element: <OrdersPage />,
+				path: 'mypage',
+				element: <MypageRootLayout />,
 				children: [
 					{
-						path: 'orders:orderId',
+						path: 'profile',
+						element: <ProfilePage />,
+					},
+					{
+						path: 'profile/edit',
+						element: <ProfileEditPage />,
+					},
+					{
+						path: 'orders',
+						element: <OrdersPage />,
+					},
+					{
+						path: 'orders/:orderId',
 						element: <OrderDetailPage />,
 					},
 				],
 			},
 			{
-				path: 'mypage',
-				element: <MypageRootLayout />,
-				children: [
-					{
-						index: true,
-						element: <OrdersPage />,
-					},
-					{
-						path: 'profile',
-						element: <ProfilePage />,
-						children: [
-							{
-								path: 'edit',
-								element: <ProfileEditPage />,
-							},
-						],
-					},
-				],
-			},
-			{
 				path: 'seller',
-				element: <SellerPage />,
+				element: <SellerRootLayout />,
 				children: [
 					{
 						path: 'product',
-						children: [
-							{
-								index: true,
-								path: 'create',
-								element: <ProductCreatePage />,
-							},
-							{
-								path: ':productId',
-								element: <ProductDetailsPage />,
-								children: [
-									{
-										path: ':edit',
-										element: <ProductEditPage />,
-									},
-								],
-							},
-						],
+						element: <ProductsPage />,
+					},
+					{
+						path: 'product/create',
+						element: <ProductCreatePage />,
+					},
+					{
+						path: 'product/:productId/edit',
+						element: <ProductEditPage />,
 					},
 				],
 			},
 		],
 	},
 	{
-		path: 'auth',
-		element: <AuthPage />,
-		errorElement: <ErrorPage />,
+		path: '/auth',
+		element: <AuthRootLayout />,
+		children: [
+			{
+				path: 'signin',
+				element: <SigninPage />,
+			},
+			{
+				path: 'signup',
+				element: <SignupPage />,
+			},
+		],
 	},
 ])
 

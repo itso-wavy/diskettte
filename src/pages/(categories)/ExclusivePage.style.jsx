@@ -1,5 +1,5 @@
-import React from 'react'
+import styled from 'styled-components'
 
-export default function ExclusivePage() {
-	return <div>ExclusivePage</div>
-}
+export const Wrapper = styled.div`
+	background: ${({ $bg }) => `#ddd no-repeat center/cover url(${$bg})`};
+`

@@ -4,10 +4,6 @@ export const MinusPaddedWrapper = styled.div`
 	margin-bottom: -300px;
 `
 
-export const Hero = styled.section`
-	height: 530px;
-`
-
 export const Heading = styled.div`
 	display: flex;
 	flex-direction: column;
