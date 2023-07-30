@@ -4,7 +4,7 @@ import { HeaderAside, HeaderMain, HeaderCategories, MobileNav } from '../header'
 import { StyledHeader } from './Header.style'
 import useStore from '../../store'
 
-export default function Header() {
+export function Header() {
 	const previousYPositionRef = useRef(0)
 	const [isHeaderVisible, setIsHeaderVisible] = useState(true)
 	const [isHeaderTransparent, setIsHeaderTransparent] = useState(false)
