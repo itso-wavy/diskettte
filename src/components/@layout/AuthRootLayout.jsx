@@ -1,11 +1,18 @@
 import { Outlet } from 'react-router-dom'
-import { Wrapper, Background } from './AuthRootLayout.style'
+import { useRedirect } from '../../hooks'
+import { Background, Wrapper, Decoration } from './AuthRootLayout.style'
 
 export function AuthRootLayout() {
+	useRedirect('auth', 'signin')
+
 	return (
-		<Wrapper>
-			<Outlet />
-			<Background />
-		</Wrapper>
+		<Background>
+			<Wrapper>
+				<Outlet />
+				<Decoration>
+					<div className='mesh-gradation'></div>
+				</Decoration>
+			</Wrapper>
+		</Background>
 	)
 }

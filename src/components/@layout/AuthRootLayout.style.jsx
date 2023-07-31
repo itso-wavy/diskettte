@@ -1,37 +1,73 @@
 import styled from 'styled-components'
 
+export const Background = styled.div`
+	min-height: 100vh;
+	background: ${({ theme }) => theme.color.lightgray};
+`
+
 export const Wrapper = styled.div`
+	height: 100%;
+	max-width: ${({ theme }) => theme.breakpoints.desktop};
+	margin: 0 auto;
+	/* padding: 0 32px; */
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border: 1px solid black;
-	max-width: 1240px;
-	margin: 0 auto;
-	padding: 0 32px;
-	height: 100%;
-	width: 100%;
-	background-color: black;
-	color: white;
 
-	@media (max-width: ${({ theme }) => theme.breakpoints}) {
+	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
 		flex-direction: column-reverse;
-		/* height: 35vh; */
 	}
 `
-export const Background = styled.div`
-	/* --jxkb841: 100%; */
-	background: repeat-y center/cover
-		url(https://static.lystit.com/static/n/img/sign-up/value-proposition-full-min.12502ad2e109c860f1eeceea2a988ddf.png);
-	/* ,
-		url(https://static.lystit.com/static/n/img/sign-up/value-proposition-full-min.12502ad2e109c860f1eeceea2a988ddf.png) */
-	width: 75%;
+
+export const Decoration = styled.div`
+	--background: ${({ theme }) => theme.color.lightgray};
+
 	height: 100vh;
+	width: 75%;
+	background-color: var(--background);
+	position: relative;
 
-	/* animation: jxkb843 48s linear infinite; */
+	.mesh-gradation {
+		display: grid;
+		place-items: center;
+		height: 80%;
+		width: 80%;
+		animation: gradation 4s infinite;
+		background-image: radial-gradient(at 20% 30%, #ff362f00 0, transparent 0),
+			radial-gradient(at 97% 21%, #0040a022 0, transparent 50%),
+			radial-gradient(at 52% 99%, #81cedb 0, transparent 50%),
+			radial-gradient(at 30% 29%, #d99fff 0, transparent 50%),
+			radial-gradient(at 52% 99%, #a7ff9f 0, transparent 50%),
+			radial-gradient(at 10% 29%, #fecaf090 0, transparent 50%),
+			radial-gradient(at 97% 100%, #e4c795 0, transparent 50%),
+			radial-gradient(at 10% 29%, #81cedb 0, transparent 50%),
+			radial-gradient(at 97% 96%, #ffb758 0, transparent 50%);
+		filter: blur(70px) saturate(150%);
+		opacity: 0.6;
+	}
 
-	@media (max-width: ${({ theme }) => theme.breakpoints}) {
-		height: 100%;
+	@keyframes gradation {
+		70% {
+			transform: scale(1.1) translate(5em, -5em);
+		}
+	}
+
+	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+		flex-direction: column-reverse;
 		height: 35vh;
-		/*	animation: jxkb843 70s linear infinite; */
+
+		&::before {
+			content: '';
+			width: 100%;
+			height: 6em;
+			position: absolute;
+			bottom: -3.75em;
+			background: linear-gradient(transparent, var(--background));
+			z-index: 10;
+		}
+
+		.mesh-gradation {
+			opacity: 1;
+		}
 	}
 `
