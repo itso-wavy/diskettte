@@ -8,18 +8,24 @@ const getViewport = () => {
 		case width <= 768:
 			return 'mobile'
 		case width <= 1280:
-			return 'desktop'
+			return 'tablet'
 		default:
-			return 'wide-screen'
+			return 'desktop'
 	}
 }
 
-export const createViewportSlice = set => ({
+const initialState = {
 	isMobile: getViewport() === 'mobile',
+	isTablet: getViewport() === 'tablet',
 	isDesktop: getViewport() === 'desktop',
+}
+
+export const createViewportSlice = set => ({
+	...initialState,
 	recheckViewport: () =>
 		set(() => ({
 			isMobile: getViewport() === 'mobile',
+			isTablet: getViewport() === 'tablet',
 			isDesktop: getViewport() === 'desktop',
 		})),
 })

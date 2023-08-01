@@ -1,8 +1,12 @@
-const breakpoints = '768px'
+const breakpoints = {
+	mobile: '48em', // 768px
+	tablet: '80em', // 1280px
+	desktop: '120em', // 1920px
+}
 
 const width = {
-	desktop: '2.5rem',
-	mobile: '1.25rem',
+	mobile: '1.25rem', // 20px
+	desktop: '2.5rem', // 40px
 }
 
 const color = {

@@ -119,8 +119,9 @@ const router = createBrowserRouter([
 		],
 	},
 	{
-		path: '/auth',
+		path: 'auth',
 		element: <AuthRootLayout />,
+		errorElement: <ErrorPage />,
 		children: [
 			{
 				path: 'signin',

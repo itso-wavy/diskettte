@@ -34,7 +34,7 @@ export const StyledSection = styled.section`
 		text-decoration: underline;
 	}
 
-	@media (max-width: ${({ theme }) => theme.breakpoints}) {
+	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
 		order: 10;
 		border-top: 1px solid ${({ theme }) => theme.color.white};
 		padding-top: 5em !important;

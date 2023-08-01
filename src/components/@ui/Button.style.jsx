@@ -4,7 +4,7 @@ const $typeStyles = ({ $type, $img, $size }) => {
 	switch ($type) {
 		case 'rect':
 			return css`
-				min-height: 3.125rem;
+				height: 3rem;
 				width: 100%;
 				padding: 0.8rem 1.1rem;
 				line-height: 1em;
@@ -53,9 +53,9 @@ const $styleStyles = ({ $type, $style, theme }) => {
 						border-color: ${color.gray};
 					}
 
-					&:active {
+					/* &:active {
 						border-color: 0;
-					}
+					} */
 				`
 			case 'secondary':
 				return css`
@@ -69,10 +69,12 @@ const $styleStyles = ({ $type, $style, theme }) => {
 						border-color: ${color.gray};
 					}
 
-					&:active {
+					/* &:active {
 						border-color: ${color.gray};
-					}
+					} */
 				`
+			default:
+				return css``
 		}
 	}
 }
@@ -81,7 +83,9 @@ const $sizeStyles = ({ $size, theme }) => {
 	switch ($size) {
 		case 'sm':
 			return css`
-				min-height: auto;
+				font-size: 0.875rem;
+				height: 2em;
+				padding: 0 1em;
 			`
 		case 'lg':
 			return css`
@@ -99,12 +103,13 @@ const $sizeStyles = ({ $size, theme }) => {
 }
 
 export const StyledButton = styled.button`
-	display: inline-flex;
+	display: flex;
 	justify-content: center;
 	align-items: center;
 	gap: 0.55em;
 	font-size: 1rem;
 	font-weight: ${({ theme }) => theme.fw.medium};
+	word-break: keep-all;
 	border-radius: ${({ $radius }) => $radius || 0};
 	/* transition: all 0.5s ease; */
 
@@ -127,7 +132,7 @@ export const StyledButton = styled.button`
 /* ${({ $type }) =>
 		$type === 'rect' &&
 		css`
-			min-height: 3.125rem;
+			min-height: 3rem;
 			width: 100%;
 			padding: 0.8rem 1.1rem;
 			line-height: 1em;

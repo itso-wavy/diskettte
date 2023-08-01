@@ -95,7 +95,7 @@ export const Pagination = styled.div`
 		margin-right: 0.125em;
 	}
 
-	@media (max-width: ${({ theme }) => theme.breakpoints}) {
+	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
 		margin-right: ${({ theme }) => theme.width.mobile};
 	}
 `

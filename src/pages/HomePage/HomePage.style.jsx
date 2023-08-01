@@ -24,7 +24,7 @@ export const Heading = styled.div`
 		padding: 0 3.75rem;
 	}
 
-	@media (max-width: ${({ theme }) => theme.breakpoints}) {
+	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
 		width: 26.875rem;
 		font-size: 1.5rem;
 

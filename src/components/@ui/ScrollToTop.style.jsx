@@ -19,7 +19,7 @@ export const StyledButton = styled(BaseButton)`
 		background-color: ${({ theme }) => theme.color.lightgray};
 	}
 
-	@media (max-width: ${({ theme }) => theme.breakpoints}) {
+	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
 		bottom: 2rem;
 		right: 2rem;
 	}

@@ -44,7 +44,7 @@ export const StyledFooter = styled.footer`
 		padding: 42px ${({ theme }) => theme.width.desktop};
 	}
 
-	@media (max-width: ${({ theme }) => theme.breakpoints}) {
+	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
 		flex-direction: column;
 		background-color: ${({ theme }) => theme.color.black};
 		color: ${({ theme }) => theme.color.white};

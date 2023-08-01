@@ -3,7 +3,7 @@ import { StyledButton } from './Button.style'
 /**
  * @param $type 'rect' || 'square' || 'icon' || 'badge'
  * @param $style 'primary' || 'secondary'
- * @param $size width/height || 'sm' || 'md'(mobileNav용) || 'lg'
+ * @param $size width/height || 'sm' || 'md' || 'lg'(mobileNav용)
  * @returns <Button $style $size onClick aria-label> + <Img />
  * || <Button	$type='square' $img	$style onClick aria-label />
  * || <Button $type='icon' $size $img onClick aria-label/>

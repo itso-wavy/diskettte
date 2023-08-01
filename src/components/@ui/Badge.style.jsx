@@ -35,8 +35,8 @@ export const Wrapper = styled.div`
 			case 'secondary':
 				return css`
 					background-color: ${color.white};
-					color: 1px solid ${color.darkgray2};
-					border: 0;
+					color: ${color.darkgray2};
+					border: 1px solid ${color.darkgray2};
 				`
 			default:
 				return css``

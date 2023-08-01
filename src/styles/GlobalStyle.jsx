@@ -54,9 +54,10 @@ const GlobalStyle = createGlobalStyle`
 
   /* ===== GENERAL ===== */
   html {
-    scroll-behavior: smooth
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-  
 
   body {
     font-family: 'SUIT';

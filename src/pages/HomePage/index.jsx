@@ -22,7 +22,7 @@ import useStore from '../../store'
 import { banners, brands } from '../../lib/utils/dummyData'
 
 export function HomePage() {
-	const { isMobile, isDesktop } = useStore()
+	const { isMobile, isTablet } = useStore()
 	const BrandsChunk = []
 	const [brandsPerScreen, setBrandsPerScreen] = useState(3)
 
@@ -33,8 +33,8 @@ export function HomePage() {
 	}, [])
 
 	useEffect(() => {
-		setBrandsPerScreen(isMobile ? 2 : isDesktop ? 3 : 4)
-	}, [isMobile, isDesktop])
+		setBrandsPerScreen(isMobile ? 2 : isTablet ? 3 : 4)
+	}, [isMobile, isTablet])
 
 	createArrChunk(brands, BrandsChunk, brandsPerScreen)
 

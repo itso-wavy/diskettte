@@ -1,4 +1,4 @@
 export const createAuthSlice = set => ({
-	isLogin: true,
+	isLogin: false,
 	logout: () => set(isLogin => ({ isLogin: !isLogin })),
 })

@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
 		height: 50px;
 	}
 
-	@media (max-width: ${({ theme }) => theme.breakpoints}) {
+	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
 		& > * {
 			padding: 1em ${({ theme }) => theme.width.mobile};
 			height: 38px;
@@ -32,7 +32,7 @@ export const Title = styled.h1`
 	height: 28px;
 	width: fit-content;
 
-	@media (max-width: ${({ theme }) => theme.breakpoints}) {
+	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
 		position: absolute;
 		left: 50%;
 		transform: translateX(-50%);
@@ -74,7 +74,7 @@ export const StyleNav = styled.nav`
 		flex-shrink: 0;
 	}
 
-	@media (max-width: ${({ theme }) => theme.breakpoints}) {
+	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
 		width: 100%;
 		li span {
 			display: none;

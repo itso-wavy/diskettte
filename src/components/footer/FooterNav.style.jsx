@@ -14,7 +14,7 @@ export const StyledNav = styled.nav`
 		/* padding: 1.2em 0; */
 	}
 
-	@media (max-width: ${({ theme }) => theme.breakpoints}) {
+	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
 		flex-direction: column;
 		gap: 1em;
 	}
@@ -38,7 +38,7 @@ export const Wrapper = styled.div`
 		transform: translateY(-150%);
 	}
 
-	@media (max-width: ${({ theme }) => theme.breakpoints}) {
+	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
 		.moveout-link {
 			position: static;
 			transform: none;
