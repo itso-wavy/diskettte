@@ -1,9 +1,9 @@
-import AuthForm from '../../components/auth/AuthForm'
+import { AuthForm } from '../../components/auth/AuthForm'
 
 export function SignupPage() {
 	return (
 		<>
-			<AuthForm />
+			<AuthForm type='signup' />
 		</>
 	)
 }
