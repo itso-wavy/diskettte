@@ -62,31 +62,12 @@ export const Decoration = styled.div`
 			transform: scale(0.6) rotate(-15deg) translate(30em, -10em);
 		}
 	}
-	/* @keyframes gradation {
-		40% {
-			transform: rotate(30deg) translate(-10em, -3em);
-		}
-		50% {
-			transform: rotate(0deg) translate(0, 10em);
-		}
-		85% {
-			transform: scale(0.8) rotate(-25deg) translate(8em, -3em);
-		}
-	} */
 
 	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
 		flex-direction: column-reverse;
 		height: 35vh;
-
-		/* &::before {
-			content: '';
-			width: 100%;
-			height: 6em;
-			position: absolute;
-			bottom: -3.75em;
-			background: linear-gradient(transparent, var(--background));
-			z-index: 10;
-		} */
+		position: absolute;
+		top: 0;
 
 		.mesh-gradation {
 			opacity: 1;

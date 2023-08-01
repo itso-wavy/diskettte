@@ -2,7 +2,9 @@ import styled, { css } from 'styled-components'
 
 export const StyledSection = styled.section`
 	& > form {
-		width: 400px;
+		width: 450px;
+		max-width: 450px;
+		min-width: 320px;
 	}
 
 	${({ theme }) => {
@@ -83,20 +85,58 @@ export const StyledSection = styled.section`
 				background-color: ${({ theme }) => theme.color.gray};
 			}
 
+			.phonenumber-bar {
+				width: 2rem;
+				height: 1px;
+				background-color: ${({ theme }) => theme.color.darkgray};
+			}
+			/* 
+			.terms-checkbox {
+				 font-size: 0.875em;
+				font-size: 0.8125rem;
+				margin: 0 0 calc(0.8em / 2) 0;
+				line-height: 1.5em;
+				font-size: 13px;
+				color: ${({ theme }) => theme.color.black};
+				position: relative;
+			}
+
+			.terms-checkbox label::before {
+				content: '';
+				display: block;
+				position: absolute;
+				top: 0;
+				width: 5px;
+				height: 5px;
+				left: 0;
+				aspect-ratio: 1;
+				border: 1px solid black;
+				background-color: #fff;
+			} */
+
+			.terms-checkbox {
+				margin: 0 0 calc(0.8em / 2);
+				line-height: 1.5em;
+				font-size: 0.8125rem;
+				color: ${({ theme }) => theme.color.black};
+				position: relative;
+			}
+
+			.terms-checkbox img {
+				margin-right: 0.3em;
+				position: relative;
+				bottom: 1px;
+			}
+
 			@media (max-width: ${theme.breakpoints.mobile}) {
-				margin: 0 ${theme.width.mobile} 4em;
+				margin: 4em ${theme.width.mobile};
+
+				& > form {
+					width: 80vw;
+				}
 			}
 		`
 	}}
-`
-
-export const FlexWrapper = styled.div`
-	display: flex;
-	flex-direction: ${({ $direction }) => $direction || 'column'};
-	/* column-gap: 0.625rem; */
-	/* row-gap: 0.75rem; // 12px */
-	column-gap: 0.45rem;
-	row-gap: 0.5rem;
 `
 
 // export const StyledForm = styled(Form)`

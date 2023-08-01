@@ -19,7 +19,7 @@ function SnsItem({ icon, url, ariaLabel, ...props }) {
 
 function SnsList({ ...props }) {
 	return (
-		<StyledUl aria-label='sns links' {...props}>
+		<StyledUl aria-label='SNS links' {...props}>
 			<SnsItem
 				icon={<GithubSvg />}
 				url='https://github.com/itso-wavy'

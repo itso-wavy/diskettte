@@ -22,5 +22,6 @@ module.exports = {
 		'react/jsx-uses-react': 'error',
 		'react/jsx-uses-vars': 'error',
 		'react-refresh/only-export-components': [{ allowConstantExport: true }],
+		'react-hooks/exhaustive-deps': 'warn',
 	},
 }

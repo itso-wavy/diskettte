@@ -2,16 +2,18 @@ import styled, { css } from 'styled-components'
 
 export const Validation = styled.p`
 	margin: 0 0.5em calc(0.8em / 2);
-	/* margin-left: 0.5em;
-	margin-bottom: calc(0.7em / 2); */
+	font-size: 0.8125rem;
 	line-height: 1.5em;
-	font-size: 13px;
-	color: ${({ theme }) => theme.color.black};
+	color: ${({ theme }) => theme.color.darkgray};
 
-	.safe {
+	span:not(:first-of-type) {
+		margin-left: 0.2em;
+	}
+
+	:is(.valid, &.valid) {
 		color: ${({ theme }) => theme.color.safe};
 	}
-	.error {
+	:is(.invalid, &.invalid) {
 		color: ${({ theme }) => theme.color.error};
 	}
 `
@@ -19,8 +21,11 @@ export const Validation = styled.p`
 export const Flexbox = styled.div`
 	display: flex;
 	flex-direction: ${({ $direction }) => $direction || 'column'};
-	column-gap: 0.625rem;
-	row-gap: 0.75rem; // 12px
+	align-items: center;
+	/* column-gap: 0.625rem;
+	row-gap: 0.75rem; // 12px */
+	column-gap: 0.45rem;
+	row-gap: 0.5rem;
 `
 
 export const Wrapper = styled.div`

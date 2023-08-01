@@ -1,3 +1,3 @@
-export default function MypageNav() {
+export function MypageNav() {
 	return <div>MypageNav</div>
 }

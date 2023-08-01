@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom'
-import MypageNav from './MypageNav'
-import useRedirect from '../../hooks/useRedirect'
+import { MypageNav } from './'
+import { useRedirect } from '../../hooks'
 
 export function MypageRootLayout() {
 	useRedirect('mypage', 'orders')
