@@ -11,6 +11,9 @@ export function useRedirect(currentPath, redirectTo) {
 		: pathname
 
 	useEffect(() => {
-		trimmedPathname === `/${currentPath}` && navigate(redirectTo)
+		trimmedPathname === `/${currentPath}` &&
+			navigate(redirectTo, {
+				replace: true,
+			})
 	}, [])
 }
