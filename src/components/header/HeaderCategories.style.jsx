@@ -17,7 +17,7 @@ export const StyledNav = styled.nav`
 `
 
 export const Wrapper = styled.div`
-	margin-bottom: 0.3em;
+	margin-top: 0.3em;
 
 	& > * {
 		width: 100%;

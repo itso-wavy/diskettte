@@ -27,13 +27,6 @@ export const StyledSection = styled.section`
 			/* box-shadow: inset 20px 12px 24px #e7f2f9, inset -24px -24px 48px #dcdfe2,
 				0 35px 68px 0 #88aede6b, 24px 24px 48px #c4d1c8; */
 
-			.title {
-				font-size: 2.25rem;
-				line-height: 1em;
-				font-weight: ${theme.fw.bold};
-				margin-bottom: 1.5em;
-			}
-
 			@media (max-width: ${theme.breakpoints.mobile}) {
 				margin: 4em ${theme.width.mobile};
 
@@ -45,6 +38,13 @@ export const StyledSection = styled.section`
 	}}
 `
 
+export const Title = styled.h2`
+	font-size: 2.25rem;
+	line-height: 1em;
+	font-weight: ${({ theme }) => theme.fw.bold};
+	margin-bottom: 1.5em;
+`
+
 export const Flexbox = styled.div`
 	display: flex;
 	flex-direction: ${({ $direction }) => $direction || 'column'};
@@ -54,6 +54,7 @@ export const Flexbox = styled.div`
 `
 
 export const InputWrapper = styled.div`
+	/* //FIXME: */
 	position: relative;
 	flex: 1 0 70%;
 	margin-bottom: 0.5em;

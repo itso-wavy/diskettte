@@ -12,7 +12,6 @@ import {
 } from '../@ui/Form'
 import { GoogleLoginButton, KakaotalkLoginButton, NaverLoginButton } from '.'
 import { StyledForm } from './AuthForm.style'
-import { Checkbox } from '../@ui/Input'
 
 function ButtonField({ isBuyer, ...props }) {
 	return (
@@ -67,13 +66,6 @@ function AccountRegisterFieldset({ validationMessage, ...props }) {
 }
 
 function PersonalRegisterFieldset({ isBuyer, ...props }) {
-	const [isChecked, setIsChecked] = useState(false)
-
-	const toggleCheckboxHandler = e => {
-		e.preventDefault()
-		setIsChecked(isChecked => !isChecked)
-	}
-
 	return (
 		<fieldset {...props}>
 			<legend className='sr-only'>개인 정보</legend>
@@ -92,7 +84,10 @@ function PersonalRegisterFieldset({ isBuyer, ...props }) {
 			</InputWrapper>
 			<FormInput label='이메일' id='email' name='email' placeholder='이메일' />
 			{isBuyer && (
-				<Checkbox
+				<FormInput
+					type='checkbox'
+					id='termsAgree'
+					name='termsAgree'
 					info={
 						<>
 							<Link to='.' className='terms'>
