@@ -26,6 +26,13 @@ export const ProductPrice = styled.p`
 	margin-top: 0.5625rem;
 	font-size: 1rem;
 	font-weight: ${({ theme }) => theme.fw.bold};
+
+	.currency {
+		font-size: 0.83rem;
+		font-weight: ${({ theme }) => theme.fw.normal};
+		margin-left: 0.1em;
+		vertical-align: bottom;
+	}
 `
 
 export const ProductInfo = styled.div`
@@ -48,7 +55,7 @@ export const ProductInfo = styled.div`
 export const ProductImage = styled.div`
 	position: relative;
 	min-height: 260px;
-	background: gray no-repeat 50% 50% / cover;
+	background: #ddd no-repeat 50% 50% / cover;
 	/* url(...) */
 	overflow: hidden;
 	transition: opacity 0.1s ease-in-out;

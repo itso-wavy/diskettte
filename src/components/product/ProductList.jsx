@@ -35,9 +35,9 @@ function ProductCardInfo({ brand, name, price, $soldout, ...props }) {
 			{price && (
 				<ProductPrice>
 					{new Intl.NumberFormat('ko-KR', {
-						style: 'currency',
-						currency: 'KRW',
+						style: 'decimal',
 					}).format(price)}
+					<span className='currency'>원</span>
 				</ProductPrice>
 			)}
 		</ProductInfo>
