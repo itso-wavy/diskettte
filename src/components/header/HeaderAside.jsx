@@ -1,6 +1,6 @@
 import { Img } from '../@ui/Img'
 import { Button } from '../@ui/Button'
-// import HeartSvg from '/assets/icons/ion_heart-outline.svg'
+// import HeartImg from '/assets/icons/ion_heart-outline.svg'
 import HeartImg from '/assets/icons/heart3D.png'
 import CloseImg from '/assets/icons/wavy_menu-close.svg'
 import { StyledAside } from './HeaderAside.style'

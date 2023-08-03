@@ -1,5 +1,5 @@
+import { Rotate } from '../../lib/utils/text-decorator'
 import { Wrapper, StyledFigure } from './Card.style'
-import { Rotate } from './text-decorator'
 
 function Card({ $direction = 'column', children, ...props }) {
 	return (

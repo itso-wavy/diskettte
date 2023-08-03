@@ -95,7 +95,8 @@ export function HeaderMain({ $transparent, children, ...props }) {
 					) : (
 						<>
 							<div>
-								<SearchInput ref={inputRef} />
+								{/* <SearchInput ref={inputRef} /> */}
+								<SearchInput />
 							</div>
 							<HeaderMenuItem
 								href='/cart'

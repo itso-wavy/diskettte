@@ -2,7 +2,7 @@ import { Img } from './Img.jsx'
 import { Wrapper } from './Badge.style.jsx'
 
 /**
- * @param $style 'primary' || 'secondary'
+ * @param $style 'primary' | 'secondary'
  * @returns <Badge $style text icon? />
  */
 function Badge({ $style = 'primary', text, icon, children, ...props }) {

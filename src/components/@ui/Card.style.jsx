@@ -2,10 +2,10 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.div`
 	height: 100%;
+	min-height: auto;
 	display: flex;
 	flex-direction: ${({ $direction }) => $direction};
 	position: relative;
-	min-height: auto;
 `
 
 export const StyledFigure = styled.figure`

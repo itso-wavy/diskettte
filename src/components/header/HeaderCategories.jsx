@@ -26,7 +26,8 @@ export function HeaderCategories() {
 	if (isMobile)
 		return (
 			<Wrapper>
-				<SearchInput ref={inputRef} />
+				{/* <SearchInput ref={inputRef} /> */}
+				<SearchInput />
 			</Wrapper>
 		)
 	return (

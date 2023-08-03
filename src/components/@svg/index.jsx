@@ -5,7 +5,7 @@ export * from './LoginSvg'
 export * from './LogoutSvg'
 export * from './MenuOpenSvg'
 export * from './MypageSvg'
-export * from './SearchSvg'
+// export * from './SearchSvg'
 
 // footer
 export * from './LogoGithubSvg'

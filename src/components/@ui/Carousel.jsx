@@ -71,7 +71,7 @@ function CarouselItem({ ariaLabel, children, ...props }) {
 
 /**
  * @param Arrows? NavigationArrows
- * @param Indicator? CarouselIndicator || PageIndicator
+ * @param Indicator? CarouselIndicator | PageIndicator
  * @return <Carousel items autoSlideInterval? Arrows? Indicator? >+<CarouselItem ariaLabel/>
  */
 function Carousel({

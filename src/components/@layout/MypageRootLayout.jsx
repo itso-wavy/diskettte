@@ -4,7 +4,6 @@ import { useRedirect } from '../../hooks'
 
 export function MypageRootLayout() {
 	useRedirect('mypage', 'orders')
-
 	return (
 		<>
 			<MypageNav />
