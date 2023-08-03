@@ -1,94 +1,41 @@
-import { useState, useRef, useEffect } from 'react'
-import { Form, Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Button } from '../@ui/Button'
-import { Img } from '../@ui/Img'
-// import { Input } from '../@ui/Input'
-import { Message } from './AuthInput'
-import GoogleImg from '/assets/icons/flat-color-icons_google.svg'
-import KakaotalkImg from '/assets/icons/simple-icons_kakaotalk.svg'
-import NaverImg from '/assets/icons/simple-icons_naver.svg'
-import EraseImg from '/assets/icons/wavy_erase-sharp.svg'
-import UncheckedImg from '/assets/icons/unchecked.svg'
-import CheckedImg from '/assets/icons/checked.svg'
-import { StyledSection } from './AuthForm.style'
-import { Wrapper, Flexbox } from './AuthInput.style'
+import {
+	FormSection,
+	FormInput,
+	FormValidateMessage,
+	Hr,
+	SmallMenus,
+	InputWrapper,
+	Flexbox,
+} from '../@ui/Form'
+import { GoogleLoginButton, KakaotalkLoginButton, NaverLoginButton } from '.'
+import { StyledForm } from './AuthForm.style'
+import { Checkbox } from '../@ui/Input'
 
-function Input({
-	label,
-	id,
-	name,
-	type = 'text',
-	placeholder,
-	extraBtn,
-	children,
-	...props
-}) {
-	// 	<input
-	//  ref={}
-	//  type={type}
-	//  id='id'
-	//  name={}
-	//  placeholder={placeholder}
-	//  value={}
-	//  onChange={}
-	//  onFocus={}
-	//  onBlur={}
-	//  onInvalid={}
-	//  onError={}
-	// />
-	const inputRef = useRef()
-	const [value, setValue] = useState('')
-	const onChange = e => setValue(e.target.value)
-
-	const clearInput = () => setValue('')
-
-	const activate = () => {
-		inputRef.current.focus()
-	}
-	const deactivate = () => {
-		// validation
-	}
-	// useImperativeHandle(ref, () => {
-	// 	return { focus: activate, blur: deactivate }
-	// })
-
+function ButtonField({ isBuyer, ...props }) {
 	return (
-		<div>
-			{label && (
-				<label htmlFor={id} className='sr-only'>
-					{label}
-				</label>
-			)}
-			<Flexbox $direction='row'>
-				<Wrapper extraBtn={extraBtn}>
-					<input
-						ref={inputRef}
-						id={id}
-						name={name}
-						value={value}
-						// onBlur={onBlur}
-						onChange={onChange}
-						placeholder={placeholder}
-						{...props}
-					/>
-					<div className='btn-box'>
-						{value && (
-							<Button
-								$type='icon'
-								$size='1.3rem'
-								$radius='50%'
-								$img={EraseImg}
-								onClick={clearInput}
-								aria-label='clear'
-								className='clear'
-							/>
-						)}
-						{extraBtn}
-					</div>
-				</Wrapper>
-				{children}
+		<>
+			<Hr text='OR' />
+			<Flexbox {...props}>
+				<GoogleLoginButton />
+				<KakaotalkLoginButton />
+				<NaverLoginButton />
+				<SmallMenus {...props}>
+					<Link to='.'>아이디 찾기</Link>
+					<Link to='.'>비밀번호 찾기</Link>
+					<Link to={isBuyer ? '?user=seller' : ''}>
+						<Button
+							$size='sm'
+							ariaLabel={isBuyer ? 'Switch to Seller' : 'Switch to Buyer'}
+						>
+							{isBuyer ? '판매회원' : '구매회원'}
+						</Button>
+					</Link>
+				</SmallMenus>
 			</Flexbox>
-		</div>
+		</>
 	)
 }
 
@@ -96,25 +43,25 @@ function AccountRegisterFieldset({ validationMessage, ...props }) {
 	return (
 		<fieldset {...props}>
 			<legend className='sr-only'>계정 정보</legend>
-			<Input label='아이디' id='id' name='id' placeholder='아이디'>
+			<FormInput label='아이디' id='id' name='id' placeholder='아이디'>
 				<Button style={{ position: 'relative', bottom: '0.25rem' }}>
 					중복 확인
 				</Button>
-			</Input>
-			<Message text={validationMessage.id} className='invalid' />
-			<Input
+			</FormInput>
+			<FormValidateMessage text={validationMessage.id} className='invalid' />
+			<FormInput
 				label='비밀번호'
 				id='password'
 				name='password'
 				placeholder='비밀번호'
 			/>
-			<Input
+			<FormInput
 				label='비밀번호 재확인'
 				id='passwordConfirm'
 				name='passwordConfirm'
 				placeholder='비밀번호 재확인'
 			/>
-			<Message text={validationMessage.password} />
+			<FormValidateMessage text={validationMessage.password} />
 		</fieldset>
 	)
 }
@@ -122,60 +69,64 @@ function AccountRegisterFieldset({ validationMessage, ...props }) {
 function PersonalRegisterFieldset({ isBuyer, ...props }) {
 	const [isChecked, setIsChecked] = useState(false)
 
-	const toggleCheckboxHandler = () => {
-		setIsChecked(isChecked => !isChecked)
-	}
-	const onClickCheckboxHandler = e => {
+	const toggleCheckboxHandler = e => {
 		e.preventDefault()
-		toggleCheckboxHandler()
+		setIsChecked(isChecked => !isChecked)
 	}
 
 	return (
 		<fieldset {...props}>
 			<legend className='sr-only'>개인 정보</legend>
-			<Input label='이름' id='name' name='name' placeholder='이름' />
-			<Wrapper>
+			<FormInput label='이름' id='name' name='name' placeholder='이름' />
+			<InputWrapper>
 				<Flexbox $direction='row'>
 					<label htmlFor='phoneNumber' className='sr-only'>
 						휴대폰
 					</label>
 					<input id='phoneNumber' name='phoneNumber' placeholder='휴대폰' />
 					<span className='phonenumber-bar' />
-					<input id='phoneNumber2' />
+					<input id='phoneNumber2' name='phoneNumber' />
 					<span className='phonenumber-bar' />
-					<input id='phoneNumber3' />
+					<input id='phoneNumber3' name='phoneNumber' />
 				</Flexbox>
-			</Wrapper>
-			<Input label='이메일' id='email' name='email' placeholder='이메일' />
+			</InputWrapper>
+			<FormInput label='이메일' id='email' name='email' placeholder='이메일' />
 			{isBuyer && (
-				<Flexbox $direction='row' className='terms-checkbox'>
-					<label htmlFor='termsAgree' onClick={onClickCheckboxHandler}>
-						<Img src={!isChecked ? UncheckedImg : CheckedImg} $size='1.1rem' />
-						이용약관 및 개인정보처리방침에 대한 내용을 확인하였고 동의합니다.
-					</label>
-					<input
-						id='termsAgree'
-						type='checkbox'
-						checked={isChecked}
-						className='sr-only'
-					/>
-				</Flexbox>
+				<Checkbox
+					info={
+						<>
+							<Link to='.' className='terms'>
+								이용약관
+							</Link>{' '}
+							및{' '}
+							<Link to='.' className='terms'>
+								개인정보처리방침
+							</Link>
+							에 대한 내용을 확인하였고 이에 동의합니다.
+						</>
+					}
+				/>
 			)}
 		</fieldset>
 	)
 }
 
-function SellerRegisterFieldset({ ...props }) {
+function SellerRegisterFieldset({ validationMessage, ...props }) {
 	return (
 		<fieldset {...props}>
 			<legend className='sr-only'>판매자 정보</legend>
-			<Input
+			<FormInput
 				label='브랜드명'
 				id='brandName'
 				name='brandName'
 				placeholder='브랜드명'
-			/>
-			<Input
+			>
+				<Button style={{ position: 'relative', bottom: '0.25rem' }}>
+					중복 확인
+				</Button>
+			</FormInput>
+			<FormValidateMessage text={validationMessage.brand} className='invalid' />
+			<FormInput
 				label='사업자등록번호'
 				id='businessNumber'
 				name='businessNumber'
@@ -185,56 +136,19 @@ function SellerRegisterFieldset({ ...props }) {
 	)
 }
 
-function LoginFieldset({ validationMessage, ...props }) {
+function AccountLoginFieldset({ validationMessage, ...props }) {
 	return (
 		<fieldset {...props}>
 			<legend className='sr-only'>계정 정보</legend>
-			<Input label='아이디' id='id' name='id' placeholder='아이디' />
-			<Input
+			<FormInput label='아이디' id='id' name='id' placeholder='아이디' />
+			<FormInput
 				label='비밀번호'
 				id='password'
 				name='password'
 				placeholder='비밀번호'
 			/>
-			<Message text={validationMessage} className='invalid' />
+			<FormValidateMessage text={validationMessage.password} />
 		</fieldset>
-	)
-}
-
-function LinkBox({ isBuyer, ...props }) {
-	const SnsButton = ({ src, text }) => {
-		return (
-			<Button $style='secondary'>
-				<Img src={src} style={{ marginLeft: 0 }} />
-				{text}
-			</Button>
-		)
-	}
-
-	const SmallLinks = () => {
-		return (
-			<Flexbox $direction='row' className='small-links'>
-				<Link to='/'>아이디 찾기</Link>
-				<Link to='/'>비밀번호 찾기</Link>
-				<Link to={isBuyer ? '?user=seller' : ''}>
-					<Button
-						$size='sm'
-						ariaLabel={isBuyer ? 'Switch to Seller' : 'Switch to Buyer'}
-					>
-						{isBuyer ? '판매회원' : '구매회원'}
-					</Button>
-				</Link>
-			</Flexbox>
-		)
-	}
-
-	return (
-		<Flexbox {...props}>
-			<SnsButton src={GoogleImg} text='구글 계정으로 로그인' />
-			<SnsButton src={KakaotalkImg} text='카카오톡 계정으로 로그인' />
-			<SnsButton src={NaverImg} text='네이버 계정으로 로그인' />
-			<SmallLinks />
-		</Flexbox>
 	)
 }
 
@@ -250,32 +164,61 @@ function AuthForm({ type }) {
 
 	if (type === 'signin') {
 		return (
-			<StyledSection htmlFor={`${type} form`}>
-				<h2 id={`${type} form`} className='title'>
-					{isBuyer ? '로그인' : '셀러 로그인'}
-				</h2>
-				<Form method='post'>
-					<LoginFieldset validationMessage='아이디가 입력되지 않았습니다.' />
+			<FormSection
+				id={`${type} form`}
+				title={isBuyer ? '로그인' : '셀러 로그인'}
+			>
+				<StyledForm method='POST'>
+					<AccountLoginFieldset
+						onBlur={() => {}}
+						// blur시 인풋 트리밍 값이 isEntered인지 확인, 전송 버튼 누르면 인풋 포커싱
+						// 입력할 때마다 비밀번호 양식 검사하고 아래 메시지 컬러(pw)
+						// 양식에 밸리데이션 문제 있으면 전송 불가함
+						// 전송 보낸 후, 일치하는 계정 없으면 메시지
+						// 전송 보낸 후, 유저 유형이 다를 때 메시지
+						validationMessage={{
+							password: (
+								<>
+									<span className={0 ? 'valid' : ''}>영문 ✓</span>
+									<span className={0 ? 'valid' : ''}>숫자 ✓</span>
+									<span className={0 ? 'valid' : ''}>특수문자 ✓</span>
+									<span className={0 ? 'valid' : ''}>8-16자 ✓</span>
+								</>
+							),
+						}}
+					/>
 					<Flexbox $direction='row'>
-						<Button $style='secondary' onClick={() => navigate('../signup')}>
+						<Button
+							$style='secondary'
+							type='button'
+							onClick={() => navigate('../signup')}
+						>
 							회원가입
 						</Button>
-						<Button>로그인</Button>
+						<Button type='submit'>로그인</Button>
 					</Flexbox>
-					<span className='hr'>OR</span>
-					<LinkBox {...{ isBuyer }} />
-				</Form>
-			</StyledSection>
+					<ButtonField {...{ isBuyer }} />
+				</StyledForm>
+			</FormSection>
 		)
 	} else if (type === 'signup') {
 		return (
-			<StyledSection htmlFor={`${type} form`}>
-				<h2 id={`${type} form`} className='title'>
-					{isBuyer ? '회원가입' : '셀러 회원가입'}
-				</h2>
-				<Form method='post'>
+			<FormSection
+				id={`${type} form`}
+				title={isBuyer ? '회원가입' : '셀러 회원가입'}
+			>
+				<StyledForm method='POST'>
 					<AccountRegisterFieldset
-						isValid={true}
+						onBlur={() => {}}
+						// blur시 인풋 트리밍 값이 isEntered인지 확인, 전송 버튼 누르면 인풋 포커싱
+						// 키 입력할 때마다 비밀번호 양식 검사하고 아래 메시지 컬러(pw)
+						// 핸드폰 번호는 010으로 시작하는 10~11자리 숫자로만
+						// 이메일 양식에 맞아야 함
+						// (셀러) 사업자번호는 10자리로 이루어진 숫자
+						// (셀러) 브랜드명은 중복 불가
+						// 양식에 밸리데이션 문제 있으면 전송 불가함
+						// 전송 보낸 후, 일치하는 계정 없으면 메시지
+						// 전송 보낸 후, 유저 유형이 다를 때 메시지
 						validationMessage={{
 							id: '이미 사용 중인 아이디입니다.',
 							password: (
@@ -290,17 +233,26 @@ function AuthForm({ type }) {
 						}}
 					/>
 					<PersonalRegisterFieldset {...{ isBuyer }} />
-					{isBuyer || <SellerRegisterFieldset />}
+					{isBuyer || (
+						<SellerRegisterFieldset
+							validationMessage={{
+								brand: '이미 사용 중인 브랜드명입니다.',
+							}}
+						/>
+					)}
 					<Flexbox $direction='row' style={{ marginTop: '1em' }}>
-						<Button $style='secondary' onClick={() => navigate('../signin')}>
+						<Button
+							$style='secondary'
+							type='button'
+							onClick={() => navigate('../signin')}
+						>
 							로그인
 						</Button>
-						<Button>회원가입</Button>
+						<Button type='submit'>회원가입</Button>
 					</Flexbox>
-					<span className='hr'>OR</span>
-					<LinkBox {...{ isBuyer }} />
-				</Form>
-			</StyledSection>
+					<ButtonField {...{ isBuyer }} />
+				</StyledForm>
+			</FormSection>
 		)
 	}
 }
