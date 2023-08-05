@@ -1,6 +1,7 @@
-import { useRef } from 'react'
+// import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { SearchInput } from '../@ui/Input'
+// import { SearchInput } from '../@ui/Input'
+import { SearchInput } from '../common'
 import { TitleImg } from '../@ui/Img'
 import { Button } from '../@ui/Button'
 import LogoBImg from '/logo_b.png'
@@ -68,7 +69,7 @@ function HeaderMenuItem({ href, onClick, src, ariaLabel, text, ...props }) {
 }
 
 export function HeaderMain({ $transparent, children, ...props }) {
-	const inputRef = useRef()
+	// const inputRef = useRef()
 	const { isMobile, isLogin, logout, isMobileNavOpen, openMobileNav } =
 		useStore()
 

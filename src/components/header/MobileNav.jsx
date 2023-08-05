@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../@ui/Button'
 import { Modal } from '../@ui/Modal'
-import { StyledHr, $style, fs } from './MobileNav.style'
+import { StyledHr, $bgStyle, $itemStyle } from './MobileNav.style'
 import {
 	DropdownSvg,
 	LoginSvg,
@@ -45,8 +45,8 @@ export function MobileNav({ ...props }) {
 		<>
 			<Modal
 				closeModal={closeMobileNav}
-				$style={$style}
-				id='mobile-nav'
+				$style={$bgStyle}
+				// id='mobile-nav'
 				{...props}
 			>
 				<nav>
@@ -77,7 +77,7 @@ export function MobileNav({ ...props }) {
 							ariaLabel='go to exclusive category'
 							text='마이페이지'
 							icon={<MypageSvg />}
-							style={fs}
+							style={$itemStyle}
 						/>
 						{!isLogin ? (
 							<MobileNavItem
@@ -85,7 +85,7 @@ export function MobileNav({ ...props }) {
 								ariaLabel='signin or signup'
 								text='로그인 / 회원가입'
 								icon={<LoginSvg />}
-								style={fs}
+								style={$itemStyle}
 							/>
 						) : (
 							<MobileNavItem
@@ -93,7 +93,7 @@ export function MobileNav({ ...props }) {
 								ariaLabel='logout'
 								text='로그아웃'
 								icon={<LogoutSvg />}
-								style={fs}
+								style={$itemStyle}
 							/>
 						)}
 					</ul>

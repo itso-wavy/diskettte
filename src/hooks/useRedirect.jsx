@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-export function useRedirect(currentPath, redirectTo) {
+export const useRedirect = (currentPath, redirectTo) => {
 	const location = useLocation()
 	const navigate = useNavigate()
 

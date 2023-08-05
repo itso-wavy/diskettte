@@ -1,7 +1,7 @@
 const breakpoints = {
-	mobile: '48em', // 768px
-	tablet: '80em', // 1280px
-	desktop: '120em', // 1920px
+	mobile: '48rem', // 768px
+	tablet: '80rem', // 1280px
+	desktop: '120rem', // 1920px
 }
 
 const width = {
@@ -17,6 +17,7 @@ const color = {
 	lightgray: '#F2F2F2',
 	white: '#FFF',
 	safe: '#6F8CFF',
+	// error: '#FF0000',
 	error: '#DC3545',
 	header: '#161617CC',
 	shadow: '#00000050',

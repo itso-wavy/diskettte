@@ -7,7 +7,7 @@ export const StyledHr = styled.hr`
 	margin: 2em 0;
 `
 
-export const $style = css`
+export const $bgStyle = css`
 	animation: slideIn 0.15s ease-in-out;
 
 	@keyframes slideIn {
@@ -20,4 +20,4 @@ export const $style = css`
 	}
 `
 
-export const fs = { fontSize: '16px' } // 리팩대상
+export const $itemStyle = { fontSize: '16px' }

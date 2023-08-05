@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	gap: 0.625rem;
 	border-bottom: 1px solid ${({ theme }) => theme.color.lightgray};
 
 	& > * {
@@ -11,13 +11,13 @@ export const Wrapper = styled.div`
 		display: flex;
 		align-items: center;
 		padding: 1.375em ${({ theme }) => theme.width.desktop};
-		height: 50px;
+		height: 3.125rem;
 	}
 
 	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
 		& > * {
 			padding: 1em ${({ theme }) => theme.width.mobile};
-			height: 38px;
+			height: 2.375rem;
 		}
 	}
 `
@@ -29,7 +29,7 @@ export const StyledMain = styled.div`
 `
 
 export const Title = styled.h1`
-	height: 28px;
+	height: 1.75rem;
 	width: fit-content;
 
 	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {

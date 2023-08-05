@@ -1,5 +1,5 @@
-import { Outlet } from 'react-router-dom'
 import { useRedirect } from '../../hooks'
+import { Outlet } from 'react-router-dom'
 import { Background, Wrapper, Decoration } from './AuthRootLayout.style'
 
 export function AuthRootLayout() {

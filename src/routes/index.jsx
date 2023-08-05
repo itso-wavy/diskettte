@@ -26,7 +26,9 @@ import {
 	ProductEditPage,
 	SigninPage,
 	SignupPage,
+	CallbackPage,
 } from '../pages'
+import { signinAction, signupAction } from '../pages'
 
 const router = createBrowserRouter([
 	{
@@ -126,10 +128,16 @@ const router = createBrowserRouter([
 			{
 				path: 'signin',
 				element: <SigninPage />,
+				action: signinAction,
 			},
 			{
 				path: 'signup',
 				element: <SignupPage />,
+				action: signupAction,
+			},
+			{
+				path: 'signin_success',
+				element: <CallbackPage />,
 			},
 		],
 	},

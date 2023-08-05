@@ -8,7 +8,7 @@ export const StyledLink = styled.a`
 			position: absolute;
 			top: 0;
 			left: 1rem;
-			transform: translateY(-100%);
+			transform: translateY(-150%);
 			padding: 1.2em 1.5em;
 			border-radius: 0.4em;
 			font-size: 1.25rem;

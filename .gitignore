@@ -1,4 +1,5 @@
-_diskette.code-workspace
+.env*
+_diskettte.code-workspace
 public/assets/images
 createBearFishSlice.jsx
 

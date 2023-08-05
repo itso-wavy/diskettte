@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { SkipNav } from '../@ui/SkipNav'
+import { SkipNav } from '../common'
 import { HeaderAside, HeaderMain, HeaderCategories, MobileNav } from '../header'
 import { StyledHeader } from './Header.style'
 import useStore from '../../store'
@@ -47,7 +47,11 @@ export function Header() {
 	}
 
 	return (
-		<StyledHeader $visible={isHeaderVisible} $transparent={isHeaderTransparent}>
+		<StyledHeader
+			id='header'
+			$visible={isHeaderVisible}
+			$transparent={isHeaderTransparent}
+		>
 			<SkipNav />
 			{showAside && <HeaderAside asideCloseHandler={asideCloseHandler} />}
 			<HeaderMain $transparent={isHeaderTransparent}>

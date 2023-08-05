@@ -1,5 +1,6 @@
 // header
 export * from './CartSvg'
+export * from './CloseSvg'
 export * from './DropdownSvg'
 export * from './LoginSvg'
 export * from './LogoutSvg'

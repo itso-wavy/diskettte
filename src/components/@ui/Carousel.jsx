@@ -41,8 +41,8 @@ function PagenationIndicator({ items, currentIndex, onClick, ...props }) {
 	return (
 		<Pagination {...props}>
 			<p className='current'>{currentIndex + 1}</p>
-			<span>/</span>
-			<p>{items.length}</p>
+			<span className='entire'>/</span>
+			<p className='entire'>{items.length}</p>
 		</Pagination>
 	)
 }

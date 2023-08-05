@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { NavLink } from 'react-router-dom'
-import { SearchInput } from '../@ui/Input'
+import { SearchInput } from '../common'
 import { StyledNav, Wrapper } from './HeaderCategories.style'
 import useStore from '../../store'
 
@@ -21,7 +21,7 @@ const CategoriesItem = ({ url, ariaLabel, text, ...props }) => {
 
 export function HeaderCategories() {
 	const { isMobile } = useStore()
-	const inputRef = useRef()
+	// const inputRef = useRef()
 
 	if (isMobile)
 		return (
