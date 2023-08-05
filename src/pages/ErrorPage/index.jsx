@@ -1,10 +1,12 @@
 import { useNavigate } from 'react-router-dom'
+import { useTitle } from '../../hooks'
 import { Button } from '../../components/@ui/Button'
 import { Img } from '../../components/@ui/Img'
 import floppyImg from '/floppy.png'
 import { Wapper } from './ErrorPage.style'
 
 export function ErrorPage() {
+	useTitle('Page not found')
 	const navigate = useNavigate()
 	const status = 404 // 수정 예정
 

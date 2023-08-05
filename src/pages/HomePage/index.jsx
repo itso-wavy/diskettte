@@ -62,7 +62,7 @@ export function HomePage() {
 					)}
 				</Carousel>
 			</Hero>
-			<StyledSection aria-labelledby='recommand'>
+			<StyledSection $order='second' aria-labelledby='recommand'>
 				<h2 className='sr-only' id='recommand'>
 					recommand brands
 				</h2>
@@ -73,7 +73,10 @@ export function HomePage() {
 					$itemsPerScreen={brandsPerScreen}
 				>
 					{BrandsChunk.map((chunk, index) => (
-						<CarouselItem key={index}>
+						<CarouselItem
+							key={index}
+							// style={{ background: 'black', color: 'white' }}
+						>
 							<ListWrapper $itemsPerScreen={brandsPerScreen}>
 								{chunk.map(({ id, brand, url, src, alt }) => (
 									<Link to={url} key={id}>

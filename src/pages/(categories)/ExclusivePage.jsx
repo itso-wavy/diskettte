@@ -1,9 +1,12 @@
+import { useTitle } from '../../hooks'
 import { Hero } from '../../components/@ui/Hero'
 import { ProductList, ProductItem } from '../../components/product'
 import { products } from '../../lib/utils/dummyData'
 import { Wrapper } from './ExclusivePage.style'
 
 export function ExclusivePage() {
+	useTitle('Exclusive')
+
 	return (
 		<>
 			<Hero sectionTitle='brand hero'>

@@ -1,7 +1,10 @@
+import { useTitle } from '../../hooks'
 import { ProductList, ProductItem } from '../../components/product'
 import { products } from '../../lib/utils/dummyData'
 
 export function BrandPage() {
+	useTitle(`Brand`) // 동적 업데이트 예정
+
 	return (
 		<>
 			<section aria-labelledby='brand banner'>

@@ -1,7 +1,10 @@
+import { useTitle } from '../../hooks'
 import { ProductList, ProductItem } from '../../components/product'
 import { products } from '../../lib/utils/dummyData'
 
 export function NewArrivalsPage() {
+	useTitle('New Arrivals')
+
 	return (
 		<>
 			<section aria-labelledby='product list'>

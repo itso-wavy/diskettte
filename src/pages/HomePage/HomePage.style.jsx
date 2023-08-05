@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const MinusPaddedWrapper = styled.div`
 	margin-bottom: -300px;
@@ -37,14 +37,31 @@ export const Heading = styled.div`
 
 export const StyledSection = styled.section`
 	margin-top: 4.6875rem;
+
+	${({ $order, theme }) => {
+		switch ($order) {
+			case 'second':
+				return css`
+					/* padding: 5em 0 10em; */
+				`
+			case 'third':
+				return css`
+					/* background-color: ${theme.color.black};
+					color: ${theme.color.white}; 
+					padding: 5em 0 10em;*/
+				`
+			default:
+				return css``
+		}
+	}}
 `
 
 export const ListWrapper = styled.div`
 	display: grid;
 	grid-template-columns: ${({ $itemsPerScreen }) =>
 		`repeat(${$itemsPerScreen}, 1fr)`};
-	/* grid-template-columns: repeat(auto-fit, minmax(min(400px, 50%), 1fr)); */
-	background-color: ${({ theme }) => theme.color.white};
+	//  grid-template-columns: repeat(auto-fit, minmax(min(400px, 50%), 1fr));
+	// 	background-color: ${({ theme }) => theme.color.white};
 `
 
 export const ItemWrapper = styled.div`

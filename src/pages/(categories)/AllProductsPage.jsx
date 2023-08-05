@@ -1,8 +1,11 @@
+import { useTitle } from '../../hooks'
 import { ProductList, ProductItem } from '../../components/product'
 import { products } from '../../lib/utils/dummyData'
 // import { Wrapper } from './AllProductsPage.style'
 
 export function AllProductsPage() {
+	useTitle('All')
+
 	return (
 		<>
 			<section aria-labelledby='product list'>

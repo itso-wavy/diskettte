@@ -1,6 +1,9 @@
+import { useTitle } from '../../hooks'
 import { AuthForm } from '../../components/auth/AuthForm'
 
 export function SignupPage() {
+	useTitle('Sign Up')
+
 	return (
 		<>
 			<AuthForm type='signup' />
