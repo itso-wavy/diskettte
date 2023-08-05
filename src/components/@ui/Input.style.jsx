@@ -1,17 +1,15 @@
 import styled, { css } from 'styled-components'
 
-export const Wrapper = styled.div`
+export const InputWrapper = styled.div`
 	position: relative;
 	flex: 1 0 70%;
 	margin-bottom: 0.5em;
 
-	${({ $extraBtn, theme }) => css`
+	${({ theme }) => css`
 		& input {
 			height: 3rem;
 			width: 100%;
-			padding: ${!$extraBtn
-				? '1rem calc(0.8rem + 1.7rem) 1rem 0.8rem'
-				: '1rem calc(0.8rem + 2.9rem + 0.2rem) 1rem 0.8rem'};
+			padding: 1rem calc(0.8rem + 1.7rem) 1rem 0.8rem;
 			font-size: 0.875rem; // 14px
 			font-weight: ${theme.fw.normal};
 			border: 1px solid ${theme.color.gray};
@@ -38,6 +36,33 @@ export const Wrapper = styled.div`
 		font-size: 0.75rem;
 		line-height: 1em;
 		color: ${({ theme }) => theme.color.black};
+	}
+`
+
+// export const SearchInputWrapper = styled(InputWrapper)`
+// 	& input {
+// 		background-color: ${({ theme }) => theme.color.lightgray};
+// 		padding: 1rem calc(0.8rem + 2.9rem + 0.2rem) 1rem 0.8rem;
+// 		border: 0;
+// 		height: 2.25rem;
+// 		padding: '1rem calc(0.8rem + 2.9rem + 0.2rem) 1rem 0.8rem';
+// 	}
+// `
+
+export const PhonenumberWrapper = styled(InputWrapper)`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	column-gap: 0.45rem;
+
+	& input {
+		padding: 1rem 0.8rem;
+	}
+
+	.phonenumber-bar {
+		width: 2rem;
+		height: 1px;
+		background-color: ${({ theme }) => theme.color.darkgray};
 	}
 `
 

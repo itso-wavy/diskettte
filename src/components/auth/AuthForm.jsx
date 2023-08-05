@@ -7,7 +7,6 @@ import {
 	FormValidateMessage,
 	Hr,
 	SmallMenus,
-	InputWrapper,
 	Flexbox,
 } from '../@ui/Form'
 import { GoogleLoginButton, KakaotalkLoginButton, NaverLoginButton } from '.'
@@ -70,18 +69,13 @@ function PersonalRegisterFieldset({ isBuyer, ...props }) {
 		<fieldset {...props}>
 			<legend className='sr-only'>개인 정보</legend>
 			<FormInput label='이름' id='name' name='name' placeholder='이름' />
-			<InputWrapper>
-				<Flexbox $direction='row'>
-					<label htmlFor='phoneNumber' className='sr-only'>
-						휴대폰
-					</label>
-					<input id='phoneNumber' name='phoneNumber' placeholder='휴대폰' />
-					<span className='phonenumber-bar' />
-					<input id='phoneNumber2' name='phoneNumber' />
-					<span className='phonenumber-bar' />
-					<input id='phoneNumber3' name='phoneNumber' />
-				</Flexbox>
-			</InputWrapper>
+			<FormInput
+				type='phonenumber'
+				label='휴대폰'
+				id='phoneNumber'
+				name='phoneNumber'
+				placeholder='휴대폰'
+			/>
 			<FormInput label='이메일' id='email' name='email' placeholder='이메일' />
 			{isBuyer && (
 				<FormInput

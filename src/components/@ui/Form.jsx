@@ -1,12 +1,8 @@
-import { useState, useRef } from 'react'
-// import { Button } from '../@ui/Button'
-import { TextInput, Checkbox } from '../@ui/Input'
+import { TextInput, Checkbox, PhonenumberInput } from '../@ui/Input'
 import { HiddenLabel } from './Label'
-// import EraseImg from '/assets/icons/wavy_erase-sharp.svg'
 import {
 	StyledSection,
 	Title,
-	InputWrapper,
 	Validation,
 	Flexbox,
 	StyledSpan,
@@ -53,8 +49,7 @@ function FormInput({
 	info,
 	...props
 }) {
-	const inputRef = useRef()
-
+	// const inputRef = useRef()
 	// useImperativeHandle(ref, () => {
 	// 	return { focus: activate, blur: deactivate }
 	// })
@@ -63,34 +58,39 @@ function FormInput({
 		return <Checkbox {...{ id, name, info, ...props }} />
 	}
 
+	if (type === 'phonenumber') {
+		return (
+			<PhonenumberInput
+				label={
+					<label htmlFor={id} className='sr-only'>
+						{label}
+					</label>
+				}
+				id={id}
+				name={name}
+				placeholder={placeholder}
+			/>
+		)
+	}
+
 	return (
-		<div>
+		<>
 			{label && <HiddenLabel {...{ id, label }} />}
 			<Flexbox $direction='row'>
 				<TextInput {...{ id, name, type, placeholder, extraBtn, ...props }} />
 				{children}
 			</Flexbox>
-		</div>
+		</>
 	)
 }
 
 function FormSection({ id, title, children, ...props }) {
 	return (
 		<StyledSection htmlFor={id} {...props}>
-			<Title id={id} className='title'>
-				{title}
-			</Title>
+			<Title id={id}>{title}</Title>
 			{children}
 		</StyledSection>
 	)
 }
 
-export {
-	FormSection,
-	FormInput,
-	FormValidateMessage,
-	Hr,
-	SmallMenus,
-	InputWrapper,
-	Flexbox,
-}
+export { FormSection, FormInput, FormValidateMessage, Hr, SmallMenus, Flexbox }

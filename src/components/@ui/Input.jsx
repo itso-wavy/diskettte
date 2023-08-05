@@ -1,12 +1,17 @@
 import { useState, useRef, forwardRef, useImperativeHandle } from 'react'
+import { useInput } from '../../hooks'
 import { Button } from '../@ui/Button'
 import { Img } from '../@ui/Img'
 import EraseImg from '/assets/icons/wavy_erase-sharp.svg'
-import SearchImg from '/assets/icons/ion_search-outline.svg'
+// import SearchImg from '/assets/icons/ion_search-outline.svg'
 import CheckedImg from '/assets/icons/checked.svg'
 import UncheckedImg from '/assets/icons/unchecked.svg'
-import { Wrapper, CheckboxWrapper } from './Input.style'
-import styled from 'styled-components'
+import {
+	InputWrapper,
+	// SearchInputWrapper,
+	PhonenumberWrapper,
+	CheckboxWrapper,
+} from './Input.style'
 
 // blur시 인풋 트리밍 값이 isEntered인지 확인, 전송 버튼 누르면 인풋 포커싱
 // 키 입력할 때마다 비밀번호 양식 검사하고 아래 메시지 컬러(pw)
@@ -26,50 +31,49 @@ function TextInput({
 	type = 'text',
 	placeholder,
 	onInput,
+	// validate,
 	// onBlur,
 	// onInvalid,
-	// onValidate,
 	extraBtn,
 	...props
 }) {
-	const inputRef = useRef()
-	const [value, setValue] = useState('')
-	// const [isValid, setIsValid] = useState(false)
-	const onChange = e => setValue(e.target.value)
-
-	const clearInput = () => setValue('')
-	// const onInvalidHandler = () => {
-	// 	inputRef.current.focus()
-	// }
-	// const activate = () => {
-	// 	inputRef.current.focus()
-	// }
-
-	// const deactivate = () => {
-	// 	// validation
-	// }
 	/* 
   forwardRef
   
   useImperativeHandle(ref, () => {
-		return { focus: activate, blur: deactivate }
+		return { focus: ()=>{ref.current.focus}, blur: deactivate }
 	})
   */
+	const validate = value => {
+		return value.includes('@')
+	}
 
+	const {
+		ref,
+		value,
+		isTouched,
+		isValid,
+		hasError,
+		onBlurHandler,
+		onChangeHandler,
+		clearInputHandler,
+	} = useInput(validate)
+
+	console.log(isTouched, isValid, hasError)
 	return (
 		<>
-			<Wrapper $extraBtn={extraBtn}>
+			<InputWrapper $extraBtn={extraBtn}>
 				<input
-					ref={inputRef}
+					ref={ref}
 					id={id}
 					type={type}
 					name={name}
 					value={value}
 					placeholder={placeholder}
-					onChange={onChange}
+					onChange={onChangeHandler}
 					onInput={onInput} // 비밀번호 검증시
 					// onInvalid={onInvalidHandler}
-					// onBlur={onBlurHandler}
+					onBlur={onBlurHandler}
 					{...props}
 				/>
 				<div className='btn-box'>
@@ -79,15 +83,75 @@ function TextInput({
 							$size='1.3rem'
 							$radius='50%'
 							$img={EraseImg}
-							onClick={clearInput}
+							onClick={clearInputHandler}
 							aria-label='clear'
 							className='clear'
 						/>
 					)}
 					{extraBtn}
 				</div>
-			</Wrapper>
+			</InputWrapper>
 		</>
+	)
+}
+
+// function SearchInput({
+// 	name,
+// 	placeholder = '브랜드를 검색해보세요.',
+// 	onInput,
+// 	...props
+// }) {
+// 	const [value, setValue] = useState('')
+// 	const onChange = e => setValue(e.target.value)
+// 	const clearInput = () => setValue('')
+// 	const searchKeyword = e => {
+// 		console.log(e.target.value)
+// 	}
+
+// 	return (
+// 		<SearchInputWrapper>
+// 			<input
+// 				name={name}
+// 				value={value}
+// 				placeholder={placeholder}
+// 				onChange={onChange}
+// 				onInput={searchKeyword}
+// 				{...props}
+// 			/>
+// 			<div className='btn-box'>
+// 				{value && (
+// 					<Button
+// 						$type='icon'
+// 						$size='1.3rem'
+// 						$radius='50%'
+// 						$img={EraseImg}
+// 						onClick={clearInput}
+// 						aria-label='clear'
+// 						className='clear'
+// 					/>
+// 				)}
+// 				<Button
+// 					$type='icon'
+// 					$radius='50%'
+// 					$img={SearchImg}
+// 					onClick={searchKeyword}
+// 					aria-label='search'
+// 				/>
+// 			</div>
+// 		</SearchInputWrapper>
+// 	)
+// }
+
+function PhonenumberInput({ label, id, name, placeholder, ...props }) {
+	return (
+		<PhonenumberWrapper {...props}>
+			{label}
+			<input id={id} name={name} placeholder={placeholder} />
+			<span className='phonenumber-bar' />
+			<input id={id + '2'} name={name} />
+			<span className='phonenumber-bar' />
+			<input id={id + '3'} name={name} />
+		</PhonenumberWrapper>
 	)
 }
 
@@ -117,35 +181,9 @@ function Checkbox({ id, name, info, ...props }) {
 	)
 }
 
-const StyledSearchInput = styled(TextInput)`
-	background-color: ${({ theme }) => theme.color.lightgray};
-	padding: 1rem calc(0.8rem + 2.9rem + 0.2rem) 1rem 0.8rem !important;
-	border: 0 !important;
-	height: 2.25rem !important;
-`
-
-// const SearchInput = (props, ref) => {
-const SearchInput = props => {
-	const searchKeyword = e => {
-		console.log(e.target)
-	}
-
-	return (
-		<StyledSearchInput
-			// ref={ref}
-			placeholder='브랜드를 검색해보세요.'
-			extraBtn={
-				<Button
-					$type='icon'
-					$radius='50%'
-					$img={SearchImg}
-					onClick={searchKeyword}
-					aria-label='search'
-				/>
-			}
-			{...props}
-		/>
-	)
+export {
+	TextInput,
+	// SearchInput,
+	PhonenumberInput,
+	Checkbox,
 }
-
-export { TextInput, SearchInput, Checkbox }
