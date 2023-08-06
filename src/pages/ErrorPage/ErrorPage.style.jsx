@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Wapper = styled.div`
+export const Wrapper = styled.div`
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
@@ -14,6 +14,27 @@ export const Wapper = styled.div`
 		line-height: 1.3em;
 		font-weight: ${({ theme }) => theme.fw.bold};
 		margin-top: 1rem;
+		position: relative;
+	}
+
+	h1::before {
+		content: '';
+		display: inline-block;
+		width: 400px;
+		aspect-ratio: 1;
+		position: absolute;
+		top: -50%;
+		left: 50%;
+		translate: -50%;
+		background: radial-gradient(
+			#dcdfe2 0%,
+			#88aede6b 58%,
+			#c4d1c8 60%,
+			#e7f2f9 65%
+		);
+		border-radius: 50%;
+		z-index: -1;
+		filter: blur(10px);
 	}
 
 	.info {
@@ -22,7 +43,7 @@ export const Wapper = styled.div`
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background-color: ${({ theme }) => theme.color.disabled};
+		background-color: ${({ theme }) => theme.color.white};
 		font-weight: ${({ theme }) => theme.fw.medium};
 	}
 

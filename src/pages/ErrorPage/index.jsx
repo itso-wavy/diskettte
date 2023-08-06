@@ -3,7 +3,7 @@ import { useTitle } from '../../hooks'
 import { Button } from '../../components/@ui/Button'
 import { Img } from '../../components/@ui/Img'
 import floppyImg from '/floppy.png'
-import { Wapper } from './ErrorPage.style'
+import { Wrapper } from './ErrorPage.style'
 
 export function ErrorPage() {
 	useTitle('Page not found')
@@ -11,7 +11,7 @@ export function ErrorPage() {
 	const status = 404 // 수정 예정
 
 	return (
-		<Wapper>
+		<Wrapper>
 			<Img src={floppyImg} $size='11rem' aria-hidden />
 			<h1>
 				Sorry!
@@ -35,6 +35,6 @@ export function ErrorPage() {
 					메인으로
 				</Button>
 			</div>
-		</Wapper>
+		</Wrapper>
 	)
 }
