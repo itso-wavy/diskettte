@@ -41,10 +41,6 @@ function FormInput({
 	type = 'text',
 	placeholder,
 	onInput,
-	// onBlur,
-	// onInvalid,
-	// onValidate,
-	extraBtn,
 	children,
 	info,
 	...props
@@ -77,7 +73,7 @@ function FormInput({
 		<>
 			{label && <HiddenLabel {...{ id, label }} />}
 			<Flexbox $direction='row'>
-				<TextInput {...{ id, name, type, placeholder, extraBtn, ...props }} />
+				<TextInput {...{ id, name, type, placeholder, ...props }} />
 				{children}
 			</Flexbox>
 		</>

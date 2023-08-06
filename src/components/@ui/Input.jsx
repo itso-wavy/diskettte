@@ -13,28 +13,23 @@ import {
 	CheckboxWrapper,
 } from './Input.style'
 
-// blur시 인풋 트리밍 값이 isEntered인지 확인, 전송 버튼 누르면 인풋 포커싱
-// 키 입력할 때마다 비밀번호 양식 검사하고 아래 메시지 컬러(pw)
-// 핸드폰 번호는 010으로 시작하는 10~11자리 숫자로만
-// 이메일 양식에 맞아야 함
-// (셀러) 사업자번호는 10자리로 이루어진 숫자
-// (셀러) 브랜드명은 중복 불가
-// 양식에 밸리데이션 문제 있으면 전송 불가함
+// (서버 밸리데이션)
+// 아이디, 셀러 브랜드명 중복 확인
+// (로그인)
 // 전송 보낸 후, 일치하는 계정 없으면 메시지
 // 전송 보낸 후, 유저 유형이 다를 때 메시지 */
+
 /**
- * @returns <TextInput id name type onInput />
+ * @returns <TextInput id name type validateFn />
  */
 function TextInput({
 	id,
 	name,
 	type = 'text',
 	placeholder,
-	onInput,
-	// validate,
-	// onBlur,
-	// onInvalid,
-	extraBtn,
+	// onInput,
+	validateFn,
+	// options,
 	...props
 }) {
 	/* 
@@ -44,35 +39,31 @@ function TextInput({
 		return { focus: ()=>{ref.current.focus}, blur: deactivate }
 	})
   */
-	const validate = value => {
-		return value.includes('@')
-	}
 
-	const {
-		ref,
-		value,
-		isTouched,
-		isValid,
-		hasError,
-		onBlurHandler,
-		onChangeHandler,
-		clearInputHandler,
-	} = useInput(validate)
+	// const {
+	// 	ref,
+	// 	value,
+	// 	isTouched,
+	// 	isValid,
+	// 	hasError,
+	// 	onBlurHandler,
+	// 	onChangeHandler,
+	// 	clearInputHandler,
+	// } = useInput(validateFn, options)
+	const { ref, value, onBlurHandler, onInputHandler, clearInputHandler } =
+		useInput(validateFn, { type })
 
-	console.log(isTouched, isValid, hasError)
 	return (
 		<>
-			<InputWrapper $extraBtn={extraBtn}>
+			<InputWrapper>
 				<input
 					ref={ref}
 					id={id}
-					type={type}
+					// type={type}
 					name={name}
 					value={value}
 					placeholder={placeholder}
-					onChange={onChangeHandler}
-					onInput={onInput} // 비밀번호 검증시
-					// onInvalid={onInvalidHandler}
+					onInput={onInputHandler}
 					onBlur={onBlurHandler}
 					{...props}
 				/>
@@ -88,7 +79,6 @@ function TextInput({
 							className='clear'
 						/>
 					)}
-					{extraBtn}
 				</div>
 			</InputWrapper>
 		</>

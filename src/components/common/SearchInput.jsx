@@ -28,8 +28,8 @@ function SearchResult({ results, closeSearchWindow, ...props }) {
 				<CloseSvg className='close' />
 			</Button>
 			<StyledUl>
-				{results.map((result, index) => (
-					<li key={index}>
+				{results.map(result => (
+					<li key={result.product_id}>
 						<Link to=''>{result.product_name}</Link>
 					</li>
 				))}
@@ -48,7 +48,6 @@ function SearchInput({
 	// useInput 사용 가능할 듯
 	const [value, setValue] = useState('')
 	const [results, setResults] = useState([])
-	// const [dialogTop, setDialogTop] = useState(0)
 	const clearInput = () => {
 		setValue('')
 		setResults([])
@@ -71,10 +70,8 @@ function SearchInput({
 			response = await axios.get(
 				`https://openmarket.weniv.co.kr//products/?search=${keyword}`
 			)
-		// const response = await axios.get(
-		// 	`https://openmarket.weniv.co.kr//products/?search=${e.target.value}`
-		// )
 		setResults(response?.data.results || [])
+		console.log(results)
 	}
 
 	return (
