@@ -4,7 +4,7 @@ export function useInput(options) {
 	const inputRef = useRef()
 	const [value, setValue] = useState('')
 
-	const process = e => {
+	const onInputHandler = e => {
 		let input = e.target.value
 		if (options.type === 'number') input = input.replace(/\D/g, '')
 
@@ -18,7 +18,7 @@ export function useInput(options) {
 	return {
 		ref: inputRef,
 		value,
-		onInputHandler: process,
+		onInputHandler,
 		clearInputHandler,
 	}
 }

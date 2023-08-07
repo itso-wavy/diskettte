@@ -9,7 +9,7 @@ function validate(scheme) {
 		scheme
 	]
 	const validateScheme = value =>
-		scheme.pattern.test(value) ? null : scheme.message
+		scheme?.pattern.test(value) ? null : scheme.message
 
 	return validateScheme
 }

@@ -4,24 +4,26 @@ const accountSchema = {
 		message: '아이디에는 공백이 없어야 합니다.',
 	},
 	password: {
-		pattern: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*_-]).{8,16}$/,
+		pattern:
+			/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*_-])[a-zA-Z\d!@#$%^&*_-]{8,16}$/,
 		message:
-			'비밀번호는 영문자, 숫자, 특수문자를 포함하여 공백 없이 8자-16자여야 합니다.',
+			'비밀번호는 8-16자이고 영문자, 숫자, 특수문자만을 각각 한자리 이상 포함해야 합니다.',
 	},
-	confirmPassword: {
-		pattern: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*_-]).{8,16}$/,
+	passwordConfirm: {
+		pattern:
+			/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*_-])[a-zA-Z\d!@#$%^&*_-]{8,16}$/,
 		message: '비밀번호가 일치하지 않습니다.',
 	},
 }
 
 const personalInfoSchema = {
 	username: {
-		pattern: /^[^\s]+$/,
-		message: '이름에는 공백문자가 없어야 합니다.',
+		pattern: /^[a-zA-Z가-힣\s]+$/,
+		message: '이름은 한글, 영문, 공백만을 포함해야 합니다.',
 	},
 	phoneNumber: {
-		pattern: /^010[\d]{3,4}[\d]{4}$/,
-		message: '핸드폰번호는 10자리 이상 11자리 이하로 입력해야 합니다.',
+		pattern: /^010-[\d]{3,4}-[\d]{4}$/,
+		message: '핸드폰번호는 10-11자로 010으로 시작하는 번호만 허용합니다.',
 	},
 	email: {
 		pattern: /^[\w\d.%+]+@[\w\d.]+[a-z]{2,}$/,
@@ -35,8 +37,8 @@ const sellerInfoSchema = {
 		message: '브랜드명에는 공백이 없어야 합니다.',
 	},
 	businessNumber: {
-		pattern: /^[\d]{10}$/,
-		message: '사업자 번호는 숫자 10자리로 이루어져야 합니다.',
+		pattern: /^[\d]{3}-[\d]{2}-[\d]{5}$/,
+		message: '사업자번호는 숫자 10자리로 이루어져야 합니다.',
 	},
 }
 

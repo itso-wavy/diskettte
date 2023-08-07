@@ -1,22 +1,18 @@
 import {
 	useState,
-	useRef,
-	forwardRef,
-	useImperativeHandle,
+	// forwardRef,
+	// useImperativeHandle,
 	useContext,
+	useEffect,
 } from 'react'
-import { useInput } from '../../hooks'
 import { FormContext } from '../../context/form-context'
 import { Button } from '../@ui/Button'
 import { Img } from '../@ui/Img'
 import EraseImg from '/assets/icons/wavy_erase-sharp.svg'
 import CheckedImg from '/assets/icons/checked.svg'
 import UncheckedImg from '/assets/icons/unchecked.svg'
-import {
-	InputWrapper,
-	PhonenumberWrapper,
-	CheckboxWrapper,
-} from './Input.style'
+import { InputWrapper, NumberWrapper, CheckboxWrapper } from './Input.style'
+import { useInput } from '../../hooks'
 
 // (서버 밸리데이션)
 // 아이디, 셀러 브랜드명 중복 확인
@@ -44,17 +40,11 @@ function TextInput({
 		return { focus: ()=>{ref.current.focus}, blur: deactivate }
 	})
   */
-
-	const {
-		ref,
-		value,
-		onInputHandler,
-		// onBlurHandler,
-		clearInputHandler,
-	} = useInput({ type })
-
-	const { onInputHandler: onFormInputHandler, onBlurHandler } =
+	const { ref } = useInput()
+	const { values, onInputHandler, onBlurHandler, clearInputHandler } =
 		useContext(FormContext)
+
+	const value = values[name]
 
 	return (
 		<>
@@ -65,10 +55,7 @@ function TextInput({
 					name={name}
 					value={value}
 					placeholder={placeholder}
-					onInput={e => {
-						onInputHandler(e)
-						onFormInputHandler(e)
-					}}
+					onInput={e => onInputHandler(e, { type })}
 					onBlur={onBlurHandler}
 					{...props}
 				/>
@@ -79,7 +66,8 @@ function TextInput({
 							$size='1.3rem'
 							$radius='50%'
 							$img={EraseImg}
-							onClick={clearInputHandler}
+							type='button'
+							onClick={() => clearInputHandler(ref)}
 							aria-label='clear'
 							className='clear'
 						/>
@@ -90,16 +78,47 @@ function TextInput({
 	)
 }
 
-function PhonenumberInput({ label, id, name, placeholder, ...props }) {
+function NumberInput({ label, id, name, placeholder, ...props }) {
+	const options = { type: 'number' }
+
+	const { value: value1, onInputHandler: onInputHandler1 } = useInput(options)
+	const { value: value2, onInputHandler: onInputHandler2 } = useInput(options)
+	const { value: value3, onInputHandler: onInputHandler3 } = useInput(options)
+
+	const event = { target: { name, value: `${value1}-${value2}-${value3}` } }
+
+	const { onInputHandler, onBlurHandler } = useContext(FormContext)
+
+	useEffect(() => {
+		onInputHandler(event, options)
+	}, [value1, value2, value3])
+
 	return (
-		<PhonenumberWrapper {...props}>
+		<NumberWrapper {...props}>
 			{label}
-			<input id={id} name={name} placeholder={placeholder} />
-			<span className='phonenumber-bar' />
-			<input id={id + '2'} name={name} />
-			<span className='phonenumber-bar' />
-			<input id={id + '3'} name={name} />
-		</PhonenumberWrapper>
+			<input
+				id={id}
+				name={name}
+				value={value1}
+				onInput={onInputHandler1}
+				placeholder={placeholder}
+			/>
+			<span className='number-bar' />
+			<input
+				id={id + '2'}
+				name={name}
+				value={value2}
+				onInput={onInputHandler2}
+			/>
+			<span className='number-bar' />
+			<input
+				id={id + '3'}
+				name={name}
+				value={value3}
+				onInput={onInputHandler3}
+				onBlur={() => onBlurHandler(event)}
+			/>
+		</NumberWrapper>
 	)
 }
 
@@ -129,9 +148,4 @@ function Checkbox({ id, name, info, ...props }) {
 	)
 }
 
-export {
-	TextInput,
-	// SearchInput,
-	PhonenumberInput,
-	Checkbox,
-}
+export { TextInput, NumberInput, Checkbox }

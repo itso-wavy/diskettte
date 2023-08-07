@@ -51,12 +51,14 @@ function AuthForm({ type }) {
 	}, [userParam])
 
 	if (type === 'signin') {
+		const initialState = { id: '', password: '' }
+
 		return (
 			<FormSection
 				id={`${type} form`}
 				title={isBuyer ? '로그인' : '셀러 로그인'}
 			>
-				<FormProvider initialState={{ id: '', password: '' }}>
+				<FormProvider initialState={initialState}>
 					<StyledForm method='POST'>
 						<AccountLoginFieldset
 						// validationMessage={{
@@ -86,12 +88,32 @@ function AuthForm({ type }) {
 			</FormSection>
 		)
 	} else if (type === 'signup') {
+		const initialState = isBuyer
+			? {
+					id: '',
+					password: '',
+					passwordConfirm: '',
+					username: '',
+					phoneNumber: '',
+					email: '',
+			  }
+			: {
+					id: '',
+					password: '',
+					passwordConfirm: '',
+					username: '',
+					phoneNumber: '',
+					email: '',
+					brandName: '',
+					businessNumber: '',
+			  }
+
 		return (
 			<FormSection
 				id={`${type} form`}
 				title={isBuyer ? '회원가입' : '셀러 회원가입'}
 			>
-				<FormProvider initialState={{ id: '', password: '', phoneNumber: '' }}>
+				<FormProvider initialState={initialState}>
 					<StyledForm method='POST'>
 						<AccountRegisterFieldset
 						// validationMessage={{

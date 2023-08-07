@@ -21,6 +21,10 @@ export const InputWrapper = styled.div`
 			&:focus {
 				outline: 1px solid ${theme.color.black};
 			}
+			&.invalid {
+				color: inherit;
+				outline: 1px solid ${theme.color.error};
+			}
 		}
 	`}
 
@@ -49,7 +53,7 @@ export const InputWrapper = styled.div`
 // 	}
 // `
 
-export const PhonenumberWrapper = styled(InputWrapper)`
+export const NumberWrapper = styled(InputWrapper)`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -59,7 +63,7 @@ export const PhonenumberWrapper = styled(InputWrapper)`
 		padding: 1rem 0.8rem;
 	}
 
-	.phonenumber-bar {
+	.number-bar {
 		width: 2rem;
 		height: 1px;
 		background-color: ${({ theme }) => theme.color.darkgray};

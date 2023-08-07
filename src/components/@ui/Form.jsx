@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { FormContext } from '../../context/form-context'
-import { TextInput, Checkbox, PhonenumberInput } from '../@ui/Input'
+import { TextInput, Checkbox, NumberInput } from '../@ui/Input'
 import { HiddenLabel } from '../@ui/Label'
 import { Button } from '../@ui/Button'
 import {
@@ -26,9 +26,10 @@ function Hr({ text, ...props }) {
 
 function SubmitButton({ children, ...props }) {
 	const { ableSubmit } = useContext(FormContext)
+	console.log('ableSubmit: ', ableSubmit)
 
 	return (
-		<Button type='submit' disabled={{ ableSubmit }} {...props}>
+		<Button type='submit' disabled={!ableSubmit} {...props}>
 			{children}
 		</Button>
 	)
@@ -37,6 +38,7 @@ function SubmitButton({ children, ...props }) {
 function FormValidationMessage({ text, ...props }) {
 	return <Validation {...props}>{text}</Validation>
 }
+
 function FormInput({
 	label,
 	id,
@@ -48,13 +50,16 @@ function FormInput({
 	info,
 	...props
 }) {
+	const { areTouched, areValid } = useContext(FormContext)
+	const [isTouched, isValid] = [areTouched[name], areValid[name]]
+
 	if (type === 'checkbox') {
 		return <Checkbox {...{ id, name, info, ...props }} />
 	}
 
-	if (type === 'phonenumber') {
+	if (type === 'phonenumber' || type === 'businessNumber') {
 		return (
-			<PhonenumberInput
+			<NumberInput
 				label={
 					<label htmlFor={id} className='sr-only'>
 						{label}
@@ -71,19 +76,12 @@ function FormInput({
 		<>
 			{label && <HiddenLabel {...{ id, label }} />}
 			<Flexbox $direction='row'>
-				<TextInput {...{ id, name, type, placeholder, ...props }} />
+				<TextInput
+					{...{ id, name, type, placeholder, ...props }}
+					className={isTouched && !isValid ? 'invalid' : ''}
+				/>
 				{children}
 			</Flexbox>
-			<FormValidationMessage
-				text={
-					<>
-						<span className={0 ? 'valid' : ''}>영문 ✓</span>
-						<span className={0 ? 'valid' : ''}>숫자 ✓</span>
-						<span className={0 ? 'valid' : ''}>특수문자 ✓</span>
-						<span className={0 ? 'valid' : ''}>8-16자 ✓</span>
-					</>
-				}
-			/>
 		</>
 	)
 }
