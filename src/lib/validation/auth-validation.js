@@ -40,5 +40,4 @@ const sellerInfoSchema = {
 	},
 }
 
-// export default { accountSchema, personalInfoSchema, sellerInfoSchema }
 export { accountSchema, personalInfoSchema, sellerInfoSchema }

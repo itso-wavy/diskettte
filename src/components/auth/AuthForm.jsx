@@ -1,14 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { FormProvider } from '../../context/form-context'
 import { Button } from '../@ui/Button'
-import {
-	FormSection,
-	// FormInput,
-	// FormValidateMessage,
-	Hr,
-	SmallMenus,
-	Flexbox,
-} from '../@ui/Form'
+import { FormSection, Hr, SmallMenus, Flexbox, SubmitButton } from '../@ui/Form'
 import {
 	AccountLoginFieldset,
 	AccountRegisterFieldset,
@@ -21,7 +15,7 @@ import {
 // import { GoogleLoginButton, KakaotalkLoginButton, NaverLoginButton } from '.'
 import { StyledForm } from './AuthForm.style'
 
-function ButtonField({ isBuyer, ...props }) {
+function LinkField({ isBuyer, ...props }) {
 	return (
 		<>
 			<Hr text='OR' />
@@ -62,37 +56,33 @@ function AuthForm({ type }) {
 				id={`${type} form`}
 				title={isBuyer ? '로그인' : '셀러 로그인'}
 			>
-				<StyledForm method='POST'>
-					<AccountLoginFieldset
-						onBlur={() => {}}
-						// blur시 인풋 트리밍 값이 isEntered인지 확인, 전송 버튼 누르면 인풋 포커싱
-						// 입력할 때마다 비밀번호 양식 검사하고 아래 메시지 컬러(pw)
-						// 양식에 밸리데이션 문제 있으면 전송 불가함
-						// 전송 보낸 후, 일치하는 계정 없으면 메시지
-						// 전송 보낸 후, 유저 유형이 다를 때 메시지
-						validationMessage={{
-							password: (
-								<>
-									<span className={0 ? 'valid' : ''}>영문 ✓</span>
-									<span className={0 ? 'valid' : ''}>숫자 ✓</span>
-									<span className={0 ? 'valid' : ''}>특수문자 ✓</span>
-									<span className={0 ? 'valid' : ''}>8-16자 ✓</span>
-								</>
-							),
-						}}
-					/>
-					<Flexbox $direction='row'>
-						<Button
-							$style='secondary'
-							type='button'
-							onClick={() => navigate('../signup')}
-						>
-							회원가입
-						</Button>
-						<Button type='submit'>로그인</Button>
-					</Flexbox>
-					<ButtonField {...{ isBuyer }} />
-				</StyledForm>
+				<FormProvider initialState={{ id: '', password: '' }}>
+					<StyledForm method='POST'>
+						<AccountLoginFieldset
+						// validationMessage={{
+						// 	password: (
+						// 		<>
+						// 			<span className={0 ? 'valid' : ''}>영문 ✓</span>
+						// 			<span className={0 ? 'valid' : ''}>숫자 ✓</span>
+						// 			<span className={0 ? 'valid' : ''}>특수문자 ✓</span>
+						// 			<span className={0 ? 'valid' : ''}>8-16자 ✓</span>
+						// 		</>
+						// 	),
+						// }}
+						/>
+						<Flexbox $direction='row'>
+							<Button
+								$style='secondary'
+								type='button'
+								onClick={() => navigate('../signup')}
+							>
+								회원가입
+							</Button>
+							<SubmitButton>로그인</SubmitButton>
+						</Flexbox>
+						<LinkField {...{ isBuyer }} />
+					</StyledForm>
+				</FormProvider>
 			</FormSection>
 		)
 	} else if (type === 'signup') {
@@ -101,51 +91,43 @@ function AuthForm({ type }) {
 				id={`${type} form`}
 				title={isBuyer ? '회원가입' : '셀러 회원가입'}
 			>
-				<StyledForm method='POST'>
-					<AccountRegisterFieldset
-						onBlur={() => {}}
-						// blur시 인풋 트리밍 값이 isEntered인지 확인, 전송 버튼 누르면 인풋 포커싱
-						// 키 입력할 때마다 비밀번호 양식 검사하고 아래 메시지 컬러(pw)
-						// 핸드폰 번호는 010으로 시작하는 10~11자리 숫자로만
-						// 이메일 양식에 맞아야 함
-						// (셀러) 사업자번호는 10자리로 이루어진 숫자
-						// (셀러) 브랜드명은 중복 불가
-						// 양식에 밸리데이션 문제 있으면 전송 불가함
-						// 전송 보낸 후, 일치하는 계정 없으면 메시지
-						// 전송 보낸 후, 유저 유형이 다를 때 메시지
-						validationMessage={{
-							id: '이미 사용 중인 아이디입니다.',
-							password: (
-								<>
-									<span className={0 ? 'valid' : ''}>영문 ✓</span>
-									<span className={0 ? 'valid' : ''}>숫자 ✓</span>
-									<span className={0 ? 'valid' : ''}>특수문자 ✓</span>
-									<span className={1 ? 'valid' : ''}>8-16자 ✓</span>
-									<span className={1 ? 'valid' : ''}>비밀번호 일치 ✓</span>
-								</>
-							),
-						}}
-					/>
-					<PersonalInfoRegisterFieldset {...{ isBuyer }} />
-					{isBuyer || (
-						<SellerInfoRegisterFieldset
-							validationMessage={{
-								brand: '이미 사용 중인 브랜드명입니다.',
-							}}
+				<FormProvider initialState={{ id: '', password: '', phoneNumber: '' }}>
+					<StyledForm method='POST'>
+						<AccountRegisterFieldset
+						// validationMessage={{
+						// 	id: '이미 사용 중인 아이디입니다.',
+						// 	password: (
+						// 		<>
+						// 			<span className={0 ? 'valid' : ''}>영문 ✓</span>
+						// 			<span className={0 ? 'valid' : ''}>숫자 ✓</span>
+						// 			<span className={0 ? 'valid' : ''}>특수문자 ✓</span>
+						// 			<span className={1 ? 'valid' : ''}>8-16자 ✓</span>
+						// 			<span className={1 ? 'valid' : ''}>비밀번호 일치 ✓</span>
+						// 		</>
+						// 	),
+						// }}
 						/>
-					)}
-					<Flexbox $direction='row' style={{ marginTop: '1em' }}>
-						<Button
-							$style='secondary'
-							type='button'
-							onClick={() => navigate('../signin')}
-						>
-							로그인
-						</Button>
-						<Button type='submit'>회원가입</Button>
-					</Flexbox>
-					<ButtonField {...{ isBuyer }} />
-				</StyledForm>
+						<PersonalInfoRegisterFieldset {...{ isBuyer }} />
+						{isBuyer || (
+							<SellerInfoRegisterFieldset
+							// validationMessage={{
+							// 	brand: '이미 사용 중인 브랜드명입니다.',
+							// }}
+							/>
+						)}
+						<Flexbox $direction='row' style={{ marginTop: '1em' }}>
+							<Button
+								$style='secondary'
+								type='button'
+								onClick={() => navigate('../signin')}
+							>
+								로그인
+							</Button>
+							<SubmitButton>회원가입</SubmitButton>
+						</Flexbox>
+						<LinkField {...{ isBuyer }} />
+					</StyledForm>
+				</FormProvider>
 			</FormSection>
 		)
 	}
