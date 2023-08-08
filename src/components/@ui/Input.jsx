@@ -28,9 +28,7 @@ function TextInput({
 	name,
 	type = 'text',
 	placeholder,
-	// onInput,
 	validationFn,
-	// options,
 	...props
 }) {
 	/* 
@@ -124,17 +122,14 @@ function NumberInput({ label, id, name, placeholder, ...props }) {
 }
 
 function Checkbox({ id, name, info, ...props }) {
-	const [isChecked, setIsChecked] = useState(false)
+	const { areValid, onCheckHandler } = useContext(FormContext)
 
-	const toggleCheckboxHandler = e => {
-		e.preventDefault()
-		setIsChecked(isChecked => !isChecked)
-	}
+	const toggleCheckboxHandler = e => onCheckHandler(e)
 
 	return (
 		<CheckboxWrapper {...props}>
 			<label htmlFor={id} onClick={toggleCheckboxHandler}>
-				<Img src={!isChecked ? UncheckedImg : CheckedImg} $size='1.1rem' />
+				<Img src={!areValid[name] ? UncheckedImg : CheckedImg} $size='1.1rem' />
 				{info}
 			</label>
 			<input
@@ -142,7 +137,7 @@ function Checkbox({ id, name, info, ...props }) {
 				type='checkbox'
 				name={name}
 				onChange={toggleCheckboxHandler}
-				checked={isChecked}
+				checked={areValid[name]}
 				className='sr-only'
 			/>
 		</CheckboxWrapper>

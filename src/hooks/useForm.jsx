@@ -5,10 +5,11 @@ export const ACTION_CREATOR = {
 	INPUT: 'INPUT',
 	BLUR: 'BLUR',
 	CLEAR: 'CLEAR',
+	CHECK: 'CHECK',
 }
 
 const reducer = (state, action) => {
-	const { values, areTouched, areValid, errorMessages } = action
+	const { name, values, areTouched, areValid, errorMessages } = action
 
 	switch (action.type) {
 		case ACTION_CREATOR.INPUT:
@@ -29,9 +30,9 @@ const reducer = (state, action) => {
 		case ACTION_CREATOR.CLEAR:
 			return {
 				...state,
-				values: { ...state.values, ...values },
-				areTouched: { ...state.areTouched, ...areTouched },
-				errorMessages: { ...state.errorMessages, ...errorMessages },
+				values: { ...state.values, [name]: '' },
+				areTouched: { ...state.areTouched, [name]: false },
+				errorMessages: { ...state.errorMessages, [name]: '' },
 			}
 		// return {
 		// 	...state,
@@ -39,6 +40,12 @@ const reducer = (state, action) => {
 		// 	areTouched,
 		// 	errorMessages,
 		// }
+		case ACTION_CREATOR.CHECK:
+			return {
+				...state,
+				name,
+				areValid: { ...state.areValid, [name]: !state.areValid[name] },
+			}
 		default:
 			return state
 	}
@@ -120,9 +127,7 @@ export const useForm = initialState => {
 
 		dispatch({
 			type: ACTION_CREATOR.CLEAR,
-			values: { [name]: '' },
-			areTouched: { [name]: false },
-			errorMessages: { [name]: '' },
+			name,
 		})
 		// dispatch({
 		// 	type: ACTION_CREATOR.CLEAR,
@@ -130,6 +135,19 @@ export const useForm = initialState => {
 		// 	areTouched: { ...state.areTouched, [name]: false },
 		// 	errorMessages: { ...state.errorMessages, [name]: '' },
 		// })
+	}
+
+	const onCheckHandler = e => {
+		const { name } = e.target
+
+		if (name) {
+			// const checked = state.values[name] || false
+
+			dispatch({
+				type: ACTION_CREATOR.CHECK,
+				name,
+			})
+		}
 	}
 
 	const ableSubmit = Object.values(state.areValid).every(
@@ -145,6 +163,7 @@ export const useForm = initialState => {
 		onInputHandler,
 		onBlurHandler,
 		clearInputHandler,
+		onCheckHandler,
 		ableSubmit,
 	}
 }

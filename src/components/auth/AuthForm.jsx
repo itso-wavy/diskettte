@@ -87,6 +87,7 @@ function AuthForm({ type }) {
 					username: '',
 					phoneNumber: '',
 					email: '',
+					termsAgree: '',
 			  }
 			: {
 					id: '',
