@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useHeaderHeight, useInput } from '../../hooks'
 import { debounce } from '../../lib/utils/debounce'
@@ -40,8 +40,9 @@ function SearchInput({
 	onInput,
 	...props
 }) {
-	const { ref, value, onInputHandler, clearInputHandler } = useInput()
+	const { ref: inputRef, value, onInputHandler, clearInputHandler } = useInput()
 	const [results, setResults] = useState([])
+	const searchInputRef = useRef()
 
 	const clearInput = () => {
 		clearInputHandler()
@@ -49,12 +50,24 @@ function SearchInput({
 	}
 	const openSearchWindow = () => {
 		searchWindow.show()
-		ref.current.focus()
+		inputRef.current.focus()
 	}
 	const closeSearchWindow = () => {
 		searchWindow.close()
 		clearInput()
 	}
+
+	const handleDocumentClick = e => {
+		if (!searchInputRef.current.contains(e.target)) closeSearchWindow()
+	}
+
+	useEffect(() => {
+		document.addEventListener('click', handleDocumentClick)
+
+		return () => {
+			document.removeEventListener('click', handleDocumentClick)
+		}
+	}, [])
 
 	const searchKeyword = useCallback(e => {
 		onInputHandler(e)
@@ -77,9 +90,9 @@ function SearchInput({
 
 	return (
 		<>
-			<SearchInputWrapper>
+			<SearchInputWrapper ref={searchInputRef}>
 				<input
-					ref={ref}
+					ref={inputRef}
 					name={name}
 					value={value}
 					placeholder={placeholder}
