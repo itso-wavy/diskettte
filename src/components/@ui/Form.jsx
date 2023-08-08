@@ -26,7 +26,6 @@ function Hr({ text, ...props }) {
 
 function SubmitButton({ children, ...props }) {
 	const { ableSubmit } = useContext(FormContext)
-	console.log('ableSubmit: ', ableSubmit)
 
 	return (
 		<Button type='submit' disabled={!ableSubmit} {...props}>

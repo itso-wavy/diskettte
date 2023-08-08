@@ -8,8 +8,10 @@ function validate(scheme) {
 	scheme = { ...accountSchema, ...personalInfoSchema, ...sellerInfoSchema }[
 		scheme
 	]
-	const validateScheme = value =>
-		scheme?.pattern.test(value) ? null : scheme.message
+	const validateScheme = value => {
+		if (!scheme) return false
+		return scheme.pattern.test(value) ? true : scheme.message
+	}
 
 	return validateScheme
 }

@@ -59,18 +59,9 @@ function AuthForm({ type }) {
 				title={isBuyer ? '로그인' : '셀러 로그인'}
 			>
 				<FormProvider initialState={initialState}>
-					<StyledForm method='POST'>
+					<StyledForm method='POST' onSubmit={e => e.preventDefault()}>
 						<AccountLoginFieldset
-						// validationMessage={{
-						// 	password: (
-						// 		<>
-						// 			<span className={0 ? 'valid' : ''}>영문 ✓</span>
-						// 			<span className={0 ? 'valid' : ''}>숫자 ✓</span>
-						// 			<span className={0 ? 'valid' : ''}>특수문자 ✓</span>
-						// 			<span className={0 ? 'valid' : ''}>8-16자 ✓</span>
-						// 		</>
-						// 	),
-						// }}
+						// serverMessage={}
 						/>
 						<Flexbox $direction='row'>
 							<Button
@@ -114,25 +105,16 @@ function AuthForm({ type }) {
 				title={isBuyer ? '회원가입' : '셀러 회원가입'}
 			>
 				<FormProvider initialState={initialState}>
-					<StyledForm method='POST'>
+					<StyledForm method='POST' onSubmit={e => e.preventDefault()}>
 						<AccountRegisterFieldset
-						// validationMessage={{
+						// serverMessage={{
 						// 	id: '이미 사용 중인 아이디입니다.',
-						// 	password: (
-						// 		<>
-						// 			<span className={0 ? 'valid' : ''}>영문 ✓</span>
-						// 			<span className={0 ? 'valid' : ''}>숫자 ✓</span>
-						// 			<span className={0 ? 'valid' : ''}>특수문자 ✓</span>
-						// 			<span className={1 ? 'valid' : ''}>8-16자 ✓</span>
-						// 			<span className={1 ? 'valid' : ''}>비밀번호 일치 ✓</span>
-						// 		</>
-						// 	),
 						// }}
 						/>
 						<PersonalInfoRegisterFieldset {...{ isBuyer }} />
 						{isBuyer || (
 							<SellerInfoRegisterFieldset
-							// validationMessage={{
+							// serverMessage={{
 							// 	brand: '이미 사용 중인 브랜드명입니다.',
 							// }}
 							/>

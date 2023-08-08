@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 
-export function useInput(options) {
+export const useInput = options => {
 	const inputRef = useRef()
 	const [value, setValue] = useState('')
 

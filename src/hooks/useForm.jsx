@@ -1,7 +1,7 @@
 import { useReducer } from 'react'
 import validate from '../lib/validation'
 
-const ACTION_CREATOR = {
+export const ACTION_CREATOR = {
 	INPUT: 'INPUT',
 	BLUR: 'BLUR',
 	CLEAR: 'CLEAR',
@@ -16,23 +16,35 @@ const reducer = (state, action) => {
 		case ACTION_CREATOR.BLUR:
 			return {
 				...state,
-				areTouched,
-				areValid,
-				errorMessages,
+				areTouched: { ...state.areTouched, ...areTouched },
+				areValid: { ...state.areValid, ...areValid },
+				errorMessages: { ...state.errorMessages, ...errorMessages },
 			}
+		// return {
+		// 	...state,
+		// 	areTouched,
+		// 	areValid,
+		// 	errorMessages,
+		// }
 		case ACTION_CREATOR.CLEAR:
 			return {
 				...state,
-				values,
-				areTouched,
-				errorMessages,
+				values: { ...state.values, ...values },
+				areTouched: { ...state.areTouched, ...areTouched },
+				errorMessages: { ...state.errorMessages, ...errorMessages },
 			}
+		// return {
+		// 	...state,
+		// 	values,
+		// 	areTouched,
+		// 	errorMessages,
+		// }
 		default:
 			return state
 	}
 }
 
-export function useForm(initialState) {
+export const useForm = initialState => {
 	const blankState = {}
 	for (let key in initialState) {
 		blankState[key] = false
@@ -45,11 +57,6 @@ export function useForm(initialState) {
 		errorMessages: blankState,
 	})
 
-	// const [values, setValues] = useState([])
-	// const [areTouched, setAreTouched] = useState([])
-	// const [areValid, setAreValid] = useState([])
-	// const [errorMessages, setErrorMessages] = useState([])
-
 	const onInputHandler = (e, options) => {
 		let { value, name } = e.target
 
@@ -59,17 +66,23 @@ export function useForm(initialState) {
 			type: ACTION_CREATOR.INPUT,
 			values: { ...state.values, [name]: value },
 		})
-		// setValues(values => ({ ...values, [name]: value }))
 	}
 
 	const onBlurHandler = e => {
 		const { value, name } = e.target
 
-		let validationMessage, isTouched
+		const isTouched = value ? true : false
+		let validationMessage = ''
+		let validationResult = false
 
 		const validationFn = validate(name)
 		const trimmingValue = value.trim()
-		if (value) validationMessage = validationFn(trimmingValue)
+		if (value) validationResult = validationFn(trimmingValue)
+
+		if (typeof validationResult !== 'boolean') {
+			validationMessage = validationResult
+			validationResult = false
+		}
 
 		/* 값이 있어야 메시지를 보임... ==> values[name] && 
 
@@ -78,21 +91,28 @@ export function useForm(initialState) {
     2) 'abc' : value.trim() o && validationMessage 
     */
 
-		isTouched = value ? true : false
-
 		dispatch({
 			type: ACTION_CREATOR.BLUR,
-			errorMessages: { ...state.errorMessages, [name]: validationMessage },
-			areTouched: { ...state.areTouched, [name]: isTouched },
-			areValid: { ...state.areValid, [name]: isTouched && !validationMessage },
+			errorMessages: { [name]: validationMessage },
+			areTouched: { [name]: isTouched },
+			areValid: { [name]: isTouched && validationResult },
 		})
 
-		// setErrorMessages(errorMessages => ({
-		// 	...errorMessages,
-		// 	[name]: validationMessage,
-		// }))
+		// 예외처리 구간
+		if (name === 'passwordConfirm')
+			dispatch({
+				type: ACTION_CREATOR.BLUR,
+				areValid: {
+					[name]: isTouched && value === state.values.password,
+				},
+			})
 
-		// setAreValid(isValid => ({ ...isValid, [name]: !validationMessage }))
+		// dispatch({
+		// 	type: ACTION_CREATOR.BLUR,
+		// 	errorMessages: { ...state.errorMessages, [name]: validationMessage },
+		// 	areTouched: { ...state.areTouched, [name]: isTouched },
+		// 	areValid: { ...state.areValid, [name]: isTouched && validationResult },
+		// })
 	}
 
 	const clearInputHandler = ref => {
@@ -100,24 +120,27 @@ export function useForm(initialState) {
 
 		dispatch({
 			type: ACTION_CREATOR.CLEAR,
-			values: { ...state.values, [name]: '' },
-			areTouched: { ...state.areTouched, [name]: false },
-			errorMessages: { ...state.errorMessages, [name]: '' },
+			values: { [name]: '' },
+			areTouched: { [name]: false },
+			errorMessages: { [name]: '' },
 		})
-
-		// setValues(values => ({ ...values, [e.target.name]: '' }))
+		// dispatch({
+		// 	type: ACTION_CREATOR.CLEAR,
+		// 	values: { ...state.values, [name]: '' },
+		// 	areTouched: { ...state.areTouched, [name]: false },
+		// 	errorMessages: { ...state.errorMessages, [name]: '' },
+		// })
 	}
+
 	const ableSubmit = Object.values(state.areValid).every(
 		isValid => isValid === true
 	)
 
 	return {
 		values: state.values,
-		// setValues,
 		areTouched: state.areTouched,
 		areValid: state.areValid,
 		errorMessages: state.errorMessages,
-		// setErrorMessages,
 		dispatch,
 		onInputHandler,
 		onBlurHandler,

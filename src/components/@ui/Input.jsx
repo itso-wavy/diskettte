@@ -53,6 +53,7 @@ function TextInput({
 					ref={ref}
 					id={id}
 					name={name}
+					type={type}
 					value={value}
 					placeholder={placeholder}
 					onInput={e => onInputHandler(e, { type })}

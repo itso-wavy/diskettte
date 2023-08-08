@@ -1,11 +1,28 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FormContext } from '../../context/form-context'
 import { Button } from '../@ui/Button'
 import { FormInput, FormValidationMessage } from '../@ui/Form'
+import { passwordSchema } from '../../lib/validation/auth-validation'
 
 function AccountLoginFieldset({ ...props }) {
-	const { errorMessages } = useContext(FormContext)
+	const [isValid, setIsValid] = useState({
+		step1: false,
+		step2: false,
+		step3: false,
+		step4: false,
+	})
+
+	const { values, errorMessages } = useContext(FormContext)
+	const { password } = values
+
+	useEffect(() => {
+		for (let step in passwordSchema) {
+			const { pattern } = passwordSchema[step]
+
+			setIsValid(isValid => ({ ...isValid, [step]: pattern.test(password) }))
+		}
+	}, [password])
 
 	return (
 		<fieldset {...props}>
@@ -20,18 +37,44 @@ function AccountLoginFieldset({ ...props }) {
 				name='password'
 				placeholder='비밀번호'
 			/>
-			{errorMessages.password && (
-				<FormValidationMessage
-					text={errorMessages.password}
-					className='invalid'
-				/>
-			)}
+			<FormValidationMessage
+				text={
+					<>
+						<span className={isValid.step1 ? 'valid' : ''}>영문 ✓</span>
+						<span className={isValid.step2 ? 'valid' : ''}>숫자 ✓</span>
+						<span className={isValid.step3 ? 'valid' : ''}>특수문자 ✓</span>
+						<span className={isValid.step4 ? 'valid' : ''}>8-16자 ✓</span>
+					</>
+				}
+			/>
 		</fieldset>
 	)
 }
 
 function AccountRegisterFieldset({ ...props }) {
-	const { errorMessages } = useContext(FormContext)
+	const [isValid, setIsValid] = useState({
+		step1: false,
+		step2: false,
+		step3: false,
+		step4: false,
+		step5: false,
+	})
+
+	const { values, errorMessages } = useContext(FormContext)
+	const { password, passwordConfirm } = values
+
+	useEffect(() => {
+		for (let step in passwordSchema) {
+			const { pattern } = passwordSchema[step]
+
+			setIsValid(isValid => ({ ...isValid, [step]: pattern.test(password) }))
+		}
+
+		setIsValid(isValid => ({
+			...isValid,
+			step5: passwordConfirm && password === passwordConfirm,
+		}))
+	}, [password, passwordConfirm])
 
 	return (
 		<fieldset {...props}>
@@ -45,23 +88,32 @@ function AccountRegisterFieldset({ ...props }) {
 				<FormValidationMessage text={errorMessages.id} className='invalid' />
 			)}
 			<FormInput
+				type='password'
 				label='비밀번호'
 				id='password'
 				name='password'
 				placeholder='비밀번호'
 			/>
 			<FormInput
+				type='password'
 				label='비밀번호 재확인'
 				id='passwordConfirm'
 				name='passwordConfirm'
 				placeholder='비밀번호 재확인'
 			/>
-			{errorMessages.password && (
-				<FormValidationMessage
-					text={errorMessages.password}
-					className='invalid'
-				/>
-			)}
+			<FormValidationMessage
+				text={
+					<>
+						<span className={isValid.step1 ? 'valid' : ''}>영문 ✓</span>
+						<span className={isValid.step2 ? 'valid' : ''}>숫자 ✓</span>
+						<span className={isValid.step3 ? 'valid' : ''}>특수문자 ✓</span>
+						<span className={isValid.step4 ? 'valid' : ''}>8-16자 ✓</span>
+						<span className={isValid.step5 ? 'valid' : ''}>
+							비밀번호 일치 ✓
+						</span>
+					</>
+				}
+			/>
 			{errorMessages.passwordConfirm && (
 				<FormValidationMessage
 					text={errorMessages.passwordConfirm}
