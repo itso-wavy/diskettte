@@ -38,8 +38,17 @@ export const Heading = styled.div`
 export const StyledSection = styled.section`
 	margin-top: 4.6875rem;
 
-	${({ $order, theme }) => {
+	${({ $order, $top, theme }) => {
 		switch ($order) {
+			case 'one':
+				return css`
+					margin-top: 0;
+					height: ${`calc(100vh - ${$top}px)`};
+				`
+			case 'second':
+				return css`
+					/* padding: 5em 0 10em; */
+				`
 			case 'second':
 				return css`
 					/* padding: 5em 0 10em; */

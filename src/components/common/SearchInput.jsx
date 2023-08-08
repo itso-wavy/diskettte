@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useInput } from '../../hooks'
+import { useHeaderHeight, useInput } from '../../hooks'
 import { debounce } from '../../lib/utils/debounce'
 import { Button } from '../@ui/Button'
 import EraseImg from '/assets/icons/wavy_erase-sharp.svg'
@@ -10,16 +10,10 @@ import { CloseSvg } from '../@svg'
 import { SearchInputWrapper, StyledDialog, StyledUl } from './SearchInput.style'
 
 function SearchResult({ results, closeSearchWindow, ...props }) {
-	const [dialogTop, setDialogTop] = useState(0)
-
-	useEffect(() => {
-		const headerHeight = document.querySelector('#header').clientHeight
-
-		setDialogTop(headerHeight)
-	}, [])
+	const headerHeight = useHeaderHeight()
 
 	return (
-		<StyledDialog id='searchWindow' $top={dialogTop} {...props}>
+		<StyledDialog id='searchWindow' $top={headerHeight} {...props}>
 			<Button
 				$type='icon'
 				$size='2.5em'
@@ -61,25 +55,6 @@ function SearchInput({
 		searchWindow.close()
 		clearInput()
 	}
-
-	// const searchKeyword = async e => {
-	// 	onInputHandler(e)
-
-	// 	const keyword = e.target.value.trim()
-	// 	let response
-
-	// 	try {
-	// 		if (keyword)
-	// 			response = await axios.get(
-	// 				`https://openmarket.weniv.co.kr//products/?search=${keyword}`
-	// 			)
-	// 		setResults(response?.data.results || [])
-	// 	} catch (err) {
-	// 		console.log(err)
-	// 	} finally {
-	// 		console.log(results)
-	// 	}
-	// }
 
 	const searchKeyword = useCallback(e => {
 		onInputHandler(e)
@@ -141,5 +116,3 @@ function SearchInput({
 }
 
 export { SearchInput }
-
-// product_id: 499

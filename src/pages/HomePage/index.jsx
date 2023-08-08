@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useHeaderHeight } from '../../hooks'
 import {
 	Carousel,
 	CarouselItem,
@@ -22,6 +23,7 @@ import useStore from '../../store'
 import { banners, brands } from '../../lib/utils/dummyData'
 
 export function HomePage() {
+	const headerHeight = useHeaderHeight()
 	const { isMobile, isTablet } = useStore()
 	const BrandsChunk = []
 	const [brandsPerScreen, setBrandsPerScreen] = useState(3)
@@ -40,7 +42,7 @@ export function HomePage() {
 
 	return (
 		<MinusPaddedWrapper>
-			<Hero sectionTitle='main hero'>
+			<Hero sectionTitle='main hero' $top={headerHeight}>
 				<Carousel
 					items={banners}
 					autoSlideInterval={3000}
