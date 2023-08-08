@@ -6,7 +6,7 @@ export function useInput(options) {
 
 	const onInputHandler = e => {
 		let input = e.target.value
-		if (options.type === 'number') input = input.replace(/\D/g, '')
+		if (options && options.type === 'number') input = input.replace(/\D/g, '')
 
 		setValue(input)
 	}

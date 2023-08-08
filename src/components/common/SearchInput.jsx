@@ -1,6 +1,8 @@
 import axios from 'axios'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useInput } from '../../hooks'
+import { debounce } from '../../lib/utils/debounce'
 import { Button } from '../@ui/Button'
 import EraseImg from '/assets/icons/wavy_erase-sharp.svg'
 import SearchImg from '/assets/icons/ion_search-outline.svg'
@@ -44,45 +46,69 @@ function SearchInput({
 	onInput,
 	...props
 }) {
-	const inputRef = useRef()
-	// useInput 사용 가능할 듯
-	const [value, setValue] = useState('')
+	const { ref, value, onInputHandler, clearInputHandler } = useInput()
 	const [results, setResults] = useState([])
+
 	const clearInput = () => {
-		setValue('')
+		clearInputHandler()
 		setResults([])
 	}
-	const onChangeHandler = e => setValue(e.target.value)
 	const openSearchWindow = () => {
 		searchWindow.show()
-		inputRef.current.focus()
+		ref.current.focus()
 	}
 	const closeSearchWindow = () => {
 		searchWindow.close()
 		clearInput()
 	}
 
-	const searchKeyword = async e => {
+	// const searchKeyword = async e => {
+	// 	onInputHandler(e)
+
+	// 	const keyword = e.target.value.trim()
+	// 	let response
+
+	// 	try {
+	// 		if (keyword)
+	// 			response = await axios.get(
+	// 				`https://openmarket.weniv.co.kr//products/?search=${keyword}`
+	// 			)
+	// 		setResults(response?.data.results || [])
+	// 	} catch (err) {
+	// 		console.log(err)
+	// 	} finally {
+	// 		console.log(results)
+	// 	}
+	// }
+
+	const searchKeyword = useCallback(e => {
+		onInputHandler(e)
+
 		const keyword = e.target.value.trim()
 		let response
 
-		if (keyword)
-			response = await axios.get(
-				`https://openmarket.weniv.co.kr//products/?search=${keyword}`
-			)
-		setResults(response?.data.results || [])
-		console.log(results)
-	}
+		debounce(async () => {
+			try {
+				if (keyword)
+					response = await axios.get(
+						`https://openmarket.weniv.co.kr//products/?search=${keyword}`
+					)
+				setResults(response?.data.results || [])
+			} catch (err) {
+				console.log(err)
+			}
+		}, 300)()
+	}, [])
 
 	return (
 		<>
 			<SearchInputWrapper>
 				<input
-					ref={inputRef}
+					ref={ref}
 					name={name}
 					value={value}
 					placeholder={placeholder}
-					onChange={onChangeHandler}
+					onChange={onInputHandler}
 					onClick={openSearchWindow}
 					onInput={searchKeyword}
 					{...props}
