@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	gap: 0.625rem;
+	/* gap: 0.625rem; */
 	border-bottom: 1px solid ${({ theme }) => theme.color.lightgray};
 
 	& > * {
@@ -15,6 +15,8 @@ export const Wrapper = styled.div`
 	}
 
 	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+		gap: 0.625rem;
+
 		& > * {
 			padding: 1em ${({ theme }) => theme.width.mobile};
 			height: 2.375rem;
