@@ -1,7 +1,8 @@
 .env*
 _diskettte.code-workspace
-public/assets/images
+public/assets/images/*
 createBearFishSlice.jsx
+public/assets/icons/test
 
 # Logs
 logs

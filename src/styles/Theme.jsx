@@ -26,7 +26,7 @@ const color = {
 	pink: '#f081a6',
 	pink2: '#E83E8C',
 	red: '#D7373D',
-	red2: '#BD2130',
+	red2: '#BD2130', // check
 	red3: '#B7252A',
 	orange: '#F5F4F2',
 	orange2: '#FCE6C1',
