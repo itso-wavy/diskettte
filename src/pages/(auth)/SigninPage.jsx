@@ -21,9 +21,9 @@ export const signinAction = async ({ request, params }) => {
 	console.log(authData)
 }
 /* 
-!isLogin? 이어야 진입 가능,
-isLogin 상태이면 진입 불가, navigate(-1)
-sns 로그인 콜백 페이지도 여기
+!ableSubmit 이어야 진입 가능,
+ableSubmit 상태이면 진입 불가, navigate(-1)
+sns 로그인 콜백 페이지?
 */
 
 // async ({ request, params }) => {

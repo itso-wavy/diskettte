@@ -26,9 +26,17 @@ function Hr({ text, ...props }) {
 
 function SubmitButton({ children, ...props }) {
 	const { ableSubmit } = useContext(FormContext)
+	const onSubmitHandler = e => {
+		if (!ableSubmit) e.preventDefault()
+	}
 
 	return (
-		<Button type='submit' disabled={!ableSubmit} {...props}>
+		<Button
+			type='submit'
+			disabled={!ableSubmit}
+			onSubmit={onSubmitHandler}
+			{...props}
+		>
 			{children}
 		</Button>
 	)

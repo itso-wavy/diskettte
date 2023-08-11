@@ -59,7 +59,7 @@ function AuthForm({ type }) {
 				title={isBuyer ? '로그인' : '셀러 로그인'}
 			>
 				<FormProvider initialState={initialState}>
-					<StyledForm method='POST' onSubmit={e => e.preventDefault()}>
+					<StyledForm method='POST'>
 						<AccountLoginFieldset
 						// serverMessage={}
 						/>
@@ -106,7 +106,7 @@ function AuthForm({ type }) {
 				title={isBuyer ? '회원가입' : '셀러 회원가입'}
 			>
 				<FormProvider initialState={initialState}>
-					<StyledForm method='POST' onSubmit={e => e.preventDefault()}>
+					<StyledForm method='POST'>
 						<AccountRegisterFieldset
 						// serverMessage={{
 						// 	id: '이미 사용 중인 아이디입니다.',
@@ -120,6 +120,7 @@ function AuthForm({ type }) {
 							// }}
 							/>
 						)}
+						{/* <FormValidationMessage text={serverMessage} /> */}
 						<Flexbox $direction='row' style={{ marginTop: '1em' }}>
 							<Button
 								$style='secondary'

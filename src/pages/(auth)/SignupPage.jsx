@@ -11,7 +11,7 @@ export function SignupPage() {
 	)
 }
 
-export const signupAction = async ({ request }) => {
+export const signupAction = async ({ request, params }) => {
 	const data = await request.formData()
 	const authData = {
 		id: data.get('id'),

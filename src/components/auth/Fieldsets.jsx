@@ -32,6 +32,7 @@ function AccountLoginFieldset({ ...props }) {
 				<FormValidationMessage text={errorMessages.id} className='invalid' />
 			)}
 			<FormInput
+				type='password'
 				label='비밀번호'
 				id='password'
 				name='password'
@@ -114,12 +115,6 @@ function AccountRegisterFieldset({ ...props }) {
 					</>
 				}
 			/>
-			{errorMessages.passwordConfirm && (
-				<FormValidationMessage
-					text={errorMessages.passwordConfirm}
-					className='invalid'
-				/>
-			)}
 		</fieldset>
 	)
 }
