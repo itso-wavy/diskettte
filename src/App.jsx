@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { RouterProvider } from 'react-router-dom'
-import router from './routes'
-import GlobalStyle from './styles/GlobalStyle'
-import theme from './styles/Theme'
 import { ThemeProvider } from 'styled-components'
+import router from './routes'
+import theme from './styles/Theme'
+import GlobalStyle from './styles/GlobalStyle'
 import useStore from './store'
 
 function App() {
