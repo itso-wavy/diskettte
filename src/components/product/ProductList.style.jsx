@@ -107,6 +107,7 @@ export const StyledLi = styled.li`
 `
 
 export const StyledUl = styled.ul`
+	/* width: 1000px; */
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
 	font-size: 1rem;
