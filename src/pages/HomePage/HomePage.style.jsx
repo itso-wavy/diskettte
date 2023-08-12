@@ -6,6 +6,37 @@ export const MinusPaddedWrapper = styled.div`
 	margin-bottom: -300px;
 `
 
+// export const Heading = styled.div`
+// 	display: flex;
+// 	flex-direction: column;
+// 	gap: 0.625rem;
+// 	width: 31.25rem;
+// 	position: absolute;
+// 	bottom: 1.2em;
+// 	font-size: 1.8rem;
+// 	line-height: 1.2em;
+// 	font-weight: ${({ theme }) => theme.fw.medium};
+// 	color: white;
+
+// 	& * {
+// 		height: 5rem;
+// 		display: flex;
+// 		align-items: center;
+// 		background-color: #000;
+// 		padding: 0 3.75rem;
+// 	}
+
+// 	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+// 		width: 26.875rem;
+// 		font-size: 1.5rem;
+
+// 		& * {
+// 			height: 4.375rem;
+// 			padding: 0 2.8125rem;
+// 		}
+// 	}
+// `
+
 export const Hero = styled(motion.div)`
 	margin: 0 3em;
 
@@ -159,6 +190,54 @@ export const Grid = styled.div`
 		word-break: break-all;
 		display: flex;
 		justify-content: center;
+	}
+
+	.big-font {
+		font-size: 1.8em;
+		line-height: 1.1em;
+		font-weight: ${({ theme }) => theme.fw.bold};
+		text-wrap: balance;
+	}
+
+	.big-font:last-child {
+		margin-top: 0.8em;
+	}
+
+	.big-arrow {
+		border-radius: 50%;
+		border: 1px solid white;
+	}
+
+	.touch {
+		${doubleBorder}
+	}
+
+	.see-all {
+		display: flex;
+		align-items: end;
+		position: relative;
+	}
+
+	.see-all > .touch {
+		position: relative;
+		bottom: 0.1em;
+		padding: 0.3em;
+		margin-right: 0.6em;
+		border: 2px solid white;
+		outline-color: white;
+		outline-offset: -4px;
+	}
+
+	.see-all button {
+		position: relative;
+		bottom: 0.6em;
+	}
+
+	.touch:hover,
+	.big-arrow:hover,
+	.see-all > *:hover {
+		transform: scale(1.12);
+		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
 	@media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {

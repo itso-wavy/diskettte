@@ -1,6 +1,8 @@
 import styled from 'styled-components'
+import { motion } from 'framer-motion'
+import { rotate } from '../../lib/utils/text-decorator'
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(motion.div)`
 	height: 100%;
 	min-height: auto;
 	display: flex;
@@ -26,5 +28,7 @@ export const StyledFigure = styled.figure`
 
 	figcaption > * {
 		padding: 5px;
+
+		${rotate}
 	}
 `

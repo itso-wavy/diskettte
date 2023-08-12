@@ -1,4 +1,3 @@
-import { Rotate } from '../../lib/utils/text-decorator'
 import { Wrapper, StyledFigure } from './Card.style'
 
 function Card({ $direction = 'column', children, ...props }) {
@@ -14,7 +13,7 @@ function RotatedFigureCard({ figcaption, src, alt, children, ...props }) {
 		<StyledFigure {...props}>
 			<Card $direction='row'>
 				<figcaption>
-					<Rotate>{children}</Rotate>
+					<div>{children}</div>
 				</figcaption>
 				<img src={src} alt={alt} />
 			</Card>
