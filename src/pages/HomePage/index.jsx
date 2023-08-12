@@ -9,12 +9,19 @@ import {
 	PagenationIndicator,
 } from '../../components/@ui/Carousel'
 import { Section } from '../../components/@ui/Section'
+import { GridBlock } from '../../components/@ui/GridBlock'
+import { Tag, TagBox } from '../../components/@ui/Tag'
+import { Button } from '../../components/@ui/Button'
+import { Img } from '../../components/@ui/Img'
 import { Card, RotatedFigureCard } from '../../components/@ui/Card'
+// import { CircularTextSvg } from '../../components/@svg/CircularTextSvg'
 import {
 	MinusPaddedWrapper,
 	// StyledSection,
 	// Heading,
 	Hero,
+	Grid,
+	// GridItem,
 	ListWrapper,
 	PaddedWrapper,
 	ItemWrapper,
@@ -24,7 +31,6 @@ import useStore from '../../store'
 import { banners, brands } from '../../lib/utils/dummyData'
 
 export function HomePage() {
-	const navigate = useNavigate()
 	const headerHeight = useHeaderHeight()
 	const { isMobile, isTablet } = useStore()
 	const BrandsChunk = []
@@ -54,6 +60,43 @@ export function HomePage() {
 				</Hero>
 			</Section>
 
+			<Section sectionId='introduce' sectionTitle='introduce grid' $top='0'>
+				<Grid>
+					<Card
+						initial='initial'
+						whileInView='animate'
+						variants={PreviewMotion}
+					>
+						<GridBlock>
+							<TagBox>
+								<Tag>Clothes</Tag>
+								<Tag>Food</Tag>
+								<Tag>Kidult</Tag>
+								<Tag>Electronics</Tag>
+								<Tag>Interior</Tag>
+								<Tag>Culture</Tag>
+								<Tag>Leisure</Tag>
+								<Tag>Pet</Tag>
+							</TagBox>
+						</GridBlock>
+					</Card>
+					<Card
+						initial='initial'
+						whileInView='animate'
+						variants={PreviewMotion}
+					>
+						<GridBlock>
+							<TagBox $color='#789FA5'>
+								<Tag>I'm your nostalgia</Tag>
+								<Tag>I'm your lifestyle</Tag>
+								<Tag>This is your diskette</Tag>
+							</TagBox>
+						</GridBlock>
+					</Card>
+					<Card></Card>
+				</Grid>
+			</Section>
+
 			<Section sectionId='recommand' sectionTitle='recommand brands' $top='0'>
 				<Carousel
 					items={BrandsChunk}
@@ -81,6 +124,7 @@ export function HomePage() {
 					))}
 				</Carousel>
 			</Section>
+
 			{/* 
 			<Section
 				sectionId='exclusive'
