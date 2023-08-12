@@ -1,28 +1,30 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useHeaderHeight } from '../../hooks'
 import {
 	Carousel,
 	CarouselItem,
 	NavigationArrows,
-	CarouselIndicator,
+	// CarouselIndicator,
 	PagenationIndicator,
 } from '../../components/@ui/Carousel'
-import { Hero } from '../../components/@ui/Hero'
-import { Button } from '../../components/@ui/Button'
-import { RotatedFigureCard } from '../../components/@ui/Card'
+import { Section } from '../../components/@ui/Section'
+import { Card, RotatedFigureCard } from '../../components/@ui/Card'
 import {
 	MinusPaddedWrapper,
-	StyledSection,
-	Heading,
+	// StyledSection,
+	// Heading,
+	Hero,
 	ListWrapper,
 	PaddedWrapper,
 	ItemWrapper,
+	PreviewMotion,
 } from './HomePage.style'
 import useStore from '../../store'
 import { banners, brands } from '../../lib/utils/dummyData'
 
 export function HomePage() {
+	const navigate = useNavigate()
 	const headerHeight = useHeaderHeight()
 	const { isMobile, isTablet } = useStore()
 	const BrandsChunk = []
@@ -35,39 +37,24 @@ export function HomePage() {
 	}, [])
 
 	useEffect(() => {
-		setBrandsPerScreen(isMobile ? 2 : isTablet ? 3 : 4)
+		setBrandsPerScreen(isMobile ? 4 : isTablet ? 6 : 8)
+		// setBrandsPerScreen(isMobile ? 2 : isTablet ? 3 : 4)
 	}, [isMobile, isTablet])
 
 	createArrChunk(brands, BrandsChunk, brandsPerScreen)
 
 	return (
 		<MinusPaddedWrapper>
-			<Hero sectionTitle='main hero' $top={headerHeight}>
-				<Carousel
-					items={banners}
-					autoSlideInterval={3000}
-					Arrows={NavigationArrows}
-					Indicator={CarouselIndicator}
-				>
-					{banners.map(
-						({ id, url, src, alt, ariaLabel, title, description }) => (
-							<CarouselItem key={id} ariaLabel={ariaLabel}>
-								<Link to={url}>
-									<img src={src} alt={alt} draggable='false' />
-								</Link>
-								<Heading>
-									<p>{title}</p>
-									<p>{description}</p>
-								</Heading>
-							</CarouselItem>
-						)
-					)}
-				</Carousel>
-			</Hero>
-			<StyledSection $order='second' aria-labelledby='recommand'>
-				<h2 className='sr-only' id='recommand'>
-					recommand brands
-				</h2>
+			<Section aria-labelledby='mainHero' $top={headerHeight}>
+				<Hero initial='initial' whileInView='animate' variants={PreviewMotion}>
+					<h2 id='mainHero'>
+						Curated <span className='flower'>Pieces</span> for{' '}
+						<span className='spring'>Diverse</span> Tastes
+					</h2>
+				</Hero>
+			</Section>
+
+			<Section sectionId='recommand' sectionTitle='recommand brands' $top='0'>
 				<Carousel
 					items={BrandsChunk}
 					Arrows={NavigationArrows}
@@ -79,7 +66,7 @@ export function HomePage() {
 							key={index}
 							// style={{ background: 'black', color: 'white' }}
 						>
-							<ListWrapper $itemsPerScreen={brandsPerScreen}>
+							<ListWrapper $itemsPerScreen={brandsPerScreen / 2}>
 								{chunk.map(({ id, brand, url, src, alt }) => (
 									<Link to={url} key={id}>
 										<ItemWrapper>
@@ -93,13 +80,15 @@ export function HomePage() {
 						</CarouselItem>
 					))}
 				</Carousel>
-			</StyledSection>
-			<StyledSection aria-labelledby='exclusive'>
-				<h2 className='sr-only' id='exclusive'>
-					exclusive
-				</h2>
-			</StyledSection>
-			<StyledSection aria-labelledby='go to shopping'>
+			</Section>
+			{/* 
+			<Section
+				sectionId='exclusive'
+				sectionTitle='exclusive articles'
+				$top='0'
+			></Section> */}
+			{/* 
+			<Section aria-labelledby='go to shopping'>
 				<h2 className='sr-only' id='go to shopping'>
 					title
 				</h2>
@@ -114,7 +103,7 @@ export function HomePage() {
 						</Button>
 					</Link>
 				</PaddedWrapper>
-			</StyledSection>
+			</Section> */}
 		</MinusPaddedWrapper>
 	)
 }
