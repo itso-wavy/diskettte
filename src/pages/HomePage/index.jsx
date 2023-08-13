@@ -1,29 +1,23 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useHeaderHeight } from '../../hooks'
+import { useTitle, useHeaderHeight, useScrollTransition } from '../../hooks'
+import { Section, Card, RotatedFigureCard } from '../../components/motion'
 import {
 	Carousel,
 	CarouselItem,
 	NavigationArrows,
-	// CarouselIndicator,
 	PagenationIndicator,
 } from '../../components/@ui/Carousel'
-import { Section } from '../../components/@ui/Section'
 import { GridBlock } from '../../components/@ui/GridBlock'
 import { Tag, TagBox } from '../../components/@ui/Tag'
 import { Button } from '../../components/@ui/Button'
 import { Img } from '../../components/@ui/Img'
-import { Card, RotatedFigureCard } from '../../components/@ui/Card'
-import { CircularTextSvg } from '../../components/@svg/CircularTextSvg'
 import {
 	MinusPaddedWrapper,
-	// StyledSection,
-	// Heading,
 	Hero,
 	Grid,
-	// GridItem,
+	Transition,
 	ListWrapper,
-	PaddedWrapper,
 	ItemWrapper,
 	PreviewMotion,
 } from './HomePage.style'
@@ -32,13 +26,16 @@ import heartImg from '/assets/icons/wavy_growing-heart.svg'
 import arrowImg from '/assets/icons/wavy_arrow-forward-sharp.svg'
 import arrowThinImg from '/assets/icons/wavy_arrow-forward-thin.svg'
 import useStore from '../../store'
-import { banners, brands } from '../../lib/utils/dummyData'
+import { brands } from '../../lib/utils/dummyData'
 
 export function HomePage() {
+	useTitle('')
 	const navigate = useNavigate()
 	const headerHeight = useHeaderHeight()
-	const { isMobile, isTablet } = useStore()
+	const { ref: transitionRef, state: view } = useScrollTransition([0, 1])
+
 	const BrandsChunk = []
+	const { isMobile, isTablet } = useStore()
 	const [brandsPerScreen, setBrandsPerScreen] = useState(3)
 
 	const createArrChunk = useCallback((targetArr, brankArr, n) => {
@@ -65,8 +62,12 @@ export function HomePage() {
 				</Hero>
 			</Section>
 
-			<Section sectionId='introduce' sectionTitle='introduce grid' $top='0'>
-				<Grid>
+			<Section
+				sectionId='introduce'
+				sectionTitle='introduce grid'
+				$top={headerHeight * 1}
+			>
+				<Grid $view={view}>
 					<Card
 						initial='initial'
 						whileInView='animate'
@@ -111,9 +112,9 @@ export function HomePage() {
 						<GridBlock
 							style={{
 								gridTemplateAreas: `
-                  'tl tl' 
-                  'bl br'
-                `,
+                    'tl tl' 
+                    'bl br'
+                  `,
 							}}
 						>
 							<p className='big-font tl '>Personalize Your Style</p>
@@ -148,17 +149,28 @@ export function HomePage() {
 					</Card>
 					<Card>
 						<p>
-							In a world full of diversity, we each pursue our own unique
-							styles. We support fashion that allows for free expression without
-							any biases or preconceptions. Explore your own choices with
-							diskette. Lorem ipsum dolor sit, amet consectetur adipisicing
-							elit. Atque enim voluptatum fugit iure error incidunt quidem iste
-							qui sed sunt, aspernatur cum blanditiis, dicta molestias
-							architecto? Dignissimos quo mollitia officia enim quasi!
+							In a world full of diversity,
+							<br /> we each pursue our own unique styles.
 						</p>
-						<p className='big-font'>I'm your diskette.</p>
+						<p>
+							We support fashion that allows for free expression without any
+							biases or preconceptions.
+						</p>
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi non
+							temporibus fugiat, corrupti rem tenetur sunt suscipit minus
+							doloribus.
+						</p>
+						<p>Perferendis magni adipisci tenetur id.</p>
 					</Card>
+					<Transition ref={transitionRef}>
+						Explore your own choices with diskette.
+					</Transition>
 				</Grid>
+				{/* 				
+				<Transition ref={transitionRef}>
+					Explore your own choices with diskette.
+				</Transition> */}
 			</Section>
 
 			<Section sectionId='recommand' sectionTitle='recommand brands' $top='0'>
@@ -188,29 +200,31 @@ export function HomePage() {
 					))}
 				</Carousel>
 			</Section>
+
+			<Section sectionId='lastBanner' sectionTitle='lastBanner grid'></Section>
 			{/* 
-			<Section
-				sectionId='exclusive'
-				sectionTitle='exclusive articles'
-				$top='0'
-			></Section> */}
+  			<Section
+  				sectionId='exclusive'
+  				sectionTitle='exclusive articles'
+  				$top='0'
+  			></Section> */}
 			{/* 
-			<Section aria-labelledby='go to shopping'>
-				<h2 className='sr-only' id='go to shopping'>
-					title
-				</h2>
-				<PaddedWrapper>
-					<p>SIGN UP FOR SMARTER SHOPPING</p>
-					<Link to='/categories/all'>
-						<Button
-							// $style='secondary'
-							aria-label='go to shopping'
-						>
-							쇼핑하러 가기
-						</Button>
-					</Link>
-				</PaddedWrapper>
-			</Section> */}
+  			<Section aria-labelledby='go to shopping'>
+  				<h2 className='sr-only' id='go to shopping'>
+  					title
+  				</h2>
+  				<PaddedWrapper>
+  					<p>SIGN UP FOR SMARTER SHOPPING</p>
+  					<Link to='/categories/all'>
+  						<Button
+  							// $style='secondary'
+  							aria-label='go to shopping'
+  						>
+  							쇼핑하러 가기
+  						</Button>
+  					</Link>
+  				</PaddedWrapper>
+  			</Section> */}
 		</MinusPaddedWrapper>
 	)
 }

@@ -1,3 +1,5 @@
+export * from './Header'
+export * from './Footer'
 export * from './ScrollToTop'
 export * from './SearchInput'
 export * from './SkipNav'

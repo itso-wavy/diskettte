@@ -1,41 +1,10 @@
-import styled from 'styled-components'
-import { doubleBorder } from '../../lib/utils/text-decorator'
+import styled, { css } from 'styled-components'
+import { doubleBorder, colorTransition } from '../../lib/utils/text-decorator'
 import { motion } from 'framer-motion'
 
 export const MinusPaddedWrapper = styled.div`
 	margin-bottom: -300px;
 `
-
-// export const Heading = styled.div`
-// 	display: flex;
-// 	flex-direction: column;
-// 	gap: 0.625rem;
-// 	width: 31.25rem;
-// 	position: absolute;
-// 	bottom: 1.2em;
-// 	font-size: 1.8rem;
-// 	line-height: 1.2em;
-// 	font-weight: ${({ theme }) => theme.fw.medium};
-// 	color: white;
-
-// 	& * {
-// 		height: 5rem;
-// 		display: flex;
-// 		align-items: center;
-// 		background-color: #000;
-// 		padding: 0 3.75rem;
-// 	}
-
-// 	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-// 		width: 26.875rem;
-// 		font-size: 1.5rem;
-
-// 		& * {
-// 			height: 4.375rem;
-// 			padding: 0 2.8125rem;
-// 		}
-// 	}
-// `
 
 export const Hero = styled(motion.div)`
 	margin: 0 3em;
@@ -154,16 +123,32 @@ export const Hero = styled(motion.div)`
 `
 
 export const Grid = styled.div`
-	height: 100%;
-	padding: 4em 3em;
-	/* margin: 0 3em; */
+	padding: 6em 3em 0;
+	position: relative;
 	display: grid;
-	grid-template: 'image image2 text' 1fr / 1fr 1fr 1fr;
-	gap: 1em 1em;
-	background-color: ${({ theme }) => theme.color.lightgray};
+	grid:
+		'image image2 text' 1fr
+		'. transition transition' auto / 1fr 1fr 1fr;
+	/* grid: 'image image2 text' 1fr / 1fr 1fr 1fr; */
+	gap: 1em;
 
-	& > * {
-		height: 350px;
+	${({ $view, theme }) => {
+		if ($view) {
+			return css`
+				background-color: ${theme.color.white};
+				color: ${theme.color.black};
+			`
+		} else {
+			return css`
+				background-color: ${theme.color.black};
+				color: ${theme.color.white};
+			`
+		}
+	}}
+
+	${colorTransition}
+  
+	& > *:not(:last-child) {
 		padding: 1.5rem;
 		border-radius: 1.5rem;
 		color: ${({ theme }) => theme.color.white};
@@ -171,25 +156,33 @@ export const Grid = styled.div`
 		line-height: 1.1em;
 	}
 
-	& > *:nth-of-type(1) {
+	& > *:nth-child(1) {
 		grid-area: image;
 		background: no-repeat center / cover url(/assets/images/bg1.png);
+		height: 350px;
 	}
 
-	& > *:nth-of-type(2) {
+	& > *:nth-child(2) {
 		grid-area: image2;
 		background: no-repeat center / cover url(/assets/images/bg2.png);
+		height: 350px;
 	}
 
-	& > *:nth-of-type(3) {
+	& > *:nth-child(3) {
 		grid-area: text;
-		color: ${({ theme }) => theme.color.black};
+		color: inherit;
 		padding: 1rem;
-		font-size: 1em;
+		font-size: 1.1em;
 		line-height: 1.3em;
 		word-break: break-all;
 		display: flex;
-		justify-content: center;
+		justify-content: end;
+		gap: 0.8em;
+		/* text-wrap: balance; */
+	}
+
+	& > *:last-child {
+		grid-area: transition;
 	}
 
 	.big-font {
@@ -199,9 +192,9 @@ export const Grid = styled.div`
 		text-wrap: balance;
 	}
 
-	.big-font:last-child {
-		margin-top: 0.8em;
-	}
+	// .big-font:last-child {
+	// 	margin-top: 0.8em;
+	// }
 
 	.big-arrow {
 		border-radius: 50%;
@@ -243,7 +236,12 @@ export const Grid = styled.div`
 	@media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
 		grid-template:
 			'image image2' 1fr
-			'text text' 1fr / 1fr 1fr;
+			'text text' auto
+			'transition transition' auto / 1fr 1fr;
+
+		& > *:nth-child(3) {
+			margin-top: 2em;
+		}
 	}
 
 	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
@@ -252,42 +250,35 @@ export const Grid = styled.div`
 		grid-template:
 			'image' 1fr
 			'image2' 1fr
-			'text' 1fr / 1fr;
+			'text' auto
+			'transition' auto / 1fr;
 
 		.touch {
 			font-size: 1.1em;
 		}
 	}
+
+	&::after {
+		content: '';
+		display: block;
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 100vw;
+		height: 30vh;
+		background: ${({ theme }) =>
+			`linear-gradient(transparent, ${theme.color.white})`};
+	}
 `
 
-// export const GridItem = styled.div`
-// 	&.tags {
-// 		/* color: blue; */
-// 	}
-
-// 	&.tags > *:not(:first-child) {
-// 		margin: 3px 5px;
-// 	}
-
-// 	&.tags > *::after {
-// 		content: '';
-// 		display: inline-block;
-// 		height: 0;
-// 		width: 100%;
-// 		position: absolute;
-// 		bottom: 0;
-// 		left: 0;
-// 		background-color: ${({ theme }) => theme.color.white};
-// 		opacity: 0.7;
-// 		transition: 0.3s;
-// 		transform: skew(45deg);
-// 	}
-
-// 	&.tags > *:hover::after {
-// 		bottom: 0;
-// 		left: -50%;
-// 	}
-// `
+export const Transition = styled.p`
+	padding: 1.5em 0 4em;
+	font-size: 5rem;
+	line-height: 1.1em;
+	font-weight: ${({ theme }) => theme.fw.medium};
+	text-align: end;
+	text-wrap: balance;
+`
 
 export const ListWrapper = styled.div`
 	display: grid;
@@ -299,53 +290,6 @@ export const ItemWrapper = styled.div`
 	height: 300px; /* point */
 	border: 1px solid ${({ theme }) => theme.color.black};
 	border-left: 0;
-`
-
-export const PaddedWrapper = styled.div`
-	display: grid;
-	place-items: center;
-	/* min-height: 500px; */
-	padding: 7em 0 10em;
-	gap: 2em;
-
-	background-color: ${({ theme }) => theme.color.limegreen};
-
-	p {
-		font-size: 3em;
-		line-height: 1em;
-		font-weight: ${({ theme }) => theme.fw.medium};
-		width: 20rem;
-		/* word-break: break-word; */
-		background-clip: text;
-		color: transparent;
-		background: linear-gradient(90deg, #ffa54d, #f07bc5 50%, #43aeff);
-		background-image: linear-gradient(
-			90deg,
-			#1e3791 0%,
-			#2948b1 40%,
-			#3153c6 55%,
-			#385fda 60%
-		);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		/* z-index: 2;
-    color: rgba(0, 0, 0, 0);
-    letter-spacing: -.05em;
-    white-space: nowrap;
-    font-size: 7.2em;
-    font-weight: 400;
-    line-height: 1;
-    transition: all .5s cubic-bezier(.165, .84, .44, 1);
-        -webkit-background-clip: text;
-    -webkit-text-stroke: 0.013em #000000;
- => hover{ color: black; }
- */
-	}
-
-	a {
-		display: block;
-		width: 15rem;
-	}
 `
 
 // framer-motion
