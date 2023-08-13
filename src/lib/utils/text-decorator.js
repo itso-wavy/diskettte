@@ -16,4 +16,10 @@ const doubleBorder = css`
 	outline-offset: -4px;
 `
 
-export { rotate, doubleBorder }
+const colorTransition = css`
+	transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+	transition-property: color, background-color, border-color,
+		text-decoration-color, fill, stroke;
+`
+
+export { rotate, doubleBorder, colorTransition }
