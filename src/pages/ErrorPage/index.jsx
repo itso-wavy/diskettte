@@ -18,11 +18,11 @@ export function ErrorPage() {
 				<br />
 				Page not found.
 			</h1>
-			<p className='info'>ERROR CODE: {status}</p>
 			<div>
 				<p>존재하지 않거나 사용할 수 없는 페이지입니다.</p>
 				<p>입력하신 페이지 주소를 다시 확인해주세요.</p>
 			</div>
+			<p className='info'>ERROR CODE: {status}</p>
 			<div className='buttons'>
 				<Button
 					$style='secondary'

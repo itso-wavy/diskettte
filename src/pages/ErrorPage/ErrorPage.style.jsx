@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
-	gap: 1.5rem;
+	gap: 1.5em;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
@@ -36,6 +36,10 @@ export const Wrapper = styled.div`
 		z-index: -1;
 		filter: blur(10px);
 	}
+
+	/* h1 + * {
+		margin-top: 1.5em;
+	} */
 
 	.info {
 		height: 3.125rem;
