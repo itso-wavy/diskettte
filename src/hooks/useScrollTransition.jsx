@@ -7,14 +7,14 @@ export const useScrollTransition = ([initialState, newState]) => {
 
 	const { scrollYProgress } = useScroll({
 		target: ref,
-		offset: ['start center', 'end center'],
+		offset: ['start end', 'end end'],
 	})
 
 	useMotionValueEvent(scrollYProgress, 'change', value => {
 		if (value > 0 && value < 1) {
-			setState(initialState)
-		} else {
 			setState(newState)
+		} else {
+			setState(initialState)
 		}
 	})
 

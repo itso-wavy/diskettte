@@ -1,12 +1,16 @@
 import styled, { css } from 'styled-components'
-import { doubleBorder, colorTransition } from '../../lib/utils/text-decorator'
-import { motion } from 'framer-motion'
+import {
+	doubleBorder,
+	colorTransition,
+	lineText,
+} from '../../lib/utils/text-decorator'
+import { entrance, shake } from '../../lib/utils/animation'
 
 export const MinusPaddedWrapper = styled.div`
 	margin-bottom: -300px;
 `
 
-export const Hero = styled(motion.div)`
+export const HeroWrapper = styled.div`
 	margin: 0 3em;
 
 	#mainHero {
@@ -66,7 +70,7 @@ export const Hero = styled(motion.div)`
 		position: absolute;
 		bottom: -20%;
 		right: -15%;
-		animation: entrance 1.3s ease-in-out;
+		animation: ${entrance} 1.3s ease-in-out;
 	}
 
 	.spring::after {
@@ -80,7 +84,7 @@ export const Hero = styled(motion.div)`
 		top: 50%;
 		left: -15%;
 		rotate: 25deg;
-		animation: entrance 1.3s ease-in-out;
+		animation: ${entrance} 1.3s ease-in-out;
 	}
 
 	@media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
@@ -111,18 +115,9 @@ export const Hero = styled(motion.div)`
 			left: -25%;
 		}
 	}
-
-	@keyframes entrance {
-		0% {
-			scale: 1.2;
-		}
-		85% {
-			scale: 1;
-		}
-	}
 `
 
-export const Grid = styled.div`
+export const GridWarpper = styled.div`
 	padding: 6em 3em 0;
 	position: relative;
 	display: grid;
@@ -133,12 +128,12 @@ export const Grid = styled.div`
 	gap: 1em;
 
 	${({ $view, theme }) => {
-		if ($view) {
+		if (!$view) {
 			return css`
 				background-color: ${theme.color.white};
 				color: ${theme.color.black};
 			`
-		} else {
+		} else if ($view) {
 			return css`
 				background-color: ${theme.color.black};
 				color: ${theme.color.white};
@@ -278,18 +273,55 @@ export const Transition = styled.p`
 	font-weight: ${({ theme }) => theme.fw.medium};
 	text-align: end;
 	text-wrap: balance;
+
+	@media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+		font-size: 4rem;
+	}
 `
 
 export const ListWrapper = styled.div`
 	display: grid;
-	grid-template: ${({ $itemsPerScreen }) =>
-		`repeat(2, 1fr) / repeat(${$itemsPerScreen}, 1fr)`};
+	grid-template-columns: ${({ $itemsPerScreen }) =>
+		`repeat(${$itemsPerScreen}, 1fr)`};
+	/* grid-template: ${({ $itemsPerScreen }) =>
+		`repeat(2, 1fr) / repeat(${$itemsPerScreen}, 1fr)`}; */
+	grid-auto-rows: 1fr;
 `
 
 export const ItemWrapper = styled.div`
 	height: 300px; /* point */
 	border: 1px solid ${({ theme }) => theme.color.black};
 	border-left: 0;
+`
+
+export const SignupWrapper = styled.div`
+	margin: 9em 0 2em;
+	text-align: center;
+
+	& p {
+		font-size: 1.5rem;
+		font-weight: ${({ theme }) => theme.fw.medium};
+		line-height: 1.2em;
+		margin-bottom: 0.5em;
+		transition: all 0.2s ease-in;
+
+		${lineText}
+	}
+
+	& p strong {
+		font-size: 1.6rem;
+		font-weight: ${({ theme }) => theme.fw.bold};
+	}
+
+	&:hover p {
+		background-color: black;
+		-webkit-text-stroke: 0;
+	}
+
+	& img {
+		animation: ${shake} 0.24s infinite -0.31s;
+		transform-origin: 50%;
+	}
 `
 
 // framer-motion

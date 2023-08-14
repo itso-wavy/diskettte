@@ -14,17 +14,19 @@ import { Button } from '../../components/@ui/Button'
 import { Img } from '../../components/@ui/Img'
 import {
 	MinusPaddedWrapper,
-	Hero,
-	Grid,
+	HeroWrapper,
+	GridWarpper,
 	Transition,
 	ListWrapper,
 	ItemWrapper,
+	SignupWrapper,
 	PreviewMotion,
 } from './HomePage.style'
 import diskImg from '/assets/icons/wavy_floppy-disk-skew.svg'
 import heartImg from '/assets/icons/wavy_growing-heart.svg'
 import arrowImg from '/assets/icons/wavy_arrow-forward-sharp.svg'
 import arrowThinImg from '/assets/icons/wavy_arrow-forward-thin.svg'
+import umbrellaImg from '/assets/images/chrome-umbrella.png'
 import useStore from '../../store'
 import { brands } from '../../lib/utils/dummyData'
 
@@ -53,13 +55,19 @@ export function HomePage() {
 
 	return (
 		<MinusPaddedWrapper>
-			<Section aria-labelledby='mainHero' $top={headerHeight}>
-				<Hero initial='initial' whileInView='animate' variants={PreviewMotion}>
+			<Section
+				aria-labelledby='mainHero'
+				$top={headerHeight}
+				initial='initial'
+				whileInView='animate'
+				variants={PreviewMotion}
+			>
+				<HeroWrapper>
 					<h2 id='mainHero'>
 						Curated <span className='flower'>Pieces</span> for{' '}
 						<span className='spring'>Diverse</span> Tastes
 					</h2>
-				</Hero>
+				</HeroWrapper>
 			</Section>
 
 			<Section
@@ -67,7 +75,7 @@ export function HomePage() {
 				sectionTitle='introduce grid'
 				$top={headerHeight * 1}
 			>
-				<Grid $view={view}>
+				<GridWarpper $view={view}>
 					<Card
 						initial='initial'
 						whileInView='animate'
@@ -166,14 +174,16 @@ export function HomePage() {
 					<Transition ref={transitionRef}>
 						Explore your own choices with diskette.
 					</Transition>
-				</Grid>
-				{/* 				
-				<Transition ref={transitionRef}>
-					Explore your own choices with diskette.
-				</Transition> */}
+				</GridWarpper>
 			</Section>
 
-			<Section sectionId='recommand' sectionTitle='recommand brands' $top='0'>
+			<Section
+				sectionId='recommand'
+				sectionTitle='recommand brands'
+				initial='initial'
+				whileInView='animate'
+				variants={PreviewMotion}
+			>
 				<Carousel
 					items={BrandsChunk}
 					Arrows={NavigationArrows}
@@ -181,10 +191,7 @@ export function HomePage() {
 					$itemsPerScreen={brandsPerScreen}
 				>
 					{BrandsChunk.map((chunk, index) => (
-						<CarouselItem
-							key={index}
-							// style={{ background: 'black', color: 'white' }}
-						>
+						<CarouselItem key={index}>
 							<ListWrapper $itemsPerScreen={brandsPerScreen / 2}>
 								{chunk.map(({ id, brand, url, src, alt }) => (
 									<Link to={url} key={id}>
@@ -201,30 +208,23 @@ export function HomePage() {
 				</Carousel>
 			</Section>
 
-			<Section sectionId='lastBanner' sectionTitle='lastBanner grid'></Section>
-			{/* 
-  			<Section
-  				sectionId='exclusive'
-  				sectionTitle='exclusive articles'
-  				$top='0'
-  			></Section> */}
-			{/* 
-  			<Section aria-labelledby='go to shopping'>
-  				<h2 className='sr-only' id='go to shopping'>
-  					title
-  				</h2>
-  				<PaddedWrapper>
-  					<p>SIGN UP FOR SMARTER SHOPPING</p>
-  					<Link to='/categories/all'>
-  						<Button
-  							// $style='secondary'
-  							aria-label='go to shopping'
-  						>
-  							쇼핑하러 가기
-  						</Button>
-  					</Link>
-  				</PaddedWrapper>
-  			</Section> */}
+			{/* <Section
+				sectionId='exclusive'
+				sectionTitle='exclusive articles'
+				$top='0'
+			></Section> */}
+
+			<Section sectionId='lastBanner' sectionTitle='lastBanner grid'>
+				<SignupWrapper>
+					<Link to='/auth/signup'>
+						<p>
+							<strong>SIGN UP</strong> FOR
+							<br /> SMARTER SHOPPING
+						</p>
+						<Img src={umbrellaImg} $size='10em' />
+					</Link>
+				</SignupWrapper>
+			</Section>
 		</MinusPaddedWrapper>
 	)
 }
