@@ -39,7 +39,7 @@ const color = {
 	// yellow3: '#FFE8A1',
 	yellow: '#ffd453',
 	yellow2: '#FFC107',
-	limegreen: '#bffc4f',
+	limegreen: '#bbdd90',
 	// green: '#CBE9CE',
 	// green2: '#C3E6CB',
 	lightgreen: '#B1DFBB',

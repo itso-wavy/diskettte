@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import { slideIn } from '../../lib/utils/animation'
 
 export const StyledHr = styled.hr`
 	background: ${({ theme }) => theme.color.gray};
@@ -8,16 +9,7 @@ export const StyledHr = styled.hr`
 `
 
 export const $bgStyle = css`
-	animation: slideIn 0.15s ease-in-out;
-
-	@keyframes slideIn {
-		from {
-			transform: translateX(-80%);
-		}
-		to {
-			transform: translateX(0);
-		}
-	}
+	animation: ${slideIn} 0.15s ease-in-out;
 `
 
 export const $itemStyle = { fontSize: '16px' }

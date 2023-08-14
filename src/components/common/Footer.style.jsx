@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import { floating } from '../../lib/utils/animation'
 
 const $decoration = css`
 	.wavy {
@@ -10,22 +11,7 @@ const $decoration = css`
 		content: '🌊';
 		position: absolute;
 		font-size: 1.8em;
-		animation: floating 0.6s infinite;
-	}
-
-	@keyframes floating {
-		0% {
-			transform: translateY(0%);
-		}
-		25% {
-			transform: translateY(10%);
-		}
-		50% {
-			transform: translateY(0%);
-		}
-		75% {
-			transform: translateY(-10%);
-		}
+		animation: ${floating} 0.6s infinite;
 	}
 `
 

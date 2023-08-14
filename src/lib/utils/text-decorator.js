@@ -22,4 +22,11 @@ const colorTransition = css`
 		text-decoration-color, fill, stroke;
 `
 
-export { rotate, doubleBorder, colorTransition }
+const lineText = css`
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-stroke: 0.021em #000000;
+	-webkit-text-fill-color: transparent;
+`
+
+export { rotate, doubleBorder, colorTransition, lineText }

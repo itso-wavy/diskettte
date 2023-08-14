@@ -10,19 +10,6 @@ export const SearchInputWrapper = styled(InputWrapper)`
 	}
 `
 
-// export const $windowStyle = css`
-// 	animation: slideIn 0.15s ease-in-out;
-
-// 	@keyframes slideIn {
-// 		from {
-// 			transform: translateX(-80%);
-// 		}
-// 		to {
-// 			transform: translateX(0);
-// 		}
-// 	}
-// `
-
 export const StyledDialog = styled.dialog`
 	--right: 5em;
 
