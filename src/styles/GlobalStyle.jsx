@@ -86,7 +86,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   ::selection {
-    background-color: ${({ theme }) => theme.color.limegreen};
+    background-color: #555adc55;
   }
 `
 

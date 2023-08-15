@@ -1,3 +1,4 @@
+export * from './Header'
 export * from './HeaderAside'
 export * from './HeaderMain'
 export * from './HeaderCategories'

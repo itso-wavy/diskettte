@@ -249,6 +249,7 @@ const brands = [
 		ariaLabel: '',
 	},
 ]
+
 const products = [
 	{
 		id: 0,

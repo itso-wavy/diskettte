@@ -1,4 +1,4 @@
-import { FooterMain, FooterNav } from '../footer'
+import { FooterMain, FooterNav } from '.'
 import { StyledFooter } from './Footer.style'
 
 export function Footer({ ...props }) {

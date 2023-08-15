@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { SkipNav } from '../common'
-import { HeaderAside, HeaderMain, HeaderCategories, MobileNav } from '../header'
+import { HeaderAside, HeaderMain, HeaderCategories, MobileNav } from '.'
 import { StyledHeader } from './Header.style'
 import useStore from '../../store'
 
@@ -19,13 +19,6 @@ export function Header() {
 		const handleScroll = () => {
 			const currentYPosition = window.scrollY
 
-			// if (currentYPosition > previousYPositionRef.current) {
-			// 	setIsHeaderVisible(false)
-			// 	setIsHeaderTransparent(true)
-			// } else {
-			// 	setIsHeaderVisible(true)
-			// 	setIsHeaderTransparent(false)
-			// }
 			currentYPosition > previousYPositionRef.current
 				? setIsHeaderVisible(false)
 				: setIsHeaderVisible(true)

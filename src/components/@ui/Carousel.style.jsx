@@ -47,6 +47,7 @@ export const Navigation = styled.div`
 		padding: 10px;
 		color: ${({ theme }) => theme.color.white};
 		transition: all 0.1s ease;
+		filter: drop-shadow(0 10px 8px #00000033) drop-shadow(0 0 3px #0000004d);
 	}
 	.prevClick {
 		left: 5px;
@@ -56,8 +57,7 @@ export const Navigation = styled.div`
 	}
 
 	& *:hover {
-		filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.2))
-			drop-shadow(0 0 3px rgb(0 0 0 / 0.3));
+		filter: drop-shadow(0 10px 8px #6f8cff33) drop-shadow(0 0 3px #6f8cff4d);
 	}
 `
 
