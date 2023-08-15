@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useRouteError } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import { Button } from '../../components/@ui/Button'
 import { Img } from '../../components/@ui/Img'
@@ -7,8 +7,12 @@ import { Wrapper } from './ErrorPage.style'
 
 export function ErrorPage() {
 	useTitle('Page not found')
+
 	const navigate = useNavigate()
-	const status = 404 // 수정 예정
+	const error = useRouteError()
+
+	const status = error.response?.status || error.status
+	console.error('Error🥺:', error.message || error.error.message)
 
 	return (
 		<Wrapper>
