@@ -14,7 +14,7 @@ import {
 	NewArrivalsPage,
 	EventPage,
 	BrandPage,
-	ProductDetailPage,
+	ProductPage,
 	CartPage,
 	CheckoutPage,
 	OrdersPage,
@@ -24,9 +24,16 @@ import {
 	ProductsPage,
 	ProductCreatePage,
 	ProductEditPage,
+	ProductDeletePage,
 	SigninPage,
 	SignupPage,
 	CallbackPage,
+} from '../pages'
+import {
+	homeLoader,
+	allProductsLoader,
+	brandLoader,
+	productLoader,
 } from '../pages'
 import { signinAction, signupAction } from '../pages'
 
@@ -39,6 +46,7 @@ const router = createBrowserRouter([
 			{
 				index: true,
 				element: <HomePage />,
+				loader: homeLoader,
 			},
 			{
 				path: 'categories',
@@ -47,6 +55,7 @@ const router = createBrowserRouter([
 					{
 						path: 'all',
 						element: <AllProductsPage />,
+						loader: allProductsLoader,
 					},
 					{
 						path: 'new-arrivals',
@@ -65,10 +74,13 @@ const router = createBrowserRouter([
 			{
 				path: 'brand/:brandId',
 				element: <BrandPage />,
+				loader: brandLoader,
 			},
 			{
-				path: 'brand/:productId',
-				element: <ProductDetailPage />,
+				// path: 'brand/:brandId/:productId',
+				path: 'product/:productId',
+				element: <ProductPage />,
+				loader: productLoader,
 			},
 			{
 				path: 'cart',
@@ -86,10 +98,10 @@ const router = createBrowserRouter([
 						path: 'profile',
 						element: <ProfilePage />,
 					},
-					{
-						path: 'profile/edit',
-						element: <ProfileEditPage />,
-					},
+					// {
+					// 	path: 'profile/edit',
+					// 	element: <ProfileEditPage />,
+					// },
 					{
 						path: 'orders',
 						element: <OrdersPage />,
@@ -113,8 +125,19 @@ const router = createBrowserRouter([
 						element: <ProductCreatePage />,
 					},
 					{
-						path: 'product/:productId/edit',
-						element: <ProductEditPage />,
+						path: 'product/:productId',
+						element: <ProductPage />,
+						id: 'product-detail',
+						children: [
+							{
+								path: 'edit',
+								element: <ProductEditPage />,
+							},
+							{
+								path: 'delete',
+								element: <ProductDeletePage />,
+							},
+						],
 					},
 				],
 			},
