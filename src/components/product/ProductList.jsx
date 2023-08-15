@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { Card } from '../@ui/Card'
+import { Card } from '../motion'
+import { Badge } from '../@ui/Badge'
 import {
 	StyledUl,
 	StyledLi,
@@ -9,7 +10,6 @@ import {
 	ProductName,
 	ProductPrice,
 } from './ProductList.style'
-import { Badge } from '../@ui/Badge'
 
 // function ProductButton({ product, onClick, children, ...props }) {
 // 	const handleClick = () => {
@@ -67,11 +67,24 @@ function ProductCard({ src, brand, name, price, $soldout, ...props }) {
 }
 
 function ProductItem({ product, ...props }) {
-	const { url, src, brand, name, price, stock } = product
+	const {
+		seller,
+		store_name: brand,
+		product_id,
+		product_name: name,
+		image: src,
+		price,
+		product_info,
+		shipping_fee,
+		shipping_method,
+		stock,
+		created_at,
+		updated_at,
+	} = product
 
 	return (
 		<StyledLi {...props}>
-			<Link to={url}>
+			<Link to={`/product/${product_id}`}>
 				<ProductCard {...{ src, brand, name, price, $soldout: !stock }} />
 			</Link>
 		</StyledLi>
@@ -83,24 +96,3 @@ function ProductList({ children, ...props }) {
 }
 
 export { ProductList, ProductItem, ProductCard }
-
-/* 
-function App() {
-  const { addToCart } = useProduct(product);
-
-  return (
-    <ProductCard
-      product={arr}
-      image={<ProductImage />}
-      info={
-        <ProductInfo>
-          <ProductPrice />
-        </ProductInfo>
-      }
-      action={
-        <ProductButton onClick={addToCart}>Add to cart</ProductButton>
-      }
-    />
-  );
-}
- */

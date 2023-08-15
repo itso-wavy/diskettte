@@ -1,5 +1,10 @@
 import styled from 'styled-components'
 
+export const HeroWrapper = styled.div`
+	height: min(530px, 70vh);
+	/* margin-bottom: 7.5rem; */
+`
+
 export const Heading = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -31,3 +36,32 @@ export const Heading = styled.div`
 		}
 	}
 `
+
+export const StyledSection = styled.section`
+	padding: 3.75rem 2em 0;
+
+	h2 {
+		margin-bottom: 1.67rem;
+		font-size: 1.75rem;
+		font-weight: ${({ theme }) => theme.fw.bold};
+		text-transform: uppercase;
+	}
+`
+
+export const ContentsWrapper = styled.div`
+	display: grid;
+	grid-template-columns: min(320px, 30%) auto;
+`
+
+export const LNB = styled.aside`
+	// 에셋으로 만들까?
+	background-color: #ddd;
+
+	&& + * {
+		margin-left: 3.75rem;
+	}
+`
+
+// export const ProductsWrapper = styled.div`
+// 	width: 100%;
+// `
