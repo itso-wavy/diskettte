@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, json, useLoaderData, useNavigate } from 'react-router-dom'
 import { useTitle, useHeaderHeight, useScrollTransition } from '../../hooks'
 import { Section, Card, RotatedFigureCard } from '../../components/motion'
 import {
@@ -12,6 +12,11 @@ import { GridBlock } from '../../components/@ui/GridBlock'
 import { Tag, TagBox } from '../../components/@ui/Tag'
 import { Button } from '../../components/@ui/Button'
 import { Img } from '../../components/@ui/Img'
+import diskImg from '/assets/icons/wavy_floppy-disk-skew.svg'
+import heartImg from '/assets/icons/wavy_growing-heart.svg'
+import arrowImg from '/assets/icons/wavy_arrow-forward-sharp.svg'
+import arrowThinImg from '/assets/icons/wavy_arrow-forward-thin.svg'
+import umbrellaImg from '/assets/images/chrome-umbrella.png'
 import {
 	MinusPaddedWrapper,
 	HeroWrapper,
@@ -22,16 +27,22 @@ import {
 	SignupWrapper,
 	PreviewMotion,
 } from './HomePage.style'
-import diskImg from '/assets/icons/wavy_floppy-disk-skew.svg'
-import heartImg from '/assets/icons/wavy_growing-heart.svg'
-import arrowImg from '/assets/icons/wavy_arrow-forward-sharp.svg'
-import arrowThinImg from '/assets/icons/wavy_arrow-forward-thin.svg'
-import umbrellaImg from '/assets/images/chrome-umbrella.png'
 import useStore from '../../store'
-import { brands } from '../../lib/utils/dummyData'
+import axios from 'axios'
+
+export const homeLoader = async () => {
+	const response = await axios('/data/brands.json')
+
+	try {
+		if (response.status === 200) return response.data
+	} catch (err) {
+		throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
+	}
+}
 
 export function HomePage() {
 	useTitle('')
+	const brands = useLoaderData()
 	const navigate = useNavigate()
 	const headerHeight = useHeaderHeight()
 	const { ref: transitionRef, state: view } = useScrollTransition([0, 1])
@@ -57,7 +68,7 @@ export function HomePage() {
 		<MinusPaddedWrapper>
 			<Section
 				aria-labelledby='mainHero'
-				$top={headerHeight}
+				top={headerHeight}
 				initial='initial'
 				whileInView='animate'
 				variants={PreviewMotion}
@@ -73,7 +84,7 @@ export function HomePage() {
 			<Section
 				sectionId='introduce'
 				sectionTitle='introduce grid'
-				$top={headerHeight * 1}
+				top={headerHeight}
 			>
 				<GridWarpper $view={view}>
 					<Card
@@ -211,7 +222,7 @@ export function HomePage() {
 			{/* <Section
 				sectionId='exclusive'
 				sectionTitle='exclusive articles'
-				$top='0'
+				top='0'
 			></Section> */}
 
 			<Section sectionId='lastBanner' sectionTitle='lastBanner grid'>
@@ -228,5 +239,3 @@ export function HomePage() {
 		</MinusPaddedWrapper>
 	)
 }
-
-export const loading = () => {}

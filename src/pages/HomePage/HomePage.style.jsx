@@ -118,7 +118,7 @@ export const HeroWrapper = styled.div`
 `
 
 export const GridWarpper = styled.div`
-	padding: 6em 3em 0;
+	padding: 5em 3em 0;
 	position: relative;
 	display: grid;
 	grid:
@@ -267,7 +267,7 @@ export const GridWarpper = styled.div`
 `
 
 export const Transition = styled.p`
-	padding: 1.5em 0 4em;
+	padding: 1.2em 0 3.5em;
 	font-size: 5rem;
 	line-height: 1.1em;
 	font-weight: ${({ theme }) => theme.fw.medium};

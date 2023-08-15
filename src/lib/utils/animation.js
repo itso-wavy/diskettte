@@ -59,4 +59,10 @@ const swing = keyframes`
   }
 `
 
-export { entrance, shake, slideIn, floating, swing }
+const rotate = keyframes`
+  to {
+    transform: rotate(1turn);
+  }
+`
+
+export { entrance, shake, slideIn, floating, swing, rotate }
