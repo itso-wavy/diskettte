@@ -10,7 +10,7 @@ export const ProductBrand = styled.p`
 `
 
 export const ProductName = styled.p`
-	margin-top: 0.3125rem;
+	margin-top: 0.3rem;
 	font-weight: ${({ theme }) => theme.fw.medium};
 	color: ${({ theme }) => theme.color.darkgray2};
 	font-size: 0.75rem;
@@ -23,7 +23,7 @@ export const ProductName = styled.p`
 `
 
 export const ProductPrice = styled.p`
-	margin-top: 0.5625rem;
+	margin-top: 0.4rem;
 	font-size: 1rem;
 	font-weight: ${({ theme }) => theme.fw.bold};
 
@@ -36,7 +36,7 @@ export const ProductPrice = styled.p`
 `
 
 export const ProductInfo = styled.div`
-	margin-top: 1.5rem;
+	margin-top: 1.2rem;
 	display: flex;
 	flex-direction: column;
 

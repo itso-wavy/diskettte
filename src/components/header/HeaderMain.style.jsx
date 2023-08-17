@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
 		width: 100%;
 		display: flex;
 		align-items: center;
-		padding: 1.375em ${({ theme }) => theme.width.desktop};
+		padding: 1.375em ${({ theme }) => theme.spacing.width.desktop};
 		height: 3.125rem;
 	}
 
@@ -18,7 +18,7 @@ export const Wrapper = styled.div`
 		gap: 0.625rem;
 
 		& > * {
-			padding: 1em ${({ theme }) => theme.width.mobile};
+			padding: 1em ${({ theme }) => theme.spacing.width.mobile};
 			height: 2.375rem;
 		}
 	}

@@ -6,13 +6,13 @@ import {
 	useEffect,
 } from 'react'
 import { FormContext } from '../../context/form-context'
+import { useInput } from '../../hooks'
 import { Button } from '../@ui/Button'
 import { Img } from '../@ui/Img'
 import EraseImg from '/assets/icons/wavy_erase-sharp.svg'
 import CheckedImg from '/assets/icons/checked.svg'
 import UncheckedImg from '/assets/icons/unchecked.svg'
 import { InputWrapper, NumberWrapper, CheckboxWrapper } from './Input.style'
-import { useInput } from '../../hooks'
 
 // (서버 밸리데이션)
 // 아이디, 셀러 브랜드명 중복 확인

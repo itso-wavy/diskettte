@@ -9,7 +9,7 @@ export const StyledSection = styled.section`
 
 	${({ theme }) => {
 		return css`
-			margin: 3em ${theme.width.desktop};
+			margin: 3em ${theme.spacing.width.desktop};
 			padding: 4em 2em;
 			display: flex;
 			flex-direction: column;
@@ -28,7 +28,7 @@ export const StyledSection = styled.section`
 				0 35px 68px 0 #88aede6b, 24px 24px 48px #c4d1c8; */
 
 			@media (max-width: ${theme.breakpoints.mobile}) {
-				margin: 4em ${theme.width.mobile};
+				margin: 4em ${theme.spacing.width.mobile};
 
 				& > form {
 					width: 80vw;

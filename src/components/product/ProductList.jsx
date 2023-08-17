@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Card } from '../motion'
+import { Card } from '../@motion'
 import { Badge } from '../@ui/Badge'
 import {
 	StyledUl,

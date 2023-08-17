@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const HeroWrapper = styled.div`
 	height: min(530px, 70vh);
@@ -38,7 +38,26 @@ export const Heading = styled.div`
 `
 
 export const StyledSection = styled.section`
-	padding: 3.75rem 2em 0;
+	${({ theme }) => {
+		const { width, height } = theme.spacing
+
+		return css`
+			padding: ${`${height.marginTop} ${width.desktop} 0`};
+
+			h2 {
+				margin-bottom: 1.67rem;
+				font-size: 1.75rem;
+				font-weight: ${theme.fw.bold};
+				text-transform: uppercase;
+			}
+
+			@media (max-width: ${theme.breakpoints.mobile}) {
+				padding-left: ${width.mobile};
+				padding-right: ${width.mobile};
+			}
+		`
+	}}/* padding: ${({ theme }) =>
+		`${theme.spacing.height.marginTop} ${theme.spacing.width.desktop} 0`};
 
 	h2 {
 		margin-bottom: 1.67rem;
@@ -46,20 +65,31 @@ export const StyledSection = styled.section`
 		font-weight: ${({ theme }) => theme.fw.bold};
 		text-transform: uppercase;
 	}
+
+	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+		padding-left: ${({ theme }) => theme.spacing.width.mobile};
+		padding-right: ${({ theme }) => theme.spacing.width.mobile};
+	} */
 `
 
 export const ContentsWrapper = styled.div`
 	display: grid;
-	grid-template-columns: min(320px, 30%) auto;
+	grid-template-columns: max(320px, 30%) auto;
+	gap: 3.75rem;
+
+	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+		grid-auto-flow: row;
+		grid-template-columns: initial;
+	}
 `
 
 export const LNB = styled.aside`
 	// 에셋으로 만들까?
 	background-color: #ddd;
 
-	&& + * {
-		margin-left: 3.75rem;
-	}
+	/* && + * {
+		 margin-left: 3.75rem;
+	} */
 `
 
 // export const ProductsWrapper = styled.div`

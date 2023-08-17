@@ -1,10 +1,24 @@
-import { json, useLoaderData } from 'react-router-dom'
-import { useTitle } from '../../hooks'
+import { Form, Link, json, useLoaderData } from 'react-router-dom'
+import { useHeaderHeight, useTitle } from '../../hooks'
+import { Card, Section } from '../../components/@motion'
+import { Badge } from '../../components/@ui/Badge'
+import { DropdownSvg } from '../../components/@svg/DropdownSvg'
+import { ProductForm, QuantitySpinner } from '../../components/product'
+import {
+	LayoutWrapper,
+	OverviewWrapper,
+	KeyInfo,
+	FormWrapper,
+	// StyledForm,
+	// PricingInfo,
+	ShippingInfo,
+	DescriptionWrapper,
+} from './ProductPage.style'
 import axios from 'axios'
+import { FormProvider } from '../../context/form-context'
 
-export const productLoader = async ({ params, request }) => {
-	const productId = params.productId
-
+export const productLoader = async ({ request, params }) => {
+	const { productId } = params
 	const response = await axios(
 		`https://openmarket.weniv.co.kr/products/${productId}/`
 	)
@@ -46,21 +60,114 @@ export function ProductPage() {
   updated_at: "2023-05-02T22:49:50.702972"
  */
 	useTitle(product_name)
+	const headerHeight = useHeaderHeight()
 
 	return (
-		<div>
-			<p>{seller}</p>
-			<p>{store_name}</p>
-			<p>{product_id}</p>
-			<p>{product_name}</p>
-			<img src={image} />
-			<p>{price}</p>
-			<p>{product_info}</p>
-			<p>{shipping_fee}</p>
-			<p>{shipping_method}</p>
-			<p>{stock}</p>
-			<p>{created_at}</p>
-			<p>{updated_at}</p>
-		</div>
+		<Section aria-labelledby='productDetail'>
+			<LayoutWrapper>
+				<OverviewWrapper $top={headerHeight}>
+					<div className='image-box'>
+						<img src={image} alt={product_name} />
+					</div>
+
+					<Card className='info-box'>
+						<KeyInfo>
+							<div className='brand-name'>
+								<p>{store_name.toUpperCase()}</p>
+								<Link to=''>
+									<Badge $style='secondary' text='브랜드몰'>
+										<DropdownSvg />
+									</Badge>
+								</Link>
+							</div>
+							<h2 className='product-name' id='productDetail'>
+								{product_name}
+							</h2>
+							<p className='product-price'>
+								{new Intl.NumberFormat('ko-KR', {
+									style: 'decimal',
+								}).format(price)}
+								<span className='currency'>원</span>
+							</p>
+						</KeyInfo>
+						<FormWrapper>
+							<FormProvider initialState={{ qty: 1 }}>
+								<ProductForm
+									productName={product_name}
+									shippingMethod={shipping_method}
+									shippingFee={shipping_fee}
+								/>
+								{/* <Form action='post'>
+									<div>
+										<p className='amount-select'>{product_name}</p>
+										<QuantitySpinner />
+									</div>
+									<div><p className='total-price'>총 상품 금액</p></div>
+
+									<ShippingInfo>
+										<p>배송 정보</p>
+										<p>
+											{shipping_method === 'PARCEL' ? '직배송' : '택배배송'} /
+											배송비{' '}
+											{shipping_fee ? (
+												<strong>
+													{new Intl.NumberFormat('ko-KR', {
+														style: 'decimal',
+													}).format(shipping_fee)}
+												</strong>
+											) : (
+												'무료'
+											)}
+										</p>
+										<p>
+											<span>2일 이내</span> 출고 (주말, 공휴일 제외)
+										</p>
+									</ShippingInfo>
+								</Form> */}
+							</FormProvider>
+						</FormWrapper>
+						{/* <FormProvider initialState={{ qty: 1 }}>
+							<StyledForm action='post'>
+								<div>
+									<p className='amount-select'>{product_name}</p>
+									<QuantitySpinner />
+								</div>
+								<p className='total-price'></p>
+
+								<ShippingInfo>
+									<p>배송 정보</p>
+									<p>
+										{shipping_method === 'PARCEL' ? '직배송' : '택배배송'} /
+										배송비{' '}
+										{shipping_fee ? (
+											<strong>
+												{new Intl.NumberFormat('ko-KR', {
+													style: 'decimal',
+												}).format(shipping_fee)}
+											</strong>
+										) : (
+											'무료'
+										)}
+									</p>
+									<p>
+										<span>2일 이내</span> 출고 (주말, 공휴일 제외)
+									</p>
+								</ShippingInfo>
+							</StyledForm>
+						</FormProvider> */}
+					</Card>
+				</OverviewWrapper>
+				<DescriptionWrapper>
+					<ul>
+						<li tabIndex='1'>
+							<p>{product_info}</p>
+						</li>
+						<li tabIndex='2'>리뷰</li>
+						<li tabIndex='3'>Q&A</li>
+						<li tabIndex='4'>반품/교환정보</li>
+					</ul>
+				</DescriptionWrapper>
+			</LayoutWrapper>
+		</Section>
 	)
 }

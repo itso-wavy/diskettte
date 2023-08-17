@@ -4,10 +4,21 @@ const breakpoints = {
 	desktop: '120rem', // 1920px
 }
 
-const width = {
-	mobile: '1.25rem', // 20px
-	desktop: '2.5rem', // 40px
+const spacing = {
+	width: {
+		mobile: '1.25rem', // 20px
+		desktop: '2.5rem', // 40px
+	},
+	height: {
+		marginTop: '3.75rem', // 60px
+		marginBottom: '1.67rem', // 30px
+	},
 }
+
+// sectionPadding: {
+// 	mobile: `${theme.spacing.height.marginTop} ${theme.spacing.width.mobile} 0`,
+// 	desktop: `${theme.spacing.height.marginTop} ${theme.spacing.width.desktop} 0`,
+// },
 
 const color = {
 	black: '#000',
@@ -120,8 +131,7 @@ const fw = {
 
 export default {
 	breakpoints,
-	width,
-	// height,
+	spacing,
 	color,
 	fw,
 }

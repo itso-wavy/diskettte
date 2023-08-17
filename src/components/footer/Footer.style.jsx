@@ -27,7 +27,7 @@ export const StyledFooter = styled.footer`
 	border-top: 1px solid ${({ theme }) => theme.color.black};
 
 	.block {
-		padding: 42px ${({ theme }) => theme.width.desktop};
+		padding: 42px ${({ theme }) => theme.spacing.width.desktop};
 	}
 
 	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
@@ -36,7 +36,7 @@ export const StyledFooter = styled.footer`
 		color: ${({ theme }) => theme.color.white};
 
 		& > * {
-			padding: 42px ${({ theme }) => theme.width.mobile} !important;
+			padding: 42px ${({ theme }) => theme.spacing.width.mobile} !important;
 		}
 
 		.block {

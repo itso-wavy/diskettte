@@ -1,6 +1,21 @@
 import { useTitle } from '../../hooks'
 import { ProductList, ProductItem } from '../../components/product'
 import { products } from '../../lib/utils/dummyData'
+import axios from 'axios'
+
+export const brandLoader = async ({ request, params }) => {
+	const { brandId } = params
+	const response = await axios(
+		`https://openmarket.weniv.co.kr/seller/${brandId}`
+	)
+	console.log('response: ', response)
+
+	// try {
+	// 	if (response.status === 200) return response.data
+	// } catch (err) {
+	// 	throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
+	// }
+}
 
 export function BrandPage() {
 	useTitle(`Brand`) // 동적 업데이트 예정

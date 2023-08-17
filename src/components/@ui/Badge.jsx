@@ -1,5 +1,5 @@
 import { Img } from './Img.jsx'
-import { Wrapper } from './Badge.style.jsx'
+import { StyledSpan } from './Badge.style.jsx'
 
 /**
  * @param $style 'primary' | 'secondary'
@@ -7,11 +7,11 @@ import { Wrapper } from './Badge.style.jsx'
  */
 function Badge({ $style = 'primary', text, icon, children, ...props }) {
 	return (
-		<Wrapper $style={$style} {...props}>
+		<StyledSpan $style={$style} {...props}>
 			<span>{text}</span>
 			{icon && <Img src={icon} aria-hidden />}
 			{children}
-		</Wrapper>
+		</StyledSpan>
 	)
 }
 

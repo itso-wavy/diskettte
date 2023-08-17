@@ -1,5 +1,5 @@
 import { useTitle } from '../../hooks'
-import { Section } from '../../components/@ui/Section'
+import { Section } from '../../components/@motion'
 import { ProductList, ProductItem } from '../../components/product'
 import { products } from '../../lib/utils/dummyData'
 import { Wrapper } from './ExclusivePage.style'

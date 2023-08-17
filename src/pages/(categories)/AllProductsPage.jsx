@@ -6,7 +6,7 @@ import {
 	NavigationArrows,
 	CarouselIndicator,
 } from '../../components/@ui/Carousel'
-import { Section } from '../../components/motion'
+import { Section } from '../../components/@motion'
 import { ProductList, ProductItem } from '../../components/product'
 import {
 	HeroWrapper,

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link, json, useLoaderData, useNavigate } from 'react-router-dom'
 import { useTitle, useHeaderHeight, useScrollTransition } from '../../hooks'
-import { Section, Card, RotatedFigureCard } from '../../components/motion'
+import { Section, Card, RotatedFigureCard } from '../../components/@motion'
 import {
 	Carousel,
 	CarouselItem,

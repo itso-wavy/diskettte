@@ -1,5 +1,5 @@
 import { styled } from 'styled-components'
-import { Section } from '../motion'
+import { Section } from '../@motion'
 import { rotate } from '../../lib/utils/animation'
 
 export const LoadingWrapper = styled(Section)`

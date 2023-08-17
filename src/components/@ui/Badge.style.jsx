@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components'
 
-export const Wrapper = styled.div`
+export const StyledSpan = styled.span`
 	display: inline-flex;
 	justify-content: space-between;
 	align-items: center;
-	gap: 0.5em;
+	/* gap: 0.5em; */
 	position: relative;
 	font-size: 0.75rem; // 12px
 	font-weight: ${({ theme }) => theme.fw.medium};
@@ -18,8 +18,9 @@ export const Wrapper = styled.div`
 
 	img,
 	svg {
-		width: 0.625rem;
-		height: 0.625rem;
+		width: 0.9375rem;
+		height: 0.9375rem;
+		transform: translateX(25%);
 	}
 
 	${({ $style, theme }) => {

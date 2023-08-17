@@ -83,8 +83,8 @@ export const Pagination = styled.div`
 	display: flex;
 	align-self: flex-end;
 	gap: 0.3rem;
-	margin-right: 2rem;
-	margin-right: ${({ theme }) => theme.width.desktop};
+	/* margin-right: 2rem; */
+	margin-right: ${({ theme }) => theme.spacing.width.desktop};
 	margin-bottom: 0.5em;
 	font-size: 1.25rem;
 	font-style: italic;
@@ -100,6 +100,6 @@ export const Pagination = styled.div`
 	}
 
 	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-		margin-right: ${({ theme }) => theme.width.mobile};
+		margin-right: ${({ theme }) => theme.spacing.width.mobile};
 	}
 `

@@ -73,6 +73,18 @@ const $styleStyles = ({ $type, $style, theme }) => {
 						border-color: ${color.gray};
 					} */
 				`
+			case 'tertiary':
+				return css`
+					background-color: ${color.white};
+					color: ${color.black};
+					border: 1px solid ${color.gray};
+
+					&:disabled {
+						background-color: ${color.lightgray};
+						color: ${color.gray};
+						border-color: ${color.gray};
+					}
+				`
 			default:
 				return css``
 		}
