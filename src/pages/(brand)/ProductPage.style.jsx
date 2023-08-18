@@ -1,7 +1,9 @@
-import { Form } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 
 export const LayoutWrapper = styled.div`
+	display: grid;
+	place-items: center;
+
 	${({ theme }) => {
 		const { width, height } = theme.spacing
 		const breakpoints = theme.breakpoints
@@ -45,10 +47,6 @@ export const OverviewWrapper = styled.div`
 	}
 `
 
-export const FormWrapper = styled.div`
-	// display: grid;
-	// grid: ;
-`
 export const KeyInfo = styled.div`
 	.brand-name {
 		display: flex;
@@ -70,57 +68,54 @@ export const KeyInfo = styled.div`
 	}
 `
 
-export const StyledForm = styled(Form)`
-	border-top: ${({ theme }) => `1px solid ${theme.color.lightgray}`};
-	padding-top: 18px;
-`
+// export const StyledForm = styled(Form)`
+// 	border-top: ${({ theme }) => `1px solid ${theme.color.lightgray}`};
+// 	padding-top: 18px;
+// `
 
 export const PricingInfo = styled.div`
+	margin-top: auto;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
 
 	form {
-		padding: 30px;
-		/* display: flex;
-		justify-content: space-between; */
+		padding-top: 1.875em;
 		border-top: ${({ theme }) => `1px solid ${theme.color.lightgray}`};
 	}
 `
 
-export const ShippingInfo = styled.div`
-	/* margin-top: auto; */
-	font-size: 0.875rem;
-	/* font-weight: ${({ theme }) => theme.fw.bold}; */
+// export const ShippingInfo = styled.div`
+// 	/* margin-top: auto; */
+// 	font-size: 0.875rem;
+// 	/* font-weight: ${({ theme }) => theme.fw.bold}; */
 
-	& > :first-child {
-		font-weight: ${({ theme }) => theme.fw.medium};
-		/* color: ${({ theme }) => theme.color.darkgray}; */
-	}
+// 	& > :first-child {
+// 		font-weight: ${({ theme }) => theme.fw.medium};
+// 		/* color: ${({ theme }) => theme.color.darkgray}; */
+// 	}
 
-	& span {
-		color: ${({ theme }) => theme.color.safe};
-	}
+// 	& span {
+// 		color: ${({ theme }) => theme.color.safe};
+// 	}
 
-	& strong {
-		color: ${({ theme }) => theme.color.black};
-		font-weight: 700;
-	}
+// 	& strong {
+// 		color: ${({ theme }) => theme.color.black};
+// 		font-weight: 700;
+// 	}
 
-	& strong::after {
-		content: '원';
-	}
-	/* display: flex;
-	justify-content: space-between; */
+// 	& strong::after {
+// 		content: '원';
+// 	}
+// 	/* display: flex;
+// 	justify-content: space-between; */
 
-	.shipping-fee {
-	}
-	.shipping-method {
-	}
-`
+// 	.shipping-fee {
+// 	}
+// 	.shipping-method {
+// 	}
+// `
 
 export const DescriptionWrapper = styled.div`
 	width: 100%;
 	margin-top: 3.25em;
-	background-color: ${({ theme }) => theme.color.lightgray};
 `
