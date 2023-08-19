@@ -68,52 +68,11 @@ export const KeyInfo = styled.div`
 	}
 `
 
-// export const StyledForm = styled(Form)`
-// 	border-top: ${({ theme }) => `1px solid ${theme.color.lightgray}`};
-// 	padding-top: 18px;
-// `
-
 export const PricingInfo = styled.div`
 	margin-top: auto;
 	display: flex;
 	flex-direction: column;
-
-	form {
-		padding-top: 1.875em;
-		border-top: ${({ theme }) => `1px solid ${theme.color.lightgray}`};
-	}
 `
-
-// export const ShippingInfo = styled.div`
-// 	/* margin-top: auto; */
-// 	font-size: 0.875rem;
-// 	/* font-weight: ${({ theme }) => theme.fw.bold}; */
-
-// 	& > :first-child {
-// 		font-weight: ${({ theme }) => theme.fw.medium};
-// 		/* color: ${({ theme }) => theme.color.darkgray}; */
-// 	}
-
-// 	& span {
-// 		color: ${({ theme }) => theme.color.safe};
-// 	}
-
-// 	& strong {
-// 		color: ${({ theme }) => theme.color.black};
-// 		font-weight: 700;
-// 	}
-
-// 	& strong::after {
-// 		content: '원';
-// 	}
-// 	/* display: flex;
-// 	justify-content: space-between; */
-
-// 	.shipping-fee {
-// 	}
-// 	.shipping-method {
-// 	}
-// `
 
 export const DescriptionWrapper = styled.div`
 	width: 100%;

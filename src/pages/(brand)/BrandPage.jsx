@@ -1,6 +1,6 @@
+import { useLoaderData } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import { ProductList, ProductItem } from '../../components/product'
-import { products } from '../../lib/utils/dummyData'
 import axios from 'axios'
 
 export const brandLoader = async ({ request, params }) => {
@@ -8,16 +8,16 @@ export const brandLoader = async ({ request, params }) => {
 	const response = await axios(
 		`https://openmarket.weniv.co.kr/seller/${brandId}`
 	)
-	console.log('response: ', response)
 
-	// try {
-	// 	if (response.status === 200) return response.data
-	// } catch (err) {
-	// 	throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
-	// }
+	try {
+		if (response.status === 200) return response.data
+	} catch (err) {
+		throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
+	}
 }
 
 export function BrandPage() {
+	const products = useLoaderData()
 	useTitle(`Brand`) // 동적 업데이트 예정
 
 	return (
@@ -39,7 +39,7 @@ export function BrandPage() {
 				</h2>
 				<ProductList>
 					{products.map(product => (
-						<ProductItem key={product.id} product={product} />
+						<ProductItem key={product.product_id} product={product} />
 					))}
 				</ProductList>
 			</section>

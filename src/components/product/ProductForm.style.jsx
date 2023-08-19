@@ -1,13 +1,32 @@
+import { Form } from 'react-router-dom'
 import styled from 'styled-components'
 
-export const ShippingInfo = styled.div`
-	/* margin-top: auto; */
-	font-size: 0.875rem;
-	/* font-weight: ${({ theme }) => theme.fw.bold}; */
+export const StyledForm = styled(Form)`
+	border-top: ${({ theme }) => `1px solid ${theme.color.lightgray}`};
+	padding-top: 0.875em;
 
-	& > :first-child {
+	& .amount-select,
+	& .total-price {
+		justify-content: space-between;
+		font-size: 0.875rem;
+		padding-top: 1em;
+	}
+
+	& .total-price {
+		font-weight: ${({ theme }) => theme.fw.bold};
+	}
+
+	& .title {
 		font-weight: ${({ theme }) => theme.fw.medium};
-		/* color: ${({ theme }) => theme.color.darkgray}; */
+	}
+`
+
+export const ShippingInfo = styled.div`
+	font-size: 0.875rem;
+	padding: 2em 0;
+
+	& .title {
+		padding-bottom: 10px;
 	}
 
 	& span {
@@ -21,12 +40,5 @@ export const ShippingInfo = styled.div`
 
 	& strong::after {
 		content: '원';
-	}
-	/* display: flex;
-	justify-content: space-between; */
-
-	.shipping-fee {
-	}
-	.shipping-method {
 	}
 `

@@ -3,16 +3,23 @@ import { Wrapper, StyledLi, TabTrigger, TabContent } from './Tabs.style'
 
 function TabItem({ id, tab, activeTab, onClickHandler, ...props }) {
 	return (
-		<StyledLi
-			className={activeTab ? 'active' : ''}
-			role='tab'
-			aria-controls='tab-description'
-			{...props}
-		>
-			<TabTrigger type='button' onClick={() => onClickHandler(id)}>
+		<StyledLi className={activeTab ? 'active' : ''} {...props}>
+			<TabTrigger
+				type='button'
+				role='tab'
+				id={`tab-title-${tab.title}`}
+				aria-controls={`tab-${tab.title}`}
+				onClick={() => onClickHandler(id)}
+			>
 				{tab.title}
 			</TabTrigger>
-			<TabContent>{tab.content}</TabContent>
+			<TabContent
+				role='tabpanel'
+				id={`tab-${tab.title}`}
+				aria-labelledby={`tab-title-${tab.title}`}
+			>
+				{tab.content}
+			</TabContent>
 		</StyledLi>
 	)
 }
@@ -39,29 +46,5 @@ function Tabs({ tabs, ...props }) {
 		</Wrapper>
 	)
 }
-// function Tabs({ tabs, ...props }) {
-// 	const [activeTab, setActiveTab] = useState(0)
-// 	const onClickHandler = id => {
-// 		setActiveTab(id)
-// 	}
-
-// 	return (
-// 		<Wrapper {...props}>
-// 			<ul role='tablist'>
-// 				{tabs.map((tab, index) => (
-// 					<TabItem
-// 						key={index}
-// 						id={index}
-// 						activeTab={activeTab === index}
-// 						onClickHandler={onClickHandler}
-// 					>
-// 						{tab.title}
-// 					</TabItem>
-// 				))}
-// 			</ul>
-// 			<TabContent>{tabs[activeTab].content}</TabContent>
-// 		</Wrapper>
-// 	)
-// }
 
 export { Tabs, TabItem }

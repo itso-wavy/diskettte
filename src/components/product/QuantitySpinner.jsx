@@ -2,27 +2,17 @@ import { useContext } from 'react'
 import { FormContext } from '../../context/form-context'
 import { ACTION_CREATOR } from '../../hooks/useForm'
 import { Button } from '../@ui/Button'
-import { TextInput } from '../@ui/Input'
 import minusImg from '/assets/icons/wavy_minus.svg'
 import plusImg from '/assets/icons/wavy_plus.svg'
 import { Wrapper, StyledInput } from './QuantitySpinner.style.jsx'
 
 function QuantitySpinner({ name, ...props }) {
-	// const { value, onInputHandler } = useInput({
-	// 	type: 'number',
-	// })
-	const { values, dispatch, onInputHandler } = useContext(FormContext)
+	const { values, state, dispatch, onInputHandler } = useContext(FormContext)
 	const value = values[name]
 
-	/* const onInputHandler = (e, options) => {
-		let { value, name } = e.target
-
-		if (options.type === 'number') value = value.replace(/\D/g, '')
-
-		
-	} */
 	const manipulateQty = (_, { type }) => {
-		const newValue = type === 'minus' ? value - 1 : value + 1
+		let newValue = type === 'minus' ? value - 1 : value + 1
+		if (newValue <= 1) newValue = 1
 
 		dispatch({
 			type: ACTION_CREATOR.INPUT,
@@ -48,7 +38,6 @@ function QuantitySpinner({ name, ...props }) {
 				onInput={e => onInputHandler(e, { type: 'number' })}
 				{...props}
 			/>
-			{/* <TextInput name='qty' type='number' notErase /> */}
 			<Button
 				type='button'
 				$type='square'

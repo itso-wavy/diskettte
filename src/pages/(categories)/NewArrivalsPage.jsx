@@ -1,6 +1,5 @@
 import { useTitle } from '../../hooks'
 import { ProductList, ProductItem } from '../../components/product'
-import { products } from '../../lib/utils/dummyData'
 
 export function NewArrivalsPage() {
 	useTitle('New Arrivals')
@@ -12,9 +11,9 @@ export function NewArrivalsPage() {
 					product list
 				</h2>
 				<ProductList>
-					{products.map(product => (
+					{/* {products.map(product => (
 						<ProductItem key={product.id} product={product} />
-					))}
+					))} */}
 				</ProductList>
 			</section>
 		</>

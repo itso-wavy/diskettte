@@ -159,6 +159,7 @@ export const useForm = initialState => {
 		areTouched: state.areTouched,
 		areValid: state.areValid,
 		errorMessages: state.errorMessages,
+		state,
 		dispatch,
 		onInputHandler,
 		onBlurHandler,

@@ -1,7 +1,6 @@
 import { useTitle } from '../../hooks'
 import { Section } from '../../components/@motion'
 import { ProductList, ProductItem } from '../../components/product'
-import { products } from '../../lib/utils/dummyData'
 import { Wrapper } from './ExclusivePage.style'
 
 export function ExclusivePage() {
@@ -17,9 +16,9 @@ export function ExclusivePage() {
 					product list
 				</h2>
 				<ProductList>
-					{products.map(product => (
+					{/* {products.map(product => (
 						<ProductItem key={product.id} product={product} />
-					))}
+					))} */}
 				</ProductList>
 			</section>
 		</>

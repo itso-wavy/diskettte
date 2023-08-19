@@ -14,7 +14,6 @@ import {
 	StyledSection,
 	ContentsWrapper,
 	LNB,
-	// ProductsWrapper,
 } from './AllProductsPage.style'
 import axios from 'axios'
 
@@ -76,13 +75,11 @@ export function AllProductsPage() {
 						<h3 className='sr-only' id='productList'>
 							product list
 						</h3>
-						{/* <ProductsWrapper> */}
 						<ProductList>
 							{products.map(product => (
 								<ProductItem key={product.product_id} product={product} />
 							))}
 						</ProductList>
-						{/* </ProductsWrapper> */}
 					</section>
 				</ContentsWrapper>
 			</StyledSection>
