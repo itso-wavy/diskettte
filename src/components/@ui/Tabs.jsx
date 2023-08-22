@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { Wrapper, StyledLi, TabTrigger, TabContent } from './Tabs.style'
 
-function TabItem({ id, tab, activeTab, onClickHandler, ...props }) {
+function TabItem({ id, tab, activeTab, onClickHandler, $color, ...props }) {
 	return (
-		<StyledLi className={activeTab ? 'active' : ''} {...props}>
+		<StyledLi $color={$color} className={activeTab ? 'active' : ''} {...props}>
 			<TabTrigger
 				type='button'
 				role='tab'
@@ -24,7 +24,7 @@ function TabItem({ id, tab, activeTab, onClickHandler, ...props }) {
 	)
 }
 
-function Tabs({ tabs, ...props }) {
+function Tabs({ tabs, color = 'black', ...props }) {
 	const [activeTab, setActiveTab] = useState(0)
 	const onClickHandler = id => {
 		setActiveTab(id)
@@ -40,6 +40,7 @@ function Tabs({ tabs, ...props }) {
 						tab={tab}
 						activeTab={activeTab === index}
 						onClickHandler={onClickHandler}
+						$color={color}
 					/>
 				))}
 			</ul>

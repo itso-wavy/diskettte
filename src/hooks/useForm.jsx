@@ -21,12 +21,6 @@ const reducer = (state, action) => {
 				areValid: { ...state.areValid, ...areValid },
 				errorMessages: { ...state.errorMessages, ...errorMessages },
 			}
-		// return {
-		// 	...state,
-		// 	areTouched,
-		// 	areValid,
-		// 	errorMessages,
-		// }
 		case ACTION_CREATOR.CLEAR:
 			return {
 				...state,
@@ -34,12 +28,6 @@ const reducer = (state, action) => {
 				areTouched: { ...state.areTouched, [name]: false },
 				errorMessages: { ...state.errorMessages, [name]: '' },
 			}
-		// return {
-		// 	...state,
-		// 	values,
-		// 	areTouched,
-		// 	errorMessages,
-		// }
 		case ACTION_CREATOR.CHECK:
 			return {
 				...state,
@@ -105,7 +93,7 @@ export const useForm = initialState => {
 			areValid: { [name]: isTouched && validationResult },
 		})
 
-		// 예외처리 구간
+		// 예외 처리
 		if (name === 'passwordConfirm')
 			dispatch({
 				type: ACTION_CREATOR.BLUR,
@@ -113,13 +101,27 @@ export const useForm = initialState => {
 					[name]: isTouched && value === state.values.password,
 				},
 			})
+	}
 
-		// dispatch({
-		// 	type: ACTION_CREATOR.BLUR,
-		// 	errorMessages: { ...state.errorMessages, [name]: validationMessage },
-		// 	areTouched: { ...state.areTouched, [name]: isTouched },
-		// 	areValid: { ...state.areValid, [name]: isTouched && validationResult },
-		// })
+	const checkUniquenessHandler = e => {
+		e.preventDefault()
+
+		const { name } = e.target
+		e.target.value = state.values[name] + ' '
+		onBlurHandler(e)
+
+		const updateErrorMessage = (isValid, serverMessage) => {
+			if (!state.areValid[name]) return
+
+			dispatch({
+				type: ACTION_CREATOR.BLUR,
+				errorMessages: { [name]: serverMessage },
+				areTouched: { [name]: true },
+				areValid: { [name]: isValid },
+			})
+		}
+
+		return updateErrorMessage
 	}
 
 	const clearInputHandler = ref => {
@@ -129,20 +131,12 @@ export const useForm = initialState => {
 			type: ACTION_CREATOR.CLEAR,
 			name,
 		})
-		// dispatch({
-		// 	type: ACTION_CREATOR.CLEAR,
-		// 	values: { ...state.values, [name]: '' },
-		// 	areTouched: { ...state.areTouched, [name]: false },
-		// 	errorMessages: { ...state.errorMessages, [name]: '' },
-		// })
 	}
 
 	const onCheckHandler = e => {
 		const { name } = e.target
 
 		if (name) {
-			// const checked = state.values[name] || false
-
 			dispatch({
 				type: ACTION_CREATOR.CHECK,
 				name,
@@ -163,11 +157,9 @@ export const useForm = initialState => {
 		dispatch,
 		onInputHandler,
 		onBlurHandler,
+		checkUniquenessHandler,
 		clearInputHandler,
 		onCheckHandler,
 		ableSubmit,
 	}
 }
-
-/* loading error + useEffect useCallback
-useHttp-의존성 제거 */

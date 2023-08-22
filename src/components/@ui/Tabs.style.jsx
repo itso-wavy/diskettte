@@ -2,18 +2,18 @@ import styled from 'styled-components'
 
 export const StyledLi = styled.div`
 	flex: 1;
-	padding: 0.5em 0;
 	color: ${({ theme }) => theme.color.darkgray};
 
 	&.active {
-		color: ${({ theme }) => theme.color.black};
+		color: ${({ $color, theme }) => ($color ? $color : theme.color.black)};
 	}
 `
 
 export const TabTrigger = styled.button`
 	width: 100%;
+	padding: 0.35em 0;
+	border-bottom: 0.1875em solid;
 	color: inherit;
-	border-bottom: 0.25rem solid;
 	text-align: center;
 `
 
@@ -21,7 +21,8 @@ export const TabContent = styled.div`
 	display: none;
 	width: 100%;
 	position: absolute;
-	padding: 2.5rem 0;
+	padding-top: 2.5rem;
+	line-height: 1.5em;
 
 	.active & {
 		display: block;

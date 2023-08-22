@@ -105,14 +105,14 @@ function NumberInput({ label, id, name, placeholder, ...props }) {
 			<span className='number-bar' />
 			<input
 				id={id + '2'}
-				name={name}
+				name={name + '2'}
 				value={value2}
 				onInput={onInputHandler2}
 			/>
 			<span className='number-bar' />
 			<input
 				id={id + '3'}
-				name={name}
+				name={name + '3'}
 				value={value3}
 				onInput={onInputHandler3}
 				onBlur={() => onBlurHandler(event)}

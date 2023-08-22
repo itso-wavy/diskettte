@@ -3,26 +3,30 @@ import styled from 'styled-components'
 
 export const StyledForm = styled(Form)`
 	border-top: ${({ theme }) => `1px solid ${theme.color.lightgray}`};
-	padding-top: 0.875em;
-
-	& .amount-select,
-	& .total-price {
-		justify-content: space-between;
-		font-size: 0.875rem;
-		padding-top: 1em;
-	}
-
-	& .total-price {
-		font-weight: ${({ theme }) => theme.fw.bold};
-	}
+	padding-top: 1.75rem;
+	margin-top: 2rem;
+	font-size: 0.875rem;
 
 	& .title {
 		font-weight: ${({ theme }) => theme.fw.medium};
 	}
+
+	& .amount-select,
+	& .total-price {
+		justify-content: space-between;
+	}
+
+	& .amount-select .title {
+		font-weight: ${({ theme }) => theme.fw.bold};
+	}
+
+	& .total-price {
+		font-weight: ${({ theme }) => theme.fw.bold};
+		padding-top: 1em;
+	}
 `
 
 export const ShippingInfo = styled.div`
-	font-size: 0.875rem;
 	padding: 2em 0;
 
 	& .title {

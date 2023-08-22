@@ -35,7 +35,7 @@ import {
 	brandLoader,
 	productLoader,
 } from '../pages'
-import { signinAction, signupAction } from '../pages'
+import { signinAction, signupAction, paymentAction } from '../pages'
 
 const router = createBrowserRouter([
 	{
@@ -81,6 +81,7 @@ const router = createBrowserRouter([
 				path: 'product/:productId',
 				element: <ProductPage />,
 				loader: productLoader,
+				action: paymentAction,
 			},
 			{
 				path: 'cart',

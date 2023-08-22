@@ -1,4 +1,4 @@
-// export * from './useAxios'
+export * from './useAxios'
 export * from './useInput'
 export * from './useForm'
 export * from './useRedirect'
