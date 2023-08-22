@@ -40,10 +40,10 @@ function LinkField({ isBuyer, ...props }) {
 	)
 }
 
-function AuthForm({ type }) {
+function AuthForm({ type, serverMessages }) {
 	const navigate = useNavigate()
-	const [searchparams] = useSearchParams()
-	const userParam = searchparams.get('user')
+	const [searchParams] = useSearchParams()
+	const userParam = searchParams.get('user')
 	const [isBuyer, setIsBuyer] = useState(userParam !== 'seller')
 
 	useEffect(() => {
@@ -108,19 +108,18 @@ function AuthForm({ type }) {
 				<FormProvider initialState={initialState}>
 					<StyledForm method='POST'>
 						<AccountRegisterFieldset
-						// serverMessage={{
-						// 	id: '이미 사용 중인 아이디입니다.',
-						// }}
+						// serverMessage={serverMessages.id}
 						/>
-						<PersonalInfoRegisterFieldset {...{ isBuyer }} />
+						<PersonalInfoRegisterFieldset
+							// serverMessage={serverMessages.phoneNumber}
+							{...{ isBuyer }}
+						/>
 						{isBuyer || (
 							<SellerInfoRegisterFieldset
-							// serverMessage={{
-							// 	brand: '이미 사용 중인 브랜드명입니다.',
-							// }}
+							// serverMessage={serverMessages.brand}
 							/>
 						)}
-						{/* <FormValidationMessage text={serverMessage} /> */}
+						{/* <FormValidationMessage text={serverMessages} /> */}
 						<Flexbox $direction='row' style={{ marginTop: '1em' }}>
 							<Button
 								$style='secondary'

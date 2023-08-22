@@ -1,7 +1,9 @@
 import { useContext } from 'react'
+// import { useSubmit } from 'react-router-dom'
 import { FormContext } from '../../context/form-context'
-import { QuantitySpinner } from './QuantitySpinner'
-import { SubmitButton, Flexbox } from '../@ui/Form'
+import { QuantitySpinner } from '.'
+import { Button } from '../@ui/Button'
+import { Flexbox } from '../@ui/Form'
 import { StyledForm, ShippingInfo } from './ProductForm.style.jsx'
 
 function ProductForm({ product, ...props }) {
@@ -37,9 +39,10 @@ function ProductForm({ product, ...props }) {
 	const { values } = useContext(FormContext)
 	const name = 'qty'
 	const value = values[name]
+	// const submit = useSubmit()
 
 	return (
-		<StyledForm action='post' {...props}>
+		<StyledForm method='POST' {...props}>
 			<Flexbox $direction='row' className='amount-select'>
 				<p className='title'>{product_name}</p>
 				<QuantitySpinner name={name} />
@@ -73,8 +76,14 @@ function ProductForm({ product, ...props }) {
 				</p>
 			</ShippingInfo>
 			<Flexbox $direction='row'>
-				<SubmitButton $style='secondary'>카트 추가</SubmitButton>
-				<SubmitButton>바로 구매</SubmitButton>
+				{stock > 0 ? (
+					<>
+						<Button $style='secondary'>카트 추가</Button>
+						<Button>바로 구매</Button>
+					</>
+				) : (
+					<Button type='button'>재입고 알림 신청</Button>
+				)}
 			</Flexbox>
 		</StyledForm>
 	)

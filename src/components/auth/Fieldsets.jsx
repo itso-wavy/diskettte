@@ -4,6 +4,7 @@ import { FormContext } from '../../context/form-context'
 import { Button } from '../@ui/Button'
 import { FormInput, FormValidationMessage } from '../@ui/Form'
 import { passwordSchema } from '../../lib/validation/auth-validation'
+import axios from 'axios'
 
 function AccountLoginFieldset({ ...props }) {
 	const [isValid, setIsValid] = useState({
@@ -52,7 +53,7 @@ function AccountLoginFieldset({ ...props }) {
 	)
 }
 
-function AccountRegisterFieldset({ ...props }) {
+function AccountRegisterFieldset({ serverMessage, ...props }) {
 	const [isValid, setIsValid] = useState({
 		step1: false,
 		step2: false,
@@ -61,7 +62,8 @@ function AccountRegisterFieldset({ ...props }) {
 		step5: false,
 	})
 
-	const { values, errorMessages } = useContext(FormContext)
+	const { values, errorMessages, areValid, checkUniquenessHandler } =
+		useContext(FormContext)
 	const { password, passwordConfirm } = values
 
 	useEffect(() => {
@@ -77,17 +79,44 @@ function AccountRegisterFieldset({ ...props }) {
 		}))
 	}, [password, passwordConfirm])
 
+	const validateUniqueId = async e => {
+		const updateErrorMessage = checkUniquenessHandler(e)
+
+		try {
+			const response = await axios.post(
+				'https://openmarket.weniv.co.kr/accounts/signup/valid/username/',
+				{ username: values.id }
+			)
+
+			if (response.status === 202) {
+				updateErrorMessage(1, '사용 가능한 아이디입니다.')
+			}
+		} catch (err) {
+			updateErrorMessage(0, err.response.data.FAIL_Message)
+		}
+	}
+
 	return (
 		<fieldset {...props}>
 			<legend className='sr-only'>계정 정보</legend>
 			<FormInput label='아이디' id='id' name='id' placeholder='아이디'>
-				<Button style={{ position: 'relative', bottom: '0.25rem' }}>
+				<Button
+					style={{ position: 'relative', bottom: '0.25rem' }}
+					name='id'
+					onClick={validateUniqueId}
+				>
 					중복 확인
 				</Button>
 			</FormInput>
 			{errorMessages.id && (
-				<FormValidationMessage text={errorMessages.id} className='invalid' />
+				<FormValidationMessage
+					text={errorMessages.id}
+					className={areValid.id ? 'valid' : 'invalid'}
+				/>
 			)}
+			{/* {serverMessage && (
+				<FormValidationMessage text={serverMessage} className='invalid' />
+			)} */}
 			<FormInput
 				type='password'
 				label='비밀번호'
@@ -119,7 +148,7 @@ function AccountRegisterFieldset({ ...props }) {
 	)
 }
 
-function PersonalInfoRegisterFieldset({ isBuyer, ...props }) {
+function PersonalInfoRegisterFieldset({ isBuyer, serverMessage, ...props }) {
 	const { errorMessages } = useContext(FormContext)
 
 	return (
@@ -150,6 +179,9 @@ function PersonalInfoRegisterFieldset({ isBuyer, ...props }) {
 					className='invalid'
 				/>
 			)}
+			{/* {serverMessage && (
+				<FormValidationMessage text={serverMessage} className='invalid' />
+			)} */}
 			<FormInput label='이메일' id='email' name='email' placeholder='이메일' />
 			{errorMessages.email && (
 				<FormValidationMessage text={errorMessages.email} className='invalid' />
@@ -161,11 +193,11 @@ function PersonalInfoRegisterFieldset({ isBuyer, ...props }) {
 					name='termsAgree'
 					info={
 						<>
-							<Link to='.' className='terms'>
+							<Link to='' className='terms'>
 								이용약관
 							</Link>{' '}
 							및{' '}
-							<Link to='.' className='terms'>
+							<Link to='' className='terms'>
 								개인정보처리방침
 							</Link>
 							에 대한 내용을 확인하였고 이에 동의합니다.
@@ -177,28 +209,34 @@ function PersonalInfoRegisterFieldset({ isBuyer, ...props }) {
 	)
 }
 
-function SellerInfoRegisterFieldset({ validationMessage, ...props }) {
-	const { errorMessages } = useContext(FormContext)
+function SellerInfoRegisterFieldset({
+	validationMessage,
+	serverMessage,
+	...props
+}) {
+	const { values, errorMessages, areValid, checkUniquenessHandler } =
+		useContext(FormContext)
+
+	const validateUniqueBrandName = async e => {
+		const updateErrorMessage = checkUniquenessHandler(e)
+
+		try {
+			const response = await axios.post(
+				'https://openmarket.weniv.co.kr/accounts/signup/valid/company_registration_number/',
+				{ company_registration_number: values.businessNumber }
+			)
+
+			if (response.status === 202) {
+				updateErrorMessage(1, '사용 가능한 사업자등록번호입니다.')
+			}
+		} catch (err) {
+			updateErrorMessage(0, err.response.data.FAIL_Message)
+		}
+	}
 
 	return (
 		<fieldset {...props}>
 			<legend className='sr-only'>판매자 정보</legend>
-			<FormInput
-				label='브랜드명'
-				id='brandName'
-				name='brandName'
-				placeholder='브랜드명'
-			>
-				<Button style={{ position: 'relative', bottom: '0.25rem' }}>
-					중복 확인
-				</Button>
-			</FormInput>
-			{errorMessages.brandName && (
-				<FormValidationMessage
-					text={errorMessages.brandName}
-					className='invalid'
-				/>
-			)}
 			<FormInput
 				type='businessNumber'
 				label='사업자등록번호'
@@ -209,9 +247,32 @@ function SellerInfoRegisterFieldset({ validationMessage, ...props }) {
 			{errorMessages.businessNumber && (
 				<FormValidationMessage
 					text={errorMessages.businessNumber}
+					className={areValid.businessNumber ? 'valid' : 'invalid'}
+				/>
+			)}
+			<FormInput
+				label='브랜드명'
+				id='brandName'
+				name='brandName'
+				placeholder='브랜드명'
+			>
+				<Button
+					style={{ position: 'relative', bottom: '0.25rem' }}
+					name='businessNumber'
+					onClick={validateUniqueBrandName}
+				>
+					중복 확인
+				</Button>
+			</FormInput>
+			{errorMessages.brandName && (
+				<FormValidationMessage
+					text={errorMessages.brandName}
 					className='invalid'
 				/>
 			)}
+			{/* {serverMessage && (
+				<FormValidationMessage text={serverMessage} className='invalid' />
+			)} */}
 		</fieldset>
 	)
 }

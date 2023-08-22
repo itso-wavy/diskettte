@@ -38,7 +38,7 @@ const sellerInfoSchema = {
 	},
 	businessNumber: {
 		pattern: /^[\d]{3}-[\d]{2}-[\d]{5}$/,
-		message: '사업자번호는 숫자 10자리로 이루어져야 합니다.',
+		message: '사업자번호는 숫자 3-2-5 자리로 이루어져야 합니다.',
 	},
 }
 
