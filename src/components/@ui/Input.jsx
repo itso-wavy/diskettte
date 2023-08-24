@@ -52,7 +52,7 @@ function TextInput({
 					id={id}
 					name={name}
 					type={type}
-					value={value}
+					value={value || ''}
 					placeholder={placeholder}
 					onInput={e => onInputHandler(e, { type })}
 					onBlur={onBlurHandler}
@@ -69,6 +69,7 @@ function TextInput({
 							onClick={() => clearInputHandler(ref)}
 							aria-label='clear'
 							className='clear'
+							tabIndex='-1'
 						/>
 					)}
 				</div>

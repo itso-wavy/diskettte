@@ -31,7 +31,6 @@ const reducer = (state, action) => {
 		case ACTION_CREATOR.CHECK:
 			return {
 				...state,
-				name,
 				areValid: { ...state.areValid, [name]: !state.areValid[name] },
 			}
 		default:

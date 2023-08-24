@@ -89,10 +89,10 @@ function AccountRegisterFieldset({ serverMessage, ...props }) {
 			)
 
 			if (response.status === 202) {
-				updateErrorMessage(1, '사용 가능한 아이디입니다.')
+				updateErrorMessage(true, '사용 가능한 아이디입니다.')
 			}
 		} catch (err) {
-			updateErrorMessage(0, err.response.data.FAIL_Message)
+			updateErrorMessage(false, err.response.data.FAIL_Message)
 		}
 	}
 
@@ -114,9 +114,9 @@ function AccountRegisterFieldset({ serverMessage, ...props }) {
 					className={areValid.id ? 'valid' : 'invalid'}
 				/>
 			)}
-			{/* {serverMessage && (
+			{serverMessage && (
 				<FormValidationMessage text={serverMessage} className='invalid' />
-			)} */}
+			)}
 			<FormInput
 				type='password'
 				label='비밀번호'
@@ -179,9 +179,9 @@ function PersonalInfoRegisterFieldset({ isBuyer, serverMessage, ...props }) {
 					className='invalid'
 				/>
 			)}
-			{/* {serverMessage && (
+			{serverMessage && (
 				<FormValidationMessage text={serverMessage} className='invalid' />
-			)} */}
+			)}
 			<FormInput label='이메일' id='email' name='email' placeholder='이메일' />
 			{errorMessages.email && (
 				<FormValidationMessage text={errorMessages.email} className='invalid' />
@@ -214,7 +214,7 @@ function SellerInfoRegisterFieldset({
 	serverMessage,
 	...props
 }) {
-	const { values, errorMessages, areValid, checkUniquenessHandler } =
+	const { values, areValid, errorMessages, checkUniquenessHandler } =
 		useContext(FormContext)
 
 	const validateUniqueBrandName = async e => {
@@ -227,10 +227,10 @@ function SellerInfoRegisterFieldset({
 			)
 
 			if (response.status === 202) {
-				updateErrorMessage(1, '사용 가능한 사업자등록번호입니다.')
+				updateErrorMessage(true, '사용 가능한 사업자등록번호입니다.')
 			}
 		} catch (err) {
-			updateErrorMessage(0, err.response.data.FAIL_Message)
+			updateErrorMessage(false, err.response.data.FAIL_Message)
 		}
 	}
 
@@ -248,6 +248,12 @@ function SellerInfoRegisterFieldset({
 				<FormValidationMessage
 					text={errorMessages.businessNumber}
 					className={areValid.businessNumber ? 'valid' : 'invalid'}
+				/>
+			)}
+			{serverMessage.businessNumber && (
+				<FormValidationMessage
+					text={serverMessage.businessNumber}
+					className='invalid'
 				/>
 			)}
 			<FormInput
@@ -270,9 +276,12 @@ function SellerInfoRegisterFieldset({
 					className='invalid'
 				/>
 			)}
-			{/* {serverMessage && (
-				<FormValidationMessage text={serverMessage} className='invalid' />
-			)} */}
+			{serverMessage.brandName && (
+				<FormValidationMessage
+					text={serverMessage.brandName}
+					className='invalid'
+				/>
+			)}
 		</fieldset>
 	)
 }

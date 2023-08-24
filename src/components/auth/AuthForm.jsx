@@ -45,14 +45,13 @@ function AuthForm({ type, serverMessages }) {
 	const [searchParams] = useSearchParams()
 	const userParam = searchParams.get('user')
 	const [isBuyer, setIsBuyer] = useState(userParam !== 'seller')
+	const [initialState, setInitialState] = useState({ id: '', password: '' })
 
 	useEffect(() => {
 		setIsBuyer(userParam !== 'seller')
 	}, [userParam])
 
 	if (type === 'signin') {
-		const initialState = { id: '', password: '' }
-
 		return (
 			<FormSection
 				id={`${type} form`}
@@ -79,26 +78,28 @@ function AuthForm({ type, serverMessages }) {
 			</FormSection>
 		)
 	} else if (type === 'signup') {
-		const initialState = isBuyer
-			? {
-					id: '',
-					password: '',
-					passwordConfirm: '',
-					username: '',
-					phoneNumber: '',
-					email: '',
-					termsAgree: '',
-			  }
-			: {
-					id: '',
-					password: '',
-					passwordConfirm: '',
-					username: '',
-					phoneNumber: '',
-					email: '',
-					brandName: '',
-					businessNumber: '',
-			  }
+		useEffect(() => {
+			isBuyer
+				? setInitialState({
+						id: '',
+						password: '',
+						passwordConfirm: '',
+						username: '',
+						phoneNumber: '',
+						email: '',
+						termsAgree: '',
+				  })
+				: setInitialState({
+						id: '',
+						password: '',
+						passwordConfirm: '',
+						username: '',
+						phoneNumber: '',
+						email: '',
+						businessNumber: '',
+						brandName: '',
+				  })
+		}, [isBuyer])
 
 		return (
 			<FormSection
@@ -107,16 +108,17 @@ function AuthForm({ type, serverMessages }) {
 			>
 				<FormProvider initialState={initialState}>
 					<StyledForm method='POST'>
-						<AccountRegisterFieldset
-						// serverMessage={serverMessages.id}
-						/>
+						<AccountRegisterFieldset serverMessage={serverMessages.id} />
 						<PersonalInfoRegisterFieldset
-							// serverMessage={serverMessages.phoneNumber}
+							serverMessage={serverMessages.phoneNumber}
 							{...{ isBuyer }}
 						/>
 						{isBuyer || (
 							<SellerInfoRegisterFieldset
-							// serverMessage={serverMessages.brand}
+								serverMessage={{
+									businessNumber: serverMessages.businessNumber,
+									brandName: serverMessages.brandName,
+								}}
 							/>
 						)}
 						{/* <FormValidationMessage text={serverMessages} /> */}
