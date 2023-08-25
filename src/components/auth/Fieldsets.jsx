@@ -117,6 +117,9 @@ function AccountRegisterFieldset({ serverMessage, ...props }) {
 			{serverMessage && (
 				<FormValidationMessage text={serverMessage} className='invalid' />
 			)}
+			{/* {serverMessage && (
+				<FormValidationMessage text={serverMessage} className='invalid' />
+			)} */}
 			<FormInput
 				type='password'
 				label='비밀번호'
@@ -282,6 +285,9 @@ function SellerInfoRegisterFieldset({
 					className='invalid'
 				/>
 			)}
+			{/* {serverMessage && (
+				<FormValidationMessage text={serverMessage} className='invalid' />
+			)} */}
 		</fieldset>
 	)
 }
