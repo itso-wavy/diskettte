@@ -59,9 +59,7 @@ function AuthForm({ type, serverMessages }) {
 			>
 				<FormProvider initialState={initialState}>
 					<StyledForm method='POST'>
-						<AccountLoginFieldset
-						// serverMessage={}
-						/>
+						<AccountLoginFieldset serverMessage={serverMessages.loginFail} />
 						<Flexbox $direction='row'>
 							<Button
 								$style='secondary'
@@ -121,7 +119,6 @@ function AuthForm({ type, serverMessages }) {
 								}}
 							/>
 						)}
-						{/* <FormValidationMessage text={serverMessages} /> */}
 						<Flexbox $direction='row' style={{ marginTop: '1em' }}>
 							<Button
 								$style='secondary'

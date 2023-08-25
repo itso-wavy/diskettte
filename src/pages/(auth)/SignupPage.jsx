@@ -15,18 +15,6 @@ export function SignupPage() {
 		brandName: response?.store_name?.[0],
 	}
 
-	// const serverMessages = {
-	// 	// id: response?.username[0] && '이미 사용 중인 아이디입니다.',
-	// 	id: response?.username[0] === '해당 사용자 아이디는 이미 존재합니다.',
-	// 	phoneNumber:
-	// 		response?.phone_number[0] === '해당 사용자 전화번호는 이미 존재합니다',
-	// 	// response?.phone_number[0] && '이미 사용 중인 핸드폰 번호입니다.',
-	// 	brandName: response?.store_name[0] === '해당 스토어이름은 이미 존재합니다.',
-	// 	businessNumber:
-	// 		response?.company_registration_number[0] ===
-	// 		'해당 사업자등록번호는 이미 존재합니다',
-	// }
-
 	return (
 		<>
 			<AuthForm type='signup' serverMessages={serverMessages} />
@@ -78,36 +66,5 @@ export const signupAction = async ({ request, params }) => {
 		}
 	} catch (err) {
 		return err.response.data
-		// throw json({ message: err.response.data }, { status: 401 })
 	}
 }
-
-/* 
-구매자
-
-brandName: null
-businessNumber: null
-email: "dms"
-id: "myid"
-name: "hello"
-password: "123"
-passwordConfirm: "123"
-phoneNumber: "010"
-phoneNumber2: "1234"
-phoneNumber3: "5678"
-termsAgree: "on" */
-
-/* 
-사업자
-
-brandName: "samk"
-businessNumber: "123"
-email: "you.meet.vvavy@gmail.com"
-id: "myid"
-name: "wavy"
-password: "123"
-passwordConfirm: "123"
-phoneNumber: "010"
-phoneNumber2: "2423"
-phoneNumber3: "3541"
-termsAgree: null */

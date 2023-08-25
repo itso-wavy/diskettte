@@ -6,7 +6,7 @@ import { FormInput, FormValidationMessage } from '../@ui/Form'
 import { passwordSchema } from '../../lib/validation/auth-validation'
 import axios from 'axios'
 
-function AccountLoginFieldset({ ...props }) {
+function AccountLoginFieldset({ serverMessage, ...props }) {
 	const [isValid, setIsValid] = useState({
 		step1: false,
 		step2: false,
@@ -49,6 +49,9 @@ function AccountLoginFieldset({ ...props }) {
 					</>
 				}
 			/>
+			{serverMessage && (
+				<FormValidationMessage text={serverMessage} className='invalid' />
+			)}
 		</fieldset>
 	)
 }
@@ -285,9 +288,6 @@ function SellerInfoRegisterFieldset({
 					className='invalid'
 				/>
 			)}
-			{/* {serverMessage && (
-				<FormValidationMessage text={serverMessage} className='invalid' />
-			)} */}
 		</fieldset>
 	)
 }
