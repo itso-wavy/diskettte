@@ -1,19 +1,30 @@
 import { useLoaderData } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import { ProductList, ProductItem } from '../../components/product'
-import axios from 'axios'
+import { api, clientAPI } from '../../lib/api'
+// import axios from 'axios'
 
 export const brandLoader = async ({ request, params }) => {
 	const { brandId } = params
-	const response = await axios(
-		`https://openmarket.weniv.co.kr/seller/${brandId}`
-	)
 
-	try {
-		if (response.status === 200) return response.data
-	} catch (err) {
+	const client = clientAPI(`seller/${brandId}`)
+
+	const success = res => res.data
+	const error = () => {
 		throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
 	}
+
+	return api(client)(success, error)
+
+	// const response = await axios(
+	// 	`https://openmarket.weniv.co.kr/seller/${brandId}`
+	// )
+
+	// try {
+	// 	if (response.status === 200) return response.data
+	// } catch (err) {
+	// 	throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
+	// }
 }
 
 export function BrandPage() {

@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components'
 
 export const LayoutWrapper = styled.div`
+	margin: 0 auto;
 	display: grid;
 	place-items: center;
 
@@ -28,6 +29,7 @@ export const OverviewWrapper = styled.div`
 	gap: 3em;
 
 	.image-box {
+		margin: 0 auto;
 		flex: 0 0 47%;
 	}
 
@@ -54,14 +56,14 @@ export const KeyInfo = styled.div`
 		gap: 0.625em;
 	}
 	.product-name {
-		font-size: 24px;
+		font-size: 1.5rem;
 		font-weight: ${({ theme }) => theme.fw.medium};
-		padding-top: 20px;
+		padding-top: 0.8em;
 	}
 	.product-price {
-		padding-top: 45px;
+		font-size: 1.5rem;
+		padding-top: 1.875em;
 		font-weight: ${({ theme }) => theme.fw.bold};
-		font-size: 24px;
 	}
 	.currency {
 		margin-left: 0.1em;

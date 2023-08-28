@@ -28,16 +28,24 @@ import {
 	PreviewMotion,
 } from './HomePage.style'
 import useStore from '../../store'
-import axios from 'axios'
+import { api, firebaseAPI } from '../../lib/api'
+// import axios from 'axios'
 
 export const homeLoader = async () => {
-	const response = await axios('/data/brands.json')
+	const brands = firebaseAPI('brands.json')
 
-	try {
-		if (response.status === 200) return response.data
-	} catch (err) {
+	const success = res => res.data
+	const error = () => {
 		throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
 	}
+
+	return api(brands)(success, error)
+	// const response = await axios('/data/brands.json')
+	// try {
+	// 	if (response.status === 200) return response.data
+	// } catch (err) {
+	// 	throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
+	// }
 }
 
 export function HomePage() {

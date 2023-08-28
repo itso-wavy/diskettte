@@ -1,27 +1,22 @@
-import { redirect, useActionData } from 'react-router-dom'
+import { redirect } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import { AuthForm } from '../../components/auth/AuthForm'
-import axios from 'axios'
+import useStore from '../../store'
+import { api, clientAPI } from '../../lib/api'
+// import axios from 'axios'
 
 export function SigninPage() {
 	useTitle('Sign In')
 
-	const response = useActionData()
-
-	const serverMessages = {
-		loginFail:
-			response?.FAIL_Message &&
-			'아이디, 비밀번호 또는 로그인 유형이 일치하지 않습니다.',
-	}
-
 	return (
 		<>
-			<AuthForm type='signin' serverMessages={serverMessages} />
+			<AuthForm type='signin' />
 		</>
 	)
 }
 
 export const signinAction = async ({ request, params }) => {
+	const { signInHandler, toast } = useStore()
 	const searchParams = new URL(request.url).searchParams
 	const userParam = searchParams.get('user')
 	const isBuyer = userParam !== 'seller'
@@ -34,16 +29,38 @@ export const signinAction = async ({ request, params }) => {
 		login_type: isBuyer ? 'BUYER' : 'SELLER',
 	}
 
-	try {
-		const response = await axios.post(
-			'https://openmarket.weniv.co.kr/accounts/login/',
-			authData
-		)
+	const client = clientAPI.post('accounts/login/', authData)
 
-		if (response.status === 200) {
-			return redirect('/mypage')
-		}
-	} catch (err) {
+	const success = res => {
+		signInHandler(res)
+		redirect('/mypage')
+		return toast.success('로그인 되었습니다.')
+	}
+	const error = err => {
 		return err.response.data
 	}
+
+	return api(client)(success, error)
+
+	/* 
+      id: 670
+      token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo2NzAsImVtYWlsIjoiIiwidXNlcm5hbWUiOiJidXllcjk5IiwiZXhwIjoxNjkzNTY3MTM2fQ.WKHr6x35Q2LDDcRtq7DAooiq-FFQNKgMyOC1HVeGgHA"
+      user_type: "BUYER" 
+    */
+
+	// try {
+	// 	const response = await axios.post(
+	// 		'https://openmarket.weniv.co.kr/accounts/login/',
+	// 		authData
+	// 	)
+
+	// 	if (response.status === 200) {
+
+	// 		signInHandler(response)
+	// 		redirect('/mypage')
+	// 		return toast.success('로그인 되었습니다.')
+	// 	}
+	// } catch (err) {
+	// 	return err.response.data
+	// }
 }
