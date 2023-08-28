@@ -1,13 +1,14 @@
-import axios from 'axios'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useHeaderHeight, useInput } from '../../hooks'
 import { debounce } from '../../lib/utils/debounce'
 import { Button } from '../@ui/Button'
+import { CloseSvg } from '../@svg'
 import EraseImg from '/assets/icons/wavy_erase-sharp.svg'
 import SearchImg from '/assets/icons/ion_search-outline.svg'
-import { CloseSvg } from '../@svg'
 import { SearchInputWrapper, StyledDialog, StyledUl } from './SearchInput.style'
+import { api, clientAPI } from '../../lib/api'
+// import axios from 'axios'
 
 function SearchResult({ results, closeSearchWindow, ...props }) {
 	const headerHeight = useHeaderHeight()
@@ -26,7 +27,9 @@ function SearchResult({ results, closeSearchWindow, ...props }) {
 			<StyledUl>
 				{results.map(result => (
 					<li key={result.product_id}>
-						<Link to=''>{result.product_name}</Link>
+						<Link to={`/product/${result.product_id}`}>
+							{result.product_name}
+						</Link>
 					</li>
 				))}
 			</StyledUl>
@@ -75,17 +78,23 @@ function SearchInput({
 		const keyword = e.target.value.trim()
 		let response
 
-		debounce(async () => {
-			try {
-				if (keyword)
-					response = await axios.get(
-						`https://openmarket.weniv.co.kr//products/?search=${keyword}`
-					)
-				setResults(response?.data.results || [])
-			} catch (err) {
-				console.log(err)
-			}
-		}, 300)()
+		const client = clientAPI(`products/?search=${keyword}`)
+		const success = res => setResults(res?.data.results || [])
+		const error = err => console.log(err)
+
+		debounce(api(client), 300)(success, error)
+
+		// debounce(async () => {
+		// 	try {
+		// 		if (keyword)
+		// 			response = await axios.get(
+		// 				`https://openmarket.weniv.co.kr/products/?search=${keyword}`
+		// 			)
+		// 		setResults(response?.data.results || [])
+		// 	} catch (err) {
+		// 		console.log(err)
+		// 	}
+		// }, 300)()
 	}, [])
 
 	return (
