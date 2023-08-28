@@ -13,19 +13,30 @@ import {
 	PricingInfo,
 	DescriptionWrapper,
 } from './ProductPage.style'
-import axios from 'axios'
+import { api, clientAPI } from '../../lib/api'
+// import axios from 'axios'
 
 export const productLoader = async ({ request, params }) => {
 	const { productId } = params
-	const response = await axios(
-		`https://openmarket.weniv.co.kr/products/${productId}/`
-	)
 
-	try {
-		if (response.status === 200) return response.data
-	} catch (err) {
+	const client = clientAPI(`products/${productId}`)
+
+	const success = res => res.data
+	const error = () => {
 		throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
 	}
+
+	return api(client)(success, error)
+
+	// const response = await axios(
+	// 	`https://openmarket.weniv.co.kr/products/${productId}/`
+	// )
+
+	// try {
+	// 	if (response.status === 200) return response.data
+	// } catch (err) {
+	// 	throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
+	// }
 }
 
 export function ProductPage() {
@@ -79,4 +90,39 @@ export function ProductPage() {
 			</DescriptionWrapper>
 		</LayoutWrapper>
 	)
+}
+
+export const paymentAction = async ({ request, params }) => {
+	const productId = params.productId
+
+	const client = clientAPI(`seller/cart`)
+	const success = () => {
+		const cartData = {
+			productName: response.get('id'),
+			productAmount: response.get('password'),
+			productPrice: response.get('password'),
+		}
+		// FIXME:
+		return null
+	}
+	const error = () => {
+		throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
+	}
+
+	return api(client)(success, error)
+
+	// const response = await axios(`https://openmarket.weniv.co.kr/seller/cart`)
+
+	// const cartData = {
+	// 	productName: response.get('id'),
+	// 	productAmount: response.get('password'),
+	// 	productPrice: response.get('password'),
+	// }
+
+	// if (!response.ok)
+	// 	throw json({ messege: 'could not delete event' }, { status: 500 })
+
+	// console.log(authData)
+
+	// return null
 }

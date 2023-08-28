@@ -2,13 +2,12 @@ import axios from 'axios'
 
 const baseURL = {
 	client: 'https://openmarket.weniv.co.kr/',
-	firebase: '/data',
+	firebase: '/data/',
 }
 
 const clientAPI = axios.create({
 	baseURL: baseURL.client,
 	headers: {
-		// Authorization: `JWT ${token}`,
 		'content-type': 'Application/json; charset=UTF=8',
 	},
 })
@@ -26,12 +25,13 @@ const firebaseAPI = axios.create({
 
 const api = axiosInstance => {
 	const request = async (success, error) => {
-		const response = await axiosInstance
-
 		try {
+			const response = await axiosInstance
+
 			if (response.status >= 200 && response.status < 300) {
 				return success(response)
 			}
+			throw new Error()
 		} catch (err) {
 			return error(err)
 		}

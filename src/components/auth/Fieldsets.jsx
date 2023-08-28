@@ -4,6 +4,7 @@ import { FormContext } from '../../context/form-context'
 import { Button } from '../@ui/Button'
 import { FormInput, FormValidationMessage } from '../@ui/Form'
 import { passwordSchema } from '../../lib/validation/auth-validation'
+import { api, clientAPI } from '../../lib/api'
 import axios from 'axios'
 
 function AccountLoginFieldset({ serverMessage, ...props }) {
@@ -85,18 +86,28 @@ function AccountRegisterFieldset({ serverMessage, ...props }) {
 	const validateUniqueId = async e => {
 		const updateErrorMessage = checkUniquenessHandler(e)
 
-		try {
-			const response = await axios.post(
-				'https://openmarket.weniv.co.kr/accounts/signup/valid/username/',
-				{ username: values.id }
-			)
+		const client = clientAPI.post('accounts/signup/valid/username/', {
+			username: values.id,
+		})
 
-			if (response.status === 202) {
-				updateErrorMessage(true, '사용 가능한 아이디입니다.')
-			}
-		} catch (err) {
+		const success = () => updateErrorMessage(true, '사용 가능한 아이디입니다.')
+		const error = err =>
 			updateErrorMessage(false, err.response.data.FAIL_Message)
-		}
+
+		api(client)(success, error)
+
+		// try {
+		// 	const response = await axios.post(
+		// 		'https://openmarket.weniv.co.kr/accounts/signup/valid/username/',
+		// 		{ username: values.id }
+		// 	)
+
+		// 	if (response.status === 202) {
+		// 		updateErrorMessage(true, '사용 가능한 아이디입니다.')
+		// 	}
+		// } catch (err) {
+		// 	updateErrorMessage(false, err.response.data.FAIL_Message)
+		// }
 	}
 
 	return (
@@ -226,18 +237,30 @@ function SellerInfoRegisterFieldset({
 	const validateUniqueBrandName = async e => {
 		const updateErrorMessage = checkUniquenessHandler(e)
 
-		try {
-			const response = await axios.post(
-				'https://openmarket.weniv.co.kr/accounts/signup/valid/company_registration_number/',
-				{ company_registration_number: values.businessNumber }
-			)
+		const client = clientAPI.post(
+			'accounts/signup/valid/company_registration_number/',
+			{ company_registration_number: values.businessNumber }
+		)
 
-			if (response.status === 202) {
-				updateErrorMessage(true, '사용 가능한 사업자등록번호입니다.')
-			}
-		} catch (err) {
+		const success = () =>
+			updateErrorMessage(true, '사용 가능한 사업자등록번호입니다.')
+		const error = err =>
 			updateErrorMessage(false, err.response.data.FAIL_Message)
-		}
+
+		api(client)(success, error)
+
+		// try {
+		// 	const response = await axios.post(
+		// 		'https://openmarket.weniv.co.kr/accounts/signup/valid/company_registration_number/',
+		// 		{ company_registration_number: values.businessNumber }
+		// 	)
+
+		// 	if (response.status === 202) {
+		// 		updateErrorMessage(true, '사용 가능한 사업자등록번호입니다.')
+		// 	}
+		// } catch (err) {
+		// 	updateErrorMessage(false, err.response.data.FAIL_Message)
+		// }
 	}
 
 	return (

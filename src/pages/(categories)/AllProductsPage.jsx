@@ -15,19 +15,33 @@ import {
 	ContentsWrapper,
 	LNB,
 } from './AllProductsPage.style'
-import axios from 'axios'
+import { api, clientAPI, firebaseAPI } from '../../lib/api'
+// import axios from 'axios'
 
 export const allProductsLoader = async () => {
-	const banners = await axios('/data/banners.json')
+	const firebase = firebaseAPI('banners.json')
+	const client = clientAPI(`products`)
 
-	const products = await axios(`https://openmarket.weniv.co.kr/products`)
-
-	try {
-		if (banners.status === 200 && products.status === 200)
-			return [banners.data, products.data.results]
-	} catch (err) {
+	const firebaseSuccess = res => res.data
+	const clientSuccess = res => res.data.results
+	const error = () => {
 		throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
 	}
+
+	const banners = await api(firebase)(firebaseSuccess, error)
+	const products = await api(client)(clientSuccess, error)
+
+	return [banners, products]
+
+	// const banners = await axios('/data/banners.json')
+	// const products = await axios(`https://openmarket.weniv.co.kr/products`)
+
+	// try {
+	// 	if (banners.status === 200 && products.status === 200)
+	// 		return [banners.data, products.data.results]
+	// } catch (err) {
+	// 	throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
+	// }
 }
 
 export function AllProductsPage() {
