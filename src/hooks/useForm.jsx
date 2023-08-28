@@ -54,7 +54,7 @@ export const useForm = initialState => {
 	const onInputHandler = (e, options) => {
 		let { value, name } = e.target
 
-		if (options.type === 'number') value = value.replace(/\D/g, '')
+		if (options.type === 'number') value = Number(value.replace(/\D/g, ''))
 
 		dispatch({
 			type: ACTION_CREATOR.INPUT,
@@ -77,13 +77,6 @@ export const useForm = initialState => {
 			validationMessage = validationResult
 			validationResult = false
 		}
-
-		/* 값이 있어야 메시지를 보임... ==> values[name] && 
-
-    1) '' : value.trim() x && validationMessage x
-    1) ' ' : value.trim() x && validationMessage
-    2) 'abc' : value.trim() o && validationMessage 
-    */
 
 		dispatch({
 			type: ACTION_CREATOR.BLUR,
