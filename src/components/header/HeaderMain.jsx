@@ -70,8 +70,7 @@ function HeaderMenuItem({ href, onClick, src, ariaLabel, text, ...props }) {
 
 export function HeaderMain({ $transparent, children, ...props }) {
 	// const inputRef = useRef()
-	const { isMobile, isLogin, logout, isMobileNavOpen, openMobileNav } =
-		useStore()
+	const { isMobile, isMobileNavOpen, openMobileNav, isSignedIn } = useStore()
 
 	return (
 		<Wrapper {...props}>
@@ -111,7 +110,7 @@ export function HeaderMain({ $transparent, children, ...props }) {
 								text='마이페이지'
 								ariaLabel='go to mypage'
 							/>
-							{!isLogin ? (
+							{!isSignedIn ? (
 								<HeaderMenuItem
 									href='/auth'
 									src={<LoginSvg />}
@@ -120,7 +119,8 @@ export function HeaderMain({ $transparent, children, ...props }) {
 								/>
 							) : (
 								<HeaderMenuItem
-									onClick={logout}
+									// onClick={logoutHandler}
+									href='/auth/logout'
 									src={<LogoutSvg />}
 									text='로그아웃'
 									ariaLabel='logout'

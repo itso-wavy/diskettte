@@ -39,7 +39,7 @@ const MobileNavItem = ({
 }
 
 export function MobileNav({ ...props }) {
-	const { isLogin, logout, closeMobileNav } = useStore()
+	const { closeMobileNav, isSignedIn } = useStore()
 
 	return (
 		<>
@@ -72,7 +72,7 @@ export function MobileNav({ ...props }) {
 							text='Event'
 						/>
 						<StyledHr />
-						{!isLogin ? (
+						{!isSignedIn ? (
 							<MobileNavItem
 								url='/auth'
 								ariaLabel='signin or signup'
@@ -82,7 +82,8 @@ export function MobileNav({ ...props }) {
 							/>
 						) : (
 							<MobileNavItem
-								onClick={logout}
+								// onClick={}
+								url='/auth/logout'
 								ariaLabel='logout'
 								text='로그아웃'
 								icon={<LogoutSvg />}

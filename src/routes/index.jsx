@@ -34,7 +34,6 @@ import {
 	allProductsLoader,
 	brandLoader,
 	productLoader,
-	authInfoLoader,
 } from '../pages'
 import { signinAction, signupAction, paymentAction } from '../pages'
 
@@ -106,7 +105,6 @@ const router = createBrowserRouter([
 					// },
 					{
 						path: 'orders',
-						loader: authInfoLoader,
 						element: <OrdersPage />,
 					},
 					{

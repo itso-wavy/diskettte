@@ -45,6 +45,8 @@ export const signupAction = async ({ request, params }) => {
 	}
 
 	const success = () => {
+		alert('회원가입에 성공했습니다.')
+
 		return redirect('/auth/signin')
 	}
 	const error = err => {

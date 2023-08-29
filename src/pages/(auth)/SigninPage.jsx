@@ -49,7 +49,7 @@ export const signinAction = async ({ request }) => {
       token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo2NzAsImVtYWlsIjoiIiwidXNlcm5hbWUiOiJidXllcjk5IiwiZXhwIjoxNjkzNTY3MTM2fQ.WKHr6x35Q2LDDcRtq7DAooiq-FFQNKgMyOC1HVeGgHA"
       user_type: "BUYER" 
     */
-		alert(`${authData.username}님, 반가워요 :)`)
+		alert(`${authData.username}님, 반갑습니다.`)
 
 		return res.data
 

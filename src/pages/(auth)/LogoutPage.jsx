@@ -1,5 +1,17 @@
-import React from 'react'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import useStore from '../../store'
 
-export function LogoutPage() {
-	return <div>LogoutPage</div>
+export const LogoutPage = () => {
+	const { isSignedIn, logoutHandler } = useStore()
+	const navigate = useNavigate()
+
+	useEffect(() => {
+		if (!isSignedIn) return
+
+		logoutHandler()
+		alert('로그아웃 되었습니다.')
+
+		return navigate('/')
+	}, [])
 }
