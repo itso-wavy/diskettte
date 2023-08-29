@@ -148,7 +148,7 @@ export function HomePage() {
 							<TagBox $color='#789FA5' className='bl'>
 								<Tag>I'm your nostalgia</Tag>
 								<Tag>I'm your lifestyle</Tag>
-								<Tag>This is your diskette</Tag>
+								<Tag>This is your diskettte</Tag>
 							</TagBox>
 							<p className='br see-all'>
 								<span className='touch'>
@@ -191,7 +191,7 @@ export function HomePage() {
 						<p>Perferendis magni adipisci tenetur id.</p>
 					</Card>
 					<Transition ref={transitionRef}>
-						Explore your own choices with diskette.
+						Explore your own choices with diskettte.
 					</Transition>
 				</GridWarpper>
 			</Section>

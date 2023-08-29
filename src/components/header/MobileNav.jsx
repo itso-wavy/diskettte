@@ -72,13 +72,6 @@ export function MobileNav({ ...props }) {
 							text='Event'
 						/>
 						<StyledHr />
-						<MobileNavItem
-							url='/mypage/profile'
-							ariaLabel='go to exclusive category'
-							text='마이페이지'
-							icon={<MypageSvg />}
-							style={$itemStyle}
-						/>
 						{!isLogin ? (
 							<MobileNavItem
 								url='/auth'
@@ -96,6 +89,13 @@ export function MobileNav({ ...props }) {
 								style={$itemStyle}
 							/>
 						)}
+						<MobileNavItem
+							url='/mypage/profile'
+							ariaLabel='go to exclusive category'
+							text='마이페이지'
+							icon={<MypageSvg />}
+							style={$itemStyle}
+						/>
 					</ul>
 				</nav>
 			</Modal>

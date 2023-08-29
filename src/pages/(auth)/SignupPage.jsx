@@ -2,7 +2,7 @@ import { redirect } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import { AuthForm } from '../../components/auth/AuthForm'
 import { api, clientAPI } from '../../lib/api'
-import axios from 'axios'
+// import axios from 'axios'
 
 export function SignupPage() {
 	useTitle('Sign Up')

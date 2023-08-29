@@ -23,11 +23,11 @@ const initialState = {
 export const createViewportSlice = set => ({
 	...initialState,
 	recheckViewport: () =>
-		set(() => ({
+		set({
 			isMobile: getViewport() === 'mobile',
 			isTablet: getViewport() === 'tablet',
 			isDesktop: getViewport() === 'desktop',
-		})),
+		}),
 })
 // const getViewport = () => {
 // 	const width =

@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import {
+	Link,
+	useActionData,
+	useNavigate,
+	useSearchParams,
+} from 'react-router-dom'
 import { FormProvider } from '../../context/form-context'
 import { Button } from '../@ui/Button'
 import { FormSection, Hr, SmallMenus, Flexbox, SubmitButton } from '../@ui/Form'
@@ -40,8 +45,9 @@ function LinkField({ isBuyer, ...props }) {
 	)
 }
 
-function AuthForm({ type, serverMessages }) {
+function AuthForm({ type }) {
 	const navigate = useNavigate()
+	const response = useActionData()
 	const [searchParams] = useSearchParams()
 	const userParam = searchParams.get('user')
 	const [isBuyer, setIsBuyer] = useState(userParam !== 'seller')
@@ -50,6 +56,16 @@ function AuthForm({ type, serverMessages }) {
 	useEffect(() => {
 		setIsBuyer(userParam !== 'seller')
 	}, [userParam])
+
+	const serverMessages = {
+		loginFail:
+			response?.FAIL_Message &&
+			'아이디, 비밀번호 또는 계정 유형이 일치하지 않습니다.',
+		id: response?.username?.[0],
+		phoneNumber: response?.phone_number?.[0],
+		businessNumber: response?.company_registration_number?.[0],
+		brandName: response?.store_name?.[0],
+	}
 
 	if (type === 'signin') {
 		return (

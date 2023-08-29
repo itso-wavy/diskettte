@@ -27,13 +27,14 @@ import {
 	ProductDeletePage,
 	SigninPage,
 	SignupPage,
-	CallbackPage,
+	LogoutPage,
 } from '../pages'
 import {
 	homeLoader,
 	allProductsLoader,
 	brandLoader,
 	productLoader,
+	authInfoLoader,
 } from '../pages'
 import { signinAction, signupAction, paymentAction } from '../pages'
 
@@ -45,8 +46,8 @@ const router = createBrowserRouter([
 		children: [
 			{
 				index: true,
-				element: <HomePage />,
 				loader: homeLoader,
+				element: <HomePage />,
 			},
 			{
 				path: 'categories',
@@ -73,14 +74,14 @@ const router = createBrowserRouter([
 			},
 			{
 				path: 'brand/:brandId',
-				element: <BrandPage />,
 				loader: brandLoader,
+				element: <BrandPage />,
 			},
 			{
 				// path: 'brand/:brandId/:productId',
 				path: 'product/:productId',
-				element: <ProductPage />,
 				loader: productLoader,
+				element: <ProductPage />,
 				action: paymentAction,
 			},
 			{
@@ -105,6 +106,7 @@ const router = createBrowserRouter([
 					// },
 					{
 						path: 'orders',
+						loader: authInfoLoader,
 						element: <OrdersPage />,
 					},
 					{
@@ -152,6 +154,7 @@ const router = createBrowserRouter([
 			{
 				path: 'signin',
 				element: <SigninPage />,
+				// id: 'auth-info',
 				action: signinAction,
 			},
 			{
@@ -160,8 +163,8 @@ const router = createBrowserRouter([
 				action: signupAction,
 			},
 			{
-				path: 'signin_success',
-				element: <CallbackPage />,
+				path: 'logout',
+				element: <LogoutPage />,
 			},
 		],
 	},
