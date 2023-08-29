@@ -3,6 +3,23 @@
 - 자체 컨벤션
 - 컴포넌트 세분화
 
+# diskettte
+
+- router 28
+- auth
+
+## url
+
+http://localhost:5173/product/501
+
+## code
+
+// {
+// "compilerOptions": {
+// "target": "es6"
+// }
+// }
+
 ## 홍보 문구
 
 1. "Curated Pieces for Diverse Tastes"
@@ -24,7 +41,6 @@
 ```jsx
 import starImg from '/assets/icons/test/game-icons_european-flag.svg'
 import decoImg from '/assets/icons/test/game-icons_spotted-mushroom.svg'
-
 ;<div className='tr touch'>
 	<Img src={decoImg} alt='' $size='2.25em' />
 	<Img

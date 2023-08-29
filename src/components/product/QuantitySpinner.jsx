@@ -6,13 +6,14 @@ import minusImg from '/assets/icons/wavy_minus.svg'
 import plusImg from '/assets/icons/wavy_plus.svg'
 import { Wrapper, StyledInput } from './QuantitySpinner.style.jsx'
 
-function QuantitySpinner({ name, ...props }) {
+function QuantitySpinner({ name, stock, ...props }) {
 	const { values, state, dispatch, onInputHandler } = useContext(FormContext)
 	const value = values[name]
 
 	const manipulateQty = (_, { type }) => {
 		let newValue = type === 'minus' ? value - 1 : value + 1
 		if (newValue <= 1) newValue = 1
+		if (newValue > stock) newValue = stock
 
 		dispatch({
 			type: ACTION_CREATOR.INPUT,

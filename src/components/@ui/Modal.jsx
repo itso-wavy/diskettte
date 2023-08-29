@@ -6,7 +6,9 @@ function Modal({ closeModal, children, ...props }) {
 	const modalRef = useRef()
 
 	const onClickHandler = e => {
-		e.target !== modalRef.current && closeModal()
+		if (closeModal) {
+			e.target !== modalRef.current && closeModal()
+		}
 	}
 
 	const modalLayout = (

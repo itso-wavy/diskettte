@@ -45,7 +45,7 @@ function ProductForm({ product, ...props }) {
 		<StyledForm method='POST' {...props}>
 			<Flexbox $direction='row' className='amount-select'>
 				<p className='title'>{product_name}</p>
-				<QuantitySpinner name={name} />
+				<QuantitySpinner name={name} stock={stock}/>
 			</Flexbox>
 			<Flexbox $direction='row' className='total-price'>
 				<p className='title'>총 상품 금액</p>
