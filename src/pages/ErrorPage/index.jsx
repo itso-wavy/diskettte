@@ -6,13 +6,13 @@ import floppyImg from '/floppy.png'
 import { Wrapper } from './ErrorPage.style'
 
 export function ErrorPage() {
-	useTitle('Page not found')
-
 	const navigate = useNavigate()
 	const error = useRouteError()
 
 	const status = error.response?.status || error.status
-	console.error('Error🥺:', error.message || error.error.message)
+	console.error('Error🥺:', error.data.message || error.error.message)
+
+	useTitle('Page not found')
 
 	return (
 		<Wrapper>

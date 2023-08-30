@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import {
 	RootLayout,
 	CategoriesRootLayout,
+	// CartRootLayout,
 	MypageRootLayout,
 	SellerRootLayout,
 	AuthRootLayout,
@@ -34,6 +35,7 @@ import {
 	allProductsLoader,
 	brandLoader,
 	productLoader,
+	cartLoader,
 } from '../pages'
 import { signinAction, signupAction, paymentAction } from '../pages'
 
@@ -83,8 +85,25 @@ const router = createBrowserRouter([
 				element: <ProductPage />,
 				action: paymentAction,
 			},
+			// {
+			// 	path: 'cart',
+			// 	element: <CartRootLayout />,
+			// 	children: [
+			// 		{
+			// 			// path: 'cart',
+			// 			index: true,
+			// 			loader: cartLoader,
+			// 			element: <CartPage />,
+			// 		},
+			// 		{
+			// 			path: 'checkout',
+			// 			element: <CheckoutPage />,
+			// 		},
+			// 	],
+			// },
 			{
 				path: 'cart',
+				loader: cartLoader,
 				element: <CartPage />,
 			},
 			{

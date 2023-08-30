@@ -35,8 +35,9 @@ export const homeLoader = async () => {
 	const brands = firebaseAPI('brands.json')
 
 	const success = res => res.data
-	const error = () => {
-		throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
+	const error = err => {
+		const res = err.response
+		throw json({ message: res.data.error }, { status: res.status })
 	}
 
 	return api(brands)(success, error)

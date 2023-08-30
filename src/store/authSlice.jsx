@@ -1,7 +1,8 @@
 import { persist, devtools } from 'zustand/middleware'
+import { getAuthToken } from '../lib/utils/getAuthInfo'
 
 const initialState = {
-	isSignedIn: !!localStorage.getItem('token'),
+	isSignedIn: !!getAuthToken(),
 	accountNumber: '',
 	token: '',
 	accountType: '',
