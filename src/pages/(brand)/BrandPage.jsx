@@ -1,20 +1,39 @@
-import { useLoaderData } from 'react-router-dom'
-import { useTitle } from '../../hooks'
+import { json, useLoaderData } from 'react-router-dom'
+import { useHeaderHeight, useTitle } from '../../hooks'
+import { Section } from '../../components/@motion'
 import { ProductList, ProductItem } from '../../components/product'
-import { api, clientAPI } from '../../lib/api'
+import { StyledImg, StyledSection } from './BrandPage.style'
+import { api, clientAPI, firebaseAPI } from '../../lib/api'
 // import axios from 'axios'
 
 export const brandLoader = async ({ request, params }) => {
 	const { brandId } = params
 
-	const client = clientAPI(`seller/${brandId}`)
+	const firebase = firebaseAPI('banners.json')
+	const client = clientAPI('products')
+
+	const success = res => res.data // data || null
+	const error = err => {
+		throw json(
+			{ message: err.message || err.response?.statusText },
+			{ status: err.response.status }
+		)
+	}
+
+	const banners = await api(firebase)(success, error)
+	const products = await api(client)(success, error)
+	const banner = banners.find(banner => banner.id === +brandId)
+
+	return [banner, products]
+
+	/* 	const client = clientAPI('seller')
 
 	const success = res => res.data
 	const error = () => {
 		throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
 	}
 
-	return api(client)(success, error)
+	return api(client)(success, error) */
 
 	// const response = await axios(
 	// 	`https://openmarket.weniv.co.kr/seller/${brandId}`
@@ -28,32 +47,48 @@ export const brandLoader = async ({ request, params }) => {
 }
 
 export function BrandPage() {
-	const products = useLoaderData()
+	const headerHeight = useHeaderHeight()
+	const [banner, products] = useLoaderData()
+	const productsPerPage = products.results
+
+	/* 
+  count: 110
+  next: "https://openmarket.weniv.co.kr/products/?page=2"
+  previous: null
+  results: Array(15)
+ */
+
 	useTitle(`Brand`) // 동적 업데이트 예정
 
 	return (
 		<>
-			<section aria-labelledby='brand banner'>
-				<h2 className='sr-only' id='brand banner'>
-					brand banner
-				</h2>
-				<div>
-					<img
-						src='/assets/images/eql/32_129_65_KOR_20230526112619.jpg'
-						alt=''
-					/>
-				</div>
-			</section>
-			<section aria-labelledby='product list'>
-				<h2 className='sr-only' id='product list'>
-					product list
-				</h2>
+			{banner && (
+				// <section aria-labelledby={banner.ariaLabel}>
+				// 	<h2 className='sr-only' id={banner.ariaLabel}>
+				// 		brand banner
+				// 	</h2>
+				// 	<div>
+				// 		<img src={banner.src} alt={banner.alt} />
+				// 	</div>
+				// </section>
+				<Section
+					sectionId={banner.ariaLabel}
+					sectionTitle='brand banner'
+					top={headerHeight * 2}
+				>
+					<StyledImg src={banner.src} alt={banner.alt} />
+				</Section>
+			)}
+
+			<StyledSection aria-labelledby='product list'>
+				{/* FIXME: */}
+				<h2 id='product list'>{`brand name`}</h2>
 				<ProductList>
-					{products.map(product => (
+					{productsPerPage.map(product => (
 						<ProductItem key={product.product_id} product={product} />
 					))}
 				</ProductList>
-			</section>
+			</StyledSection>
 		</>
 	)
 }
