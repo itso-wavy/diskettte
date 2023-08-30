@@ -1,9 +1,19 @@
+import { useEffect } from 'react'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { useRedirect } from '../../hooks'
-import { Outlet } from 'react-router-dom'
 import { MypageNav } from './'
+import useStore from '../../store'
 
 export function MypageRootLayout() {
 	useRedirect('mypage', 'orders')
+
+	const { isSignedIn } = useStore()
+	const navigate = useNavigate()
+
+	useEffect(() => {
+		if (!isSignedIn) return navigate('/auth/signin')
+	}, [])
+
 	return (
 		<>
 			<MypageNav />
