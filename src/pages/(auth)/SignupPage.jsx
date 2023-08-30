@@ -1,11 +1,20 @@
-import { redirect } from 'react-router-dom'
+import { useEffect } from 'react'
+import { redirect, useNavigate } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import { AuthForm } from '../../components/auth/AuthForm'
 import { api, clientAPI } from '../../lib/api'
+import useStore from '../../store'
 // import axios from 'axios'
 
 export function SignupPage() {
 	useTitle('Sign Up')
+
+	const { isSignedIn } = useStore()
+	const navigate = useNavigate()
+
+	useEffect(() => {
+		if (isSignedIn) return navigate(-1)
+	}, [])
 
 	return (
 		<>
@@ -14,7 +23,7 @@ export function SignupPage() {
 	)
 }
 
-export const signupAction = async ({ request, params }) => {
+export const signupAction = async ({ request }) => {
 	const searchParams = new URL(request.url).searchParams
 	const userParam = searchParams.get('user')
 	const isBuyer = userParam !== 'seller'
@@ -32,9 +41,11 @@ export const signupAction = async ({ request, params }) => {
 			data.get('phoneNumber3'),
 	}
 
-	let client = clientAPI.post('accounts/signup/', authData)
+	let client
 
-	if (!isBuyer) {
+	if (isBuyer) {
+		client = clientAPI.post('accounts/signup/', authData)
+	} else if (!isBuyer) {
 		authData.store_name = data.get('brandName')
 		authData.company_registration_number =
 			data.get('businessNumber') +

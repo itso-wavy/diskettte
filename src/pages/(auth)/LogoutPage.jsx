@@ -7,7 +7,7 @@ export const LogoutPage = () => {
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		if (!isSignedIn) return
+		if (!isSignedIn) return navigate('/auth/signin')
 
 		logoutHandler()
 		alert('로그아웃 되었습니다.')
