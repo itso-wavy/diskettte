@@ -55,7 +55,8 @@ export const ProductInfo = styled.div`
 export const ProductImage = styled.div`
 	position: relative;
 	min-height: 260px;
-	background: #ddd no-repeat 50% 50% / cover;
+	background: ${({ theme }) =>
+		`${theme.color.white} no-repeat 50% 50% / cover`};
 	/* url(...) */
 	overflow: hidden;
 	transition: opacity 0.1s ease-in-out;

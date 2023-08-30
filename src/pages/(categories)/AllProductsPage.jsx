@@ -8,6 +8,7 @@ import {
 } from '../../components/@ui/Carousel'
 import { Section } from '../../components/@motion'
 import { ProductList, ProductItem } from '../../components/product'
+import { api, clientAPI, firebaseAPI } from '../../lib/api'
 import {
 	HeroWrapper,
 	Heading,
@@ -15,22 +16,27 @@ import {
 	ContentsWrapper,
 	LNB,
 } from './AllProductsPage.style'
-import { api, clientAPI, firebaseAPI } from '../../lib/api'
 // import axios from 'axios'
 
 export const allProductsLoader = async () => {
+	// const firebase = await axios('/data/data.json')
 	const firebase = firebaseAPI('banners.json')
 	const client = clientAPI(`products`)
 
 	const firebaseSuccess = res => res.data
 	const clientSuccess = res => res.data.results
-	const error = () => {
-		throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
+	const error = err => {
+		const res = err.response
+		throw json({ message: res.data.error }, { status: res.status })
 	}
+	// const error = () => {
+	// 	throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
+	// }
 
 	const banners = await api(firebase)(firebaseSuccess, error)
 	const products = await api(client)(clientSuccess, error)
 
+	// return [banners.banners, products]
 	return [banners, products]
 
 	// const banners = await axios('/data/banners.json')
@@ -45,8 +51,9 @@ export const allProductsLoader = async () => {
 }
 
 export function AllProductsPage() {
-	useTitle('All')
 	const [banners, products] = useLoaderData()
+
+	useTitle('All')
 
 	return (
 		<>
@@ -54,7 +61,7 @@ export function AllProductsPage() {
 				<HeroWrapper>
 					<Carousel
 						items={banners}
-						autoSlideInterval={3000}
+						autoSlideInterval={3500}
 						Arrows={NavigationArrows}
 						Indicator={CarouselIndicator}
 					>
@@ -65,8 +72,8 @@ export function AllProductsPage() {
 										<img src={src} alt={alt} draggable='false' />
 									</Link>
 									<Heading>
-										<p>{title}</p>
-										<p>{description}</p>
+										<p>{description.toUpperCase()}</p>
+										<p>{title.toUpperCase()}</p>
 									</Heading>
 								</CarouselItem>
 							)
@@ -77,7 +84,6 @@ export function AllProductsPage() {
 
 			<StyledSection aria-labelledby='allCategory'>
 				<h2 id='allCategory'>All Category</h2>
-
 				<ContentsWrapper>
 					<LNB className='lnb'>
 						<Section sectionId='productFilter' sectionTitle='product filter'>

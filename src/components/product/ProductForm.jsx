@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-// import { useSubmit } from 'react-router-dom'
+import { useSubmit } from 'react-router-dom'
 import { FormContext } from '../../context/form-context'
 import { QuantitySpinner } from '.'
 import { Button } from '../@ui/Button'
@@ -8,18 +8,15 @@ import { StyledForm, ShippingInfo } from './ProductForm.style.jsx'
 
 function ProductForm({ product, ...props }) {
 	const {
-		seller,
-		store_name,
+		seller: brandId,
+		store_name: brandName,
 		product_id,
 		product_name,
 		image,
 		price,
-		product_info,
 		shipping_fee,
 		shipping_method,
 		stock,
-		created_at,
-		updated_at,
 	} = product
 	/* 
   seller: 405
@@ -36,16 +33,16 @@ function ProductForm({ product, ...props }) {
   updated_at: "2023-05-02T22:49:50.702972"
  */
 
+	const submit = useSubmit()
 	const { values } = useContext(FormContext)
 	const name = 'qty'
 	const value = values[name]
-	// const submit = useSubmit()
 
 	return (
 		<StyledForm method='POST' {...props}>
 			<Flexbox $direction='row' className='amount-select'>
 				<p className='title'>{product_name}</p>
-				<QuantitySpinner name={name} stock={stock}/>
+				<QuantitySpinner name={name} stock={stock} />
 			</Flexbox>
 			<Flexbox $direction='row' className='total-price'>
 				<p className='title'>총 상품 금액</p>
