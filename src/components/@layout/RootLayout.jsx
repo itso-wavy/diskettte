@@ -3,14 +3,14 @@ import { Outlet, useLocation, useNavigation } from 'react-router-dom'
 import { ScrollToTop, Loading } from '../common'
 import { Header } from '../header'
 import { Footer } from '../footer'
-import { Toast } from '../@ui/Toast'
+// import { Toast } from '../@ui/Toast'
 import { StyledMain } from './RootLayout.style'
-import useStore from '../../store'
+// import useStore from '../../store'
 
 export function RootLayout() {
 	const { state } = useNavigation()
 	const { pathname } = useLocation()
-	const { isToastVisible } = useStore()
+	// const { isToastVisible } = useStore()
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
@@ -24,7 +24,7 @@ export function RootLayout() {
 			</StyledMain>
 			<Footer />
 			<ScrollToTop />
-			{isToastVisible && <Toast />}
+			{/* {isToastVisible && <Toast />} */}
 		</>
 	)
 }
