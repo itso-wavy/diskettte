@@ -1,0 +1,317 @@
+{
+	"banners": [
+		{
+			"id": 708,
+			"src": "/assets/banners/banner1.png",
+			"alt": "just focus",
+			"url": "/brand/708",
+			"ariaLabel": "just focus",
+			"description": "Simplify Your Life",
+			"title": "just focus"
+		},
+		{
+			"id": 709,
+			"src": "/assets/banners/banner2.png",
+			"alt": "hmm...",
+			"url": "/brand/709",
+			"ariaLabel": "hmm...",
+			"description": "Just A Feeling",
+			"title": "hmm..."
+		},
+		{
+			"id": 710,
+			"src": "/assets/banners/banner3.png",
+			"alt": "mergy",
+			"url": "/brand/710",
+			"ariaLabel": "mergy",
+			"description": "<>💩💩💩</>",
+			"title": "mergy"
+		},
+		{
+			"id": 711,
+			"src": "/assets/banners/banner4.png",
+			"alt": "VINYL LOVE",
+			"url": "/brand/711",
+			"ariaLabel": "VINYL LOVE",
+			"description": "long-cherished",
+			"title": "VINYL LOVE"
+		},
+		{
+			"id": 712,
+			"src": "/assets/banners/banner5.png",
+			"alt": "&Flutter.",
+			"url": "/brand/712",
+			"ariaLabel": "&Flutter.",
+			"description": "Fluffy, fluffy",
+			"title": "&Flutter."
+		},
+		{
+			"id": 713,
+			"src": "/assets/banners/banner6.png",
+			"alt": "i.c.y.",
+			"url": "/brand/713",
+			"ariaLabel": "i.c.y.",
+			"description": "COOL WITH YOU",
+			"title": "i.c.y."
+		}
+	],
+	"brands": [
+		{
+			"id": 1,
+			"brand": "Cozy Dream Corner",
+			"src": "/assets/images/goods/goods (1).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 2,
+			"brand": "Flutter & Fluff",
+			"src": "/assets/images/goods/goods (2).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 3,
+			"brand": "Petal Pompom Place",
+			"src": "/assets/images/goods/goods (3).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 4,
+			"brand": "Darling Trinket Trove",
+			"src": "/assets/images/goods/goods (4).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 5,
+			"brand": "Whimsy Wonderland",
+			"src": "/assets/images/goods/goods (5).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 6,
+			"brand": "Fuzzy Feels Haven",
+			"src": "/assets/images/goods/goods (6).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 7,
+			"brand": "Charming Little Nook",
+			"src": "/assets/images/goods/goods (7).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 8,
+			"brand": "Miniature Joy Lane",
+			"src": "/assets/images/goods/goods (8).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 9,
+			"brand": "Tiny Treasures Cottage",
+			"src": "/assets/images/goods/goods (9).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 10,
+			"brand": "Dainty Delightful Den",
+			"src": "/assets/images/goods/goods (10).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 11,
+			"brand": "Tiny Joy Shop",
+			"src": "/assets/images/goods/goods (11).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 12,
+			"brand": "Petal Adorbs",
+			"src": "/assets/images/goods/goods (12).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 13,
+			"brand": "Sweet Whims",
+			"src": "/assets/images/goods/goods (13).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 14,
+			"brand": "Petite Gems",
+			"src": "/assets/images/goods/goods (1).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 15,
+			"brand": "Cutesy Haven",
+			"src": "/assets/images/goods/goods (2).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 16,
+			"brand": "Little Charmers",
+			"src": "/assets/images/goods/goods (3).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 17,
+			"brand": "Adora Bits",
+			"src": "/assets/images/goods/goods (4).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 18,
+			"brand": "Mini Wonders",
+			"src": "/assets/images/goods/goods (5).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 19,
+			"brand": "Nook",
+			"src": "/assets/images/goods/goods (6).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 20,
+			"brand": "Quirky Kitsch",
+			"src": "/assets/images/goods/goods (7).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 21,
+			"brand": "camperz",
+			"src": "/assets/images/goods/goods (8).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 22,
+			"brand": "얼렁뚱땅소품샵",
+			"src": "/assets/images/goods/goods (9).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 23,
+			"brand": "010101",
+			"src": "/assets/images/goods/goods (10).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		},
+		{
+			"id": 24,
+			"brand": "me===1000재",
+			"src": "/assets/images/goods/goods (11).jpg",
+			"alt": "",
+			"url": "/",
+			"ariaLabel": ""
+		}
+	],
+	"products": [
+		{
+			"id": 0,
+			"brand": "체리쥬빌레 체리쥬빌레",
+			"src": "/assets/images/goods/goods (25).jpg",
+			"name": "양말",
+			"price": "3000",
+			"url": "/",
+			"stock": 1
+		},
+		{
+			"id": 1,
+			"brand": "abcde",
+			"src": "/assets/images/goods/goods (26).jpg",
+			"name": "deantlbbbbbbbbbbbbbbbbb tlbbbbbbbbbbbbbbbtlbbbbbbbbbbbbbb bbbbbbbbtlbbbbbbb",
+			"price": "50000",
+			"url": "/",
+			"stock": 0
+		},
+		{
+			"id": 2,
+			"brand": "abcde",
+			"src": "/assets/images/goods/goods (27).jpg",
+			"name": "deantlbbbbbbbbbbb",
+			"price": "50000",
+			"url": "/",
+			"stock": 2
+		},
+		{
+			"id": 3,
+			"brand": "abcde",
+			"src": "/assets/images/goods/goods (28).jpg",
+			"name": "deantlbbbbbbbbbbb",
+			"price": "50000",
+			"url": "/",
+			"stock": 2
+		},
+		{
+			"id": 4,
+			"brand": "abcde",
+			"src": "/assets/images/goods/goods (29).jpg",
+			"name": "deantlbbbbbbbbbbb",
+			"price": "50000",
+			"url": "/",
+			"stock": 2
+		},
+		{
+			"id": 5,
+			"brand": "abcde",
+			"src": "/assets/images/goods/goods (30).jpg",
+			"name": "deantlbbbbbbbbbbb",
+			"price": "50000",
+			"url": "/",
+			"stock": 2
+		},
+		{
+			"id": 6,
+			"brand": "abcde",
+			"src": "/assets/images/goods/goods (31).jpg",
+			"name": "deantlbbbbbbbbbbb",
+			"price": "50000",
+			"url": "/",
+			"stock": 2
+		}
+	]
+}
