@@ -110,7 +110,10 @@ const $sizeStyles = ({ $size, theme }) => {
 				}
 			`
 		default:
-			return css``
+			return css`
+				width: ${$size};
+				height: ${$size};
+			`
 	}
 }
 

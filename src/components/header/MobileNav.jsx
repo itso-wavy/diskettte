@@ -49,7 +49,7 @@ export function MobileNav({ ...props }) {
 				// id='mobile-nav'
 				{...props}
 			>
-				<nav>
+				<nav aria-label='main menu'>
 					<ul>
 						<MobileNavItem
 							url='/categories/all'

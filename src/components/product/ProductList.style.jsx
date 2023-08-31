@@ -108,10 +108,13 @@ export const StyledLi = styled.li`
 `
 
 export const StyledUl = styled.ul`
-	/* width: 1000px; */
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
 	font-size: 1rem;
 	padding: 0 0.3125em;
 	gap: 5.625em 0.3125em;
+`
+
+export const Wrapper = styled.div`
+	width: ${({ theme }) => `min(100%, ${theme.breakpoints.tablet})`};
 `

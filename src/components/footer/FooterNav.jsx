@@ -46,7 +46,7 @@ function FooterNavMenu({ title, children, ...props }) {
 
 export function FooterNav({ children, ...props }) {
 	return (
-		<StyledNav {...props}>
+		<StyledNav aria-label='footer navigation' {...props}>
 			<FooterNavMenu title='my account'>
 				<FooterMenuItem text='회원정보수정' url='/' />
 				<FooterMenuItem text='주문배송' url='/' />

@@ -9,7 +9,7 @@ export function ExclusivePage() {
 	return (
 		<>
 			<Section sectionId='exclusiveHero' sectionTitle='exclusive hero'>
-				<Wrapper $bg='/public/assets/images/eql/32_129_65_KOR_20230526112619.jpg'></Wrapper>
+				<Wrapper $bg='/public/assets/images/chrome-spring.png'></Wrapper>
 			</Section>
 			<section aria-labelledby='product list'>
 				<h2 className='sr-only' id='product list'>

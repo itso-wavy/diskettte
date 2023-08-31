@@ -27,6 +27,7 @@ const color = {
 	gray: '#CCC',
 	lightgray: '#F2F2F2',
 	white: '#FFF',
+	lightblue: '#AFCCF8',
 	safe: '#6F8CFF',
 	// error: '#FF0000',
 	error: '#DC3545',

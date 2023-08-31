@@ -1,4 +1,4 @@
-export const PlusSvg = ({ ...props }) => {
+export function PlusSvg(props) {
 	return (
 		<svg
 			xmlns='http://www.w3.org/2000/svg'

@@ -1,16 +1,17 @@
-import { useRef } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useMatch } from 'react-router-dom'
 import { SearchInput } from '../common'
 import { StyledNav, Wrapper } from './HeaderCategories.style'
 import useStore from '../../store'
 
 const CategoriesItem = ({ url, ariaLabel, text, ...props }) => {
+	const match = useMatch(url)
+
 	return (
 		<li>
 			<NavLink
 				to={url}
 				aria-label={ariaLabel}
-				className={({ isActive }) => (isActive ? 'active' : undefined)}
+				aria-current={match && 'page'}
 				{...props}
 			>
 				{text}
@@ -21,17 +22,15 @@ const CategoriesItem = ({ url, ariaLabel, text, ...props }) => {
 
 export function HeaderCategories() {
 	const { isMobile } = useStore()
-	// const inputRef = useRef()
 
 	if (isMobile)
 		return (
 			<Wrapper>
-				{/* <SearchInput ref={inputRef} /> */}
 				<SearchInput />
 			</Wrapper>
 		)
 	return (
-		<StyledNav aria-label='Product Categories'>
+		<StyledNav aria-label='product categories'>
 			<ul>
 				<CategoriesItem
 					url='/categories/all'

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { Card } from '../@motion'
 import { Badge } from '../@ui/Badge'
 import {
+	Wrapper,
 	StyledUl,
 	StyledLi,
 	ProductImage,
@@ -11,22 +12,6 @@ import {
 	ProductPrice,
 } from './ProductList.style'
 
-// function ProductButton({ product, onClick, children, ...props }) {
-// 	const handleClick = () => {
-// 		onClick(product)
-// 	}
-
-// 	return (
-// 		<Button
-// 			type='button'
-// 			onClick={handleClick}
-// 			aria-label='add to cart'
-// 			{...props}
-// 		>
-// 			{children}
-// 		</Button>
-// 	)
-// }
 function ProductCardInfo({ brand, name, price, $soldout, ...props }) {
 	return (
 		<ProductInfo $soldout={$soldout} {...props}>
@@ -68,18 +53,12 @@ function ProductCard({ src, brand, name, price, $soldout, ...props }) {
 
 function ProductItem({ product, ...props }) {
 	const {
-		seller,
 		store_name: brand,
 		product_id,
 		product_name: name,
 		image: src,
 		price,
-		product_info,
-		shipping_fee,
-		shipping_method,
 		stock,
-		created_at,
-		updated_at,
 	} = product
 
 	return (
@@ -91,8 +70,13 @@ function ProductItem({ product, ...props }) {
 	)
 }
 
-function ProductList({ children, ...props }) {
-	return <StyledUl {...props}>{children}</StyledUl>
+function ProductList({ pagination, children, ...props }) {
+	return (
+		<Wrapper>
+			<StyledUl {...props}>{children}</StyledUl>
+			{pagination}
+		</Wrapper>
+	)
 }
 
 export { ProductList, ProductItem, ProductCard }

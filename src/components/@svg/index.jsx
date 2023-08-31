@@ -15,3 +15,6 @@ export * from './LogoInstagramSvg'
 export * from './LogoTwitterSvg'
 export * from './LogoYoutubeSvg'
 export * from './PlusSvg'
+
+// propducts
+export * from './DoubleArrowSvg'

@@ -140,7 +140,7 @@ export const paymentAction = async ({ request, params }) => {
 
 	const cartItem = {
 		product_id: productId,
-		quantity: +data.get('qty'),
+		quantity: Number(data.get('qty')),
 		check: true,
 	}
 

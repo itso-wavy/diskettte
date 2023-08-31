@@ -34,7 +34,7 @@ function HeaderLogo({ src, alt, ...props }) {
 
 function HeaderMenu({ children, ...props }) {
 	return (
-		<StyleNav role='main menu navigation' {...props}>
+		<StyleNav aria-label='main menu' {...props}>
 			<ul>{children}</ul>
 		</StyleNav>
 	)

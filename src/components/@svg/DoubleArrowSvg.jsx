@@ -1,4 +1,4 @@
-export function DropdownSvg(props) {
+export function DoubleArrowSvg(props) {
 	return (
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
@@ -11,10 +11,17 @@ export function DropdownSvg(props) {
 		>
 			<path
 				stroke='currentColor'
-				strokeWidth='1.5'
 				strokeLinecap='square'
 				strokeMiterlimit='10'
-				d='m8.752 18.5 6.497-6.5-6.497-6.5'
+				strokeWidth='1.5'
+				d='m6.526 18.5 6.497-6.5-6.497-6.5'
+			/>
+			<path
+				stroke='currentColor'
+				strokeLinecap='square'
+				strokeMiterlimit='10'
+				strokeWidth='1.5'
+				d='m10.977 18.5 6.498-6.5-6.498-6.5'
 			/>
 		</svg>
 	)

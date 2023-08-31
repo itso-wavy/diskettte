@@ -7,11 +7,14 @@ export const StyledImg = styled.img`
 `
 
 export const StyledSection = styled.section`
+	margin: 0 auto;
+
 	${({ theme }) => {
 		const { width, height } = theme.spacing
 
 		return css`
 			padding: ${`${height.marginTop} ${width.desktop} 0`};
+			width: ${({ theme }) => `min(100%, ${theme.breakpoints.tablet})`};
 
 			h2 {
 				margin-bottom: 1.67rem;

@@ -9,7 +9,7 @@ export const StyledNav = styled.nav`
 	}
 
 	a:hover,
-	& .active {
+	a[aria-current='page'] {
 		text-underline-offset: 1rem;
 		text-decoration: underline;
 		text-decoration-thickness: 3px;

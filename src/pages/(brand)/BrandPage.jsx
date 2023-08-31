@@ -1,16 +1,20 @@
 import { json, useLoaderData } from 'react-router-dom'
 import { useHeaderHeight, useTitle } from '../../hooks'
 import { Section } from '../../components/@motion'
+import { Pagination } from '../../components/@ui/Pagination'
 import { ProductList, ProductItem } from '../../components/product'
 import { StyledImg, StyledSection } from './BrandPage.style'
 import { api, clientAPI, firebaseAPI } from '../../lib/api'
+import useStore from '../../store'
 // import axios from 'axios'
 
 export const brandLoader = async ({ request, params }) => {
+	const searchParams = new URL(request.url).searchParams
+	const pageParam = searchParams.get('page') ?? '1'
 	const { brandId } = params
 
 	const firebase = firebaseAPI('banners.json')
-	const client = clientAPI('products')
+	const client = clientAPI(`products/?page=${pageParam}`)
 
 	const success = res => res.data // data || null
 	const error = err => {
@@ -21,56 +25,45 @@ export const brandLoader = async ({ request, params }) => {
 	}
 
 	const banners = await api(firebase)(success, error)
+	const banner = banners.find(banner => banner.id === Number(brandId))
 	const products = await api(client)(success, error)
-	const banner = banners.find(banner => banner.id === +brandId)
 
-	return [banner, products]
+	return { currentPage: pageParam, banner, products }
+	// {
+	// 	/* 	const client = clientAPI('seller')
 
-	/* 	const client = clientAPI('seller')
+	// 	const success = res => res.data
+	// 	const error = () => {
+	// 		throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
+	// 	}
 
-	const success = res => res.data
-	const error = () => {
-		throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
-	}
+	// 	return api(client)(success, error) */
 
-	return api(client)(success, error) */
+	// 	// const response = await axios(
+	// 	// 	`https://openmarket.weniv.co.kr/seller/${brandId}`
+	// 	// )
 
-	// const response = await axios(
-	// 	`https://openmarket.weniv.co.kr/seller/${brandId}`
-	// )
-
-	// try {
-	// 	if (response.status === 200) return response.data
-	// } catch (err) {
-	// 	throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
+	// 	// try {
+	// 	// 	if (response.status === 200) return response.data
+	// 	// } catch (err) {
+	// 	// 	throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
+	// 	// }
 	// }
 }
 
 export function BrandPage() {
-	const headerHeight = useHeaderHeight()
-	const [banner, products] = useLoaderData()
+	const { currentPage, banner, products } = useLoaderData()
 	const productsPerPage = products.results
-
-	/* 
-  count: 110
-  next: "https://openmarket.weniv.co.kr/products/?page=2"
-  previous: null
-  results: Array(15)
- */
+	const headerHeight = useHeaderHeight()
+	const { isMobile } = useStore()
+	const pageRange = isMobile ? 5 : 10
+	let itemsPerPage = 15 // 백엔드 설정
 
 	useTitle(`Brand`) // 동적 업데이트 예정
 
 	return (
 		<>
 			{banner && (
-				// <section aria-labelledby={banner.ariaLabel}>
-				// 	<h2 className='sr-only' id={banner.ariaLabel}>
-				// 		brand banner
-				// 	</h2>
-				// 	<div>
-				// 		<img src={banner.src} alt={banner.alt} />
-				// 	</div>
-				// </section>
 				<Section
 					sectionId={banner.ariaLabel}
 					sectionTitle='brand banner'
@@ -82,8 +75,19 @@ export function BrandPage() {
 
 			<StyledSection aria-labelledby='product list'>
 				{/* FIXME: */}
-				<h2 id='product list'>{`brand name`}</h2>
-				<ProductList>
+				<h2 id='product list'>{`brand`}</h2>
+				<ProductList
+					pagination={
+						<Pagination
+							title='products'
+							theme='#AFCCF8'
+							pageRange={pageRange}
+							currentPage={Number(currentPage)}
+							itemsPerPage={itemsPerPage}
+							totalItemsCount={products.count}
+						/>
+					}
+				>
 					{productsPerPage.map(product => (
 						<ProductItem key={product.product_id} product={product} />
 					))}

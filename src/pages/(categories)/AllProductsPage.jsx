@@ -6,6 +6,7 @@ import {
 	NavigationArrows,
 	CarouselIndicator,
 } from '../../components/@ui/Carousel'
+import { Pagination } from '../../components/@ui/Pagination'
 import { Section } from '../../components/@motion'
 import { ProductList, ProductItem } from '../../components/product'
 import { api, clientAPI, firebaseAPI } from '../../lib/api'
@@ -16,28 +17,37 @@ import {
 	ContentsWrapper,
 	LNB,
 } from './AllProductsPage.style'
+import useStore from '../../store'
 // import axios from 'axios'
 
-export const allProductsLoader = async () => {
-	// const firebase = await axios('/data/data.json')
+export const allProductsLoader = async ({ request }) => {
+	const searchParams = new URL(request.url).searchParams
+	const pageParam = searchParams.get('page') ?? '1'
+
 	const firebase = firebaseAPI('banners.json')
-	const client = clientAPI(`products`)
+	const client = clientAPI(`products/?page=${pageParam}`)
 
-	const firebaseSuccess = res => res.data
-	const clientSuccess = res => res.data.results
+	const success = res => res.data // data || null
 	const error = err => {
-		const res = err.response
-		throw json({ message: res.data.error }, { status: res.status })
+		throw json(
+			{ message: err.message || err.response?.statusText },
+			{ status: err.response.status }
+		)
 	}
-	// const error = () => {
-	// 	throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
+	// const firebaseSuccess = res => res.data
+	// const clientSuccess = res => res.data
+	// const error = err => {
+	// 	const res = err.response
+	// 	throw json({ message: res.data.error }, { status: res.status })
 	// }
+	//
+	// const banners = await api(firebase)(firebaseSuccess, error)
+	// const products = await api(client)(clientSuccess, error)
 
-	const banners = await api(firebase)(firebaseSuccess, error)
-	const products = await api(client)(clientSuccess, error)
+	const banners = await api(firebase)(success, error)
+	const products = await api(client)(success, error)
 
-	// return [banners.banners, products]
-	return [banners, products]
+	return { currentPage: pageParam, banners, products }
 
 	// const banners = await axios('/data/banners.json')
 	// const products = await axios(`https://openmarket.weniv.co.kr/products`)
@@ -51,7 +61,11 @@ export const allProductsLoader = async () => {
 }
 
 export function AllProductsPage() {
-	const [banners, products] = useLoaderData()
+	const { currentPage, banners, products } = useLoaderData()
+	const productsPerPage = products.results
+	const { isMobile } = useStore()
+	const pageRange = isMobile ? 5 : 10
+	let itemsPerPage = 15 // 백엔드 설정
 
 	useTitle('All')
 
@@ -72,8 +86,8 @@ export function AllProductsPage() {
 										<img src={src} alt={alt} draggable='false' />
 									</Link>
 									<Heading>
-										<p>{description.toUpperCase()}</p>
-										<p>{title.toUpperCase()}</p>
+										<p>{description}</p>
+										<p>{title}</p>
 									</Heading>
 								</CarouselItem>
 							)
@@ -95,8 +109,19 @@ export function AllProductsPage() {
 						<h3 className='sr-only' id='productList'>
 							product list
 						</h3>
-						<ProductList>
-							{products.map(product => (
+						<ProductList
+							pagination={
+								<Pagination
+									title='products'
+									theme='#dbddaa'
+									pageRange={pageRange}
+									currentPage={Number(currentPage)}
+									itemsPerPage={itemsPerPage}
+									totalItemsCount={products.count}
+								/>
+							}
+						>
+							{productsPerPage.map(product => (
 								<ProductItem key={product.product_id} product={product} />
 							))}
 						</ProductList>

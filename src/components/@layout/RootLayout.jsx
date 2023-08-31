@@ -9,12 +9,12 @@ import { StyledMain } from './RootLayout.style'
 
 export function RootLayout() {
 	const { state } = useNavigation()
-	const { pathname } = useLocation()
+	const { pathname, search } = useLocation()
 	// const { isToastVisible } = useStore()
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
-	}, [pathname])
+	}, [pathname, search])
 
 	return (
 		<>
