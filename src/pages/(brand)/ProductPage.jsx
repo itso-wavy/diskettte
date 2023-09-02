@@ -22,7 +22,12 @@ import {
 	DescriptionWrapper,
 } from './ProductPage.style'
 import { api, clientAPI } from '../../lib/api'
-import { getAccountType } from '../../lib/utils/getAuthInfo'
+import {
+	getAuthToken,
+	getAccountType,
+	getCart,
+} from '../../lib/utils/getStorageInfo'
+import useStore from '../../store'
 // import axios from 'axios'
 
 export const productLoader = async ({ request, params }) => {
@@ -53,8 +58,9 @@ export const productLoader = async ({ request, params }) => {
 export function ProductPage() {
 	const navigate = useNavigate()
 	const headerHeight = useHeaderHeight()
-	const cart = useActionData()
 	const product = useLoaderData()
+	const newInCart = useActionData()
+	const { addToCart } = useStore()
 
 	/* 
   cart_item_id: 3499
@@ -63,8 +69,14 @@ my_cart: 520
 product_id: 600
 quantity: 1 */
 	useEffect(() => {
-		if (cart) navigate('/cart')
-	}, [cart])
+		if (newInCart) {
+			addToCart(newInCart)
+
+			confirm('장바구니에 상품을 담았습니다!\n장바구니로 이동하시겠습니까?')
+				? navigate('/cart')
+				: navigate('.')
+		}
+	}, [newInCart])
 
 	const {
 		seller: brandId,
@@ -129,19 +141,36 @@ quantity: 1 */
 }
 
 export const paymentAction = async ({ request, params }) => {
+	const isSignedin = !!getAuthToken()
 	const accountType = getAccountType()
+
+	if (!isSignedin) {
+		return confirm(
+			'구매 계정만 이용할 수 있는 서비스입니다.\n로그인 하시겠습니까?'
+		)
+			? redirect('/auth/signin')
+			: redirect('.')
+	}
 	if (accountType === 'SELLER') {
 		alert('구매 계정만 이용할 수 있는 서비스입니다.')
-		return redirect('')
+		return redirect('.')
 	}
 
-	const productId = params.productId
+	const productId = Number(params.productId)
 	const data = await request.formData()
+	const cart = getCart()
+	const hasItemInCart = cart.some(item => item.product_id === productId)
+
+	if (hasItemInCart) {
+		return confirm('이미 추가한 상품입니다.\n장바구니로 이동하시겠습니까?')
+			? redirect('/cart')
+			: redirect('.')
+	}
 
 	const cartItem = {
 		product_id: productId,
 		quantity: Number(data.get('qty')),
-		check: true,
+		check: !hasItemInCart,
 	}
 
 	const client = clientAPI.post('cart/', cartItem)

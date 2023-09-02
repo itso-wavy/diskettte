@@ -15,11 +15,6 @@ const spacing = {
 	},
 }
 
-// sectionPadding: {
-// 	mobile: `${theme.spacing.height.marginTop} ${theme.spacing.width.mobile} 0`,
-// 	desktop: `${theme.spacing.height.marginTop} ${theme.spacing.width.desktop} 0`,
-// },
-
 const color = {
 	black: '#000',
 	darkgray2: '#767676',

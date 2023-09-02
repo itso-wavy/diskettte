@@ -1,5 +1,5 @@
 import { persist, devtools } from 'zustand/middleware'
-import { getAuthToken } from '../lib/utils/getAuthInfo'
+import { getAuthToken } from '../lib/utils/getStorageInfo'
 
 const initialState = {
 	isSignedIn: !!getAuthToken(),
@@ -10,7 +10,7 @@ const initialState = {
 
 export const createAuthSlice = devtools(
 	persist(
-		(set, get) => ({
+		set => ({
 			...initialState,
 			signInHandler: ({ id, token, user_type }) =>
 				set({

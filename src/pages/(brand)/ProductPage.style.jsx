@@ -34,7 +34,7 @@ export const OverviewWrapper = styled.div`
 	}
 
 	.image-box img {
-		/* width: 100%; */
+		width: 100%;
 		max-height: 100%;
 		object-fit: cover;
 	}
@@ -54,6 +54,7 @@ export const KeyInfo = styled.div`
 		display: flex;
 		align-items: center;
 		gap: 0.625em;
+		font-size: 0.95rem;
 	}
 	.product-name {
 		font-size: 1.5rem;

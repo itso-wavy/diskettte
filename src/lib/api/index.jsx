@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getAuthToken } from '../utils/getAuthInfo'
+import { getAuthToken } from '../utils/getStorageInfo'
 
 const baseURL = {
 	client: 'https://openmarket.weniv.co.kr/',
