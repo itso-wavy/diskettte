@@ -1,9 +1,7 @@
+import React from 'react'
 import { Link } from 'react-router-dom'
-import { useTitle } from '../../hooks'
 
-export function CheckoutPage() {
-	useTitle('결제')
-
+function OrderConfirmPage() {
 	return (
 		<div>
 			<Link to='/cart'>cart</Link>
@@ -12,3 +10,5 @@ export function CheckoutPage() {
 		</div>
 	)
 }
+
+export { OrderConfirmPage }
