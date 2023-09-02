@@ -71,7 +71,7 @@ export const signinAction = async ({ request }) => {
 		// 		Location: '/mypage',
 		// 	},
 		// })
-		// return toast.success('로그인 성공.')
+		// return popup.success('로그인 성공.')
 	}
 	const error = err => {
 		return err.response.data
@@ -89,7 +89,7 @@ export const signinAction = async ({ request }) => {
 
 	// 		signInHandler(response)
 	// 		redirect('/mypage')
-	// 		return toast.success('로그인 되었습니다.')
+	// 		return popup.success('로그인 되었습니다.')
 	// 	}
 	// } catch (err) {
 	// 	return err.response.data

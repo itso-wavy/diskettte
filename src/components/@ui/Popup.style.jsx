@@ -1,6 +1,6 @@
 // import { css } from 'styled-components'
 
-// export const $toastStyle = css`
+// export const $popupStyle = css`
 // 	/* min-width: 280px; */
 // 	height: auto;
 // 	/* padding: 20px; */

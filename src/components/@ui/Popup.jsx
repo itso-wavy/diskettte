@@ -1,41 +1,41 @@
 // import { useEffect, useState } from 'react'
 // import { Modal } from './Modal'
-// import { $toastStyle } from './Toast.style'
+// import { $popupStyle } from './Popup.style'
 // import useStore from '../../store'
 
 // /**
 //  * @param $type 'info' | 'success' | 'warning' | 'error'
 //  * @returns
 //  */
-// function Toast({ ...props }) {
-// 	const { toastType, toastText, hideToast } = useStore()
+// function Popup({ ...props }) {
+// 	const { popupType, popupText, hidePopup } = useStore()
 
 // 	useEffect(() => {
 // 		const timer = setTimeout(() => {
-// 			hideToast()
+// 			hidePopup()
 // 		}, 5000)
 
 // 		return () => clearTimeout(timer)
 // 	}, [])
 
-// 	// const closeToast = () => {
-// 	// 	setIsToastVisible(false)
+// 	// const closePopup = () => {
+// 	// 	setIspopupVisible(false)
 // 	// }
 
 // 	return (
 // 		<>
 // 			{isVisible && (
 // 				<Modal
-// 					// closeModal={closeToast}
-// 					$type={toastType}
-// 					$style={$toastStyle}
+// 					// closeModal={closePopup}
+// 					$type={popupType}
+// 					$style={$popupStyle}
 // 					{...props}
 // 				>
-// 					{toastText}
+// 					{popupText}
 // 				</Modal>
 // 			)}
 // 		</>
 // 	)
 // }
 
-// export { Toast }
+// export { Popup }

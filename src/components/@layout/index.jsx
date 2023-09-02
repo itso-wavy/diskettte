@@ -1,9 +1,6 @@
-// RootLayout
 export * from './RootLayout'
+export * from './AuthRootLayout'
 export * from './CategoriesRootLayout'
+export * from './CheckoutRootLayout'
 export * from './MypageRootLayout'
 export * from './SellerRootLayout'
-export * from './AuthRootLayout'
-
-// RootLayoutUI
-export * from './MypageNav'

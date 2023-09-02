@@ -1,17 +1,19 @@
 import { create } from 'zustand'
-// import { createMobileNavSlice, createToastSlice } from './modalSlice'
+// import { createMobileNavSlice, createPopupSlice } from './modalSlice'
 import { createMobileNavSlice } from './modalSlice'
 import { createViewportSlice } from './viewportSlice'
 import { createAuthSlice } from './authSlice'
-// import { createCartSlice } from './cartSlice'
+import { createCartSlice } from './cartSlice'
+// import { createPersistSlice } from './persistSlice'
 
 // 스토어 슬라이싱 후 바운딩으로 단일 스토어 생성
 const useBoundStore = create((...a) => ({
 	...createMobileNavSlice(...a),
-	// ...createToastSlice(...a),
+	// ...createPopupSlice(...a),
 	...createViewportSlice(...a),
 	...createAuthSlice(...a),
-	// ...createCartSlice(...a),
+	...createCartSlice(...a),
+	// ...createPersistSlice(...a),
 }))
 
 export default useBoundStore

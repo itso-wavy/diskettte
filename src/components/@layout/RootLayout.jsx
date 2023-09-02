@@ -3,14 +3,14 @@ import { Outlet, useLocation, useNavigation } from 'react-router-dom'
 import { ScrollToTop, Loading } from '../common'
 import { Header } from '../header'
 import { Footer } from '../footer'
-// import { Toast } from '../@ui/Toast'
+// import { Popup } from '../@ui/Popup'
 import { StyledMain } from './RootLayout.style'
 // import useStore from '../../store'
 
 export function RootLayout() {
 	const { state } = useNavigation()
 	const { pathname, search } = useLocation()
-	// const { isToastVisible } = useStore()
+	// const { isPoppedUp } = useStore()
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
@@ -24,7 +24,7 @@ export function RootLayout() {
 			</StyledMain>
 			<Footer />
 			<ScrollToTop />
-			{/* {isToastVisible && <Toast />} */}
+			{/* {isPopped && <Popup />} */}
 		</>
 	)
 }

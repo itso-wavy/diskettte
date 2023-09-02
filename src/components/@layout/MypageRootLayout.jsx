@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { useRedirect } from '../../hooks'
-import { MypageNav } from './'
+import { MypageNav } from '../profile'
 import useStore from '../../store'
 
 export function MypageRootLayout() {
