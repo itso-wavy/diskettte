@@ -25,8 +25,14 @@ export const brandLoader = async ({ request, params }) => {
 	}
 
 	const banners = await api(firebase)(success, error)
-	const banner = banners.find(banner => banner.id === Number(brandId))
 	const products = await api(client)(success, error)
+	const noBanner = {
+		ariaLabel: 'brand',
+		src: '/assets/banners/banner7.png',
+		alt: '.',
+	}
+	const banner =
+		banners.find(banner => banner.id === Number(brandId)) ?? noBanner
 
 	return { currentPage: pageParam, banner, products }
 	// {
@@ -63,15 +69,13 @@ export function BrandPage() {
 
 	return (
 		<>
-			{banner && (
-				<Section
-					sectionId={banner.ariaLabel}
-					sectionTitle='brand banner'
-					top={headerHeight * 2}
-				>
-					<StyledImg src={banner.src} alt={banner.alt} />
-				</Section>
-			)}
+			<Section
+				sectionId={banner.ariaLabel}
+				sectionTitle='brand banner'
+				top={headerHeight * 2}
+			>
+				<StyledImg src={banner.src} alt={banner.alt} />
+			</Section>
 
 			<StyledSection aria-labelledby='product list'>
 				{/* FIXME: */}

@@ -113,7 +113,7 @@ export function AllProductsPage() {
 							pagination={
 								<Pagination
 									title='products'
-									theme='#dbddaa'
+									theme='#E8EAB1'
 									pageRange={pageRange}
 									currentPage={Number(currentPage)}
 									itemsPerPage={itemsPerPage}
