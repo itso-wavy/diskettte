@@ -1,4 +1,3 @@
-// import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 // import { SearchInput } from '../@ui/Input'
 import { SearchInput } from '../common'
@@ -69,8 +68,9 @@ function HeaderMenuItem({ href, onClick, src, ariaLabel, text, ...props }) {
 }
 
 export function HeaderMain({ $transparent, children, ...props }) {
-	// const inputRef = useRef()
-	const { isMobile, isMobileNavOpen, openMobileNav, isSignedIn } = useStore()
+	const { isMobile, isMobileNavOpen, openMobileNav, isSignedIn, accountType } =
+		useStore()
+	const isSeller = accountType === 'SELLER'
 
 	return (
 		<Wrapper {...props}>
@@ -104,12 +104,21 @@ export function HeaderMain({ $transparent, children, ...props }) {
 								text='카트'
 								ariaLabel='go to cart'
 							/>
-							<HeaderMenuItem
-								href='/mypage'
-								src={<MypageSvg />}
-								text='마이페이지'
-								ariaLabel='go to mypage'
-							/>
+							{isSeller ? (
+								<HeaderMenuItem
+									href='/seller'
+									src={<MypageSvg />}
+									text='셀러페이지'
+									ariaLabel='go to seller`s page'
+								/>
+							) : (
+								<HeaderMenuItem
+									href='/mypage'
+									src={<MypageSvg />}
+									text='마이페이지'
+									ariaLabel='go to mypage'
+								/>
+							)}
 							{!isSignedIn ? (
 								<HeaderMenuItem
 									href='/auth'

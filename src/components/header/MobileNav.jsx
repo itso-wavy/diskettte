@@ -39,16 +39,12 @@ const MobileNavItem = ({
 }
 
 export function MobileNav({ ...props }) {
-	const { closeMobileNav, isSignedIn } = useStore()
+	const { closeMobileNav, isSignedIn, accountType } = useStore()
+	const isSeller = accountType === 'SELLER'
 
 	return (
 		<>
-			<Modal
-				closeModal={closeMobileNav}
-				$style={$bgStyle}
-				// id='mobile-nav'
-				{...props}
-			>
+			<Modal closeModal={closeMobileNav} $style={$bgStyle} {...props}>
 				<nav aria-label='main menu'>
 					<ul>
 						<MobileNavItem
@@ -82,7 +78,6 @@ export function MobileNav({ ...props }) {
 							/>
 						) : (
 							<MobileNavItem
-								// onClick={}
 								url='/auth/logout'
 								ariaLabel='logout'
 								text='로그아웃'
@@ -90,13 +85,23 @@ export function MobileNav({ ...props }) {
 								style={$itemStyle}
 							/>
 						)}
-						<MobileNavItem
-							url='/mypage/profile'
-							ariaLabel='go to exclusive category'
-							text='마이페이지'
-							icon={<MypageSvg />}
-							style={$itemStyle}
-						/>
+						{isSeller ? (
+							<MobileNavItem
+								href='/seller'
+								ariaLabel='go to seller`s page'
+								text='셀러페이지'
+								icon={<MypageSvg />}
+								style={$itemStyle}
+							/>
+						) : (
+							<MobileNavItem
+								url='/mypage/profile'
+								ariaLabel='go to mypage'
+								text='마이페이지'
+								icon={<MypageSvg />}
+								style={$itemStyle}
+							/>
+						)}
 					</ul>
 				</nav>
 			</Modal>
