@@ -1,5 +1,9 @@
-import React from 'react'
+import styled from 'styled-components'
 
-export default function CartPage() {
-	return <div>CartPage</div>
-}
+export const Wrapper = styled.div`
+	display: flex;
+
+	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+		flex-direction: column;
+	}
+`

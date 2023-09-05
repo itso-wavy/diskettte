@@ -11,7 +11,7 @@ export const StyledNav = styled.nav`
 			}
 
 			@media (max-width: ${theme.breakpoints.mobile}) {
-				margin: ${theme.spacing.height.marginBottom} 0;
+				margin: ${theme.spacing.height.marginBottom} 0 1rem;
 
 				& > ol {
 					flex-direction: column;
@@ -48,9 +48,11 @@ export const StyledLi = styled.li`
 
 			@media (max-width: ${theme.breakpoints.mobile}) {
 				font-size: 1rem;
+				/* line-height: 1.3em; */
 
 				&:not([aria-current='page']) {
-					font-size: 0.8125rem;
+					font-size: 0.875em;
+					/* font-size: 0.8125rem; */
 				}
 
 				&:not(:first-child)::before {
