@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import {
 	RootLayout,
 	AuthRootLayout,
+	ProductRootLayout,
 	CategoriesRootLayout,
 	CheckoutRootLayout,
 	MypageRootLayout,
@@ -32,9 +33,14 @@ import {
 	LogoutPage,
 } from '../pages'
 import {
-	homeLoader,
 	allProductsLoader,
-	brandLoader,
+	mypageInfoLoader,
+	sellerInfoLoader,
+} from '../components/@layout'
+import {
+	homeLoader,
+	// allProductsLoader,
+	// brandLoader,
 	productLoader,
 	cartLoader,
 } from '../pages'
@@ -52,40 +58,80 @@ const router = createBrowserRouter([
 				element: <HomePage />,
 			},
 			{
-				path: 'categories',
-				element: <CategoriesRootLayout />,
+				loader: allProductsLoader,
+				id: 'all-products',
+				element: <ProductRootLayout />,
 				children: [
 					{
-						path: 'all',
-						element: <AllProductsPage />,
-						loader: allProductsLoader,
+						path: 'categories',
+						// element: <CategoriesRootLayout />,
+						children: [
+							{
+								path: 'all',
+								// loader: allProductsLoader,
+								element: <AllProductsPage />,
+							},
+							{
+								path: 'new-arrivals',
+								element: <NewArrivalsPage />,
+							},
+							{
+								path: 'exclusive',
+								element: <ExclusivePage />,
+							},
+							{
+								path: 'event',
+								element: <EventPage />,
+							},
+						],
 					},
 					{
-						path: 'new-arrivals',
-						element: <NewArrivalsPage />,
+						path: 'brand/:brandId',
+						// loader: brandLoader,
+						element: <BrandPage />,
 					},
 					{
-						path: 'exclusive',
-						element: <ExclusivePage />,
-					},
-					{
-						path: 'event',
-						element: <EventPage />,
+						path: 'product/:productId',
+						loader: productLoader,
+						element: <ProductPage />,
+						action: paymentAction,
 					},
 				],
 			},
-			{
-				path: 'brand/:brandId',
-				loader: brandLoader,
-				element: <BrandPage />,
-			},
-			{
-				// path: 'brand/:brandId/:productId',
-				path: 'product/:productId',
-				loader: productLoader,
-				element: <ProductPage />,
-				action: paymentAction,
-			},
+			// {
+			// 	path: 'categories',
+			// 	element: <CategoriesRootLayout />,
+			// 	children: [
+			// 		{
+			// 			path: 'all',
+			// 			loader: allProductsLoader,
+			// 			element: <AllProductsPage />,
+			// 		},
+			// 		{
+			// 			path: 'new-arrivals',
+			// 			element: <NewArrivalsPage />,
+			// 		},
+			// 		{
+			// 			path: 'exclusive',
+			// 			element: <ExclusivePage />,
+			// 		},
+			// 		{
+			// 			path: 'event',
+			// 			element: <EventPage />,
+			// 		},
+			// 	],
+			// },
+			// {
+			// 	path: 'brand/:brandId',
+			// 	loader: brandLoader,
+			// 	element: <BrandPage />,
+			// },
+			// {
+			// 	path: 'product/:productId',
+			// 	loader: productLoader,
+			// 	element: <ProductPage />,
+			// 	action: paymentAction,
+			// },
 			{
 				element: <CheckoutRootLayout />,
 				children: [
@@ -106,6 +152,8 @@ const router = createBrowserRouter([
 			},
 			{
 				path: 'mypage',
+				loader: mypageInfoLoader,
+				id: 'mypage-info',
 				element: <MypageRootLayout />,
 				children: [
 					{
@@ -128,6 +176,8 @@ const router = createBrowserRouter([
 			},
 			{
 				path: 'seller',
+				loader: sellerInfoLoader,
+				id: 'seller-info',
 				element: <SellerRootLayout />,
 				children: [
 					{

@@ -87,7 +87,7 @@ export function MobileNav({ ...props }) {
 						)}
 						{isSeller ? (
 							<MobileNavItem
-								href='/seller'
+								url='/seller'
 								ariaLabel='go to seller`s page'
 								text='셀러페이지'
 								icon={<MypageSvg />}
