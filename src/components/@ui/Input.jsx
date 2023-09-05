@@ -4,6 +4,8 @@ import {
 	// useImperativeHandle,
 	useContext,
 	useEffect,
+	useMemo,
+	useCallback,
 } from 'react'
 import { FormContext } from '../../context/form-context'
 import { useInput } from '../../hooks'
@@ -122,15 +124,28 @@ function NumberInput({ label, id, name, placeholder, ...props }) {
 	)
 }
 
-function Checkbox({ id, name, info, ...props }) {
-	const { areValid, onCheckHandler } = useContext(FormContext)
+function Checkbox({ required, id, name, info, ...props }) {
+	const [selected, setSelected] = useState(true)
 
-	const toggleCheckboxHandler = e => onCheckHandler(e)
+	let checked = selected
+	let toggleCheckboxHandler = e => {
+		if (e.target.name) setSelected(selected => !selected)
+	}
+
+	if (required) {
+		const { areValid, onCheckHandler } = useContext(FormContext)
+		checked = areValid[name]
+		toggleCheckboxHandler = e => onCheckHandler(e)
+	}
+
+	// const { areValid, onCheckHandler } = useContext(FormContext)
+	// checked = areValid[name]
+	// toggleCheckboxHandler = e => onCheckHandler(e)
 
 	return (
 		<CheckboxWrapper {...props}>
 			<label htmlFor={id} onClick={toggleCheckboxHandler}>
-				<Img src={!areValid[name] ? UncheckedImg : CheckedImg} $size='1.1rem' />
+				<Img src={!checked ? UncheckedImg : CheckedImg} $size='1.1rem' />
 				{info}
 			</label>
 			<input
@@ -138,7 +153,7 @@ function Checkbox({ id, name, info, ...props }) {
 				type='checkbox'
 				name={name}
 				onChange={toggleCheckboxHandler}
-				checked={areValid[name]}
+				checked={checked}
 				className='sr-only'
 			/>
 		</CheckboxWrapper>

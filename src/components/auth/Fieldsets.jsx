@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FormContext } from '../../context/form-context'
-import { passwordSchema } from '../../lib/validation/auth-validation'
-import { api, clientAPI } from '../../lib/api'
 import { Button } from '../@ui/Button'
 import { FormInput, FormValidationMessage } from '../@ui/Form'
+import { passwordSchema } from '../../lib/validation/auth-validation'
+import { api, clientAPI } from '../../lib/api'
 // import axios from 'axios'
 
 function AccountLoginFieldset({ serverMessage, ...props }) {
@@ -205,6 +205,7 @@ function PersonalInfoRegisterFieldset({ isBuyer, serverMessage, ...props }) {
 			)}
 			{isBuyer && (
 				<FormInput
+					required
 					type='checkbox'
 					id='termsAgree'
 					name='termsAgree'

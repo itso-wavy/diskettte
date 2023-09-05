@@ -47,6 +47,7 @@ function FormValidationMessage({ text, ...props }) {
 }
 
 function FormInput({
+	required,
 	label,
 	id,
 	name,
@@ -61,7 +62,7 @@ function FormInput({
 	const [isTouched, isValid] = [areTouched[name], areValid[name]]
 
 	if (type === 'checkbox') {
-		return <Checkbox {...{ id, name, info, ...props }} />
+		return <Checkbox {...{ required, id, name, info, ...props }} />
 	}
 
 	if (type === 'phonenumber' || type === 'businessNumber') {
@@ -96,7 +97,7 @@ function FormInput({
 function FormSection({ id, title, children, ...props }) {
 	return (
 		<StyledSection htmlFor={id} {...props}>
-			<Title id={id}>{title}</Title>
+			{title && <Title id={id}>{title}</Title>}
 			{children}
 		</StyledSection>
 	)
