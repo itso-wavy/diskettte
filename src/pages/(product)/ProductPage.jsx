@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import {
 	Link,
 	json,
@@ -62,12 +62,6 @@ export function ProductPage() {
 	const newInCart = useActionData()
 	const { addToCart } = useStore()
 
-	/* 
-  cart_item_id: 3499
-is_active: true
-my_cart: 520
-product_id: 600
-quantity: 1 */
 	useEffect(() => {
 		if (newInCart) {
 			addToCart(newInCart)
@@ -87,12 +81,15 @@ quantity: 1 */
 		product_info,
 	} = product
 
-	const productTabs = [
-		{ title: '상세', content: product_info },
-		{ title: '리뷰', content: null },
-		{ title: 'Q&A', content: null },
-		{ title: '반품/교환정보', content: null },
-	]
+	const productTabs = useMemo(
+		() => [
+			{ title: '상세', content: product_info },
+			{ title: '리뷰', content: null },
+			{ title: 'Q&A', content: null },
+			{ title: '반품/교환정보', content: null },
+		],
+		[product_info]
+	)
 
 	useTitle(product_name)
 
@@ -124,7 +121,6 @@ quantity: 1 */
 					<PricingInfo>
 						<FormProvider
 							initialState={{
-								// ...product,
 								qty: 1,
 							}}
 						>
@@ -149,11 +145,11 @@ export const paymentAction = async ({ request, params }) => {
 			'구매 계정만 이용할 수 있는 서비스입니다.\n로그인 하시겠습니까?'
 		)
 			? redirect('/auth/signin')
-			: redirect('.')
+			: redirect('')
 	}
 	if (accountType === 'SELLER') {
 		alert('구매 계정만 이용할 수 있는 서비스입니다.')
-		return redirect('.')
+		return redirect('')
 	}
 
 	const productId = Number(params.productId)
@@ -164,7 +160,7 @@ export const paymentAction = async ({ request, params }) => {
 	if (hasItemInCart) {
 		return confirm('이미 추가한 상품입니다.\n장바구니로 이동하시겠습니까?')
 			? redirect('/cart')
-			: redirect('.')
+			: redirect('')
 	}
 
 	const cartItem = {
