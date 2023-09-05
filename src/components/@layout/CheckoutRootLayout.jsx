@@ -17,9 +17,7 @@ export function CheckoutRootLayout() {
 		<>
 			<Wrapper>
 				<Breadcrumb crumbs={crumbs} />
-				<div>
-					<Outlet />
-				</div>
+				<Outlet />
 			</Wrapper>
 		</>
 	)

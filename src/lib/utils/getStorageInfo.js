@@ -28,14 +28,31 @@ const getCart = () => {
 		return cart
 	}
 
-	const cart = JSON.parse(localStorage.getItem('cart')) ?? getServerCart()
+	const cart = JSON.parse(sessionStorage.getItem('cart')) ?? getServerCart()
 
 	return cart
 }
 
 const updateCart = newCart => {
 	const cartJson = JSON.stringify(newCart)
-	localStorage.setItem('cart', cartJson)
+	sessionStorage.setItem('cart', cartJson)
 }
 
-export { getAuthToken, getAccountType, getCart, updateCart }
+const setOrderItems = cartItem => {
+	sessionStorage.setItem('order', JSON.stringify(cartItem))
+}
+
+const getOrderItems = () => {
+	const orderItem = JSON.parse(sessionStorage.getItem('order'))
+
+	return orderItem
+}
+
+export {
+	getAuthToken,
+	getAccountType,
+	getCart,
+	updateCart,
+	setOrderItems,
+	getOrderItems,
+}

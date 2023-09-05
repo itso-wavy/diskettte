@@ -26,6 +26,7 @@ import {
 	getAuthToken,
 	getAccountType,
 	getCart,
+	setOrderItems,
 } from '../../lib/utils/getStorageInfo'
 import useStore from '../../store'
 // import axios from 'axios'
@@ -136,7 +137,7 @@ export function ProductPage() {
 	)
 }
 
-export const paymentAction = async ({ request, params }) => {
+export const productAction = async ({ request, params }) => {
 	const isSignedin = !!getAuthToken()
 	const accountType = getAccountType()
 
@@ -154,29 +155,45 @@ export const paymentAction = async ({ request, params }) => {
 
 	const productId = Number(params.productId)
 	const data = await request.formData()
-	const cart = getCart()
-	const hasItemInCart = cart.some(item => item.product_id === productId)
+	const eventType = data.get('submitter')
 
-	if (hasItemInCart) {
-		return confirm('이미 추가한 상품입니다.\n장바구니로 이동하시겠습니까?')
-			? redirect('/cart')
-			: redirect('')
+	if (eventType === 'toCart') {
+		const cart = getCart()
+		const hasItemInCart = cart.some(item => item.product_id === productId)
+
+		if (hasItemInCart) {
+			return confirm('이미 추가한 상품입니다.\n장바구니로 이동하시겠습니까?')
+				? redirect('/cart')
+				: redirect('')
+		}
+
+		const cartItem = {
+			product_id: productId,
+			quantity: Number(data.get('qty')),
+			check: !hasItemInCart,
+		}
+
+		const client = clientAPI.post('cart/', cartItem)
+
+		const success = res => res.data
+		const error = err => {
+			throw json({ message: err.message }, { status: err.response.status })
+		}
+
+		return api(client)(success, error)
 	}
 
-	const cartItem = {
-		product_id: productId,
-		quantity: Number(data.get('qty')),
-		check: !hasItemInCart,
+	if (eventType === 'toOrder') {
+		const cartItem = {
+			product_id: productId,
+			quantity: Number(data.get('qty')),
+			order_kind: 'direct_order',
+		}
+
+		setOrderItems(cartItem)
+
+		return redirect('/checkout')
 	}
-
-	const client = clientAPI.post('cart/', cartItem)
-
-	const success = res => res.data
-	const error = err => {
-		throw json({ message: err.message }, { status: err.response.status })
-	}
-
-	return api(client)(success, error)
 
 	// const response = await axios(`https://openmarket.weniv.co.kr/seller/cart`)
 

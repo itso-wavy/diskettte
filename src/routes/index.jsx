@@ -43,8 +43,14 @@ import {
 	// brandLoader,
 	productLoader,
 	cartLoader,
+	checkoutLoader,
 } from '../pages'
-import { signinAction, signupAction, paymentAction } from '../pages'
+import {
+	signinAction,
+	signupAction,
+	productAction,
+	checkoutAction,
+} from '../pages'
 
 const router = createBrowserRouter([
 	{
@@ -94,7 +100,7 @@ const router = createBrowserRouter([
 						path: 'product/:productId',
 						loader: productLoader,
 						element: <ProductPage />,
-						action: paymentAction,
+						action: productAction,
 					},
 				],
 			},
@@ -130,7 +136,7 @@ const router = createBrowserRouter([
 			// 	path: 'product/:productId',
 			// 	loader: productLoader,
 			// 	element: <ProductPage />,
-			// 	action: paymentAction,
+			// 	action: productAction,
 			// },
 			{
 				element: <CheckoutRootLayout />,
@@ -142,7 +148,9 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'checkout',
+						loader: checkoutLoader,
 						element: <CheckoutPage />,
+						action: checkoutAction,
 					},
 					{
 						path: 'checkout/confirm',
