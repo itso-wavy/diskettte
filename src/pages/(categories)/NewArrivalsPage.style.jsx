@@ -1,5 +1,3 @@
-import React from 'react'
+import styled from 'styled-components'
 
-export default function NewArrivalsPage() {
-	return <div>NewArrivalsPage</div>
-}
+export const Wrapper = styled.div``

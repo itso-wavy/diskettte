@@ -1,4 +1,4 @@
-import { Link, json, useLoaderData } from 'react-router-dom'
+import { Link, json, useLoaderData, useRouteLoaderData } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import {
 	Carousel,
@@ -20,48 +20,49 @@ import {
 import useStore from '../../store'
 // import axios from 'axios'
 
-export const allProductsLoader = async ({ request }) => {
-	const searchParams = new URL(request.url).searchParams
-	const pageParam = searchParams.get('page') ?? '1'
+// export const allProductsLoader = async ({ request }) => {
+// 	const searchParams = new URL(request.url).searchParams
+// 	const pageParam = searchParams.get('page') ?? '1'
 
-	const firebase = firebaseAPI('banners.json')
-	const client = clientAPI(`products/?page=${pageParam}`)
+// 	const firebase = firebaseAPI('banners.json')
+// 	const client = clientAPI(`products/?page=${pageParam}`)
 
-	const success = res => res.data // data || null
-	const error = err => {
-		throw json(
-			{ message: err.message || err.response?.statusText },
-			{ status: err.response.status }
-		)
-	}
-	// const firebaseSuccess = res => res.data
-	// const clientSuccess = res => res.data
-	// const error = err => {
-	// 	const res = err.response
-	// 	throw json({ message: res.data.error }, { status: res.status })
-	// }
-	//
-	// const banners = await api(firebase)(firebaseSuccess, error)
-	// const products = await api(client)(clientSuccess, error)
+// 	const success = res => res.data // data || null
+// 	const error = err => {
+// 		throw json(
+// 			{ message: err.message || err.response?.statusText },
+// 			{ status: err.response.status }
+// 		)
+// 	}
+// 	// const firebaseSuccess = res => res.data
+// 	// const clientSuccess = res => res.data
+// 	// const error = err => {
+// 	// 	const res = err.response
+// 	// 	throw json({ message: res.data.error }, { status: res.status })
+// 	// }
+// 	//
+// 	// const banners = await api(firebase)(firebaseSuccess, error)
+// 	// const products = await api(client)(clientSuccess, error)
 
-	const banners = await api(firebase)(success, error)
-	const products = await api(client)(success, error)
+// 	const banners = await api(firebase)(success, error)
+// 	const products = await api(client)(success, error)
 
-	return { currentPage: pageParam, banners, products }
+// 	return { currentPage: pageParam, banners, products }
 
-	// const banners = await axios('/data/banners.json')
-	// const products = await axios(`https://openmarket.weniv.co.kr/products`)
+// 	// const banners = await axios('/data/banners.json')
+// 	// const products = await axios(`https://openmarket.weniv.co.kr/products`)
 
-	// try {
-	// 	if (banners.status === 200 && products.status === 200)
-	// 		return [banners.data, products.data.results]
-	// } catch (err) {
-	// 	throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
-	// }
-}
+// 	// try {
+// 	// 	if (banners.status === 200 && products.status === 200)
+// 	// 		return [banners.data, products.data.results]
+// 	// } catch (err) {
+// 	// 	throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
+// 	// }
+// }
 
 export function AllProductsPage() {
-	const { currentPage, banners, products } = useLoaderData()
+	// const { currentPage, banners, products } = useLoaderData()
+	const { currentPage, banners, products } = useRouteLoaderData('all-products')
 	const productsPerPage = products.results
 	const { isMobile } = useStore()
 	const pageRange = isMobile ? 5 : 10
