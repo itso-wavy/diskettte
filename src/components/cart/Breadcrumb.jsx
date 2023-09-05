@@ -1,12 +1,12 @@
 import { useLocation } from 'react-router-dom'
-import { StyledOl, StyledLi } from './Breadcrumb.style'
+import { StyledNav, StyledLi } from './Breadcrumb.style'
 
 function Breadcrumb({ crumbs, ...props }) {
 	const { pathname } = useLocation()
 
 	return (
-		<nav aria-label='breadcrumb' {...props}>
-			<StyledOl>
+		<StyledNav aria-label='breadcrumb' {...props}>
+			<ol>
 				{crumbs.map((crumb, index) => (
 					<StyledLi
 						key={index}
@@ -15,8 +15,8 @@ function Breadcrumb({ crumbs, ...props }) {
 						{crumb.text}
 					</StyledLi>
 				))}
-			</StyledOl>
-		</nav>
+			</ol>
+		</StyledNav>
 	)
 }
 
