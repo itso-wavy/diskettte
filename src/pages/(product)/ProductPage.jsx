@@ -14,6 +14,13 @@ import { Badge } from '../../components/@ui/Badge'
 import { Tabs } from '../../components/@ui/Tabs'
 import { DropdownSvg } from '../../components/@svg/DropdownSvg'
 import { ProductForm } from '../../components/product'
+import { api, clientAPI } from '../../lib/api'
+import {
+	getAuthToken,
+	getAccountType,
+	getSessionCart,
+	setOrderItems,
+} from '../../lib/utils/storage'
 import {
 	LayoutWrapper,
 	OverviewWrapper,
@@ -21,13 +28,6 @@ import {
 	PricingInfo,
 	DescriptionWrapper,
 } from './ProductPage.style'
-import { api, clientAPI } from '../../lib/api'
-import {
-	getAuthToken,
-	getAccountType,
-	getCart,
-	setOrderItems,
-} from '../../lib/utils/getStorageInfo'
 import useStore from '../../store'
 // import axios from 'axios'
 
@@ -138,10 +138,10 @@ export function ProductPage() {
 }
 
 export const productAction = async ({ request, params }) => {
-	const isSignedin = !!getAuthToken()
+	const isSignedIn = !!getAuthToken()
 	const accountType = getAccountType()
 
-	if (!isSignedin) {
+	if (!isSignedIn) {
 		return confirm(
 			'구매 계정만 이용할 수 있는 서비스입니다.\n로그인 하시겠습니까?'
 		)
@@ -158,7 +158,7 @@ export const productAction = async ({ request, params }) => {
 	const eventType = data.get('submitter')
 
 	if (eventType === 'toCart') {
-		const cart = getCart()
+		const cart = getSessionCart()
 		const hasItemInCart = cart.some(item => item.product_id === productId)
 
 		if (hasItemInCart) {

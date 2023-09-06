@@ -9,7 +9,7 @@ import useStore from '../../store'
 export function SigninPage() {
 	useTitle('Sign In')
 
-	const { signInHandler } = useStore()
+	const { signInHandler, storeCart } = useStore()
 	const authInfo = useActionData()
 	const navigate = useNavigate()
 
@@ -17,9 +17,11 @@ export function SigninPage() {
 		if (authInfo?.token) {
 			signInHandler(authInfo)
 
+			authInfo.user_type === 'BUYER' && storeCart()
+
 			return navigate('/mypage')
 		}
-	}, [authInfo, navigate, signInHandler])
+	}, [authInfo, signInHandler, storeCart, navigate])
 
 	return (
 		<>
@@ -44,11 +46,6 @@ export const signinAction = async ({ request }) => {
 	const client = clientAPI.post('accounts/login/', authData)
 
 	const success = res => {
-		/* 
-      id: 670
-      token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo2NzAsImVtYWlsIjoiIiwidXNlcm5hbWUiOiJidXllcjk5IiwiZXhwIjoxNjkzNTY3MTM2fQ.WKHr6x35Q2LDDcRtq7DAooiq-FFQNKgMyOC1HVeGgHA"
-      user_type: "BUYER" 
-    */
 		alert(`${authData.username}님, 반갑습니다.`)
 
 		return res.data

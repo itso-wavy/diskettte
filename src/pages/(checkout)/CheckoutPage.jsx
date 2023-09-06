@@ -2,9 +2,9 @@ import { useLoaderData } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import { FormProvider } from '../../context/form-context'
 import { CheckoutForm } from '../../components/checkout'
-import { getOrderItems } from '../../lib/utils/getStorageInfo'
-import { Wrapper } from './CheckoutPage.style'
 import { api, clientAPI } from '../../lib/api'
+import { getOrderItems } from '../../lib/utils/storage'
+import { Wrapper } from './CheckoutPage.style'
 
 export const checkoutLoader = async () => {
 	// 하나만 구매시...
