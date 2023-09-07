@@ -65,4 +65,17 @@ const rotate = keyframes`
   }
 `
 
-export { entrance, shake, slideIn, floating, swing, rotate }
+const rolling = keyframes`
+  0% {
+    left: 0;
+    transform: translateX(-100%) rotate(0deg);
+    border-radius: 0;
+  }
+  100% {
+    left: 100%;
+    transform: translateX(0%) rotate(360deg);
+    border-radius: 50%;
+  }
+`
+
+export { entrance, shake, slideIn, floating, swing, rotate, rolling }
