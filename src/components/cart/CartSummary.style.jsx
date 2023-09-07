@@ -2,11 +2,13 @@ import { Flexbox } from '../@ui/Form.style'
 import styled from 'styled-components'
 
 export const StyledArticle = styled.article`
-	min-width: 280px; // 개발용
+	/* min-width: 280px; // 개발용 */
+	height: fit-content;
+	position: sticky;
+	top: 25%;
 	display: flex;
 	flex-direction: column;
 	border: ${({ theme }) => `1px solid ${theme.color.gray}`};
-	margin-left: 3rem;
 
 	h2 {
 		width: 100%;
@@ -21,8 +23,6 @@ export const StyledArticle = styled.article`
 	}
 
 	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-		margin-left: 0;
-
 		h2 {
 			font-size: 2.45rem;
 		}

@@ -4,6 +4,17 @@ export const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	flex: 1;
+	margin-right: 3rem;
+
+	& ul {
+		min-height: 400px;
+		position: relative;
+	}
+
+	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+		margin-right: 0;
+		/* margin-bottom: 3rem; // 임시 */
+	}
 `
 
 export const Titlebox = styled.div`

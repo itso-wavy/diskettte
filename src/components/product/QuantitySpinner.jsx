@@ -2,8 +2,8 @@ import { useContext } from 'react'
 import { FormContext } from '../../context/form-context'
 import { ACTION_CREATOR } from '../../hooks/useForm'
 import { Button } from '../@ui/Button'
-import minusImg from '/assets/icons/wavy_minus.svg'
-import plusImg from '/assets/icons/wavy_plus.svg'
+import MinusImg from '/assets/icons/wavy_minus.svg'
+import PlusImg from '/assets/icons/wavy_plus.svg'
 import { Wrapper, StyledInput } from './QuantitySpinner.style.jsx'
 
 function QuantitySpinner({ name, stock, ...props }) {
@@ -26,7 +26,7 @@ function QuantitySpinner({ name, stock, ...props }) {
 			<Button
 				type='button'
 				$type='square'
-				$img={minusImg}
+				$img={MinusImg}
 				$style='tertiary'
 				ariaLabel='decrease quantity'
 				onClick={e => {
@@ -42,7 +42,7 @@ function QuantitySpinner({ name, stock, ...props }) {
 			<Button
 				type='button'
 				$type='square'
-				$img={plusImg}
+				$img={PlusImg}
 				$style='tertiary'
 				ariaLabel='increase quantity'
 				onClick={e => {

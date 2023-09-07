@@ -1,11 +1,31 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { FormProvider } from '../../context/form-context.jsx'
-import { SmallMenus } from '../@ui/Form.jsx'
-import { Checkbox } from '../@ui/Input.jsx'
-import { Button } from '../@ui/Button.jsx'
-import { CartItem } from './CartItem.jsx'
-import { Wrapper, Titlebox, EmptyWrapper } from './CartList.style.jsx'
-import useStore from '../../store'
+import { Suspense, useMemo } from 'react'
+import { Await, Link, useNavigate } from 'react-router-dom'
+import { FormProvider } from '../../context/form-context'
+import { CartLoading } from '../common'
+import { SmallMenus } from '../@ui/Form'
+import { Checkbox } from '../@ui/Input'
+import { Button } from '../@ui/Button'
+import { CartItem } from './CartItem'
+import { Wrapper, Titlebox, EmptyWrapper } from './CartList.style'
+import { getProduct } from '../../lib/api'
+
+const updatedCartLoader = async cart => {
+	// cart 내 아이템이 있을 때, 아이템 정보까지 가져오는 함수
+	// if (cart.length > 0) {
+	await Promise.all(
+		cart.map(async (item, index) => {
+			const product = await getProduct(item.product_id)
+
+			// case 1. 기존 cart에 상품 정보를 추가한 객체 생성
+			cart[index].product = product
+			// case 2. 위가 너무 헤비하다면 product만 뽑아낸다.
+			// return product
+		})
+	)
+	// }
+
+	return cart
+}
 
 function EmptyList({ type, ...props }) {
 	const navigate = useNavigate()
@@ -49,65 +69,40 @@ function ListTitle({ ...props }) {
 }
 
 function CartList({ cart, ...props }) {
-	/* 
-  {
-    my_cart: 520,
-    cart_item_id: 3498,
-    product_id: 610,
-    quantity: 12,
-    is_active: true
-  } */
-
-	const { isSignedIn } = useStore()
+	// console.log('생성')
+	let updatedCart
+	if (cart?.length > 0) {
+		updatedCart = useMemo(() => updatedCartLoader(cart), [cart])
+	}
 
 	return (
 		<Wrapper {...props}>
 			<ListTitle />
 			{!cart && <EmptyList type='needSignin' />}
-			{cart && !cart.length && <EmptyList type='emptyCart' />}
-			{/* {isSignedIn && (
+			{cart && (
 				<ul>
-					<FormProvider
-						initialState={{
-							productId: '',
-							qty: '',
-							is_active: '',
-						}}
-					>
-						{!cart &&
-							cart.map((item, index) => (
-								<CartItem key={index}>{item}</CartItem>
-							))}
-						{cart &&
-							cart.map((item, index) => (
-								<CartItem key={index}>{item}</CartItem>
-							))}
-					</FormProvider>
+					{!cart.length && <EmptyList type='emptyCart' />}
+					{!!cart.length && (
+						<Suspense fallback={<CartLoading />}>
+							<Await resolve={updatedCart}>
+								{updatedCart =>
+									updatedCart.map(item => (
+										<FormProvider
+											initialState={{
+												productId: 0,
+												qty: 0,
+												is_active: true,
+											}}
+										>
+											<CartItem key={item.product_id} item={item} />
+										</FormProvider>
+									))
+								}
+							</Await>
+						</Suspense>
+					)}
 				</ul>
-			)} */}
-			{/* 
-			{!isSignedIn ? (
-				<EmptyBox type='needSignin' />
-			) : (
-				<ul>
-					<FormProvider
-						initialState={{
-							productId: '',
-							qty: '',
-							is_active: '',
-						}}
-					>
-						{!cart &&
-							cart.map((item, index) => (
-								<CartItem key={index}>{item}</CartItem>
-							))}
-						{cart &&
-							cart.map((item, index) => (
-								<CartItem key={index}>{item}</CartItem>
-							))}
-					</FormProvider>
-				</ul>
-			)} */}
+			)}
 		</Wrapper>
 	)
 }
