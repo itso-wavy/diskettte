@@ -1,5 +1,6 @@
 import { persist, devtools } from 'zustand/middleware'
-import { getAuthToken, removeSessionCart } from '../lib/utils/storage'
+// import { getAuthToken, removeSessionCart } from '../lib/utils/storage'
+import { getAuthToken } from '../lib/utils/storage'
 
 const initialState = {
 	isSignedIn: !!getAuthToken(),
@@ -19,13 +20,15 @@ export const createAuthSlice = devtools(
 					token: token,
 					accountType: user_type,
 				}),
-			logoutHandler: () =>
-				set(() => {
-					removeSessionCart()
-
-					return { ...initialState, isSignedIn: false }
-				}),
+			logoutHandler: () => set({ ...initialState, isSignedIn: false }),
 		}),
+		// logoutHandler: () =>
+		// 	set(() => {
+		// 		removeSessionCart()
+
+		// 		return { ...initialState, isSignedIn: false }
+		// 	}),
+		// }),
 		{
 			name: 'auth',
 			partialize: state => ({

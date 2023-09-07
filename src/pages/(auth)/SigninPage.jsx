@@ -9,7 +9,8 @@ import useStore from '../../store'
 export function SigninPage() {
 	useTitle('Sign In')
 
-	const { signInHandler, storeCart } = useStore()
+	// const { signInHandler, storeCart } = useStore()
+	const { signInHandler } = useStore()
 	const authInfo = useActionData()
 	const navigate = useNavigate()
 
@@ -17,11 +18,12 @@ export function SigninPage() {
 		if (authInfo?.token) {
 			signInHandler(authInfo)
 
-			authInfo.user_type === 'BUYER' && storeCart()
+			// authInfo.user_type === 'BUYER' && storeCart()
 
 			return navigate('/mypage')
 		}
-	}, [authInfo, signInHandler, storeCart, navigate])
+		// }, [authInfo, signInHandler, storeCart, navigate])
+	}, [authInfo, signInHandler, navigate])
 
 	return (
 		<>

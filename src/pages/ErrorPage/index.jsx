@@ -2,7 +2,7 @@ import { useNavigate, useRouteError } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import { Button } from '../../components/@ui/Button'
 import { Img } from '../../components/@ui/Img'
-import floppyImg from '/floppy.png'
+import FloppyImg from '/floppy.png'
 import { Wrapper } from './ErrorPage.style'
 
 export function ErrorPage() {
@@ -16,7 +16,7 @@ export function ErrorPage() {
 
 	return (
 		<Wrapper>
-			<Img src={floppyImg} $size='11rem' aria-hidden />
+			<Img src={FloppyImg} $size='11rem' aria-hidden />
 			<h1>
 				Sorry!
 				<br />

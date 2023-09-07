@@ -20,7 +20,7 @@ import {
 import useStore from '../../store'
 // import axios from 'axios'
 
-// export const allProductsLoader = async ({ request }) => {
+// export const productsLoader = async ({ request }) => {
 // 	const searchParams = new URL(request.url).searchParams
 // 	const pageParam = searchParams.get('page') ?? '1'
 

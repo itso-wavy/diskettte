@@ -8,6 +8,7 @@ import { Wrapper } from './CheckoutPage.style'
 
 export const checkoutLoader = async () => {
 	// 하나만 구매시...
+	// 다른 케이스에선 카트 로더와 같은 로직 사용할 듯
 	const { product_id, quantity, order_kind } = getOrderItems()
 
 	const client = clientAPI(`products/${product_id}`)

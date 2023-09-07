@@ -12,11 +12,11 @@ import { GridBlock } from '../../components/@ui/GridBlock'
 import { Tag, TagBox } from '../../components/@ui/Tag'
 import { Button } from '../../components/@ui/Button'
 import { Img } from '../../components/@ui/Img'
-import diskImg from '/assets/icons/wavy_floppy-disk-skew.svg'
-import heartImg from '/assets/icons/wavy_growing-heart.svg'
-import arrowImg from '/assets/icons/wavy_arrow-forward-sharp.svg'
-import arrowThinImg from '/assets/icons/wavy_arrow-forward-thin.svg'
-import umbrellaImg from '/assets/images/chrome-umbrella.png'
+import DiskImg from '/assets/icons/wavy_floppy-disk-skew.svg'
+import HeartImg from '/assets/icons/wavy_growing-heart.svg'
+import ArrowImg from '/assets/icons/wavy_arrow-forward-sharp.svg'
+import ArrowThinImg from '/assets/icons/wavy_arrow-forward-thin.svg'
+import UmbrellaImg from '/assets/images/chrome-umbrella.png'
 import {
 	MinusPaddedWrapper,
 	HeroWrapper,
@@ -118,13 +118,13 @@ export function HomePage() {
 								<Tag>Pet</Tag>
 							</TagBox>
 							<div className='tr touch'>
-								<Img src={diskImg} alt='' $size='2.25em' />
+								<Img src={DiskImg} alt='' $size='2.25em' />
 							</div>
 							<Button
 								className='big-arrow br'
 								$type='icon'
 								$size='3.5em'
-								$img={arrowThinImg}
+								$img={ArrowThinImg}
 								onClick={() => {
 									navigate('/categories/all')
 								}}
@@ -153,7 +153,7 @@ export function HomePage() {
 							</TagBox>
 							<p className='br see-all'>
 								<span className='touch'>
-									<Img src={heartImg} alt='' $size='1em' />
+									<Img src={HeartImg} alt='' $size='1em' />
 								</span>
 								<Button
 									$type='icon'
@@ -165,7 +165,7 @@ export function HomePage() {
 									<Tag $color='white'>
 										<span>SEE ALL</span>
 										<Img
-											src={arrowImg}
+											src={ArrowImg}
 											alt=''
 											$size='1.5em'
 											style={{ rotate: '-35deg' }}
@@ -241,7 +241,7 @@ export function HomePage() {
 							<strong>SIGN UP</strong> FOR
 							<br /> SMARTER SHOPPING
 						</p>
-						<Img src={umbrellaImg} $size='10em' />
+						<Img src={UmbrellaImg} $size='10em' />
 					</Link>
 				</SignupWrapper>
 			</Section>

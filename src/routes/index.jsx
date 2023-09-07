@@ -33,13 +33,13 @@ import {
 	LogoutPage,
 } from '../pages'
 import {
-	allProductsLoader,
+	productsLoader,
 	mypageInfoLoader,
 	sellerInfoLoader,
 } from '../components/@layout'
 import {
 	homeLoader,
-	// allProductsLoader,
+	// productsLoader,
 	// brandLoader,
 	productLoader,
 	cartLoader,
@@ -64,7 +64,7 @@ const router = createBrowserRouter([
 				element: <HomePage />,
 			},
 			{
-				loader: allProductsLoader,
+				loader: productsLoader,
 				id: 'all-products',
 				element: <ProductRootLayout />,
 				children: [
@@ -74,7 +74,7 @@ const router = createBrowserRouter([
 						children: [
 							{
 								path: 'all',
-								// loader: allProductsLoader,
+								// loader: productsLoader,
 								element: <AllProductsPage />,
 							},
 							{
@@ -110,7 +110,7 @@ const router = createBrowserRouter([
 			// 	children: [
 			// 		{
 			// 			path: 'all',
-			// 			loader: allProductsLoader,
+			// 			loader: productsLoader,
 			// 			element: <AllProductsPage />,
 			// 		},
 			// 		{

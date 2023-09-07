@@ -22,10 +22,10 @@ const storage = {
 const getAuthToken = () => storage.get('auth')?.state.token
 const getAccountType = () => storage.get('auth')?.state.accountType
 
-/* cart ▶ session */
-const getSessionCart = () => storage.get('cart')
-const setSessionCart = data => storage.set('cart', data)
-const removeSessionCart = () => storage.remove('cart')
+// /* cart ▶ session */
+// const getSessionCart = () => storage.get('cart')
+// const setSessionCart = data => storage.set('cart', data)
+// const removeSessionCart = () => storage.remove('cart')
 
 /* order ▶ session */
 const getOrderItems = () => storage.get('order')
@@ -35,9 +35,9 @@ export {
 	storage,
 	getAuthToken,
 	getAccountType,
-	getSessionCart,
-	setSessionCart,
-	removeSessionCart,
+	// getSessionCart,
+	// setSessionCart,
+	// removeSessionCart,
 	getOrderItems,
 	setOrderItems,
 }
