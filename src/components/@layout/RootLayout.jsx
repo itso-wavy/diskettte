@@ -10,23 +10,23 @@ import { Header } from '../header'
 import { Footer } from '../footer'
 // import { Popup } from '../@ui/Popup'
 import { StyledMain } from './RootLayout.style'
-import useStore from '../../store'
+// import useStore from '../../store'
 
 export function RootLayout() {
-	const navigate = useNavigate()
+	// const navigate = useNavigate()
 	const { state } = useNavigation()
 	const { pathname, search } = useLocation()
-	const { isSignedIn } = useStore()
+	// const { isSignedIn } = useStore()
 	// const { isPoppedUp } = useStore()
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
 
-		let timer
-		if (isSignedIn)
-			timer = setTimeout(() => navigate('/auth/logout'), 60 * 60 * 1000)
+		// let timer
+		// if (isSignedIn)
+		// 	timer = setTimeout(() => navigate('/auth/logout'), 60 * 60 * 1000)
 
-		return () => clearTimeout(timer)
+		// return () => clearTimeout(timer)
 	}, [pathname, search])
 
 	return (

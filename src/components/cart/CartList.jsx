@@ -59,7 +59,7 @@ function EmptyList({ type, ...props }) {
 function ListTitle({ ...props }) {
 	return (
 		<Titlebox {...props}>
-			<Checkbox id='selectAll' name='selectAll' />
+			<Checkbox id='selectAll' name='selectAll' info='전체 선택' />
 			<SmallMenus style={{ fontSize: '.75rem' }}>
 				<Link to='.'>선택 삭제</Link>
 				<Link to='.'>품절 삭제</Link>
@@ -69,7 +69,6 @@ function ListTitle({ ...props }) {
 }
 
 function CartList({ cart, ...props }) {
-	// console.log('생성')
 	let updatedCart
 	if (cart?.length > 0) {
 		updatedCart = useMemo(() => updatedCartLoader(cart), [cart])
@@ -89,12 +88,13 @@ function CartList({ cart, ...props }) {
 									updatedCart.map(item => (
 										<FormProvider
 											initialState={{
-												productId: 0,
-												qty: 0,
+												productId: item.product_id,
+												qty: item.quantity,
 												is_active: true,
 											}}
+											key={item.product_id}
 										>
-											<CartItem key={item.product_id} item={item} />
+											<CartItem item={item} />
 										</FormProvider>
 									))
 								}

@@ -1,8 +1,8 @@
 import { Button } from '../@ui/Button'
 import { Img } from '../@ui/Img'
-import googleImg from '/public/assets/icons/flat-color-icons_google.svg'
-import kakaotalkImg from '/public/assets/icons/simple-icons_kakaotalk.svg'
-import naverImg from '/public/assets/icons/simple-icons_naver.svg'
+import GoogleImg from '/public/assets/icons/flat-color-icons_google.svg'
+import KakaotalkImg from '/public/assets/icons/simple-icons_kakaotalk.svg'
+import NaverImg from '/public/assets/icons/simple-icons_naver.svg'
 
 function SnsLoginButton({ src, text, ...props }) {
 	return (
@@ -14,13 +14,13 @@ function SnsLoginButton({ src, text, ...props }) {
 }
 
 function GoogleLoginButton() {
-	return <SnsLoginButton src={googleImg} text='구글 계정으로 로그인' />
+	return <SnsLoginButton src={GoogleImg} text='구글 계정으로 로그인' />
 }
 function KakaotalkLoginButton() {
-	return <SnsLoginButton src={kakaotalkImg} text='카카오톡 계정으로 로그인' />
+	return <SnsLoginButton src={KakaotalkImg} text='카카오톡 계정으로 로그인' />
 }
 function NaverLoginButton() {
-	return <SnsLoginButton src={naverImg} text='네이버 계정으로 로그인' />
+	return <SnsLoginButton src={NaverImg} text='네이버 계정으로 로그인' />
 }
 
 export {

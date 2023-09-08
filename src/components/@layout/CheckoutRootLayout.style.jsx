@@ -6,15 +6,11 @@ export const Wrapper = styled.div`
 
 		return css`
 			max-width: ${theme.breakpoints.tablet};
-			margin: 0 ${width.desktop};
-
-			/* & > *:last-child {
-				 flex-shrink: 0; 
-				margin: 0 auto;
-			} */
+			margin-inline: auto;
+			padding: 0 ${width.desktop};
 
 			@media (max-width: ${theme.breakpoints.mobile}) {
-				margin: 0 ${width.mobile};
+				padding: 0 ${width.mobile};
 			}
 		`
 	}}

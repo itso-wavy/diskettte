@@ -1,40 +1,141 @@
 import { Link, useFetcher, useSubmit } from 'react-router-dom'
 import { Checkbox } from '../@ui/Input'
-import { QuantitySpinner } from '../product'
 import { Button } from '../@ui/Button'
+import { Badge } from '../@ui/Badge'
+import { QuantitySpinner } from '../product'
 import DeleteImg from '/assets/icons/wavy_menu-close.svg'
-import { StyledLi } from './CartItem.style'
+import {
+	StyledLi,
+	ProductImage,
+	ProductInfo,
+	ProductBrand,
+	ProductName,
+	ProductPrice,
+	TotalPrice,
+	StyledP,
+} from './CartItem.style'
+
+function ShippingInfo({ shippingMethod, shippingFee, ...props }) {
+	return (
+		<StyledP {...props}>
+			{shippingMethod === 'PARCEL' ? '직배송' : '택배배송'} / 배송비{' '}
+			{shippingFee ? (
+				<strong>
+					{new Intl.NumberFormat('ko-KR', {
+						style: 'decimal',
+					}).format(shippingFee)}
+				</strong>
+			) : (
+				'무료'
+			)}
+		</StyledP>
+	)
+}
+
+function OrderButton({ productId, ...props }) {
+	const submit = useSubmit()
+
+	const orderItemHandler = e => {
+		e.target.value = 'toCart'
+		submit('data') // TODO:
+	}
+
+	return (
+		<Button
+			name='submitter'
+			onClick={orderItemHandler}
+			// style={{ marginTop: 'auto' }}
+			{...props}
+		>
+			바로 구매
+		</Button>
+	)
+}
+
+function RemoveButton({ productId, ...props }) {
+	// const {isMobile} = useStore()
+	const submit = useSubmit()
+
+	const removeItemHandler = e => {
+		e.target.value = 'toCart'
+		submit('data') // TODO:
+	}
+
+	return (
+		<Button
+			$type='icon'
+			$img={DeleteImg}
+			name='submitter'
+			onClick={removeItemHandler}
+			// style={{ marginLeft: 'auto' }}
+			{...props}
+		/>
+	)
+}
+
+function CartItemInfo({
+	brandId,
+	brandName,
+	productId,
+	productName,
+	price,
+	stock,
+	...props
+}) {
+	return (
+		<ProductInfo $soldout={!stock} {...props}>
+			{brandName && (
+				<ProductBrand>
+					<Link to={`/brand/${brandId}`}>{brandName}</Link>
+				</ProductBrand>
+			)}
+			{productName && (
+				<ProductName>
+					<Link to={`/product/${productId}`}>{productName}</Link>
+				</ProductName>
+			)}
+			{price && (
+				<ProductPrice>
+					{new Intl.NumberFormat('ko-KR', {
+						style: 'decimal',
+					}).format(price)}
+					<span className='currency'>원</span>
+				</ProductPrice>
+			)}
+			<div className='spinner'>
+				<QuantitySpinner name={productName} stock={stock} />
+			</div>
+			{price && (
+				<TotalPrice>
+					{new Intl.NumberFormat('ko-KR', {
+						style: 'decimal',
+					}).format(price * 2)}
+					<span className='currency'>원</span>
+				</TotalPrice>
+			)}
+		</ProductInfo>
+	)
+}
+
+function CartItemImg({ productId, src, productName, $soldout, ...props }) {
+	return (
+		<ProductImage $soldout={$soldout} {...props}>
+			<Link to={`/product/${productId}`}>
+				<span className='img-cover'>
+					<img src={src} alt={productName} />
+				</span>
+				{$soldout && (
+					<Badge $style='secondary' text='SOLD OUT' className='badge' />
+				)}
+			</Link>
+		</ProductImage>
+	)
+}
+
 function CartItem({ item, ...props }) {
 	// const submit = useSubmit()
 	const fetcher = useFetcher()
-	/*   <fetcher.Form>
-  </fetcher.Form> */
-
-	/* 
-  item {
-    my_cart: 520,
-    cart_item_id: 3499,
-    product_id: 600,
-    quantity: 9,
-    is_active: true,
-    product: {
-      product_id: 600,
-      created_at: '2023-08-24T17:17:12.997484',
-      updated_at: '2023-08-24T17:17:12.997506',
-      product_name: '에반 윌리엄스 허니',
-      image: 
-        'https://openmarket.weniv.co.kr/media/products/2023/08/24/%EC%97%90%EB%B0%98_%EC%9C%8C%EB%A6%AC%EC%97%84%EC%8A%A4_%ED%97%88%EB%8B%88.png',
-      price: 27800,
-      shipping_method: 'PARCEL',
-      shipping_fee: 0,
-      stock: 999,
-      product_info: '에반 윌리엄스의 달콤한 버전',
-      seller: 660,
-      store_name: 'Goodshop'
-    }
-  } */
-	const { cart_item_id, product_id, quantity, is_active, product } = item
-
+	const { product_id, is_active, product } = item
 	const {
 		seller: brandId,
 		store_name: brandName,
@@ -45,34 +146,40 @@ function CartItem({ item, ...props }) {
 		shipping_method,
 		shipping_fee,
 	} = product
-	// 품절 상품 알리기! '이 상품은 품절입니다.'
-	// TODO: form 없이 form context 사용하기?
+	// TODO:
+	// - 1. UI 먼저 ! 만들기
+	//  품절 상품 알리기! '이 상품은 품절입니다.'
+	// - 2. 카트 데이터 전송 가능 형태로 가공하기- SPINNER가 동작하도록
+	//  form 없이 form context 사용하기?
+	// - 3. 체크박스 기능 정상화 하기
+
 	return (
 		<StyledLi {...props}>
-			<div className='checkbox'>
-				<Checkbox />
-			</div>
-			<div className='img-box'>
-				<Link to={`/product/${product_id}`}>
-					<img src={image} alt='' />
-				</Link>
-			</div>
-			<div className='info-box'>
-				<Link to={`/brand/${brandId}`}>{brandName}</Link>
-				<Link to={`/product/${product_id}`}>{product_name}</Link>
-				<p>{price}원</p>
-				{/* <QuantitySpinner name={product_name} stock={stock} /> */}
-				<p>52,500원</p>
-			</div>
-			<div className='del-btn'>
-				<Button $type='icon' $img={DeleteImg} />
-			</div>
-			<div className='checkout-btn' style={{ width: '150px' }}>
-				<Button>바로 구매</Button>
-			</div>
-			<div className='shipping'>
-				<p>상품 52,500원 + 배송비 0원 = 52,500원</p>
-			</div>
+			<fetcher.Form>
+				<Checkbox className='checkbox' checked={is_active} />
+				<CartItemImg
+					className='img-box'
+					productId={product_id}
+					src={image}
+					productName={product_name}
+					$soldout={!stock}
+				/>
+				<CartItemInfo
+					className='info-box'
+					brandId={brandId}
+					brandName={brandName}
+					productId={product_id}
+					productName={product_name}
+					price={price}
+					stock={stock}
+				/>
+				<RemoveButton className='remove-btn' productId={product_id} />
+				<OrderButton className='order-btn' productId={product_id} />
+			</fetcher.Form>
+			<ShippingInfo
+				shippingMethod={shipping_method}
+				shippingFee={shipping_fee}
+			/>
 		</StyledLi>
 	)
 }

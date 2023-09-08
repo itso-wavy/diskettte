@@ -32,7 +32,7 @@ function ProductCardInfo({ brand, name, price, $soldout, ...props }) {
 function ProductCardImg({ src, name, $soldout, ...props }) {
 	return (
 		<ProductImage $soldout={$soldout} {...props}>
-			<span className={`img-cover`}>
+			<span className='img-cover'>
 				<img src={src} alt={name} />
 			</span>
 			{$soldout && (

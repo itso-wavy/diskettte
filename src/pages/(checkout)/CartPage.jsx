@@ -57,6 +57,23 @@ export function CartPage() {
 	)
 }
 
+export const cartAction = async ({ request, params }) => {
+	const productId = Number(params.productId)
+	const data = await request.formData()
+	const eventType = data.get('submitter')
+
+	// if (eventType === 'toOrder') {
+	// 	const cartItem = {
+	// 		product_id: productId,
+	// 		quantity: Number(data.get('qty')),
+	// 		order_kind: 'direct_order',
+	// 	}
+
+	// 	setOrderItems(cartItem)
+
+	// 	return redirect('/checkout')
+	// }
+}
 /* 
     <cart> 
     cart_item_id: 3498
