@@ -1,16 +1,14 @@
 import {
 	useState,
-	// forwardRef,
-	// useImperativeHandle,
 	useContext,
 	useEffect,
-	useMemo,
-	useCallback,
+	forwardRef,
+	useImperativeHandle,
 } from 'react'
 import { FormContext } from '../../context/form-context'
 import { useInput } from '../../hooks'
-import { Button } from '../@ui/Button'
-import { Img } from '../@ui/Img'
+import { Button } from './Button'
+import { Img } from './Img'
 import EraseImg from '/assets/icons/wavy_erase-sharp.svg'
 import CheckedImg from '/assets/icons/checked.svg'
 import UncheckedImg from '/assets/icons/unchecked.svg'
@@ -33,13 +31,6 @@ function TextInput({
 	validationFn,
 	...props
 }) {
-	/* 
-  forwardRef
-  
-  useImperativeHandle(ref, () => {
-		return { focus: ()=>{ref.current.focus}, blur: deactivate }
-	})
-  */
 	const { ref } = useInput()
 	const { values, onInputHandler, onBlurHandler, clearInputHandler } =
 		useContext(FormContext)
@@ -124,23 +115,29 @@ function NumberInput({ label, id, name, placeholder, ...props }) {
 	)
 }
 
-function Checkbox({ required, id, name, info, ...props }) {
-	const [selected, setSelected] = useState(true)
+function Checkbox(
+	{ isActive = true, required, id, name, info, ...props },
+	ref
+) {
+	const [selected, setSelected] = useState(isActive)
 
 	let checked = selected
 	let toggleCheckboxHandler = e => {
+		window.scrollTo(0, window.scrollY)
+
 		if (e.target.name) setSelected(selected => !selected)
 	}
 
 	if (required) {
 		const { areValid, onCheckHandler } = useContext(FormContext)
 		checked = areValid[name]
-		toggleCheckboxHandler = e => onCheckHandler(e)
+		toggleCheckboxHandler = e => onCheckHandler(e, required)
 	}
 
-	// const { areValid, onCheckHandler } = useContext(FormContext)
-	// checked = areValid[name]
-	// toggleCheckboxHandler = e => onCheckHandler(e)
+	useImperativeHandle(ref, () => ({
+		checked,
+		setSelected: selected => setSelected(selected),
+	}))
 
 	return (
 		<CheckboxWrapper {...props}>
@@ -150,14 +147,17 @@ function Checkbox({ required, id, name, info, ...props }) {
 			</label>
 			<input
 				id={id}
+				ref={ref}
 				type='checkbox'
 				name={name}
-				onChange={toggleCheckboxHandler}
 				checked={checked}
+				onChange={toggleCheckboxHandler}
 				className='sr-only'
 			/>
 		</CheckboxWrapper>
 	)
 }
 
-export { TextInput, NumberInput, Checkbox }
+const RefCheckbox = forwardRef(Checkbox)
+
+export { TextInput, NumberInput, RefCheckbox as Checkbox }

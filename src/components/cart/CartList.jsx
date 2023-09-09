@@ -1,4 +1,4 @@
-import { Suspense, useMemo } from 'react'
+import { Suspense, useMemo, useRef } from 'react'
 import { Await, Link, useNavigate } from 'react-router-dom'
 import { FormProvider } from '../../context/form-context'
 import { CartLoading } from '../common'
@@ -8,6 +8,7 @@ import { Button } from '../@ui/Button'
 import { CartItem } from './CartItem'
 import { Wrapper, Titlebox, EmptyWrapper } from './CartList.style'
 import { getProduct } from '../../lib/api'
+import useStore from '../../store'
 
 const updatedCartLoader = async cart => {
 	// cart 내 아이템이 있을 때, 아이템 정보까지 가져오는 함수
@@ -57,9 +58,22 @@ function EmptyList({ type, ...props }) {
 }
 
 function ListTitle({ ...props }) {
+	const ref = useRef()
+	const { toggleAllSelected } = useStore()
+	const selectAllHandler = () => {
+		const selectAll = !ref.current.checked
+
+		toggleAllSelected(selectAll)
+	}
 	return (
 		<Titlebox {...props}>
-			<Checkbox id='selectAll' name='selectAll' info='전체 선택' />
+			<Checkbox
+				ref={ref}
+				id='selectAll'
+				name='selectAll'
+				info='전체 선택'
+				onClick={selectAllHandler}
+			/>
 			<SmallMenus style={{ fontSize: '.75rem' }}>
 				<Link to='.'>선택 삭제</Link>
 				<Link to='.'>품절 삭제</Link>
@@ -88,9 +102,10 @@ function CartList({ cart, ...props }) {
 									updatedCart.map(item => (
 										<FormProvider
 											initialState={{
+												cartItemId: item.cart_item_id,
 												productId: item.product_id,
 												qty: item.quantity,
-												is_active: true,
+												isActive: true,
 											}}
 											key={item.product_id}
 										>

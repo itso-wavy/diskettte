@@ -6,6 +6,7 @@ export const ACTION_CREATOR = {
 	BLUR: 'BLUR',
 	CLEAR: 'CLEAR',
 	CHECK: 'CHECK',
+	CHECK_REQUIRED: 'CHECK_REQUIRED',
 }
 
 const reducer = (state, action) => {
@@ -29,6 +30,12 @@ const reducer = (state, action) => {
 				errorMessages: { ...state.errorMessages, [name]: '' },
 			}
 		case ACTION_CREATOR.CHECK:
+			return {
+				...state,
+				values: { ...state.values, [name]: !state.values[name] },
+				areValid: { ...state.areValid, [name]: true },
+			}
+		case ACTION_CREATOR.CHECK_REQUIRED:
 			return {
 				...state,
 				areValid: { ...state.areValid, [name]: !state.areValid[name] },
@@ -125,15 +132,22 @@ export const useForm = initialState => {
 		})
 	}
 
-	const onCheckHandler = e => {
-		const { name } = e.target
+	const onCheckHandler = (e, required) => {
+		window.scrollTo(0, window.scrollY)
 
-		if (name) {
+		const { name } = e.target
+		if (!name) return
+
+		if (required)
+			dispatch({
+				type: ACTION_CREATOR.CHECK_REQUIRED,
+				name,
+			})
+		else
 			dispatch({
 				type: ACTION_CREATOR.CHECK,
 				name,
 			})
-		}
 	}
 
 	const ableSubmit = Object.values(state.areValid).every(
