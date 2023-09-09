@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Card } from '../@motion'
 import { Badge } from '../@ui/Badge'
+import { formatNumber } from '../../lib/utils/number-formatter'
 import {
 	Wrapper,
 	StyledUl,
@@ -19,9 +20,7 @@ function ProductCardInfo({ brand, name, price, $soldout, ...props }) {
 			{name && <ProductName>{name}</ProductName>}
 			{price && (
 				<ProductPrice>
-					{new Intl.NumberFormat('ko-KR', {
-						style: 'decimal',
-					}).format(price)}
+					{formatNumber(price)}
 					<span className='currency'>원</span>
 				</ProductPrice>
 			)}

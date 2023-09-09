@@ -3,6 +3,7 @@ import { FormContext } from '../../context/form-context'
 import { QuantitySpinner } from '.'
 import { Button } from '../@ui/Button'
 import { Flexbox } from '../@ui/Form'
+import { formatNumber } from '../../lib/utils/number-formatter'
 import { StyledForm, ShippingInfo } from './ProductForm.style.jsx'
 
 function ProductForm({ product, ...props }) {
@@ -18,7 +19,7 @@ function ProductForm({ product, ...props }) {
 
 	const { values } = useContext(FormContext)
 	const name = 'qty'
-	const value = values[name]
+	const qty = values[name]
 
 	return (
 		<StyledForm method='POST' {...props}>
@@ -29,9 +30,7 @@ function ProductForm({ product, ...props }) {
 			<Flexbox $direction='row' className='total-price'>
 				<p className='title'>총 상품 금액</p>
 				<p>
-					{new Intl.NumberFormat('ko-KR', {
-						style: 'decimal',
-					}).format(price * value)}
+					{formatNumber(price * qty)}
 					<span className='currency'>원</span>
 				</p>
 			</Flexbox>
@@ -41,11 +40,7 @@ function ProductForm({ product, ...props }) {
 				<p>
 					{shipping_method === 'PARCEL' ? '직배송' : '택배배송'} / 배송비{' '}
 					{shipping_fee ? (
-						<strong>
-							{new Intl.NumberFormat('ko-KR', {
-								style: 'decimal',
-							}).format(shipping_fee)}
-						</strong>
+						<strong>{formatNumber(shipping_fee)}</strong>
 					) : (
 						'무료'
 					)}

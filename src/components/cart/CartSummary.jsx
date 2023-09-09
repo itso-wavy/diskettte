@@ -1,17 +1,20 @@
 import { useSubmit } from 'react-router-dom'
 import { Button } from '../@ui/Button'
+import { formatNumber } from '../../lib/utils/number-formatter'
 import { StyledArticle, Wrapper, StyledFlexbox } from './CartSummary.style'
+import useStore from '../../store'
 
-function CartSummary({ summary, ...props }) {
+function CartSummary({ ...props }) {
 	const submit = useSubmit()
+	const { cartSummary } = useStore()
 	const {
 		totalProductPrice,
 		totalShippingFee,
 		totalDiscount,
-		totalPayment,
+		// totalPayment,
 		totalQuantity,
-	} = summary
-	//FIXME: strong 태그로 임시방편 부분 수정, 원/개 단위랑 쉼표 붙이기
+	} = cartSummary
+	const totalPayment = totalProductPrice + totalShippingFee - totalDiscount
 
 	const orderHandler = e => {
 		e.target.value = 'toCart'
@@ -29,19 +32,19 @@ function CartSummary({ summary, ...props }) {
 					<StyledFlexbox>
 						<dt>총 주문 금액</dt>
 						<dd>
-							<strong>{totalProductPrice}</strong> 원
+							<strong>{formatNumber(totalProductPrice)}</strong>원
 						</dd>
 					</StyledFlexbox>
 					<StyledFlexbox>
 						<dt>총 배송비</dt>
 						<dd>
-							<strong>{totalShippingFee}</strong> 원
+							<strong>{formatNumber(totalShippingFee)}</strong>원
 						</dd>
 					</StyledFlexbox>
 					<StyledFlexbox>
 						<dt>총 할인 금액</dt>
 						<dd>
-							<strong>{totalDiscount}</strong> 원
+							<strong>{formatNumber(totalDiscount)}</strong>원
 						</dd>
 					</StyledFlexbox>
 				</dl>
@@ -49,7 +52,7 @@ function CartSummary({ summary, ...props }) {
 					<StyledFlexbox>
 						<dt>총 결제 금액</dt>
 						<dd>
-							<strong>{totalPayment}</strong> 원
+							<strong>{formatNumber(totalPayment)}</strong>원
 						</dd>
 					</StyledFlexbox>
 				</dl>

@@ -13,6 +13,7 @@ import {
 	getAccountType,
 	setOrderItems,
 } from '../../lib/utils/storage'
+import { formatNumber } from '../../lib/utils/number-formatter'
 import {
 	LayoutWrapper,
 	OverviewWrapper,
@@ -84,9 +85,7 @@ export function ProductPage() {
 						</div>
 						<h2 className='product-name'>{product_name}</h2>
 						<p className='product-price'>
-							{new Intl.NumberFormat('ko-KR', {
-								style: 'decimal',
-							}).format(price)}
+							{formatNumber(price)}
 							<span className='currency'>원</span>
 						</p>
 					</KeyInfo>
