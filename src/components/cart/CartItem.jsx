@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { Link, useFetcher } from 'react-router-dom'
 import { FormContext } from '../../context/form-context'
 import { Checkbox } from '../@ui/Input'
@@ -7,7 +7,7 @@ import { Badge } from '../@ui/Badge'
 import { QuantitySpinner } from '../product'
 import DeleteImg from '/assets/icons/wavy_menu-close.svg'
 import { formatNumber } from '../../lib/utils/number-formatter'
-import { updateToCart } from '../../lib/api'
+import { removeFromCart, updateToCart } from '../../lib/api'
 import {
 	StyledLi,
 	ProductImage,
@@ -29,8 +29,14 @@ function ShippingInfo({ shippingMethod, shippingFee, ...props }) {
 	)
 }
 
-function OrderButton({ productId, ...props }) {
+function OrderButton({
+	productId,
+	//  submit,
+	...props
+}) {
 	const orderItemHandler = e => {
+		// TODO:
+
 		e.target.value = 'orderDirectly'
 	}
 
@@ -41,9 +47,27 @@ function OrderButton({ productId, ...props }) {
 	)
 }
 
-function RemoveButton({ productId, ...props }) {
+function RemoveButton({
+	cartItemId,
+	productId,
+	// submit,
+	...props
+}) {
 	const removeItemHandler = () => {
-		// TODO:
+		removeFromCart(cartItemId)
+
+		// if (!cart[productId]) return
+
+		// updateCartStore({ productId, qty })
+
+		// const isActive = cart[productId].isActive
+		// const cartItem = {
+		// 	product_id: productId,
+		// 	quantity: qty,
+		// 	is_active: isActive,
+		// }
+
+		// updateToCart(cartItemId, cartItem)
 	}
 
 	return (
@@ -66,7 +90,7 @@ function CartItemInfo({
 	price,
 	stock,
 	isSoldout,
-	submit,
+	// submit,
 	...props
 }) {
 	const spinnerRef = useRef()
@@ -83,15 +107,12 @@ function CartItemInfo({
 	shippingFee,
 	discount, */
 	useEffect(() => {
-		updateCartStore({ productId, qty })
-	}, [qty])
+		if (!cart[productId] || cart[productId].qty === qty) return
+		// if () return
 
-	const modifyQtyHandler = () => {
-		// formData.submitter = 'modifyQty'
+		updateCartStore({ productId, qty })
 
 		const isActive = cart[productId].isActive
-		console.log('isActive: ', isActive)
-
 		const cartItem = {
 			product_id: productId,
 			quantity: qty,
@@ -100,8 +121,25 @@ function CartItemInfo({
 
 		updateToCart(cartItemId, cartItem)
 
-		return null
-	}
+		return undefined
+	}, [qty])
+
+	// const modifyQtyHandler = () => {
+	// 	// formData.submitter = 'modifyQty'
+	// 	console.log('2번', qty)
+
+	// 	const isActive = cart[productId].isActive
+
+	// 	const cartItem = {
+	// 		product_id: productId,
+	// 		quantity: qty,
+	// 		is_active: isActive,
+	// 	}
+
+	// 	updateToCart(cartItemId, cartItem)
+
+	// 	return null
+	// }
 
 	return (
 		<ProductInfo $soldout={isSoldout} {...props}>
@@ -128,7 +166,7 @@ function CartItemInfo({
 					ref={spinnerRef}
 					name='qty'
 					stock={stock}
-					onClick={modifyQtyHandler}
+					// onClick={modifyQtyHandler}
 				/>
 				{isSoldout && <p className='out-of-stock'>품절되었습니다.</p>}
 				{isExceededStock && (
@@ -162,7 +200,7 @@ function CartItemImg({ productId, src, productName, isSoldout, ...props }) {
 
 function CartItem({ item, ...props }) {
 	const fetcher = useFetcher()
-	const submit = () => fetcher.submit()
+	// const submit = () => fetcher.submit()
 	const checkboxRef = useRef()
 	const { values } = useContext(FormContext)
 	const qty = values.qty
@@ -207,7 +245,6 @@ function CartItem({ item, ...props }) {
 	}, [])
 
 	useEffect(() => {
-		console.log(isSelectAll)
 		checkboxRef.current.setSelected(isSelectAll)
 	}, [isSelectAll])
 
@@ -245,11 +282,20 @@ function CartItem({ item, ...props }) {
 						price,
 						stock,
 						isSoldout,
-						submit,
+						// submit,
 					}}
 				/>
-				<RemoveButton className='remove-btn' productId={productId} />
-				<OrderButton className='order-btn' productId={productId} />
+				<RemoveButton
+					className='remove-btn'
+					cartItemId={cartItemId}
+					productId={productId}
+					// submit={submit}
+				/>
+				<OrderButton
+					className='order-btn'
+					productId={productId}
+					// submit={submit}
+				/>
 			</fetcher.Form>
 			<ShippingInfo shippingMethod={shippingMethod} shippingFee={shippingFee} />
 		</StyledLi>

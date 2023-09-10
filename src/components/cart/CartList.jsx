@@ -1,4 +1,4 @@
-import { Suspense, useMemo, useRef } from 'react'
+import { Suspense, useEffect, useMemo, useRef } from 'react'
 import { Await, Link, useNavigate } from 'react-router-dom'
 import { FormProvider } from '../../context/form-context'
 import { CartLoading } from '../common'

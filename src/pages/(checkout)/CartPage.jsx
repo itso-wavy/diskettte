@@ -55,35 +55,38 @@ export function CartPage() {
 export const cartAction = async ({ request, params }) => {
 	// const data = await request.formData()
 	console.log('action 발동')
-	const data = Object.fromEntries(await request.formData())
-	const eventType = data.submitter
 
-	if (eventType === 'modifyQty') {
-		const { cartItemId, productId, qty, isActive } = data
+	return null
 
-		const cartItem = {
-			product_id: Number(productId),
-			quantity: Number(qty),
-			is_active: !!isActive,
-		}
+	// const data = Object.fromEntries(await request.formData())
+	// const eventType = data.submitter
 
-		updateToCart(cartItemId, cartItem)
+	// if (eventType === 'modifyQty') {
+	// 	const { cartItemId, productId, qty, isActive } = data
 
-		return null
-	}
+	// 	const cartItem = {
+	// 		product_id: Number(productId),
+	// 		quantity: Number(qty),
+	// 		is_active: !!isActive,
+	// 	}
 
-	if (eventType === 'orderDirectly') {
-		const cartItem = {
-			product_id: data.get('product_id'),
-			quantity: Number(data.get('qty')),
-			order_kind: 'cart_one_order',
-			total_price: 0,
-		}
+	// 	updateToCart(cartItemId, cartItem)
 
-		setOrderItems(cartItem)
+	// 	return null
+	// }
 
-		return redirect('/checkout')
-	}
+	// if (eventType === 'orderDirectly') {
+	// 	const cartItem = {
+	// 		product_id: data.get('product_id'),
+	// 		quantity: Number(data.get('qty')),
+	// 		order_kind: 'cart_one_order',
+	// 		total_price: 0,
+	// 	}
+
+	// 	setOrderItems(cartItem)
+
+	// 	return redirect('/checkout')
+	// }
 }
 /* 
   <cart> 
