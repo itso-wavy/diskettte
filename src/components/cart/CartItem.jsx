@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef } from 'react'
-import { Form, Link, useFetcher, useSubmit } from 'react-router-dom'
+import { Link, useFetcher } from 'react-router-dom'
 import { FormContext } from '../../context/form-context'
 import { Checkbox } from '../@ui/Input'
 import { Button } from '../@ui/Button'
@@ -42,14 +42,8 @@ function OrderButton({ productId, ...props }) {
 }
 
 function RemoveButton({ productId, ...props }) {
-	// const submit = useSubmit()
-	// const { cart, removeFormCartStore } = useStore()
-
-	const removeItemHandler = e => {
-		// removeFormCartStore(productId)
-		// console.log(cart)
-		// e.target.value = 'toCart'
-		// submit('data') // TODO:
+	const removeItemHandler = () => {
+		// TODO:
 	}
 
 	return (
@@ -64,41 +58,39 @@ function RemoveButton({ productId, ...props }) {
 }
 
 function CartItemInfo({
+	cartItemId,
 	brandId,
 	brandName,
 	productId,
 	productName,
 	price,
 	stock,
+	isSoldout,
 	submit,
 	...props
 }) {
-	// const submit = useSubmit()
-	const { updateCartStore } = useStore()
 	const spinnerRef = useRef()
+	const { cart, updateCartStore } = useStore()
 	const { values } = useContext(FormContext)
-	const { cartItemId, qty, isActive } = values
-	const isSoldout = !stock
+	const { qty } = values
 	const isExceededStock = !isSoldout && qty > stock
-
+	/*cartItemId,
+	productId,
+	isActive,
+	isSoldout,
+	price,
+	qty,
+	shippingFee,
+	discount, */
 	useEffect(() => {
-		updateCartStore({ product_id: productId, qty })
+		updateCartStore({ productId, qty })
 	}, [qty])
 
-	// const modifyQtyHandler = () => {
-	// 	const formData = values
-	// 	formData.submitter = 'modifyQty'
-
-	// 	submit(formData, { method: 'post' })
-	// }
-
 	const modifyQtyHandler = () => {
-		// const formData = values
 		// formData.submitter = 'modifyQty'
 
-		// submit(formData, { method: 'post' })
-
-		const { cartItemId, productId, qty, isActive } = values
+		const isActive = cart[productId].isActive
+		console.log('isActive: ', isActive)
 
 		const cartItem = {
 			product_id: productId,
@@ -153,14 +145,14 @@ function CartItemInfo({
 	)
 }
 
-function CartItemImg({ productId, src, productName, $soldout, ...props }) {
+function CartItemImg({ productId, src, productName, isSoldout, ...props }) {
 	return (
-		<ProductImage $soldout={$soldout} {...props}>
+		<ProductImage $soldout={isSoldout} {...props}>
 			<Link to={`/product/${productId}`}>
 				<span className='img-cover'>
 					<img src={src} alt={productName} />
 				</span>
-				{$soldout && (
+				{isSoldout && (
 					<Badge $style='secondary' text='SOLD OUT' className='badge' />
 				)}
 			</Link>
@@ -170,8 +162,26 @@ function CartItemImg({ productId, src, productName, $soldout, ...props }) {
 
 function CartItem({ item, ...props }) {
 	const fetcher = useFetcher()
-	const { data, state, formData, json, text, formMethod, formAction } = fetcher
 	const submit = () => fetcher.submit()
+	const checkboxRef = useRef()
+	const { values } = useContext(FormContext)
+	const qty = values.qty
+	const { cart, isSelectAll, initCartStore, addToCartStore, updateCartStore } =
+		useStore()
+
+	const { cart_item_id: cartItemId, product_id: productId, product } = item
+	const {
+		seller: brandId,
+		store_name: brandName,
+		product_name: productName,
+		image,
+		price,
+		stock,
+		shipping_method: shippingMethod,
+		shipping_fee: shippingFee,
+	} = product
+	const isSoldout = !stock
+	// const { data, state, formData, json, text, formMethod, formAction } = fetcher
 
 	// useEffect(() => {
 	// console.log(data) // loaderData, actionData
@@ -182,43 +192,29 @@ function CartItem({ item, ...props }) {
 	// }
 	// }, [fetcher])
 
-	const checkboxRef = useRef()
-	const { isSelectAll, addToCartStore, updateCartStore } = useStore()
-	const { values } = useContext(FormContext)
-	const qty = values.qty
-
-	const { cart_item_id, product_id, product } = item
-	const {
-		seller: brandId,
-		store_name: brandName,
-		product_name,
-		image,
-		price,
-		stock,
-		shipping_method,
-		shipping_fee,
-	} = product
-
 	useEffect(() => {
 		addToCartStore({
-			// cart_item_id,
-			product_id,
-			is_active: true,
+			cartItemId,
+			productId,
+			isActive: true,
+			isSoldout,
 			price,
 			qty,
-			shipping_fee,
+			shippingFee,
 			discount: 0,
 		})
+		// return () => initCartStore() // 객체라서 괜찮을지도
 	}, [])
 
 	useEffect(() => {
+		console.log(isSelectAll)
 		checkboxRef.current.setSelected(isSelectAll)
 	}, [isSelectAll])
 
 	const onCheckHandler = () => {
 		const checked = checkboxRef.current.checked
-		updateCartStore({ product_id, is_active: !checked })
-		checkboxRef.current.setSelected(!checked)
+		updateCartStore({ productId, isActive: !checked })
+		// checkboxRef.current.setSelected(!checked)
 	}
 
 	return (
@@ -227,34 +223,35 @@ function CartItem({ item, ...props }) {
 				<Checkbox
 					className='checkbox'
 					ref={checkboxRef}
-					id={product_id}
+					id={productId}
 					name='isActive'
 					onClick={onCheckHandler}
 				/>
 				<CartItemImg
 					className='img-box'
-					productId={product_id}
+					productId={productId}
 					src={image}
-					productName={product_name}
-					$soldout={!stock}
+					productName={productName}
+					isSoldout={isSoldout}
 				/>
 				<CartItemInfo
 					className='info-box'
-					brandId={brandId}
-					brandName={brandName}
-					productId={product_id}
-					productName={product_name}
-					price={price}
-					stock={stock}
-					submit={submit}
+					{...{
+						cartItemId,
+						brandId,
+						brandName,
+						productId,
+						productName,
+						price,
+						stock,
+						isSoldout,
+						submit,
+					}}
 				/>
-				<RemoveButton className='remove-btn' productId={product_id} />
-				<OrderButton className='order-btn' productId={product_id} />
+				<RemoveButton className='remove-btn' productId={productId} />
+				<OrderButton className='order-btn' productId={productId} />
 			</fetcher.Form>
-			<ShippingInfo
-				shippingMethod={shipping_method}
-				shippingFee={shipping_fee}
-			/>
+			<ShippingInfo shippingMethod={shippingMethod} shippingFee={shippingFee} />
 		</StyledLi>
 	)
 }

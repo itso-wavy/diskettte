@@ -63,7 +63,9 @@ export const StyledFlexbox = styled(Flexbox)`
 	white-space: nowrap;
 
 	.amount-box {
-		padding: 0 2em;
+		/* padding: 0 2em; */
+		padding-left: 2em;
+		min-width: 33.33%;
 		font-weight: ${({ theme }) => theme.fw.medium};
 	}
 

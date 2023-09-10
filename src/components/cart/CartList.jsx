@@ -5,9 +5,9 @@ import { CartLoading } from '../common'
 import { SmallMenus } from '../@ui/Form'
 import { Checkbox } from '../@ui/Input'
 import { Button } from '../@ui/Button'
-import { CartItem } from './CartItem'
-import { Wrapper, Titlebox, EmptyWrapper } from './CartList.style'
+import { CartItem } from '.'
 import { getProduct } from '../../lib/api'
+import { Wrapper, Titlebox, EmptyWrapper } from './CartList.style'
 import useStore from '../../store'
 
 const updatedCartLoader = async cart => {
@@ -58,17 +58,18 @@ function EmptyList({ type, ...props }) {
 }
 
 function ListTitle({ ...props }) {
-	const ref = useRef()
+	const checkboxRef = useRef()
 	const { toggleAllSelected } = useStore()
 	const selectAllHandler = () => {
-		const selectAll = !ref.current.checked
+		const selectAll = !checkboxRef.current.checked
 
 		toggleAllSelected(selectAll)
 	}
+
 	return (
 		<Titlebox {...props}>
 			<Checkbox
-				ref={ref}
+				ref={checkboxRef}
 				id='selectAll'
 				name='selectAll'
 				info='전체 선택'
@@ -102,10 +103,10 @@ function CartList({ cart, ...props }) {
 									updatedCart.map(item => (
 										<FormProvider
 											initialState={{
-												cartItemId: item.cart_item_id,
-												productId: item.product_id,
+												// cartItemId: item.cart_item_id,
+												// productId: item.product_id,
 												qty: item.quantity,
-												isActive: true,
+												// isActive: true,
 											}}
 											key={item.product_id}
 										>

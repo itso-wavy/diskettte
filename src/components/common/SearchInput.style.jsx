@@ -21,6 +21,8 @@ export const StyledDialog = styled.dialog`
 	right: var(--right);
 	margin-left: auto;
 	border: none;
+	box-shadow: 5px 20px 30px -5px rgb(0 0 0 / 0.1),
+		0 8px 5px -6px rgb(0 0 0 / 0.25);
 	font-size: 0.875rem;
 	word-break: break-all;
 	white-space: break-spaces;

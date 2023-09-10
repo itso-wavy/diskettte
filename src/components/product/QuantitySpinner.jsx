@@ -44,6 +44,7 @@ function QuantitySpinner({ name, stock, ...props }, ref) {
 				name={name}
 				value={value}
 				onInput={e => onInputHandler(e, { type: 'number' })}
+				onKeyDown={e => e.preventDefault()}
 			/>
 			<Button
 				type='button'

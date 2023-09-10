@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { redirect, useLoaderData } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import { CartList, CartSummary } from '../../components/cart'
@@ -8,8 +9,6 @@ import {
 	setOrderItems,
 } from '../../lib/utils/storage'
 import { Wrapper } from './CartPage.style'
-import useStore from '../../store'
-import { useEffect } from 'react'
 
 export const cartLoader = async () => {
 	const isSignedIn = !!getAuthToken()
@@ -43,11 +42,6 @@ export const cartLoader = async () => {
 export function CartPage() {
 	const cart = useLoaderData()
 
-	const { initCartStore } = useStore()
-	useEffect(() => {
-		initCartStore()
-	}, [])
-
 	useTitle('장바구니')
 
 	return (
@@ -60,6 +54,7 @@ export function CartPage() {
 
 export const cartAction = async ({ request, params }) => {
 	// const data = await request.formData()
+	console.log('action 발동')
 	const data = Object.fromEntries(await request.formData())
 	const eventType = data.submitter
 
