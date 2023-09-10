@@ -1,11 +1,12 @@
-import { Form } from 'react-router-dom'
 import styled from 'styled-components'
 
-export const StyledForm = styled(Form)`
-	border-top: ${({ theme }) => `1px solid ${theme.color.lightgray}`};
-	padding-top: 1.75rem;
-	margin-top: 2rem;
-	font-size: 0.875rem;
+export const Wrapper = styled.div`
+	& > form {
+		border-top: ${({ theme }) => `1px solid ${theme.color.lightgray}`};
+		padding-top: 1.75rem;
+		margin-top: 2rem;
+		font-size: 0.875rem;
+	}
 
 	& .title {
 		font-weight: ${({ theme }) => theme.fw.medium};

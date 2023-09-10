@@ -32,18 +32,7 @@ export function ProductPage() {
 	const navigate = useNavigate()
 	const headerHeight = useHeaderHeight()
 	const product = useLoaderData()
-	/* 	const newInCart = useActionData()
-	// const { addToCart } = useStore()
-
-	useEffect(() => {
-		if (newInCart) {
-			// addToCart(newInCart)
-
-			confirm('장바구니에 상품을 담았습니다!\n장바구니로 이동하시겠습니까?')
-				? navigate('/cart')
-				: navigate('.')
-		}
-	}, [newInCart]) */
+	/* 	const newInCart = useActionData() */
 
 	const {
 		seller: brandId,
@@ -116,11 +105,11 @@ export const productAction = async ({ request, params }) => {
 			'구매 계정만 이용할 수 있는 서비스입니다.\n로그인 하시겠습니까?'
 		)
 			? redirect('/auth/signin')
-			: redirect('')
+			: null
 	}
 	if (accountType === 'SELLER') {
 		alert('구매 계정만 이용할 수 있는 서비스입니다.')
-		return redirect('')
+		return null
 	}
 
 	const productId = Number(params.productId)
@@ -128,14 +117,13 @@ export const productAction = async ({ request, params }) => {
 	const eventType = data.get('submitter')
 
 	if (eventType === 'toCart') {
-		// const cart = getSessionCart()
 		const cart = await getCart()
 		const hasItemInCart = cart.some(item => item.product_id === productId)
 
 		if (hasItemInCart) {
 			return confirm('이미 추가한 상품입니다.\n장바구니로 이동하시겠습니까?')
 				? redirect('/cart')
-				: redirect('')
+				: null
 		}
 
 		const cartItem = {
@@ -144,22 +132,13 @@ export const productAction = async ({ request, params }) => {
 			check: !hasItemInCart,
 		}
 
-		// const client = clientAPI.post('cart/', cartItem)
-
-		// const success = res => res.data
-		// const error = err => {
-		// 	throw json({ message: err.message }, { status: err.response.status })
-		// }
-
-		// return api(client)(success, error)
-		// return addToCart(cartItem)
 		addToCart(cartItem)
 
 		return confirm(
 			'장바구니에 상품을 담았습니다!\n장바구니로 이동하시겠습니까?'
 		)
 			? redirect('/cart')
-			: redirect('.')
+			: null
 	}
 
 	if (eventType === 'toOrder') {
@@ -173,19 +152,4 @@ export const productAction = async ({ request, params }) => {
 
 		return redirect('/checkout')
 	}
-
-	// const response = await axios(`https://openmarket.weniv.co.kr/seller/cart`)
-
-	// const cartData = {
-	// 	productName: response.get('id'),
-	// 	productAmount: response.get('password'),
-	// 	productPrice: response.get('password'),
-	// }
-
-	// if (!response.ok)
-	// 	throw json({ messege: 'could not delete event' }, { status: 500 })
-
-	// console.log(authData)
-
-	// return null
 }
