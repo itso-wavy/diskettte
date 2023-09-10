@@ -31,18 +31,18 @@ export const createCartSlice = set => ({
 				[productId]: { ...state.cart[productId], ...update },
 			},
 		})),
-	toggleAllSelected: selectAll =>
-		set(state => {
-			const cartArray = Object.entries(state.cart).map(
-				([productId, detail]) => [productId, { ...detail, isActive: selectAll }]
-			)
-			return { isSelectAll: selectAll, cart: Object.fromEntries(cartArray) }
-		}),
 	removeFormCartStore: productId =>
 		set(state => {
 			const updatedCart = { ...state.cart }
 			delete updatedCart[productId]
 
 			return { cart: updatedCart }
+		}),
+	toggleAllSelected: selectAll =>
+		set(state => {
+			const cartArray = Object.entries(state.cart).map(
+				([productId, detail]) => [productId, { ...detail, isActive: selectAll }]
+			)
+			return { isSelectAll: selectAll, cart: Object.fromEntries(cartArray) }
 		}),
 })

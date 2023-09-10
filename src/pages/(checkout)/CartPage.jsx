@@ -1,13 +1,8 @@
-import { useEffect } from 'react'
 import { redirect, useLoaderData } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import { CartList, CartSummary } from '../../components/cart'
-import { getCart, updateToCart } from '../../lib/api'
-import {
-	getAuthToken,
-	getAccountType,
-	setOrderItems,
-} from '../../lib/utils/storage'
+import { getCart, removeFromCart } from '../../lib/api'
+import { getAuthToken, getAccountType } from '../../lib/utils/storage'
 import { Wrapper } from './CartPage.style'
 
 export const cartLoader = async () => {
@@ -54,39 +49,15 @@ export function CartPage() {
 
 export const cartAction = async ({ request, params }) => {
 	// const data = await request.formData()
-	console.log('action 발동')
+	const data = Object.fromEntries(await request.formData())
+
+	if (request.method === 'DELETE') {
+		const cartItemId = JSON.parse(data.cartItemId)
+
+		cartItemId.forEach(cartItemId => removeFromCart(cartItemId))
+	}
 
 	return null
-
-	// const data = Object.fromEntries(await request.formData())
-	// const eventType = data.submitter
-
-	// if (eventType === 'modifyQty') {
-	// 	const { cartItemId, productId, qty, isActive } = data
-
-	// 	const cartItem = {
-	// 		product_id: Number(productId),
-	// 		quantity: Number(qty),
-	// 		is_active: !!isActive,
-	// 	}
-
-	// 	updateToCart(cartItemId, cartItem)
-
-	// 	return null
-	// }
-
-	// if (eventType === 'orderDirectly') {
-	// 	const cartItem = {
-	// 		product_id: data.get('product_id'),
-	// 		quantity: Number(data.get('qty')),
-	// 		order_kind: 'cart_one_order',
-	// 		total_price: 0,
-	// 	}
-
-	// 	setOrderItems(cartItem)
-
-	// 	return redirect('/checkout')
-	// }
 }
 /* 
   <cart> 

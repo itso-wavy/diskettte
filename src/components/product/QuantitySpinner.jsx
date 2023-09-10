@@ -10,10 +10,18 @@ function QuantitySpinner({ name, stock, ...props }, ref) {
 	const { values, state, dispatch, onInputHandler } = useContext(FormContext)
 	const value = values[name]
 
-	const manipulateQty = (_, { type }) => {
-		let newValue = type === 'minus' ? value - 1 : value + 1
-		if (newValue <= 1) newValue = 1
-		if (newValue > stock) newValue = stock
+	const manipulateQty = (e, { type }) => {
+		let newValue
+
+		if (type === 'maximize') {
+			newValue = e.target.value > stock ? stock : e.target.value
+		}
+
+		if (type === 'plus' || type === 'minus') {
+			newValue = type === 'minus' ? value - 1 : value + 1
+			if (newValue <= 1) newValue = 1
+			if (newValue > stock) newValue = stock
+		}
 
 		dispatch({
 			type: ACTION_CREATOR.INPUT,
@@ -44,6 +52,9 @@ function QuantitySpinner({ name, stock, ...props }, ref) {
 				name={name}
 				value={value}
 				onInput={e => onInputHandler(e, { type: 'number' })}
+				onBlur={e => {
+					manipulateQty(e, { type: 'maximize' })
+				}}
 				onKeyDown={e => e.key === 'Enter' && e.preventDefault()}
 			/>
 			<Button

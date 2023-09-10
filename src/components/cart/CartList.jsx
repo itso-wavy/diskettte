@@ -1,12 +1,18 @@
 import { Suspense, useEffect, useMemo, useRef } from 'react'
-import { Await, Link, useNavigate } from 'react-router-dom'
+import {
+	Await,
+	Link,
+	useFetcher,
+	useNavigate,
+	useSubmit,
+} from 'react-router-dom'
 import { FormProvider } from '../../context/form-context'
 import { CartLoading } from '../common'
 import { SmallMenus } from '../@ui/Form'
 import { Checkbox } from '../@ui/Input'
 import { Button } from '../@ui/Button'
 import { CartItem } from '.'
-import { getProduct } from '../../lib/api'
+import { getProduct, removeFromCart } from '../../lib/api'
 import { Wrapper, Titlebox, EmptyWrapper } from './CartList.style'
 import useStore from '../../store'
 
@@ -58,12 +64,53 @@ function EmptyList({ type, ...props }) {
 }
 
 function ListTitle({ ...props }) {
+	// const submit = useSubmit()
+	const fetcher = useFetcher()
+
 	const checkboxRef = useRef()
-	const { toggleAllSelected } = useStore()
+	const { cart, removeFormCartStore, toggleAllSelected } = useStore()
+
 	const selectAllHandler = () => {
 		const selectAll = !checkboxRef.current.checked
-
 		toggleAllSelected(selectAll)
+	}
+
+	const removeSelectedHandler = () => {
+		const activeProductIds = Object.keys(cart).filter(
+			productId => cart[productId].isActive
+		)
+		const activeCartItemIds = activeProductIds.map(
+			productId => cart[productId].cartItemId
+		)
+
+		activeProductIds.forEach(productId => removeFormCartStore(productId))
+
+		fetcher.submit(
+			{
+				type: 'rmSelected',
+				cartItemId: JSON.stringify(activeCartItemIds),
+			},
+			{ method: 'delete' }
+		)
+	}
+
+	const removeSoldoutHandler = () => {
+		const soldoutProductIds = Object.keys(cart).filter(
+			productId => cart[productId].isSoldout
+		)
+		const soldoutCartItemIds = soldoutProductIds.map(
+			productId => cart[productId].cartItemId
+		)
+
+		soldoutProductIds.forEach(productId => removeFormCartStore(productId))
+
+		fetcher.submit(
+			{
+				type: 'rmSoldout',
+				cartItemId: JSON.stringify(soldoutCartItemIds),
+			},
+			{ method: 'delete' }
+		)
 	}
 
 	return (
@@ -76,8 +123,8 @@ function ListTitle({ ...props }) {
 				onClick={selectAllHandler}
 			/>
 			<SmallMenus style={{ fontSize: '.75rem' }}>
-				<Link to='.'>선택 삭제</Link>
-				<Link to='.'>품절 삭제</Link>
+				<button onClick={removeSelectedHandler}>선택 삭제</button>
+				<button onClick={removeSoldoutHandler}>품절 삭제</button>
 			</SmallMenus>
 		</Titlebox>
 	)

@@ -55,19 +55,6 @@ function RemoveButton({
 }) {
 	const removeItemHandler = () => {
 		removeFromCart(cartItemId)
-
-		// if (!cart[productId]) return
-
-		// updateCartStore({ productId, qty })
-
-		// const isActive = cart[productId].isActive
-		// const cartItem = {
-		// 	product_id: productId,
-		// 	quantity: qty,
-		// 	is_active: isActive,
-		// }
-
-		// updateToCart(cartItemId, cartItem)
 	}
 
 	return (
@@ -108,7 +95,6 @@ function CartItemInfo({
 	discount, */
 	useEffect(() => {
 		if (!cart[productId] || cart[productId].qty === qty) return
-		// if () return
 
 		updateCartStore({ productId, qty })
 
