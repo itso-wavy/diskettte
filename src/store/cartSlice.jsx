@@ -1,4 +1,4 @@
-export const createCartSlice = set => ({
+const initialState = {
 	cart: [], // cart에 is_active 먼저 표시
 	/* cart: [{product_id, is_active, price, qty, shipping_fee, discount: 0}] */
 	isSelectAll: true,
@@ -9,7 +9,12 @@ export const createCartSlice = set => ({
 		// totalPayment: 10000000, // price * qty + shipping_fee - discount
 		totalQuantity: 0, // is_active한 cart 아이템 개수
 	},
+}
+
+export const createCartSlice = set => ({
+	...initialState,
 	// TODO: 각 메서드에 써머리 업뎃 코드 추가
+	initCartStore: () => set({ ...initialState }),
 	addToCartStore: ({
 		// cart_item_id,
 		product_id,
@@ -33,6 +38,24 @@ export const createCartSlice = set => ({
 				},
 			],
 		})),
+	// set(state => {
+	// 	if (!state.cart.some(item => item.product_id === product_id)) {
+	// 		return {
+	// 			cart: [
+	// 				...state.cart,
+	// 				{
+	// 					product_id,
+	// 					is_active,
+	// 					price,
+	// 					qty,
+	// 					shipping_fee,
+	// 					discount,
+	// 				},
+	// 			],
+	// 		}
+	// 	}
+	// 	return state
+	// }),
 	updateCartStore: ({ product_id, ...update }) =>
 		set(state => {
 			const updatedCart = state.cart.map(item => {

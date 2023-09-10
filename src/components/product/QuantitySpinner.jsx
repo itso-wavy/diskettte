@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { forwardRef, useContext, useImperativeHandle } from 'react'
 import { FormContext } from '../../context/form-context'
 import { ACTION_CREATOR } from '../../hooks/useForm'
 import { Button } from '../@ui/Button'
@@ -6,7 +6,7 @@ import MinusImg from '/assets/icons/wavy_minus.svg'
 import PlusImg from '/assets/icons/wavy_plus.svg'
 import { Wrapper, StyledInput } from './QuantitySpinner.style.jsx'
 
-function QuantitySpinner({ name, stock, ...props }) {
+function QuantitySpinner({ name, stock, ...props }, ref) {
 	const { values, state, dispatch, onInputHandler } = useContext(FormContext)
 	const value = values[name]
 
@@ -21,8 +21,14 @@ function QuantitySpinner({ name, stock, ...props }) {
 		})
 	}
 
+	// useImperativeHandle(ref, () => ({
+	// 	// inputValue: ref.current.value,
+	// 	// value,
+	// 	// setSelected: selected => setSelected(selected),
+	// }))
+
 	return (
-		<Wrapper>
+		<Wrapper {...props}>
 			<Button
 				type='button'
 				$type='square'
@@ -34,10 +40,10 @@ function QuantitySpinner({ name, stock, ...props }) {
 				}}
 			/>
 			<StyledInput
+				ref={ref}
 				name={name}
 				value={value}
 				onInput={e => onInputHandler(e, { type: 'number' })}
-				{...props}
 			/>
 			<Button
 				type='button'
@@ -53,4 +59,6 @@ function QuantitySpinner({ name, stock, ...props }) {
 	)
 }
 
-export { QuantitySpinner }
+const RefQuantitySpinner = forwardRef(QuantitySpinner)
+
+export { RefQuantitySpinner as QuantitySpinner }

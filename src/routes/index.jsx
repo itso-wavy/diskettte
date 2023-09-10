@@ -49,6 +49,7 @@ import {
 	signinAction,
 	signupAction,
 	productAction,
+	cartAction,
 	checkoutAction,
 } from '../pages'
 
@@ -145,6 +146,7 @@ const router = createBrowserRouter([
 						path: 'cart',
 						loader: cartLoader,
 						element: <CartPage />,
+						action: cartAction,
 					},
 					{
 						path: 'checkout',

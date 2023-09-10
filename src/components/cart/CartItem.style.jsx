@@ -67,6 +67,7 @@ export const StyledP = styled.p`
 export const ProductImage = styled.div`
 	margin: 0 1.4em 0 0.7em;
 	position: relative;
+	height: 160px;
 
 	.img-cover {
 		position: absolute;
@@ -78,8 +79,7 @@ export const ProductImage = styled.div`
 
 	img {
 		width: 100%;
-		/* height: 100%; */
-		height: 160px;
+		height: 100%;
 		object-fit: cover;
 	}
 
@@ -106,13 +106,7 @@ export const ProductImage = styled.div`
 
 	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
 		margin: 0;
-
-		img {
-			width: 100%;
-			height: calc(100% - 1em);
-			/* height: 160px; */
-			object-fit: cover;
-		}
+		height: calc(100% - 1em);
 	}
 `
 
@@ -128,10 +122,18 @@ export const ProductInfo = styled.div`
 		margin: 1.4em 0;
 	}
 
+	.out-of-stock {
+		margin-top: calc(0.8em / 2);
+		color: ${({ theme }) => theme.color.error};
+		font-size: 0.8125rem;
+	}
+
 	${({ $soldout }) =>
 		$soldout &&
 		css`
-			opacity: 0.5;
+			.text-cover {
+				opacity: 0.5;
+			}
 		`}
 `
 
