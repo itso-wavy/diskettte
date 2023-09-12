@@ -9,7 +9,7 @@ function AccordionContent({ content, id, ...props }) {
 	)
 }
 
-function AccordionTitle({ title, expanded, id, freeze, ...props }) {
+function AccordionTitle({ title, expanded, icon, id, freeze, ...props }) {
 	return (
 		<summary
 			aria-expanded={expanded}
@@ -18,6 +18,7 @@ function AccordionTitle({ title, expanded, id, freeze, ...props }) {
 			{...props}
 		>
 			{title}
+			{expanded ? icon[1] : icon[0]}
 		</summary>
 	)
 }
@@ -29,6 +30,7 @@ function Accordion({
 	collapsed = false,
 	freeze = false,
 	title,
+	icon,
 	id,
 	children,
 	...props
@@ -50,6 +52,7 @@ function Accordion({
 			<StyledDetails id={id} open={expanded} {...props}>
 				<AccordionTitle
 					title={title}
+					icon={icon}
 					id={id}
 					expanded={expanded}
 					onClick={toggleHandler}

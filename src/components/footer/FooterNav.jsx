@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Accordion } from '../@ui/Accordion'
-import { PlusSvg } from '/src/components/@svg'
+import { PlusSvg, MinusSvg } from '/src/components/@svg'
 import { StyledNav, Wrapper } from './FooterNav.style'
 import useStore from '../../store'
 
@@ -32,9 +32,10 @@ function FooterNavMenu({ title, children, ...props }) {
 				title={
 					<>
 						{title.toUpperCase()}
-						{isMobile && <PlusSvg />}
+						{/* {isMobile && <PlusSvg />} */}
 					</>
 				}
+				icon={isMobile && [<PlusSvg />, <MinusSvg />]}
 				id={title}
 				{...props}
 			>
