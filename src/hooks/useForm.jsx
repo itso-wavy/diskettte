@@ -150,6 +150,17 @@ export const useForm = initialState => {
 			})
 	}
 
+	const onRadioChangeHandler = e => {
+		window.scrollTo(0, window.scrollY)
+
+		const { name, value } = e.target
+
+		dispatch({
+			type: ACTION_CREATOR.INPUT,
+			values: { ...state.values, [name]: value },
+		})
+	}
+
 	const ableSubmit = Object.values(state.areValid).every(
 		isValid => isValid === true
 	)
@@ -166,6 +177,12 @@ export const useForm = initialState => {
 		checkUniquenessHandler,
 		clearInputHandler,
 		onCheckHandler,
+		onRadioChangeHandler,
 		ableSubmit,
 	}
 }
+
+// paymentMethod: {
+//   pattern: /.*/,
+//   message: '결제 방법을 선택해주세요.',
+// }

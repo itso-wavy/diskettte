@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import {
 	useState,
 	useContext,
@@ -7,12 +8,18 @@ import {
 } from 'react'
 import { FormContext } from '../../context/form-context'
 import { useInput } from '../../hooks'
+import { ButtonLabel, Label } from './Label'
 import { Button } from './Button'
 import { Img } from './Img'
 import EraseImg from '/assets/icons/wavy_erase-sharp.svg'
 import CheckedImg from '/assets/icons/checked.svg'
 import UncheckedImg from '/assets/icons/unchecked.svg'
-import { InputWrapper, NumberWrapper, CheckboxWrapper } from './Input.style'
+import {
+	InputWrapper,
+	NumberWrapper,
+	CheckboxWrapper,
+	StyledLi,
+} from './Input.style'
 
 // (서버 밸리데이션)
 // 아이디, 셀러 브랜드명 중복 확인
@@ -24,6 +31,7 @@ import { InputWrapper, NumberWrapper, CheckboxWrapper } from './Input.style'
  * @returns <TextInput id name type validationFn />
  */
 function TextInput({
+	// label,
 	id,
 	name,
 	type = 'text',
@@ -40,6 +48,7 @@ function TextInput({
 	return (
 		<>
 			<InputWrapper>
+				{/* {label && <label htmlFor={id}>{label}</label>} */}
 				<input
 					ref={ref}
 					id={id}
@@ -88,7 +97,7 @@ function NumberInput({ label, id, name, placeholder, ...props }) {
 
 	return (
 		<NumberWrapper {...props}>
-			{label}
+			{/* {label && label} */}
 			<input
 				id={id}
 				name={name}
@@ -158,6 +167,35 @@ function Checkbox(
 	)
 }
 
+function RadioInput({ option, name, ...props }) {
+	const { values, onRadioChangeHandler } = useContext(FormContext)
+	const selectedValue = values[name]
+
+	return (
+		<ul>
+			{option.map(({ value, label, defaultChecked }) => (
+				<StyledLi key={value}>
+					<ButtonLabel
+						id={value}
+						label={label}
+						checked={value === selectedValue}
+						{...props}
+					/>
+					<input
+						type='radio'
+						name={name}
+						id={value}
+						value={value}
+						className='sr-only'
+						defaultChecked={defaultChecked}
+						onClick={e => onRadioChangeHandler(e)}
+					/>
+				</StyledLi>
+			))}
+		</ul>
+	)
+}
+
 const RefCheckbox = forwardRef(Checkbox)
 
-export { TextInput, NumberInput, RefCheckbox as Checkbox }
+export { TextInput, NumberInput, RefCheckbox as Checkbox, RadioInput }

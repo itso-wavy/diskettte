@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { DropdownSvg, DoubleArrowSvg } from '/src/components/@svg'
 import {
 	StyledNav,
@@ -6,7 +7,6 @@ import {
 	StyledNumberLink,
 } from './Pagination.style'
 import PropTypes from 'prop-types'
-import { useMemo } from 'react'
 
 function PageNavigation({
 	pageRange,

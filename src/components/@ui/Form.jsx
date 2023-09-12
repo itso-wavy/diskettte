@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { FormContext } from '../../context/form-context'
-import { TextInput, Checkbox, NumberInput } from '../@ui/Input'
-import { HiddenLabel } from '../@ui/Label'
+import { TextInput, Checkbox, NumberInput, RadioInput } from '../@ui/Input'
+import { Label, SpanLabel } from '../@ui/Label'
 import { Button } from '../@ui/Button'
 import {
 	StyledSection,
@@ -10,6 +10,7 @@ import {
 	Flexbox,
 	StyledSpan,
 	SmallFlexbox,
+	GridWrapper,
 } from './Form.style'
 
 function SmallMenus({ children, ...props }) {
@@ -49,6 +50,7 @@ function FormValidationMessage({ text, ...props }) {
 function FormInput({
 	required,
 	label,
+	labelHidden,
 	id,
 	name,
 	type = 'text',
@@ -56,6 +58,7 @@ function FormInput({
 	onInput,
 	children,
 	info,
+	option,
 	...props
 }) {
 	const { areTouched, areValid } = useContext(FormContext)
@@ -67,23 +70,67 @@ function FormInput({
 
 	if (type === 'phonenumber' || type === 'businessNumber') {
 		return (
-			<NumberInput
-				label={
-					<label htmlFor={id} className='sr-only'>
-						{label}
-					</label>
-				}
-				id={id}
-				name={name}
-				placeholder={placeholder}
-			/>
+			<Flexbox $direction='row'>
+				<SpanLabel
+					id={id}
+					label={label}
+					labelHidden={labelHidden}
+					className={required && 'required'}
+				/>
+				<NumberInput id={id} name={name} placeholder={placeholder} {...props} />
+			</Flexbox>
+		)
+	}
+
+	if (type === 'address') {
+		return (
+			<>
+				<Flexbox $direction='row' {...props}>
+					<SpanLabel
+						id={id}
+						label={label}
+						labelHidden={labelHidden}
+						className={required ? 'required address' : 'address'}
+					/>
+					<div style={{ flexGrow: 1 }}>
+						<Flexbox $direction='row'>
+							<TextInput id={id} name={name} readonly />
+							<Button
+								type='button'
+								$style='secondary'
+								style={{ position: 'relative', bottom: '0.25rem' }}
+							>
+								우편번호 검색
+							</Button>
+						</Flexbox>
+						<TextInput
+							id={id + '2'}
+							name={name + '2'}
+							placeholder={placeholder}
+						/>
+					</div>
+				</Flexbox>
+			</>
+		)
+	}
+
+	if (type === 'radio') {
+		return (
+			<GridWrapper>
+				<RadioInput option={option} name={name} {...props} />
+			</GridWrapper>
 		)
 	}
 
 	return (
 		<>
-			{label && <HiddenLabel {...{ id, label }} />}
 			<Flexbox $direction='row'>
+				<Label
+					id={id}
+					label={label}
+					labelHidden={labelHidden}
+					className={required && 'required'}
+				/>
 				<TextInput
 					{...{ id, name, type, placeholder, ...props }}
 					className={isTouched && !isValid ? 'invalid' : ''}

@@ -43,16 +43,6 @@ export const InputWrapper = styled.div`
 	}
 `
 
-// export const SearchInputWrapper = styled(InputWrapper)`
-// 	& input {
-// 		background-color: ${({ theme }) => theme.color.lightgray};
-// 		padding: 1rem calc(0.8rem + 2.9rem + 0.2rem) 1rem 0.8rem;
-// 		border: 0;
-// 		height: 2.25rem;
-// 		padding: '1rem calc(0.8rem + 2.9rem + 0.2rem) 1rem 0.8rem';
-// 	}
-// `
-
 export const NumberWrapper = styled(InputWrapper)`
 	display: flex;
 	flex-direction: row;
@@ -81,5 +71,18 @@ export const CheckboxWrapper = styled.div`
 		margin-right: 0.3em;
 		position: relative;
 		bottom: 1px;
+	}
+`
+
+export const StyledLi = styled.li`
+	position: relative;
+
+	&::before {
+		content: '';
+		display: inline-block;
+		background-color: ${({ theme }) => theme.color.black};
+		width: 100%;
+		height: 100%;
+		position: absolute;
 	}
 `

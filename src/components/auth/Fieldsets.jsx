@@ -5,7 +5,6 @@ import { Button } from '../@ui/Button'
 import { FormInput, FormValidationMessage } from '../@ui/Form'
 import { passwordSchema } from '../../lib/validation/auth-validation'
 import { api, clientAPI } from '../../lib/api'
-// import axios from 'axios'
 
 function AccountLoginFieldset({ serverMessage, ...props }) {
 	const [isValid, setIsValid] = useState({
@@ -29,7 +28,13 @@ function AccountLoginFieldset({ serverMessage, ...props }) {
 	return (
 		<fieldset {...props}>
 			<legend className='sr-only'>계정 정보</legend>
-			<FormInput label='아이디' id='id' name='id' placeholder='아이디' />
+			<FormInput
+				label='아이디'
+				id='id'
+				name='id'
+				placeholder='아이디'
+				labelHidden
+			/>
 			{errorMessages.id && (
 				<FormValidationMessage text={errorMessages.id} className='invalid' />
 			)}
@@ -39,6 +44,7 @@ function AccountLoginFieldset({ serverMessage, ...props }) {
 				id='password'
 				name='password'
 				placeholder='비밀번호'
+				labelHidden
 			/>
 			<FormValidationMessage
 				text={
@@ -113,7 +119,13 @@ function AccountRegisterFieldset({ serverMessage, ...props }) {
 	return (
 		<fieldset {...props}>
 			<legend className='sr-only'>계정 정보</legend>
-			<FormInput label='아이디' id='id' name='id' placeholder='아이디'>
+			<FormInput
+				label='아이디'
+				id='id'
+				name='id'
+				placeholder='아이디'
+				labelHidden
+			>
 				<Button
 					style={{ position: 'relative', bottom: '0.25rem' }}
 					name='id'
@@ -140,6 +152,7 @@ function AccountRegisterFieldset({ serverMessage, ...props }) {
 				id='password'
 				name='password'
 				placeholder='비밀번호'
+				labelHidden
 			/>
 			<FormInput
 				type='password'
@@ -147,6 +160,7 @@ function AccountRegisterFieldset({ serverMessage, ...props }) {
 				id='passwordConfirm'
 				name='passwordConfirm'
 				placeholder='비밀번호 재확인'
+				labelHidden
 			/>
 			<FormValidationMessage
 				text={
@@ -176,6 +190,7 @@ function PersonalInfoRegisterFieldset({ isBuyer, serverMessage, ...props }) {
 				id='username'
 				name='username'
 				placeholder='이름'
+				labelHidden
 			/>
 			{errorMessages.username && (
 				<FormValidationMessage
@@ -189,6 +204,7 @@ function PersonalInfoRegisterFieldset({ isBuyer, serverMessage, ...props }) {
 				id='phoneNumber'
 				name='phoneNumber'
 				placeholder='휴대폰'
+				labelHidden
 			/>
 			{errorMessages.phoneNumber && (
 				<FormValidationMessage
@@ -199,7 +215,13 @@ function PersonalInfoRegisterFieldset({ isBuyer, serverMessage, ...props }) {
 			{serverMessage && (
 				<FormValidationMessage text={serverMessage} className='invalid' />
 			)}
-			<FormInput label='이메일' id='email' name='email' placeholder='이메일' />
+			<FormInput
+				label='이메일'
+				id='email'
+				name='email'
+				placeholder='이메일'
+				labelHidden
+			/>
 			{errorMessages.email && (
 				<FormValidationMessage text={errorMessages.email} className='invalid' />
 			)}
@@ -273,6 +295,7 @@ function SellerInfoRegisterFieldset({
 				id='businessNumber'
 				name='businessNumber'
 				placeholder='사업자등록번호'
+				labelHidden
 			/>
 			{errorMessages.businessNumber && (
 				<FormValidationMessage
@@ -291,6 +314,7 @@ function SellerInfoRegisterFieldset({
 				id='brandName'
 				name='brandName'
 				placeholder='브랜드명'
+				labelHidden
 			>
 				<Button
 					style={{ position: 'relative', bottom: '0.25rem' }}
