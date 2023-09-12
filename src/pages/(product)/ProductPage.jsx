@@ -146,6 +146,7 @@ export const productAction = async ({ request, params }) => {
 			product_id: productId,
 			quantity: Number(data.get('qty')),
 			order_kind: 'direct_order',
+			// total_price:
 		}
 
 		setOrderItems(cartItem)

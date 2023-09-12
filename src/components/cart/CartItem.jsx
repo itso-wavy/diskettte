@@ -1,13 +1,14 @@
 import { useContext, useEffect, useRef, useState } from 'react'
-import { Link, useFetcher } from 'react-router-dom'
+import { Link, useFetcher, useNavigate } from 'react-router-dom'
 import { FormContext } from '../../context/form-context'
 import { Checkbox } from '../@ui/Input'
 import { Button } from '../@ui/Button'
 import { Badge } from '../@ui/Badge'
 import { QuantitySpinner } from '../product'
 import DeleteImg from '/assets/icons/wavy_menu-close.svg'
-import { formatNumber } from '../../lib/utils/number-formatter'
+import { setOrderItems } from '../../lib/utils/storage'
 import { removeFromCart, updateToCart } from '../../lib/api'
+import { formatNumber } from '../../lib/utils/number-formatter'
 import {
 	StyledLi,
 	ProductImage,
@@ -31,17 +32,49 @@ function ShippingInfo({ shippingMethod, shippingFee, ...props }) {
 
 function OrderButton({
 	productId,
+	// stock,
 	//  submit,
 	...props
 }) {
-	const orderItemHandler = e => {
-		// TODO:
+	const { cart, totalPrice, removeFormCartStore } = useStore()
+	const navigate = useNavigate()
 
-		e.target.value = 'orderDirectly'
+	const orderItemHandler = e => {
+		const { cartItemId, isSoldout, stock, qty } = cart[productId]
+		const isExceededStock = !isSoldout && qty > stock
+
+		if (isSoldout || isExceededStock) {
+			alert('품절 또는 재고 초과 상품이 있는지 확인해주세요.')
+			return
+		}
+
+		removeFormCartStore(productId)
+		// removeFromCart(cartItemId)
+		// FIXME: 주문 완료 후 서버 카트/혹은 내 UI에서 주문완료 상품이 사라지지 않는다면 수동으로 지워줘야 함
+
+		const cartItem = {
+			product_id: productId,
+			quantity: qty,
+			order_kind: 'cart_one_order',
+			total_price: totalPrice,
+		}
+
+		setOrderItems(cartItem)
+
+		// return redirect('/checkout')
+		return navigate('/checkout')
+
+		/* cartItemId: 3732
+      discount: 0
+      isActive: true
+      isSoldout: false
+      price: 20000
+      qty: 10
+      shippingFee: 2500 */
 	}
 
 	return (
-		<Button name='submitter' onClick={orderItemHandler} {...props}>
+		<Button type='button' onClick={orderItemHandler} {...props}>
 			바로 구매
 		</Button>
 	)
@@ -53,7 +86,10 @@ function RemoveButton({
 	// submit,
 	...props
 }) {
+	const { removeFormCartStore } = useStore()
+
 	const removeItemHandler = () => {
+		removeFormCartStore(productId)
 		removeFromCart(cartItemId)
 	}
 
@@ -223,6 +259,7 @@ function CartItem({ item, ...props }) {
 			isActive: true,
 			isSoldout,
 			price,
+			stock,
 			qty,
 			shippingFee,
 			discount: 0,
@@ -280,6 +317,7 @@ function CartItem({ item, ...props }) {
 				<OrderButton
 					className='order-btn'
 					productId={productId}
+					// stock={stock}
 					// submit={submit}
 				/>
 			</fetcher.Form>

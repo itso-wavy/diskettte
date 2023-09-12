@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Button } from '../@ui/Button'
 import { formatNumber } from '../../lib/utils/number-formatter'
+import { setOrderItems } from '../../lib/utils/storage'
 import { StyledArticle, Wrapper, StyledFlexbox } from './CartSummary.style'
 import useStore from '../../store'
-import { useSubmit } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function CartSummary({ ...props }) {
 	const initialState = {
@@ -13,9 +14,9 @@ function CartSummary({ ...props }) {
 		totalQuantity: 0,
 		totalPayment: 0,
 	}
-	const { cart, isSelectAll } = useStore()
+	const navigate = useNavigate()
 	const [summary, setSummary] = useState(initialState)
-	const submit = useSubmit()
+	const { cart, isSelectAll, totalPrice, setTotalPrice } = useStore()
 
 	useEffect(() => {
 		let {
@@ -44,10 +45,42 @@ function CartSummary({ ...props }) {
 			totalQuantity,
 			totalPayment,
 		})
+		setTotalPrice(totalPayment)
 	}, [cart, isSelectAll])
 
-	const orderHandler = e => {
-		submit() // TODO:
+	const orderHandler = () => {
+		const activeCart = Object.fromEntries(
+			Object.entries(cart).filter(([_, item]) => item.isActive)
+		)
+
+		if (!Object.keys(activeCart).length) {
+			alert('선택하신 상품이 없습니다.')
+			return
+		}
+
+		let activeItems = []
+		for (const productId in activeCart) {
+			const { isSoldout, stock, qty } = cart[productId]
+			const isExceededStock = !isSoldout && qty > stock
+
+			if (isSoldout || isExceededStock) {
+				alert('품절 또는 재고 초과 상품이 있는지 확인해주세요.')
+				return
+			}
+
+			// activeItems.push({ productId: qty })
+			activeItems.push([productId, qty])
+		}
+
+		const cartInfo = {
+			total_price: totalPrice,
+			order_kind: 'cart_order',
+			cart: activeItems,
+		}
+
+		setOrderItems(cartInfo)
+
+		return navigate('/checkout')
 	}
 
 	return (
