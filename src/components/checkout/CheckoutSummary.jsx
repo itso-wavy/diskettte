@@ -1,7 +1,9 @@
-import { Form } from 'react-router-dom'
-import { ShippingInfoFieldset, PaymentMethodFieldset } from './Fieldsets'
+import { useState } from 'react'
+import { SubmitButton } from '../@ui/Form'
 
-function CheckoutForm({ order, ...props }) {
+function CheckoutSummary({ ...props }) {
+	const [summary, setSummary] = useState({})
+
 	/* const 전체주문 = {
 		order_kind: 'cart_order',
 		total_price: 227500,
@@ -48,11 +50,10 @@ function CheckoutForm({ order, ...props }) {
   */
 
 	return (
-		<Form method='POST' {...props}>
-			<ShippingInfoFieldset />
-			<PaymentMethodFieldset />
-		</Form>
+		<article>
+			<SubmitButton>결제하기</SubmitButton>
+		</article>
 	)
 }
 
-export { CheckoutForm }
+export { CheckoutSummary }

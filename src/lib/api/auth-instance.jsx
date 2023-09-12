@@ -6,8 +6,3 @@
 // POST /accounts/logout/
 
 // GET /seller/
-
-// GET /order/
-// POST /order/
-// POST /order/
-// POST /order/

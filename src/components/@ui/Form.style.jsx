@@ -121,3 +121,13 @@ export const SmallFlexbox = styled(Flexbox)`
 		background-color: ${({ theme }) => theme.color.gray};
 	}
 `
+
+export const GridWrapper = styled.div`
+	& > * {
+		display: grid;
+		grid-auto-flow: column;
+		/* grid: auto-flow 50px / repeat(auto-fit, minmax(min(150px, 50%), 1fr)); */
+		grid: auto-flow 50px / repeat(auto-fit, minmax(130px, 1fr));
+		gap: 0.5em;
+	}
+`

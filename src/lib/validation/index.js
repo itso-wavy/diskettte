@@ -3,11 +3,16 @@ import {
 	personalInfoSchema,
 	sellerInfoSchema,
 } from './auth-validation'
+import { shippingInfoSchema } from './order-validation'
 
 function validate(scheme) {
-	scheme = { ...accountSchema, ...personalInfoSchema, ...sellerInfoSchema }[
-		scheme
-	]
+	scheme = {
+		...accountSchema,
+		...personalInfoSchema,
+		...sellerInfoSchema,
+		...shippingInfoSchema,
+	}[scheme]
+
 	const validateScheme = value => {
 		if (!scheme) return false
 		return scheme.pattern.test(value) ? true : scheme.message
@@ -17,13 +22,3 @@ function validate(scheme) {
 }
 
 export default validate
-
-// const {
-//   authValidation: {
-//     accountSchema: { id, password,confirmPassword },
-//     personalInfoSchema: {username, phoneNumber, email},
-//     sellerInfoSchema:{brandName,businessNumber}
-//   },
-// } = authValidation;
-
-// authValidation

@@ -1,11 +1,11 @@
 import { useContext } from 'react'
+import { useFetcher } from 'react-router-dom'
 import { FormContext } from '../../context/form-context'
 import { QuantitySpinner } from '.'
 import { Button } from '../@ui/Button'
 import { Flexbox } from '../@ui/Form'
 import { formatNumber } from '../../lib/utils/number-formatter'
 import { Wrapper, ShippingInfo } from './ProductForm.style.jsx'
-import { useFetcher } from 'react-router-dom'
 
 function ProductForm({ product, ...props }) {
 	const {
@@ -22,6 +22,16 @@ function ProductForm({ product, ...props }) {
 	const { values } = useContext(FormContext)
 	const name = 'qty'
 	const qty = values[name]
+
+	const buttonActionHandler = (e, type) => {
+		if (qty < 1) {
+			alert('주문 수량을 확인해주세요.')
+			e.preventDefault()
+
+			return
+		}
+		e.target.value = type
+	}
 
 	return (
 		<Wrapper>
@@ -58,13 +68,13 @@ function ProductForm({ product, ...props }) {
 							<Button
 								$style='secondary'
 								name='submitter'
-								onClick={e => (e.target.value = 'toCart')}
+								onClick={e => buttonActionHandler(e, 'toCart')}
 							>
 								카트 추가
 							</Button>
 							<Button
 								name='submitter'
-								onClick={e => (e.target.value = 'toOrder')}
+								onClick={e => buttonActionHandler(e, 'toOrder')}
 							>
 								바로 구매
 							</Button>
