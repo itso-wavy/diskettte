@@ -5,7 +5,7 @@ const shippingInfoSchema = {
 	},
 	receiverPhoneNumber: {
 		pattern: /^01[\d]{1}-[\d]{3,4}-[\d]{4}$/,
-		message: '핸드폰번호는 01*으로 시작하는 10-11자의 번호만 허용합니다.',
+		message: '휴대폰 번호를 다시 확인해주세요.',
 	},
 	address: {
 		pattern: /.+/,

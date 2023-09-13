@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { SubmitButton } from '../@ui/Form'
+import { FormInput, SubmitButton } from '../@ui/Form'
+import { Link } from 'react-router-dom'
 
-function CheckoutSummary({ ...props }) {
+function CheckoutSummary({ order, ...props }) {
 	const [summary, setSummary] = useState({})
 
 	/* const 전체주문 = {
@@ -51,6 +52,21 @@ function CheckoutSummary({ ...props }) {
 
 	return (
 		<article>
+			<FormInput
+				required
+				type='checkbox'
+				id='termsAgree'
+				name='termsAgree'
+				info={
+					<>
+						주문 내용을 확인하였으며{' '}
+						<Link to='' className='terms'>
+							필수 정보 제공
+						</Link>
+						에 동의합니다.
+					</>
+				}
+			/>
 			<SubmitButton>결제하기</SubmitButton>
 		</article>
 	)

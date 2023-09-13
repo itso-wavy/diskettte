@@ -22,6 +22,7 @@ const color = {
 	gray: '#CCC',
 	lightgray: '#F2F2F2',
 	white: '#FFF',
+	bluegray: '#DEE2E6',
 	lightblue: '#AFCCF8',
 	safe: '#6F8CFF',
 	// error: '#FF0000',
@@ -60,7 +61,6 @@ const color = {
 	sora: '#7998e2',
 	blue: '#007BFF',
 	// darkgray: '#F8F9FA',
-	// darkgray2: '#DEE2E6',
 
 	// C: #FDFDFE,
 	// C: #FBFCFC,

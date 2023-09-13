@@ -69,7 +69,7 @@ export const StyledUl = styled.ul`
 	}
 	a:hover {
 		background-color: ${({ theme }) => theme.color.lightgray};
-		color: ${({ theme }) => theme.color.blue};
+		color: ${({ theme }) => theme.color.safe};
 		font-weight: ${({ theme }) => theme.fw.bold};
 	}
 `

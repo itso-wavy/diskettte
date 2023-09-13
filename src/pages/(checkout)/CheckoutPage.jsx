@@ -5,7 +5,7 @@ import { FormProvider } from '../../context/form-context'
 import { CheckoutForm, CheckoutSummary } from '../../components/checkout'
 import { getProduct } from '../../lib/api'
 import { getOrderItems } from '../../lib/utils/storage'
-import { Wrapper } from './CheckoutPage.style'
+// import { Wrapper } from './CheckoutPage.style'
 
 export const checkoutLoader = async () => {
 	const { product_id, quantity, order_kind, total_price, cart } =
@@ -49,6 +49,7 @@ export function CheckoutPage() {
 		address: '',
 		deliveryRequest: '', // address_message
 		paymentMethod: '',
+		termsAgree: false,
 	}
 	if (order_kind === 'direct_order' || order_kind === 'cart_one_order') {
 		initialState.productId = product_id
@@ -59,10 +60,10 @@ export function CheckoutPage() {
 
 	return (
 		<FormProvider initialState={initialState}>
-			<Wrapper>
-				<CheckoutForm order={order} />
-				<CheckoutSummary />
-			</Wrapper>
+			{/* <Wrapper> */}
+			<CheckoutForm order={order} />
+			{/* <CheckoutSummary /> */}
+			{/* </Wrapper> */}
 		</FormProvider>
 	)
 }
