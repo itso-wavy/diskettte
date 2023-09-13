@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import {
+	Form,
 	Link,
 	useActionData,
 	useNavigate,
@@ -18,7 +19,6 @@ import {
 	NaverLoginButton,
 } from '.'
 // import { GoogleLoginButton, KakaotalkLoginButton, NaverLoginButton } from '.'
-import { StyledForm } from './AuthForm.style'
 
 function LinkField({ isBuyer, ...props }) {
 	return (
@@ -74,7 +74,7 @@ function AuthForm({ type }) {
 				title={isBuyer ? '로그인' : '셀러 로그인'}
 			>
 				<FormProvider initialState={initialState}>
-					<StyledForm method='POST'>
+					<Form method='POST'>
 						<AccountLoginFieldset serverMessage={serverMessages.loginFail} />
 						<Flexbox $direction='row'>
 							<Button
@@ -87,7 +87,7 @@ function AuthForm({ type }) {
 							<SubmitButton>로그인</SubmitButton>
 						</Flexbox>
 						<LinkField {...{ isBuyer }} />
-					</StyledForm>
+					</Form>
 				</FormProvider>
 			</FormSection>
 		)
@@ -121,7 +121,7 @@ function AuthForm({ type }) {
 				title={isBuyer ? '회원가입' : '셀러 회원가입'}
 			>
 				<FormProvider initialState={initialState}>
-					<StyledForm method='POST'>
+					<Form method='POST'>
 						<AccountRegisterFieldset serverMessage={serverMessages.id} />
 						<PersonalInfoRegisterFieldset
 							serverMessage={serverMessages.phoneNumber}
@@ -146,7 +146,7 @@ function AuthForm({ type }) {
 							<SubmitButton>회원가입</SubmitButton>
 						</Flexbox>
 						<LinkField {...{ isBuyer }} />
-					</StyledForm>
+					</Form>
 				</FormProvider>
 			</FormSection>
 		)

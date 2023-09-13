@@ -72,6 +72,12 @@ export const CheckboxWrapper = styled.div`
 		position: relative;
 		bottom: 1px;
 	}
+
+	.link {
+		color: ${({ theme }) => theme.color.darkgray};
+		text-decoration: underline;
+		text-underline-offset: 2px;
+	}
 `
 
 export const StyledLi = styled.li`

@@ -1,35 +1,27 @@
-import { StyledLabel, StyledSpanLabel, BlockLabel } from './Label.style'
+import {
+	// StyledLabel,
+	StyledSpanLabel,
+	BlockLabel,
+} from './Label.style'
 
-function Label({ id, label, labelHidden = false, className, ...props }) {
+function HiddenLabel({ id, label, ...props }) {
 	return (
-		<StyledLabel
-			htmlFor={id}
-			className={
-				labelHidden ? `sr-only label ${className}` : `label ${className}`
-			}
-			{...props}
-		>
+		<label htmlFor={id} className='sr-only' {...props}>
 			{label}
-		</StyledLabel>
+		</label>
 	)
 }
 
-function SpanLabel({ id, label, labelHidden = false, className, ...props }) {
+function SpanLabel({ id, label, className, ...props }) {
 	return (
-		<>
-			{!labelHidden && (
-				<StyledSpanLabel
-					htmlFor={id}
-					aria-label='label'
-					className={
-						labelHidden ? `sr-only label ${className}` : `label ${className}`
-					}
-					{...props}
-				>
-					{label}
-				</StyledSpanLabel>
-			)}
-		</>
+		<StyledSpanLabel
+			htmlFor={id}
+			aria-label='label'
+			className={`label ${className}`}
+			{...props}
+		>
+			{label}
+		</StyledSpanLabel>
 	)
 }
 
@@ -41,4 +33,4 @@ function ButtonLabel({ id, label, checked, ...props }) {
 	)
 }
 
-export { Label, SpanLabel, ButtonLabel }
+export { HiddenLabel, SpanLabel, ButtonLabel }

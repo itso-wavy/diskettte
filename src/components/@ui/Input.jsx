@@ -9,7 +9,7 @@ import {
 } from 'react'
 import { FormContext } from '../../context/form-context'
 import { useInput, useScript } from '../../hooks'
-import { ButtonLabel } from './Label'
+import { HiddenLabel, ButtonLabel } from './Label'
 import { Button } from './Button'
 import { Img } from './Img'
 import { Flexbox } from './Form'
@@ -31,13 +31,13 @@ import {
 // 전송 보낸 후, 유저 유형이 다를 때 메시지 */
 
 /**
- * @returns <TextInput id name type validationFn />
+ * @returns <TextInput id name type label validationFn />
  */
 function TextInput({
-	// label,
 	id,
 	name,
 	type = 'text',
+	label,
 	placeholder,
 	validationFn,
 	...props
@@ -51,7 +51,7 @@ function TextInput({
 	return (
 		<>
 			<InputWrapper>
-				{/* {label && <label htmlFor={id}>{label}</label>} */}
+				{label && <HiddenLabel id={id} label={label} />}
 				<input
 					ref={ref}
 					id={id}
@@ -100,7 +100,7 @@ function NumberInput({ label, id, name, placeholder, ...props }) {
 
 	return (
 		<NumberWrapper {...props}>
-			{/* {label && label} */}
+			{label && <HiddenLabel id={id} label={label} />}
 			<input
 				id={id}
 				name={name}
@@ -199,7 +199,7 @@ function RadioInput({ option, name, ...props }) {
 	)
 }
 
-function AddressInput({ id, name, placeholder, ...props }) {
+function AddressInput({ id, name, label, placeholder, ...props }) {
 	const nextRef = useRef()
 	const [address, setAddress] = useState({
 		value1: '',
@@ -271,6 +271,7 @@ function AddressInput({ id, name, placeholder, ...props }) {
 
 	return (
 		<AddressWrapper {...props}>
+			{label && <HiddenLabel id={id} label={label} />}
 			<Flexbox $direction='row'>
 				<input id={id} name={name} value={address.value1} readOnly />
 				<Button

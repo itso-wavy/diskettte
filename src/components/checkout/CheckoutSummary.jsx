@@ -60,7 +60,7 @@ function CheckoutSummary({ order, ...props }) {
 				info={
 					<>
 						주문 내용을 확인하였으며{' '}
-						<Link to='' className='terms'>
+						<Link to='' className='link'>
 							필수 정보 제공
 						</Link>
 						에 동의합니다.

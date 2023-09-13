@@ -10,24 +10,43 @@ export const StyledFieldset = styled.fieldset`
 		border-bottom: ${({ theme }) => `2px solid ${theme.color.black}`};
 	}
 
-	& .label {
+	/* & .label {
 		width: 10em;
-	}
-
+	} */
+	/* 
 	& .invalid {
 		margin-left: 11.7em;
-	}
+	} */
 
 	&:not(:last-child) {
 		margin-bottom: 2.75em;
 	}
 `
 
+export const GridWrapper = styled.div`
+	display: grid;
+	grid: auto-flow auto / 1fr minmax(10em, 80%);
+	/* gap: 0.5rem 0.45rem; */
+	column-gap: 1.1875rem;
+
+	.label {
+		height: fit-content;
+		position: relative;
+		top: calc(42px / 2 - 0.5em);
+	}
+
+	.shrink {
+		max-width: max(75%, 450px);
+	}
+	/* 
+	& > * {
+		border: 1px solid #d2f78e;
+	}
+
+	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+	} */
+`
+
 export const Wrapper = styled.div`
 	/* max-width: 600px; */
-	// flexbox는 px로 강제할 수가 없다!
-	// 1. 수령인, 휴대폰 인풋 크기 제한
-	// 2. 모바일 뷰에서 배송지 이상하게 보임
-	// 3. 우편번호 검색에서 카카오맵 사용?
-	// 4. 체크아웃 써머리 만들기
 `

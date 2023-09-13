@@ -28,23 +28,16 @@ function AccountLoginFieldset({ serverMessage, ...props }) {
 	return (
 		<fieldset {...props}>
 			<legend className='sr-only'>계정 정보</legend>
-			<FormInput
-				label='아이디'
-				id='id'
-				name='id'
-				placeholder='아이디'
-				labelHidden
-			/>
+			<FormInput id='id' name='id' label='아이디' placeholder='아이디' />
 			{errorMessages.id && (
 				<FormValidationMessage text={errorMessages.id} className='invalid' />
 			)}
 			<FormInput
 				type='password'
-				label='비밀번호'
 				id='password'
 				name='password'
+				label='비밀번호'
 				placeholder='비밀번호'
-				labelHidden
 			/>
 			<FormValidationMessage
 				text={
@@ -101,31 +94,12 @@ function AccountRegisterFieldset({ serverMessage, ...props }) {
 			updateErrorMessage(false, err.response.data.FAIL_Message)
 
 		api(client)(success, error)
-
-		// try {
-		// 	const response = await axios.post(
-		// 		'https://openmarket.weniv.co.kr/accounts/signup/valid/username/',
-		// 		{ username: values.id }
-		// 	)
-
-		// 	if (response.status === 202) {
-		// 		updateErrorMessage(true, '사용 가능한 아이디입니다.')
-		// 	}
-		// } catch (err) {
-		// 	updateErrorMessage(false, err.response.data.FAIL_Message)
-		// }
 	}
 
 	return (
 		<fieldset {...props}>
 			<legend className='sr-only'>계정 정보</legend>
-			<FormInput
-				label='아이디'
-				id='id'
-				name='id'
-				placeholder='아이디'
-				labelHidden
-			>
+			<FormInput id='id' name='id' label='아이디' placeholder='아이디'>
 				<Button
 					style={{ position: 'relative', bottom: '0.25rem' }}
 					name='id'
@@ -148,19 +122,17 @@ function AccountRegisterFieldset({ serverMessage, ...props }) {
 			)} */}
 			<FormInput
 				type='password'
-				label='비밀번호'
 				id='password'
 				name='password'
+				label='비밀번호'
 				placeholder='비밀번호'
-				labelHidden
 			/>
 			<FormInput
 				type='password'
-				label='비밀번호 재확인'
 				id='passwordConfirm'
 				name='passwordConfirm'
+				label='비밀번호 재확인'
 				placeholder='비밀번호 재확인'
-				labelHidden
 			/>
 			<FormValidationMessage
 				text={
@@ -186,11 +158,10 @@ function PersonalInfoRegisterFieldset({ isBuyer, serverMessage, ...props }) {
 		<fieldset {...props}>
 			<legend className='sr-only'>개인 정보</legend>
 			<FormInput
-				label='이름'
 				id='username'
 				name='username'
+				label='이름'
 				placeholder='이름'
-				labelHidden
 			/>
 			{errorMessages.username && (
 				<FormValidationMessage
@@ -200,11 +171,10 @@ function PersonalInfoRegisterFieldset({ isBuyer, serverMessage, ...props }) {
 			)}
 			<FormInput
 				type='phonenumber'
-				label='휴대폰'
 				id='phoneNumber'
 				name='phoneNumber'
+				label='휴대폰'
 				placeholder='휴대폰'
-				labelHidden
 			/>
 			{errorMessages.phoneNumber && (
 				<FormValidationMessage
@@ -215,13 +185,7 @@ function PersonalInfoRegisterFieldset({ isBuyer, serverMessage, ...props }) {
 			{serverMessage && (
 				<FormValidationMessage text={serverMessage} className='invalid' />
 			)}
-			<FormInput
-				label='이메일'
-				id='email'
-				name='email'
-				placeholder='이메일'
-				labelHidden
-			/>
+			<FormInput id='email' name='email' label='이메일' placeholder='이메일' />
 			{errorMessages.email && (
 				<FormValidationMessage text={errorMessages.email} className='invalid' />
 			)}
@@ -233,11 +197,11 @@ function PersonalInfoRegisterFieldset({ isBuyer, serverMessage, ...props }) {
 					name='termsAgree'
 					info={
 						<>
-							<Link to='' className='terms'>
+							<Link to='' className='link'>
 								이용약관
 							</Link>{' '}
 							및{' '}
-							<Link to='' className='terms'>
+							<Link to='' className='link'>
 								개인정보처리방침
 							</Link>
 							에 대한 내용을 확인하였고 이에 동의합니다.
@@ -291,11 +255,10 @@ function SellerInfoRegisterFieldset({
 			<legend className='sr-only'>판매자 정보</legend>
 			<FormInput
 				type='businessNumber'
-				label='사업자등록번호'
 				id='businessNumber'
 				name='businessNumber'
+				label='사업자등록번호'
 				placeholder='사업자등록번호'
-				labelHidden
 			/>
 			{errorMessages.businessNumber && (
 				<FormValidationMessage
@@ -310,11 +273,10 @@ function SellerInfoRegisterFieldset({
 				/>
 			)}
 			<FormInput
-				label='브랜드명'
 				id='brandName'
 				name='brandName'
+				label='브랜드명'
 				placeholder='브랜드명'
-				labelHidden
 			>
 				<Button
 					style={{ position: 'relative', bottom: '0.25rem' }}

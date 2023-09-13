@@ -7,7 +7,6 @@ import {
 	RadioInput,
 	AddressInput,
 } from '../@ui/Input'
-import { Label, SpanLabel } from '../@ui/Label'
 import { Button } from '../@ui/Button'
 import {
 	StyledSection,
@@ -54,9 +53,7 @@ function FormValidationMessage({ text, ...props }) {
 }
 
 function FormInput({
-	required,
 	label,
-	labelHidden,
 	id,
 	name,
 	type = 'text',
@@ -71,19 +68,19 @@ function FormInput({
 	const [isTouched, isValid] = [areTouched[name], areValid[name]]
 
 	if (type === 'checkbox') {
-		return <Checkbox {...{ required, id, name, info, ...props }} />
+		return <Checkbox {...{ id, name, info, ...props }} />
 	}
 
 	if (type === 'phonenumber' || type === 'businessNumber') {
 		return (
 			<Flexbox $direction='row'>
-				<SpanLabel
+				<NumberInput
 					id={id}
+					name={name}
 					label={label}
-					labelHidden={labelHidden}
-					className={required && 'required'}
+					placeholder={placeholder}
+					{...props}
 				/>
-				<NumberInput id={id} name={name} placeholder={placeholder} {...props} />
 			</Flexbox>
 		)
 	}
@@ -91,13 +88,12 @@ function FormInput({
 	if (type === 'address') {
 		return (
 			<Flexbox $direction='row'>
-				<SpanLabel
+				<AddressInput
 					id={id}
+					name={name}
 					label={label}
-					labelHidden={labelHidden}
-					className={required ? 'required address' : 'address'}
+					placeholder={placeholder}
 				/>
-				<AddressInput id={id} name={name} placeholder={placeholder} />
 			</Flexbox>
 		)
 	}
@@ -113,14 +109,8 @@ function FormInput({
 	return (
 		<>
 			<Flexbox $direction='row'>
-				<Label
-					id={id}
-					label={label}
-					labelHidden={labelHidden}
-					className={required && 'required'}
-				/>
 				<TextInput
-					{...{ id, name, type, placeholder, ...props }}
+					{...{ id, name, type, label, placeholder, ...props }}
 					className={isTouched && !isValid ? 'invalid' : ''}
 				/>
 				{children}

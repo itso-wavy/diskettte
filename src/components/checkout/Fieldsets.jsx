@@ -1,7 +1,8 @@
 import { useContext, useMemo } from 'react'
 import { FormContext } from '../../context/form-context'
-import { FormInput, FormValidationMessage } from '../@ui/Form'
-import { StyledFieldset, Wrapper } from './Fieldsets.styled'
+import { Flexbox, FormInput, FormValidationMessage } from '../@ui/Form'
+import { SpanLabel } from '../@ui/Label'
+import { StyledFieldset, GridWrapper, Wrapper } from './Fieldsets.styled'
 
 function ShippingInfoFieldset({ ...props }) {
 	const { errorMessages } = useContext(FormContext)
@@ -9,50 +10,71 @@ function ShippingInfoFieldset({ ...props }) {
 	return (
 		<StyledFieldset {...props}>
 			<legend>배송 정보</legend>
-			<Wrapper>
-				<FormInput label='수령인' id='receiver' name='receiver' required />
-				{errorMessages.receiver && (
-					<FormValidationMessage
-						text={errorMessages.receiver}
-						className='invalid'
-					/>
-				)}
-				<FormInput
-					type='phonenumber'
-					label='휴대폰'
+			<GridWrapper>
+				{/* <Flexbox $direction='row'> */}
+				<SpanLabel id='receiver' label='수령인' className='required' />
+				<div className='shrink'>
+					<FormInput id='receiver' name='receiver' />
+					{errorMessages.receiver && (
+						<FormValidationMessage
+							// text={errorMessages.receiver}
+							text='error!'
+							className='invalid'
+						/>
+					)}
+				</div>
+				{/* </Flexbox> */}
+
+				{/* <Flexbox $direction='row'> */}
+				<SpanLabel
 					id='receiverPhoneNumber'
-					name='receiverPhoneNumber'
-					required
+					label='휴대폰'
+					className='required'
 				/>
-				{errorMessages.receiverPhoneNumber && (
-					<FormValidationMessage
-						text={errorMessages.receiverPhoneNumber}
-						className='invalid'
+				<div className='shrink'>
+					<FormInput
+						type='phonenumber'
+						id='receiverPhoneNumber'
+						name='receiverPhoneNumber'
 					/>
-				)}
-			</Wrapper>
-			<div>
-				<FormInput
-					type='address'
-					label='배송지'
-					id='address'
-					name='address'
-					placeholder='상세 주소 입력'
-					required
-				/>
-				{errorMessages.address && (
-					<FormValidationMessage
-						text={errorMessages.address}
-						className='invalid'
+					{errorMessages.receiverPhoneNumber && (
+						<FormValidationMessage
+							text={errorMessages.receiverPhoneNumber}
+							className='invalid'
+						/>
+					)}
+				</div>
+				{/* </Flexbox> */}
+
+				{/* <Flexbox $direction='row'> */}
+				<SpanLabel id='address' label='배송지' className='required' />
+				<div>
+					<FormInput
+						type='address'
+						id='address'
+						name='address'
+						placeholder='상세 주소 입력'
 					/>
-				)}
-				<FormInput
-					label='배송 요청 사항'
-					id='deliveryRequest'
-					name='deliveryRequest'
-					placeholder='ex. 부재시 문 앞에 놓아주세요.'
-				/>
-			</div>
+					{errorMessages.address && (
+						<FormValidationMessage
+							text={errorMessages.address}
+							className='invalid'
+						/>
+					)}
+				</div>
+				{/* </Flexbox> */}
+
+				{/* <Flexbox $direction='row'> */}
+				<SpanLabel id='deliveryRequest' label='배송 요청 사항' />
+				<div>
+					<FormInput
+						id='deliveryRequest'
+						name='deliveryRequest'
+						placeholder='ex. 부재시 문 앞에 놓아주세요.'
+					/>
+				</div>
+				{/* </Flexbox> */}
+			</GridWrapper>
 		</StyledFieldset>
 	)
 }

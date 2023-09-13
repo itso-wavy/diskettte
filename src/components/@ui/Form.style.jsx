@@ -49,8 +49,9 @@ export const Flexbox = styled.div`
 	display: flex;
 	flex-direction: ${({ $direction }) => $direction || 'column'};
 	align-items: center;
-	column-gap: 0.45rem;
-	row-gap: 0.5rem;
+	gap: 0.5rem 0.45rem;
+	/* column-gap: 0.45rem;
+	row-gap: 0.5rem; */
 `
 
 export const Validation = styled.p`
