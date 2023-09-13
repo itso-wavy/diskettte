@@ -28,52 +28,18 @@ const getOrder = async () => {
 	// return getAllCartItems(chunkedCart)
 }
 
-// const addToCart = async cartItem => {
-// 	const client = clientAPI.post('cart/', cartItem)
+const createOrder = async orderData => {
+	const client = clientAPI.post('order/', orderData)
 
-// 	const success = res => res.data
-// 	const error = err => {
-// 		throw json({ message: err.message }, { status: err.response.status })
-// 	}
+	const success = res => res.data
+	const error = err => {
+		throw json(
+			{ message: JSON.stringify(err.response.data) },
+			{ status: err.response.status }
+		)
+	}
 
-// 	const cart = api(client)(success, error)
-// 	return cart
-// }
+	return api(client)(success, error)
+}
 
-// const updateToCart = async (cartItemId, cartItem) => {
-// 	const client = clientAPI.put(`cart/${cartItemId}/`, cartItem)
-
-// 	const success = res => res.data
-// 	const error = err => {
-// 		throw json({ message: err.message }, { status: err.response.status })
-// 	}
-
-// 	const cart = api(client)(success, error)
-// 	return cart
-// }
-
-// const removeFromCart = async cartItemId => {
-// 	const client = clientAPI.delete(`cart/${cartItemId}/`)
-
-// 	const success = res => res.data
-// 	const error = err => {
-// 		throw json({ message: err.message }, { status: err.response.status })
-// 	}
-
-// 	const cart = api(client)(success, error)
-// 	return cart
-// }
-
-// const clearCart = async () => {
-// 	const client = clientAPI.delete('cart/')
-
-// 	const success = res => res.data
-// 	const error = err => {
-// 		throw json({ message: err.message }, { status: err.response.status })
-// 	}
-
-// 	const cart = api(client)(success, error)
-// 	return cart
-// }
-
-export { getOrder }
+export { getOrder, createOrder }

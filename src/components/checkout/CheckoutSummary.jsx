@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { FormInput, SubmitButton } from '../@ui/Form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Accordion } from '../@ui/Accordion'
 import { DropdownSvg } from '../@svg/DropdownSvg'
 import { formatNumber } from '../../lib/utils/number-formatter'
@@ -11,21 +11,9 @@ import {
 	StyledFlexbox,
 	ButtonBox,
 } from './CheckoutSummary.style'
+import { FormContext } from '../../context/form-context'
 
 function CheckoutItem({ item, ...props }) {
-	/*  quantity: 1
-      created_at: "2023-09-03T16:10:16.136753"
-      image: "https://openmarket.weniv.co.kr/media/products/2023/09/04/%E1%84%92%E1%85%A1%E1%84%8E%E1%85%B5%E1%84%8B%E1%85%AA%E1%84%85%E1%85%A6.jpeg"
-      price: 10000
-      product_id: 620
-      product_info: "하치와레"
-      product_name: "하치와레"
-      seller: 653
-      shipping_fee: 2500
-      shipping_method: "DELIVERY"
-      stock: 2
-      store_name: "호두까기네"
-      updated_at: "2023-09-10T22:06:01.549023" */
 	const { quantity, image, price, product_name, store_name } = item
 
 	return (
@@ -51,8 +39,63 @@ function CheckoutItem({ item, ...props }) {
 }
 
 function CheckoutSummary({ order, ...props }) {
-	const [summary, setSummary] = useState({})
+	const initialState = {
+		totalProductPrice: 0,
+		totalShippingFee: 0,
+		totalDiscount: 0,
+		totalQuantity: 0,
+		totalPayment: 0,
+	}
+	const [summary, setSummary] = useState(initialState)
 	const { order_kind, total_price, cart, product_id, quantity } = order
+
+	useEffect(() => {
+		let {
+			totalProductPrice,
+			totalShippingFee,
+			totalDiscount,
+			totalQuantity,
+			totalPayment,
+		} = initialState
+
+		if (order_kind === 'cart_order') {
+			for (const productId in cart) {
+				const product = cart[productId]
+
+				totalProductPrice += product.price * product.qty
+				totalShippingFee += product.shippingFee
+				totalDiscount += product.discount
+				totalQuantity += 1
+				totalPayment += totalProductPrice + totalShippingFee - totalDiscount
+			}
+
+			setSummary({
+				totalProductPrice,
+				totalShippingFee,
+				totalDiscount,
+				totalQuantity,
+				totalPayment,
+			})
+		} else if (
+			order_kind === 'cart_one_order' ||
+			order_kind === 'direct_order'
+		) {
+			totalProductPrice = cart.price * cart.quantity
+			totalShippingFee = cart.shipping_fee
+			totalDiscount = 0
+			totalQuantity = 1
+			totalPayment = totalProductPrice + totalShippingFee - totalDiscount
+
+			setSummary({
+				totalProductPrice,
+				totalShippingFee,
+				totalDiscount,
+				totalQuantity,
+				totalPayment,
+			})
+		}
+	}, [cart])
+
 	/* const 전체주문 = {
 		order_kind: 'cart_order',
 		total_price: 227500,
@@ -97,14 +140,50 @@ function CheckoutSummary({ order, ...props }) {
 		},
 	}
   */
-	const orderQuantity =
-		order_kind === 'cart_order' ? Object.keys(cart).length : 1
+	const { values } = useContext(FormContext)
+
+	const checkoutHandler = e => {
+		const {
+			address,
+			deliveryRequest,
+			order_kind,
+			paymentMethod,
+			productId,
+			receiver,
+			receiverPhoneNumber,
+		} = values
+
+		const availableMethod = [
+			'CARD',
+			'DEPOSIT',
+			'PHONE_PAYMENT',
+			'NAVERPAY',
+			'KAKAOPAY',
+		]
+		const isAvailableMethod = availableMethod.find(
+			method => paymentMethod === method
+		)
+
+		const orderData = {
+			product_id: productId,
+			quantity: summary.totalQuantity,
+			order_kind: order_kind,
+			total_price: summary.totalPayment,
+			receiver: receiver,
+			receiver_phone_number: '0' + receiverPhoneNumber,
+			address: address,
+			address_message: deliveryRequest || '.',
+			payment_method: isAvailableMethod ? paymentMethod : 'NAVERPAY',
+		}
+
+		e.target.value = JSON.stringify(orderData)
+	}
 
 	return (
-		<StyledFieldset>
+		<StyledFieldset {...props}>
 			<Accordion
 				collapsed={true}
-				title={`주문 상품 정보 (${orderQuantity}건)`}
+				title={`주문 상품 정보 (${summary.totalQuantity}건)`}
 				icon={[
 					<DropdownSvg style={{ transform: 'rotate(90deg)' }} />,
 					<DropdownSvg style={{ transform: 'rotate(270deg)' }} />,
@@ -165,7 +244,9 @@ function CheckoutSummary({ order, ...props }) {
 						</>
 					}
 				/>
-				<SubmitButton>결제하기</SubmitButton>
+				<SubmitButton name='submitter' onClick={checkoutHandler}>
+					결제하기
+				</SubmitButton>
 			</ButtonBox>
 		</StyledFieldset>
 	)
