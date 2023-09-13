@@ -4,7 +4,7 @@ import { FormContext } from '../../context/form-context'
 import { Button } from '../@ui/Button'
 import { FormInput, FormValidationMessage } from '../@ui/Form'
 import { passwordSchema } from '../../lib/validation/auth-validation'
-import { api, clientAPI } from '../../lib/api'
+import { validateBrandFromServer, validateIdFromServer } from '../../lib/api'
 
 function AccountLoginFieldset({ serverMessage, ...props }) {
 	const [isValid, setIsValid] = useState({
@@ -82,18 +82,10 @@ function AccountRegisterFieldset({ serverMessage, ...props }) {
 		}))
 	}, [password, passwordConfirm])
 
-	const validateUniqueId = async e => {
+	const validateUniqueId = e => {
 		const updateErrorMessage = checkUniquenessHandler(e)
 
-		const client = clientAPI.post('accounts/signup/valid/username/', {
-			username: values.id,
-		})
-
-		const success = () => updateErrorMessage(true, '사용 가능한 아이디입니다.')
-		const error = err =>
-			updateErrorMessage(false, err.response.data.FAIL_Message)
-
-		api(client)(success, error)
+		validateIdFromServer({ username: values.id }, updateErrorMessage)
 	}
 
 	return (
@@ -117,9 +109,6 @@ function AccountRegisterFieldset({ serverMessage, ...props }) {
 			{serverMessage && (
 				<FormValidationMessage text={serverMessage} className='invalid' />
 			)}
-			{/* {serverMessage && (
-				<FormValidationMessage text={serverMessage} className='invalid' />
-			)} */}
 			<FormInput
 				type='password'
 				id='password'
@@ -221,33 +210,13 @@ function SellerInfoRegisterFieldset({
 	const { values, areValid, errorMessages, checkUniquenessHandler } =
 		useContext(FormContext)
 
-	const validateUniqueBrandName = async e => {
+	const validateUniqueBrandName = e => {
 		const updateErrorMessage = checkUniquenessHandler(e)
 
-		const client = clientAPI.post(
-			'accounts/signup/valid/company_registration_number/',
-			{ company_registration_number: values.businessNumber }
+		validateBrandFromServer(
+			{ company_registration_number: values.businessNumber },
+			updateErrorMessage
 		)
-
-		const success = () =>
-			updateErrorMessage(true, '사용 가능한 사업자등록번호입니다.')
-		const error = err =>
-			updateErrorMessage(false, err.response.data.FAIL_Message)
-
-		api(client)(success, error)
-
-		// try {
-		// 	const response = await axios.post(
-		// 		'https://openmarket.weniv.co.kr/accounts/signup/valid/company_registration_number/',
-		// 		{ company_registration_number: values.businessNumber }
-		// 	)
-
-		// 	if (response.status === 202) {
-		// 		updateErrorMessage(true, '사용 가능한 사업자등록번호입니다.')
-		// 	}
-		// } catch (err) {
-		// 	updateErrorMessage(false, err.response.data.FAIL_Message)
-		// }
 	}
 
 	return (

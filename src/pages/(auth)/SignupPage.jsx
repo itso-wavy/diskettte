@@ -2,9 +2,8 @@ import { useEffect } from 'react'
 import { redirect, useNavigate } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import { AuthForm } from '../../components/auth/AuthForm'
-import { api, clientAPI } from '../../lib/api'
+import { signupAsBuyer, signupAsSeller } from '../../lib/api'
 import useStore from '../../store'
-// import axios from 'axios'
 
 export function SignupPage() {
 	useTitle('Sign Up')
@@ -41,10 +40,15 @@ export const signupAction = async ({ request }) => {
 			data.get('phoneNumber3'),
 	}
 
-	let client
+	// let client
+
+	const success = () => {
+		alert('회원가입에 성공했습니다.')
+		return redirect('/auth/signin')
+	}
 
 	if (isBuyer) {
-		client = clientAPI.post('accounts/signup/', authData)
+		return signupAsBuyer(authData, success)
 	} else if (!isBuyer) {
 		authData.store_name = data.get('brandName')
 		authData.company_registration_number =
@@ -52,45 +56,6 @@ export const signupAction = async ({ request }) => {
 			data.get('businessNumber2') +
 			data.get('businessNumber3')
 
-		client = clientAPI.post('accounts/signup_seller/', authData)
+		return signupAsSeller(authData, success)
 	}
-
-	const success = () => {
-		alert('회원가입에 성공했습니다.')
-
-		return redirect('/auth/signin')
-	}
-	const error = err => {
-		return err.response.data
-	}
-
-	return api(client)(success, error)
-
-	// try {
-	// 	let response
-
-	// 	if (isBuyer) {
-	// 		response = await axios.post(
-	// 			'https://openmarket.weniv.co.kr/accounts/signup/',
-	// 			authData
-	// 		)
-	// 	} else if (!isBuyer) {
-	// 		authData.store_name = data.get('brandName')
-	// 		authData.company_registration_number =
-	// 			data.get('businessNumber') +
-	// 			data.get('businessNumber2') +
-	// 			data.get('businessNumber3')
-
-	// 		response = await axios.post(
-	// 			'https://openmarket.weniv.co.kr/accounts/signup_seller/',
-	// 			authData
-	// 		)
-	// 	}
-
-	// 	if (response.status === 201) {
-	// 		return redirect('/auth/signin')
-	// 	}
-	// } catch (err) {
-	// 	return err.response.data
-	// }
 }
