@@ -4,7 +4,6 @@ export const StyledSpan = styled.span`
 	display: inline-flex;
 	justify-content: space-between;
 	align-items: center;
-	/* gap: 0.5em; */
 	position: relative;
 	font-size: 0.75rem; // 12px
 	font-weight: ${({ theme }) => theme.fw.medium};
@@ -44,18 +43,3 @@ export const StyledSpan = styled.span`
 		}
 	}}
 `
-/* 
-		return css`
-			background-color: ${{
-				primary: color.black,
-				secondary: color.white,
-			}[$style] || color.black};
-			color: ${{
-				primary: color.white,
-				secondary: color.darkgray2,
-			}[$style] || color.white};
-			border: ${{
-				primary: 0,
-				secondary: `1px solid ${color.darkgray2}`,
-			}[$style] || 0};
- */

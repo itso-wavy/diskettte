@@ -24,7 +24,7 @@ function AccordionTitle({ title, expanded, icon, id, freeze, ...props }) {
 }
 
 /**
- * @returns <Accordion title, id, collapsed, freeze?, children />
+ * @returns <Accordion title, id, collapsed?, icon?, freeze?, children />
  */
 function Accordion({
 	collapsed = false,

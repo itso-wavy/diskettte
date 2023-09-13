@@ -55,6 +55,5 @@ export const StyledNumberLink = styled(StyledLink)`
 	&[aria-current='page'] {
 		color: ${({ theme }) => theme.color.white};
 		background-color: var(--bgc);
-		/* border: ${({ theme }) => `1px solid ${theme.color.black}`}; */
 	}
 `

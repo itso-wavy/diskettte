@@ -24,14 +24,8 @@ import {
 	AddressWrapper,
 } from './Input.style'
 
-// (서버 밸리데이션)
-// 아이디, 셀러 브랜드명 중복 확인
-// (로그인)
-// 전송 보낸 후, 일치하는 계정 없으면 메시지
-// 전송 보낸 후, 유저 유형이 다를 때 메시지 */
-
 /**
- * @returns <TextInput id name type label validationFn />
+ * @returns <TextInput id name type label placeholder validationFn />
  */
 function TextInput({
 	id,
@@ -212,22 +206,22 @@ function AddressInput({ id, name, label, placeholder, ...props }) {
 	const onload = useCallback(() => {
 		return new daum.Postcode({
 			theme: {
-				bgColor: '#F2F2F2', //바탕 배경색
+				bgColor: '#F2F2F2',
 				// 	searchBgColor: '#AFCCF8', //검색창 배경색
 				searchBgColor: '#F2F2F2', //검색창 배경색
-				contentBgColor: '#FFFFFF', //본문 배경색(검색결과,결과없음,첫화면,검색서제스트)
-				pageBgColor: '#FFFFFFC0', //페이지 배경색
-				textColor: '#000000', //기본 글자색
-				queryTextColor: '#000000', //검색창 글자색
-				postcodeTextColor: '#FFC107', //우편번호 글자색
-				emphTextColor: '#6F8CFF', //강조 글자색
-				outlineColor: '#CCCCCC', //테두리
+				contentBgColor: '#FFFFFF',
+				pageBgColor: '#FFFFFFC0',
+				textColor: '#000000',
+				queryTextColor: '#000000',
+				postcodeTextColor: '#FFC107',
+				emphTextColor: '#6F8CFF',
+				outlineColor: '#CCCCCC',
 			},
 			oncomplete: function (data) {
 				let addr = ''
 
 				if (data.userSelectedType === 'R') {
-					// 사용자가 도로명 주소를 선택했을 경우
+					// 사용자가 도로명 주소를 선택했을 경우(R)
 					let extraAddr = ''
 
 					if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {

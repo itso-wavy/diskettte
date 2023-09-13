@@ -23,7 +23,6 @@ export const StyledLi = styled.li`
 	display: flex;
 	flex: 1 0 100%;
 	position: relative;
-	/* background-color: #ddd; */
 
 	& > * {
 		flex: 1 0 100%;
@@ -83,15 +82,12 @@ export const Pagination = styled.div`
 	display: flex;
 	align-self: flex-end;
 	gap: 0.3rem;
-	/* margin-right: 2rem; */
 	margin-right: ${({ theme }) => theme.spacing.width.desktop};
 	margin-bottom: 0.5em;
 	font-size: 1.25rem;
 	font-style: italic;
-	/* color: ${({ theme }) => theme.color.darkgray}; */
 
 	.current {
-		/* color: ${({ theme }) => theme.color.black}; */
 		margin-right: 0.125em;
 	}
 

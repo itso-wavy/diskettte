@@ -1,8 +1,4 @@
-import {
-	// StyledLabel,
-	StyledSpanLabel,
-	BlockLabel,
-} from './Label.style'
+import { StyledSpanLabel, BlockLabel } from './Label.style'
 
 function HiddenLabel({ id, label, ...props }) {
 	return (

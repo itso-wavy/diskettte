@@ -24,8 +24,6 @@ export const StyledSection = styled.section`
 			border-right: 1px solid rgba(255, 255, 255, 0.5);
 			-webkit-box-shadow: 0 22px 42px rgba(212, 218, 227, 0.41172);
 			box-shadow: 0 22px 42px rgba(212, 218, 227, 0.41172);
-			/* box-shadow: inset 20px 12px 24px #e7f2f9, inset -24px -24px 48px #dcdfe2,
-				0 35px 68px 0 #88aede6b, 24px 24px 48px #c4d1c8; */
 
 			@media (max-width: ${theme.breakpoints.mobile}) {
 				margin: 4em ${theme.spacing.width.mobile};
@@ -50,8 +48,6 @@ export const Flexbox = styled.div`
 	flex-direction: ${({ $direction }) => $direction || 'column'};
 	align-items: center;
 	gap: 0.5rem 0.45rem;
-	/* column-gap: 0.45rem;
-	row-gap: 0.5rem; */
 `
 
 export const Validation = styled.p`
@@ -127,7 +123,6 @@ export const GridWrapper = styled.div`
 	& > * {
 		display: grid;
 		grid-auto-flow: column;
-		/* grid: auto-flow 50px / repeat(auto-fit, minmax(min(150px, 50%), 1fr)); */
 		grid: auto-flow 50px / repeat(auto-fit, minmax(130px, 1fr));
 		gap: 0.5em;
 	}
