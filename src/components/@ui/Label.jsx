@@ -20,6 +20,7 @@ function SpanLabel({ id, label, labelHidden = false, className, ...props }) {
 			{!labelHidden && (
 				<StyledSpanLabel
 					htmlFor={id}
+					aria-label='label'
 					className={
 						labelHidden ? `sr-only label ${className}` : `label ${className}`
 					}

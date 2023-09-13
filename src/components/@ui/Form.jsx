@@ -1,6 +1,12 @@
 import { useContext } from 'react'
 import { FormContext } from '../../context/form-context'
-import { TextInput, Checkbox, NumberInput, RadioInput } from '../@ui/Input'
+import {
+	TextInput,
+	Checkbox,
+	NumberInput,
+	RadioInput,
+	AddressInput,
+} from '../@ui/Input'
 import { Label, SpanLabel } from '../@ui/Label'
 import { Button } from '../@ui/Button'
 import {
@@ -84,33 +90,15 @@ function FormInput({
 
 	if (type === 'address') {
 		return (
-			<>
-				<Flexbox $direction='row' {...props}>
-					<SpanLabel
-						id={id}
-						label={label}
-						labelHidden={labelHidden}
-						className={required ? 'required address' : 'address'}
-					/>
-					<div style={{ flexGrow: 1 }}>
-						<Flexbox $direction='row'>
-							<TextInput id={id} name={name} readonly />
-							<Button
-								type='button'
-								$style='secondary'
-								style={{ position: 'relative', bottom: '0.25rem' }}
-							>
-								우편번호 검색
-							</Button>
-						</Flexbox>
-						<TextInput
-							id={id + '2'}
-							name={name + '2'}
-							placeholder={placeholder}
-						/>
-					</div>
-				</Flexbox>
-			</>
+			<Flexbox $direction='row'>
+				<SpanLabel
+					id={id}
+					label={label}
+					labelHidden={labelHidden}
+					className={required ? 'required address' : 'address'}
+				/>
+				<AddressInput id={id} name={name} placeholder={placeholder} />
+			</Flexbox>
 		)
 	}
 

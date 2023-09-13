@@ -86,3 +86,19 @@ export const StyledLi = styled.li`
 		position: absolute;
 	}
 `
+
+export const AddressWrapper = styled(InputWrapper)`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	column-gap: 0.45rem;
+	row-gap: 0.5rem;
+
+	& > * {
+		width: 100%;
+	}
+
+	& input {
+		padding: 1rem 0.8rem;
+	}
+`

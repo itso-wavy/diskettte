@@ -6,7 +6,6 @@ export const ACTION_CREATOR = {
 	BLUR: 'BLUR',
 	CLEAR: 'CLEAR',
 	CHECK: 'CHECK',
-	CHECK_REQUIRED: 'CHECK_REQUIRED',
 }
 
 const reducer = (state, action) => {
@@ -33,12 +32,7 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				values: { ...state.values, [name]: !state.values[name] },
-				areValid: { ...state.areValid, [name]: true },
-			}
-		case ACTION_CREATOR.CHECK_REQUIRED:
-			return {
-				...state,
-				areValid: { ...state.areValid, [name]: !state.areValid[name] },
+				areValid: { ...state.areValid, ...areValid },
 			}
 		default:
 			return state
@@ -61,7 +55,7 @@ export const useForm = initialState => {
 	const onInputHandler = (e, options) => {
 		let { value, name } = e.target
 
-		if (options.type === 'number') value = Number(value.replace(/\D/g, ''))
+		if (options?.type === 'number') value = Number(value.replace(/\D/g, ''))
 
 		dispatch({
 			type: ACTION_CREATOR.INPUT,
@@ -102,6 +96,13 @@ export const useForm = initialState => {
 			})
 	}
 
+	const onManuallyValidateHandler = ({ name, isValid }) => {
+		dispatch({
+			type: ACTION_CREATOR.BLUR,
+			areValid: { [name]: isValid },
+		})
+	}
+
 	const checkUniquenessHandler = e => {
 		e.preventDefault()
 
@@ -138,16 +139,13 @@ export const useForm = initialState => {
 		const { name } = e.target
 		if (!name) return
 
-		if (required)
-			dispatch({
-				type: ACTION_CREATOR.CHECK_REQUIRED,
-				name,
-			})
-		else
-			dispatch({
-				type: ACTION_CREATOR.CHECK,
-				name,
-			})
+		let isValid = true
+		if (required) isValid = !state.areValid[name]
+
+		dispatch({
+			type: ACTION_CREATOR.CHECK,
+			areValid: { [name]: isValid },
+		})
 	}
 
 	const onRadioChangeHandler = e => {
@@ -158,6 +156,11 @@ export const useForm = initialState => {
 		dispatch({
 			type: ACTION_CREATOR.INPUT,
 			values: { ...state.values, [name]: value },
+		})
+
+		dispatch({
+			type: ACTION_CREATOR.BLUR,
+			areValid: { [name]: true },
 		})
 	}
 
@@ -174,6 +177,7 @@ export const useForm = initialState => {
 		dispatch,
 		onInputHandler,
 		onBlurHandler,
+		onManuallyValidateHandler,
 		checkUniquenessHandler,
 		clearInputHandler,
 		onCheckHandler,
@@ -181,8 +185,3 @@ export const useForm = initialState => {
 		ableSubmit,
 	}
 }
-
-// paymentMethod: {
-//   pattern: /.*/,
-//   message: '결제 방법을 선택해주세요.',
-// }

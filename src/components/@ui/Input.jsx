@@ -1,16 +1,18 @@
-import { useRef } from 'react'
 import {
 	useState,
+	useCallback,
+	useRef,
 	useContext,
 	useEffect,
 	forwardRef,
 	useImperativeHandle,
 } from 'react'
 import { FormContext } from '../../context/form-context'
-import { useInput } from '../../hooks'
-import { ButtonLabel, Label } from './Label'
+import { useInput, useScript } from '../../hooks'
+import { ButtonLabel } from './Label'
 import { Button } from './Button'
 import { Img } from './Img'
+import { Flexbox } from './Form'
 import EraseImg from '/assets/icons/wavy_erase-sharp.svg'
 import CheckedImg from '/assets/icons/checked.svg'
 import UncheckedImg from '/assets/icons/unchecked.svg'
@@ -19,6 +21,7 @@ import {
 	NumberWrapper,
 	CheckboxWrapper,
 	StyledLi,
+	AddressWrapper,
 } from './Input.style'
 
 // (서버 밸리데이션)
@@ -196,6 +199,111 @@ function RadioInput({ option, name, ...props }) {
 	)
 }
 
+function AddressInput({ id, name, placeholder, ...props }) {
+	const nextRef = useRef()
+	const [address, setAddress] = useState({
+		value1: '',
+		value2: '',
+	})
+	const { onInputHandler, onBlurHandler } = useContext(FormContext)
+
+	const url = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js'
+
+	const onload = useCallback(() => {
+		return new daum.Postcode({
+			theme: {
+				bgColor: '#F2F2F2', //바탕 배경색
+				// 	searchBgColor: '#AFCCF8', //검색창 배경색
+				searchBgColor: '#F2F2F2', //검색창 배경색
+				contentBgColor: '#FFFFFF', //본문 배경색(검색결과,결과없음,첫화면,검색서제스트)
+				pageBgColor: '#FFFFFFC0', //페이지 배경색
+				textColor: '#000000', //기본 글자색
+				queryTextColor: '#000000', //검색창 글자색
+				postcodeTextColor: '#FFC107', //우편번호 글자색
+				emphTextColor: '#6F8CFF', //강조 글자색
+				outlineColor: '#CCCCCC', //테두리
+			},
+			oncomplete: function (data) {
+				let addr = ''
+
+				if (data.userSelectedType === 'R') {
+					// 사용자가 도로명 주소를 선택했을 경우
+					let extraAddr = ''
+
+					if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+						extraAddr += data.bname
+					}
+					if (data.buildingName !== '' && data.apartment === 'Y') {
+						extraAddr +=
+							extraAddr !== '' ? ', ' + data.buildingName : data.buildingName
+					}
+					if (extraAddr !== '') {
+						extraAddr = ` (${extraAddr})`
+					}
+
+					addr = data.roadAddress + extraAddr
+				} else {
+					// 사용자가 지번 주소를 선택했을 경우(J)
+					addr = data.jibunAddress
+				}
+
+				setAddress(value => ({ ...value, value1: data.zonecode + ' ' + addr }))
+			},
+		})
+	}, [])
+
+	const searchAddressHandler = () => {
+		onload().open()
+		nextRef.current.focus()
+	}
+
+	useEffect(() => {
+		if (!address.value1) return
+
+		const fullAddress = address.value1 + address.value2
+		const event = { target: { value: fullAddress, name } }
+
+		onInputHandler(event)
+		onBlurHandler(event)
+	}, [address.value1, address.value2])
+
+	useScript(url, onload)
+
+	return (
+		<AddressWrapper {...props}>
+			<Flexbox $direction='row'>
+				<input id={id} name={name} value={address.value1} readOnly />
+				<Button
+					type='button'
+					$style='secondary'
+					style={{ width: '30%' }}
+					onClick={searchAddressHandler}
+				>
+					우편번호 검색
+				</Button>
+			</Flexbox>
+			<Flexbox $direction='row'>
+				<input
+					ref={nextRef}
+					id={id + '2'}
+					name={name}
+					value={address.value2}
+					placeholder={placeholder}
+					onInput={e =>
+						setAddress(value => ({ ...value, value2: e.target.value }))
+					}
+				/>
+			</Flexbox>
+		</AddressWrapper>
+	)
+}
+
 const RefCheckbox = forwardRef(Checkbox)
 
-export { TextInput, NumberInput, RefCheckbox as Checkbox, RadioInput }
+export {
+	TextInput,
+	NumberInput,
+	RefCheckbox as Checkbox,
+	RadioInput,
+	AddressInput,
+}
