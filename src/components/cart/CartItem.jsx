@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { Link, useFetcher, useNavigate } from 'react-router-dom'
 import { FormContext } from '../../context/form-context'
 import { Checkbox } from '../@ui/Input'
@@ -61,7 +61,6 @@ function OrderButton({
 
 		setOrderItems(cartItem)
 
-		// return redirect('/checkout')
 		return navigate('/checkout')
 
 		/* cartItemId: 3732
@@ -80,12 +79,7 @@ function OrderButton({
 	)
 }
 
-function RemoveButton({
-	cartItemId,
-	productId,
-	// submit,
-	...props
-}) {
+function RemoveButton({ cartItemId, productId, ...props }) {
 	const { removeFormCartStore } = useStore()
 
 	const removeItemHandler = () => {
@@ -113,7 +107,6 @@ function CartItemInfo({
 	price,
 	stock,
 	isSoldout,
-	// submit,
 	...props
 }) {
 	const spinnerRef = useRef()
@@ -121,14 +114,7 @@ function CartItemInfo({
 	const { values } = useContext(FormContext)
 	const { qty } = values
 	const isExceededStock = !isSoldout && qty > stock
-	/*cartItemId,
-	productId,
-	isActive,
-	isSoldout,
-	price,
-	qty,
-	shippingFee,
-	discount, */
+
 	useEffect(() => {
 		if (!cart[productId] || cart[productId].qty === qty) return
 
@@ -145,23 +131,6 @@ function CartItemInfo({
 
 		return undefined
 	}, [qty])
-
-	// const modifyQtyHandler = () => {
-	// 	// formData.submitter = 'modifyQty'
-	// 	console.log('2번', qty)
-
-	// 	const isActive = cart[productId].isActive
-
-	// 	const cartItem = {
-	// 		product_id: productId,
-	// 		quantity: qty,
-	// 		is_active: isActive,
-	// 	}
-
-	// 	updateToCart(cartItemId, cartItem)
-
-	// 	return null
-	// }
 
 	return (
 		<ProductInfo $soldout={isSoldout} {...props}>
@@ -184,12 +153,7 @@ function CartItemInfo({
 				)}
 			</div>
 			<div className='spinner'>
-				<QuantitySpinner
-					ref={spinnerRef}
-					name='qty'
-					stock={stock}
-					// onClick={modifyQtyHandler}
-				/>
+				<QuantitySpinner ref={spinnerRef} name='qty' stock={stock} />
 				{isSoldout && <p className='out-of-stock'>품절되었습니다.</p>}
 				{isExceededStock && (
 					<p className='out-of-stock'>재고를 초과하였습니다.</p>
@@ -222,7 +186,6 @@ function CartItemImg({ productId, src, productName, isSoldout, ...props }) {
 
 function CartItem({ item, ...props }) {
 	const fetcher = useFetcher()
-	// const submit = () => fetcher.submit()
 	const checkboxRef = useRef()
 	const { values } = useContext(FormContext)
 	const qty = values.qty
@@ -305,21 +268,14 @@ function CartItem({ item, ...props }) {
 						price,
 						stock,
 						isSoldout,
-						// submit,
 					}}
 				/>
 				<RemoveButton
 					className='remove-btn'
 					cartItemId={cartItemId}
 					productId={productId}
-					// submit={submit}
 				/>
-				<OrderButton
-					className='order-btn'
-					productId={productId}
-					// stock={stock}
-					// submit={submit}
-				/>
+				<OrderButton className='order-btn' productId={productId} />
 			</fetcher.Form>
 			<ShippingInfo shippingMethod={shippingMethod} shippingFee={shippingFee} />
 		</StyledLi>

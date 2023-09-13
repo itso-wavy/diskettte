@@ -72,6 +72,7 @@ function CheckoutForm({ order, ...props }) {
 	return (
 		<Form method='POST' {...props}>
 			<Wrapper>
+				<h2 className='sr-only'>배송/결제 정보 입력</h2>
 				<div>
 					<ShippingInfoFieldset />
 					<PaymentMethodFieldset />

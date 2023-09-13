@@ -29,12 +29,7 @@ function FooterNavMenu({ title, children, ...props }) {
 			<Accordion
 				collapsed={collapsed}
 				freeze={!isMobile}
-				title={
-					<>
-						{title.toUpperCase()}
-						{/* {isMobile && <PlusSvg />} */}
-					</>
-				}
+				title={<>{title.toUpperCase()}</>}
 				icon={isMobile && [<PlusSvg />, <MinusSvg />]}
 				id={title}
 				{...props}

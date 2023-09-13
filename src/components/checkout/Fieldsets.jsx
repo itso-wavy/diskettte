@@ -1,8 +1,8 @@
 import { useContext, useMemo } from 'react'
 import { FormContext } from '../../context/form-context'
-import { Flexbox, FormInput, FormValidationMessage } from '../@ui/Form'
+import { FormInput, FormValidationMessage } from '../@ui/Form'
 import { SpanLabel } from '../@ui/Label'
-import { StyledFieldset, GridWrapper, Wrapper } from './Fieldsets.styled'
+import { StyledFieldset, GridWrapper } from './Fieldsets.styled'
 
 function ShippingInfoFieldset({ ...props }) {
 	const { errorMessages } = useContext(FormContext)
@@ -11,7 +11,6 @@ function ShippingInfoFieldset({ ...props }) {
 		<StyledFieldset {...props}>
 			<legend>배송 정보</legend>
 			<GridWrapper>
-				{/* <Flexbox $direction='row'> */}
 				<SpanLabel id='receiver' label='수령인' className='required' />
 				<div className='shrink'>
 					<FormInput id='receiver' name='receiver' />
@@ -23,9 +22,7 @@ function ShippingInfoFieldset({ ...props }) {
 						/>
 					)}
 				</div>
-				{/* </Flexbox> */}
 
-				{/* <Flexbox $direction='row'> */}
 				<SpanLabel
 					id='receiverPhoneNumber'
 					label='휴대폰'
@@ -44,9 +41,7 @@ function ShippingInfoFieldset({ ...props }) {
 						/>
 					)}
 				</div>
-				{/* </Flexbox> */}
 
-				{/* <Flexbox $direction='row'> */}
 				<SpanLabel id='address' label='배송지' className='required' />
 				<div>
 					<FormInput
@@ -62,9 +57,7 @@ function ShippingInfoFieldset({ ...props }) {
 						/>
 					)}
 				</div>
-				{/* </Flexbox> */}
 
-				{/* <Flexbox $direction='row'> */}
 				<SpanLabel id='deliveryRequest' label='배송 요청 사항' />
 				<div>
 					<FormInput
@@ -73,7 +66,6 @@ function ShippingInfoFieldset({ ...props }) {
 						placeholder='ex. 부재시 문 앞에 놓아주세요.'
 					/>
 				</div>
-				{/* </Flexbox> */}
 			</GridWrapper>
 		</StyledFieldset>
 	)

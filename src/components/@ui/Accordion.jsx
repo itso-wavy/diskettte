@@ -18,7 +18,7 @@ function AccordionTitle({ title, expanded, icon, id, freeze, ...props }) {
 			{...props}
 		>
 			{title}
-			{expanded ? icon[1] : icon[0]}
+			{icon && expanded ? icon[1] : icon[0]}
 		</summary>
 	)
 }
@@ -30,7 +30,7 @@ function Accordion({
 	collapsed = false,
 	freeze = false,
 	title,
-	icon,
+	icon = '',
 	id,
 	children,
 	...props

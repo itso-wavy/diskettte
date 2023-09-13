@@ -55,6 +55,10 @@ export const Wrapper = styled.div`
 	& dd > strong {
 		font-weight: ${({ theme }) => theme.fw.bold};
 	}
+
+	& strong {
+		margin-right: 1px;
+	}
 `
 
 export const StyledFlexbox = styled(Flexbox)`

@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { useLoaderData } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import { FormProvider } from '../../context/form-context'
-import { CheckoutForm, CheckoutSummary } from '../../components/checkout'
+import { CheckoutForm } from '../../components/checkout'
 import { getProduct } from '../../lib/api'
 import { getOrderItems } from '../../lib/utils/storage'
-// import { Wrapper } from './CheckoutPage.style'
+import { MinusPaddedWrapper } from './CheckoutPage.style.jsx'
 
 export const checkoutLoader = async () => {
 	const { product_id, quantity, order_kind, total_price, cart } =
@@ -59,12 +59,11 @@ export function CheckoutPage() {
 	useTitle('결제')
 
 	return (
-		<FormProvider initialState={initialState}>
-			{/* <Wrapper> */}
-			<CheckoutForm order={order} />
-			{/* <CheckoutSummary /> */}
-			{/* </Wrapper> */}
-		</FormProvider>
+		<MinusPaddedWrapper>
+			<FormProvider initialState={initialState}>
+				<CheckoutForm order={order} />
+			</FormProvider>
+		</MinusPaddedWrapper>
 	)
 }
 
