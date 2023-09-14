@@ -75,13 +75,13 @@ function PaymentMethodFieldset({ ...props }) {
 	const methods = useMemo(
 		() => [
 			{ label: '신용/체크카드', value: 'CARD' },
-			{ label: '토스페이', value: 'toss_pay' },
+			{ label: '토스페이', value: 'TOSSPAY' },
 			{ label: '네이버페이', value: 'NAVERPAY' },
 			{ label: '카카오페이', value: 'KAKAOPAY' },
-			{ label: '삼성페이', value: 'samsung_pay' },
-			{ label: 'PAYCO', value: 'payco' },
-			{ label: 'SSG 페이', value: 'ssg_pay' },
-			{ label: '실시간 계좌이체', value: 'bank_transfer' },
+			{ label: '삼성페이', value: 'SAMSUNGPAY' },
+			{ label: 'PAYCO', value: 'PAYCO' },
+			{ label: 'SSG 페이', value: 'SSGPAY' },
+			{ label: '실시간 계좌이체', value: 'BANKTRANSFER' },
 			{ label: '무통장 입금', value: 'DEPOSIT' },
 			{ label: '휴대폰 결제', value: 'PHONE_PAYMENT' },
 			// { label: '신용/체크카드', value: 'credit_card' },

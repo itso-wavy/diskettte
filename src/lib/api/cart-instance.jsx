@@ -79,10 +79,3 @@ const clearCart = async () => {
 }
 
 export { getCart, addToCart, updateToCart, removeFromCart, clearCart }
-
-// GET /cart/
-// POST /cart/
-// GET /cart/
-// PUT /cart/
-// DELETE /cart/ //TODO:
-// DELETE /cart/<int:cart_item_id>/

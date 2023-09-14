@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { FormContext } from '../../context/form-context'
 import { FormInput, SubmitButton } from '../@ui/Form'
-import { Link, useNavigate } from 'react-router-dom'
 import { Accordion } from '../@ui/Accordion'
 import { DropdownSvg } from '../@svg/DropdownSvg'
 import { formatNumber } from '../../lib/utils/number-formatter'
@@ -11,7 +12,6 @@ import {
 	StyledFlexbox,
 	ButtonBox,
 } from './CheckoutSummary.style'
-import { FormContext } from '../../context/form-context'
 
 function CheckoutItem({ item, ...props }) {
 	const { quantity, image, price, product_name, store_name } = item
@@ -47,7 +47,7 @@ function CheckoutSummary({ order, ...props }) {
 		totalPayment: 0,
 	}
 	const [summary, setSummary] = useState(initialState)
-	const { order_kind, total_price, cart, product_id, quantity } = order
+	const { order_kind, cart, quantity } = order
 
 	useEffect(() => {
 		let {
@@ -62,12 +62,12 @@ function CheckoutSummary({ order, ...props }) {
 			for (const productId in cart) {
 				const product = cart[productId]
 
-				totalProductPrice += product.price * product.qty
-				totalShippingFee += product.shippingFee
-				totalDiscount += product.discount
+				totalProductPrice += product.price * product.quantity
+				totalShippingFee += product.shipping_fee
+				totalDiscount += 0
 				totalQuantity += 1
-				totalPayment += totalProductPrice + totalShippingFee - totalDiscount
 			}
+			totalPayment += totalProductPrice + totalShippingFee - totalDiscount
 
 			setSummary({
 				totalProductPrice,
@@ -96,50 +96,6 @@ function CheckoutSummary({ order, ...props }) {
 		}
 	}, [cart])
 
-	/* const 전체주문 = {
-		order_kind: 'cart_order',
-		total_price: 227500,
-		cart: {
-			620: {
-        quantity: 1
-				created_at: "2023-09-03T16:10:16.136753"
-        image: "https://openmarket.weniv.co.kr/media/products/2023/09/04/%E1%84%92%E1%85%A1%E1%84%8E%E1%85%B5%E1%84%8B%E1%85%AA%E1%84%85%E1%85%A6.jpeg"
-        price: 10000
-        product_id: 620
-        product_info: "하치와레"
-        product_name: "하치와레"
-        seller: 653
-        shipping_fee: 2500
-        shipping_method: "DELIVERY"
-        stock: 2
-        store_name: "호두까기네"
-        updated_at: "2023-09-10T22:06:01.549023"
-			},
-		},
-	} 
- 
-	const 바로주문 = {
-		order_kind: 'cart_one_order', 또는 "direct_order"
-    total_price: 10000,
-    product_id: 620,
-    quantity: 1,
-		cart: {
-      quantity: 1
-      created_at: "2023-09-03T16:10:16.136753"
-      image: "https://openmarket.weniv.co.kr/media/products/2023/09/04/%E1%84%92%E1%85%A1%E1%84%8E%E1%85%B5%E1%84%8B%E1%85%AA%E1%84%85%E1%85%A6.jpeg"
-      price: 10000
-      product_id: 620
-      product_info: "하치와레"
-      product_name: "하치와레"
-      seller: 653
-      shipping_fee: 2500
-      shipping_method: "DELIVERY"
-      stock: 2
-      store_name: "호두까기네"
-      updated_at: "2023-09-10T22:06:01.549023"
-		},
-	}
-  */
 	const { values } = useContext(FormContext)
 
 	const checkoutHandler = e => {
@@ -153,6 +109,7 @@ function CheckoutSummary({ order, ...props }) {
 			receiverPhoneNumber,
 		} = values
 
+		// TODO:
 		const availableMethod = [
 			'CARD',
 			'DEPOSIT',
@@ -166,13 +123,13 @@ function CheckoutSummary({ order, ...props }) {
 
 		const orderData = {
 			product_id: productId,
-			quantity: summary.totalQuantity,
+			quantity: quantity,
 			order_kind: order_kind,
 			total_price: summary.totalPayment,
 			receiver: receiver,
 			receiver_phone_number: '0' + receiverPhoneNumber,
 			address: address,
-			address_message: deliveryRequest || '.',
+			address_message: deliveryRequest || '​',
 			payment_method: isAvailableMethod ? paymentMethod : 'NAVERPAY',
 		}
 

@@ -1,29 +1,40 @@
-import { useState } from 'react'
-import {
-	redirect,
-	useActionData,
-	useLoaderData,
-	useNavigate,
-} from 'react-router-dom'
+import { redirect, useLoaderData } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import { FormProvider } from '../../context/form-context'
 import { CheckoutForm } from '../../components/checkout'
 import { getProduct, createOrder } from '../../lib/api'
-import { getOrderItems } from '../../lib/utils/storage'
+import {
+	getOrderItems,
+	setOrderConfirm,
+	// removeOrderItems,
+} from '../../lib/utils/storage'
 import { MinusPaddedWrapper } from './CheckoutPage.style.jsx'
 
 export const checkoutLoader = async () => {
-	const { product_id, quantity, order_kind, total_price, cart } =
-		getOrderItems()
+	const orderItem = getOrderItems()
+
+	// if (!orderItem) {
+	// 	alert('비정상적인 접근입니다.')
+
+	// 	return redirect('/')
+	// }
+
+	const {
+		product_id,
+		quantity,
+		order_kind,
+		// total_price,
+		cart,
+	} = orderItem
 
 	if (order_kind === 'direct_order' || order_kind === 'cart_one_order') {
 		const response = await getProduct(product_id)
-		const price = response.price
-		const totalPrice = total_price ? total_price : price * quantity
+		// const price = response.price
+		// const totalPrice = total_price ? total_price : price * quantity
 
 		return {
 			order_kind,
-			total_price: totalPrice,
+			// total_price: totalPrice,
 			product_id,
 			quantity,
 			cart: { ...response, quantity },
@@ -38,39 +49,28 @@ export const checkoutLoader = async () => {
 			response[product_id] = { ...product, quantity: qty }
 		}
 
-		return { order_kind, total_price, cart: response }
+		return {
+			order_kind,
+			//  total_price,
+			cart: response,
+		}
 	}
 }
 
 export function CheckoutPage() {
-	const navigate = useNavigate()
-	const result = useActionData()
-
-	if (result) {
-		// result를 session에 저장
-
-		return navigate('/checkout/confirm')
-
-		/* address: "03048 서울 종로구 청와대로 1 (세종로)"
-address_message: "."
-buyer: 666
-created_at: "2023-09-14T01:17:12.222503"
-delivery_status: "COMPLETE_PAYMENT"
-order_items: [620]
-order_number: 649
-order_quantity: [1]
-payment_method: "NAVERPAY"
-receiver: "김나나"
-receiver_phone_number: "01011111111"
-total_price: 12500 */
-	}
-
 	const order = useLoaderData()
-	// 데이터 가져온 후 세션에서 데이터 삭제해야 함 TODO:
-	const { order_kind, total_price, cart, product_id, quantity } = order
+	// removeOrderItems()
+
+	const {
+		order_kind,
+		// total_price, cart,
+		product_id,
+		quantity,
+	} = order
+
 	const initialState = {
 		order_kind,
-		total_price,
+		// total_price,
 		receiver: '',
 		receiverPhoneNumber: '',
 		address: '',
@@ -98,5 +98,11 @@ export const checkoutAction = async ({ request, params }) => {
 	const data = await request.formData()
 	const orderData = data.get('submitter')
 
-	return createOrder(orderData)
+	const success = res => {
+		setOrderConfirm(res.data)
+
+		return redirect('/checkout/confirm')
+	}
+
+	return createOrder(orderData, success)
 }

@@ -131,4 +131,14 @@ export const ButtonBox = styled.div`
 	position: absolute;
 	left: 0;
 	bottom: 0;
+
+	& button {
+		font-size: 1.15em;
+		padding: 1.4em 0;
+		color: ${({ theme }) => theme.color.safe};
+	}
+
+	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+		bottom: 5px;
+	}
 `

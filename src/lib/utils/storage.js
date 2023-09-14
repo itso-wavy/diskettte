@@ -1,5 +1,10 @@
 const storage = {
-	storage: { auth: localStorage, cart: sessionStorage, order: sessionStorage },
+	storage: {
+		auth: localStorage,
+		// cart: sessionStorage,
+		order: sessionStorage,
+		order_confirm: sessionStorage,
+	},
 	get: function (key) {
 		const storage = this.storage[key]
 
@@ -22,14 +27,15 @@ const storage = {
 const getAuthToken = () => storage.get('auth')?.state.token
 const getAccountType = () => storage.get('auth')?.state.accountType
 
-// /* cart ▶ session */
-// const getSessionCart = () => storage.get('cart')
-// const setSessionCart = data => storage.set('cart', data)
-// const removeSessionCart = () => storage.remove('cart')
-
 /* order ▶ session */
 const getOrderItems = () => storage.get('order')
 const setOrderItems = cartItem => storage.set('order', cartItem)
+const removeOrderItems = () => storage.remove('order')
+
+/* order_confirm ▶ session */
+const getOrderConfirm = () => storage.get('order_confirm')
+const setOrderConfirm = receipt => storage.set('order_confirm', receipt)
+const removeOrderConfirm = () => storage.remove('order_confirm')
 
 export {
 	storage,
@@ -40,4 +46,8 @@ export {
 	// removeSessionCart,
 	getOrderItems,
 	setOrderItems,
+	removeOrderItems,
+	getOrderConfirm,
+	setOrderConfirm,
+	removeOrderConfirm,
 }
