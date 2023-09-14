@@ -30,17 +30,12 @@ function ShippingInfo({ shippingMethod, shippingFee, ...props }) {
 	)
 }
 
-function OrderButton({
-	productId,
-	// stock,
-	//  submit,
-	...props
-}) {
-	const { cart, totalPrice, removeFormCartStore } = useStore()
+function OrderButton({ productId, ...props }) {
+	const { cart, removeFormCartStore } = useStore()
 	const navigate = useNavigate()
 
-	const orderItemHandler = e => {
-		const { cartItemId, isSoldout, stock, qty } = cart[productId]
+	const orderItemHandler = () => {
+		const { isSoldout, stock, qty } = cart[productId]
 		const isExceededStock = !isSoldout && qty > stock
 
 		if (isSoldout || isExceededStock) {
@@ -49,27 +44,16 @@ function OrderButton({
 		}
 
 		removeFormCartStore(productId)
-		// removeFromCart(cartItemId)
-		// FIXME: 주문 완료 후 서버 카트/혹은 내 UI에서 주문완료 상품이 사라지지 않는다면 수동으로 지워줘야 함
 
 		const cartItem = {
 			product_id: productId,
 			quantity: qty,
 			order_kind: 'cart_one_order',
-			total_price: totalPrice,
 		}
 
 		setOrderItems(cartItem)
 
 		return navigate('/checkout')
-
-		/* cartItemId: 3732
-      discount: 0
-      isActive: true
-      isSoldout: false
-      price: 20000
-      qty: 10
-      shippingFee: 2500 */
 	}
 
 	return (
@@ -189,10 +173,21 @@ function CartItem({ item, ...props }) {
 	const checkboxRef = useRef()
 	const { values } = useContext(FormContext)
 	const qty = values.qty
-	const { cart, isSelectAll, initCartStore, addToCartStore, updateCartStore } =
-		useStore()
+	const {
+		cart,
+		isSelectAll,
+		toggleAllSelected,
+		initCartStore,
+		addToCartStore,
+		updateCartStore,
+	} = useStore()
 
-	const { cart_item_id: cartItemId, product_id: productId, product } = item
+	const {
+		cart_item_id: cartItemId,
+		product_id: productId,
+		product,
+		is_active: isActive,
+	} = item
 	const {
 		seller: brandId,
 		store_name: brandName,
@@ -207,9 +202,9 @@ function CartItem({ item, ...props }) {
 	// const { data, state, formData, json, text, formMethod, formAction } = fetcher
 
 	// useEffect(() => {
-	// console.log(data) // loaderData, actionData
-	// console.log(state) // idle, submitting, loading
-	// console.log(formData) // formData
+	//  // loaderData, actionData
+	//  // idle, submitting, loading
+	//  // formData
 	// if (state === 'idle' && data?.message) {
 	// 	window.alert(data.message)
 	// }
@@ -219,7 +214,7 @@ function CartItem({ item, ...props }) {
 		addToCartStore({
 			cartItemId,
 			productId,
-			isActive: true,
+			isActive,
 			isSoldout,
 			price,
 			stock,
@@ -227,6 +222,7 @@ function CartItem({ item, ...props }) {
 			shippingFee,
 			discount: 0,
 		})
+		toggleAllSelected(true)
 		// return () => initCartStore() // 객체라서 괜찮을지도
 	}, [])
 
@@ -248,6 +244,7 @@ function CartItem({ item, ...props }) {
 					ref={checkboxRef}
 					id={productId}
 					name='isActive'
+					// isActive={true}
 					onClick={onCheckHandler}
 				/>
 				<CartItemImg

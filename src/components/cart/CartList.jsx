@@ -68,7 +68,8 @@ function ListTitle({ ...props }) {
 	const fetcher = useFetcher()
 
 	const checkboxRef = useRef()
-	const { cart, removeFormCartStore, toggleAllSelected } = useStore()
+	const { cart, isSelectAll, removeFormCartStore, toggleAllSelected } =
+		useStore()
 
 	const selectAllHandler = () => {
 		const selectAll = !checkboxRef.current.checked
@@ -120,6 +121,7 @@ function ListTitle({ ...props }) {
 				id='selectAll'
 				name='selectAll'
 				info='전체 선택'
+				// isActive={isSelectAll}
 				onClick={selectAllHandler}
 			/>
 			<SmallMenus style={{ fontSize: '.75rem' }}>

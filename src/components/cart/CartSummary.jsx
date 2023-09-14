@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Button } from '../@ui/Button'
+import { updateToCart } from '../../lib/api'
 import { formatNumber } from '../../lib/utils/number-formatter'
 import { setOrderItems } from '../../lib/utils/storage'
 import { StyledArticle, Wrapper, StyledFlexbox } from './CartSummary.style'
 import useStore from '../../store'
-import { useNavigate } from 'react-router-dom'
 
 function CartSummary({ ...props }) {
 	const initialState = {
@@ -16,7 +17,11 @@ function CartSummary({ ...props }) {
 	}
 	const navigate = useNavigate()
 	const [summary, setSummary] = useState(initialState)
-	const { cart, isSelectAll, totalPrice, setTotalPrice } = useStore()
+	const {
+		cart,
+		isSelectAll,
+		// totalPrice, setTotalPrice
+	} = useStore()
 
 	useEffect(() => {
 		let {
@@ -34,9 +39,9 @@ function CartSummary({ ...props }) {
 				totalShippingFee += product.shippingFee
 				totalDiscount += product.discount
 				totalQuantity += 1
-				totalPayment += totalProductPrice + totalShippingFee - totalDiscount
 			}
 		}
+		totalPayment += totalProductPrice + totalShippingFee - totalDiscount
 
 		setSummary({
 			totalProductPrice,
@@ -45,16 +50,33 @@ function CartSummary({ ...props }) {
 			totalQuantity,
 			totalPayment,
 		})
-		setTotalPrice(totalPayment)
+		// setTotalPrice(totalPayment)
 	}, [cart, isSelectAll])
 
 	const orderHandler = () => {
-		const activeCart = Object.fromEntries(
-			Object.entries(cart).filter(([_, item]) => item.isActive)
-		)
+		const activeCartArr = Object.entries(cart).filter(([productId, item]) => {
+			updateToCart(item.cartItemId, {
+				product_id: productId,
+				quantity: item.qty,
+				is_active: item.isActive,
+			})
+
+			return item.isActive
+		})
+
+		const activeCart = Object.fromEntries(activeCartArr)
+		// const activeCart = Object.fromEntries(
+		// 	Object.entries(cart).filter(([_, item]) => item.isActive)
+		// )
 
 		if (!Object.keys(activeCart).length) {
 			alert('선택하신 상품이 없습니다.')
+			return
+		}
+
+		const hasZeroQty = Object.values(activeCart).some(item => item.qty < 1)
+		if (hasZeroQty) {
+			alert('상품의 수량을 확인해주세요.')
 			return
 		}
 
@@ -73,7 +95,7 @@ function CartSummary({ ...props }) {
 		}
 
 		const cartInfo = {
-			total_price: totalPrice,
+			// total_price: totalPrice,
 			order_kind: 'cart_order',
 			cart: activeItems,
 		}

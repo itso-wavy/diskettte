@@ -47,7 +47,10 @@ const updateToCart = async (cartItemId, cartItem) => {
 
 	const success = res => res.data
 	const error = err => {
-		throw json({ message: err.message }, { status: err.response.status })
+		throw json(
+			{ message: JSON.stringify(err.response.data) },
+			{ status: err.response.status }
+		)
 	}
 
 	const cart = api(client)(success, error)
