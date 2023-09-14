@@ -153,6 +153,18 @@ export const useForm = initialState => {
 
 		const { name, value } = e.target
 
+		let validationMessage = ''
+		let validationResult = false
+
+		const validationFn = validate(name)
+		const trimmingValue = value.trim()
+		if (value) validationResult = validationFn(trimmingValue)
+
+		if (typeof validationResult !== 'boolean') {
+			validationMessage = validationResult
+			validationResult = false
+		}
+
 		dispatch({
 			type: ACTION_CREATOR.INPUT,
 			values: { ...state.values, [name]: value },
@@ -160,6 +172,7 @@ export const useForm = initialState => {
 
 		dispatch({
 			type: ACTION_CREATOR.BLUR,
+			errorMessages: { [name]: validationMessage },
 			areValid: { [name]: true },
 		})
 	}

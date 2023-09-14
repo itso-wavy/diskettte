@@ -7,7 +7,6 @@ export const StyledFieldset = styled.fieldset`
 	padding: 2.1875em;
 	position: sticky;
 	top: 25%;
-	position: relative;
 	border: ${({ theme }) => `4px solid ${theme.color.black}`};
 
 	& summary {
@@ -27,8 +26,6 @@ export const StyledFieldset = styled.fieldset`
 `
 
 export const StyledLi = styled.li`
-	/* background-color: #d1d1d173; */
-
 	border-bottom: ${({ theme }) => `1px solid ${theme.color.gray}`};
 	/* height: 90px; */
 	height: 100px;
@@ -139,6 +136,8 @@ export const ButtonBox = styled.div`
 	}
 
 	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-		bottom: 5px;
+		& button:not(:disabled) {
+			border-bottom: ${({ theme }) => `1px dashed ${theme.color.white}`};
+		}
 	}
 `

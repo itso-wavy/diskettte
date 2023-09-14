@@ -17,11 +17,7 @@ function CartSummary({ ...props }) {
 	}
 	const navigate = useNavigate()
 	const [summary, setSummary] = useState(initialState)
-	const {
-		cart,
-		isSelectAll,
-		// totalPrice, setTotalPrice
-	} = useStore()
+	const { cart, isSelectAll, initCartStore } = useStore()
 
 	useEffect(() => {
 		let {
@@ -50,7 +46,6 @@ function CartSummary({ ...props }) {
 			totalQuantity,
 			totalPayment,
 		})
-		// setTotalPrice(totalPayment)
 	}, [cart, isSelectAll])
 
 	const orderHandler = () => {
@@ -95,12 +90,13 @@ function CartSummary({ ...props }) {
 		}
 
 		const cartInfo = {
-			// total_price: totalPrice,
 			order_kind: 'cart_order',
 			cart: activeItems,
 		}
 
 		setOrderItems(cartInfo)
+
+		initCartStore()
 
 		return navigate('/checkout')
 	}

@@ -3,7 +3,7 @@ import {
 	personalInfoSchema,
 	sellerInfoSchema,
 } from './auth-validation'
-import { shippingInfoSchema } from './order-validation'
+import { shippingInfoSchema, paymentSchema } from './order-validation'
 
 function validate(scheme) {
 	scheme = {
@@ -11,6 +11,7 @@ function validate(scheme) {
 		...personalInfoSchema,
 		...sellerInfoSchema,
 		...shippingInfoSchema,
+		...paymentSchema,
 	}[scheme]
 
 	const validateScheme = value => {

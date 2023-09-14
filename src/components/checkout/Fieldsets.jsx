@@ -16,8 +16,7 @@ function ShippingInfoFieldset({ ...props }) {
 					<FormInput id='receiver' name='receiver' />
 					{errorMessages.receiver && (
 						<FormValidationMessage
-							// text={errorMessages.receiver}
-							text='error!'
+							text={errorMessages.receiver}
 							className='invalid'
 						/>
 					)}
@@ -98,10 +97,19 @@ function PaymentMethodFieldset({ ...props }) {
 		[]
 	)
 
+	const { errorMessages } = useContext(FormContext)
+
 	return (
 		<StyledFieldset {...props}>
 			<legend>결제 방법</legend>
 			<FormInput type='radio' option={methods} name='paymentMethod' />
+			{errorMessages.paymentMethod && (
+				<FormValidationMessage
+					text={errorMessages.paymentMethod}
+					className='invalid'
+					style={{ marginTop: '0.5rem' }}
+				/>
+			)}
 		</StyledFieldset>
 	)
 }
