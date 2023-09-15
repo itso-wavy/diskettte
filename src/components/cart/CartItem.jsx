@@ -8,7 +8,7 @@ import { QuantitySpinner } from '../product'
 import DeleteImg from '/assets/icons/wavy_menu-close.svg'
 import { setOrderItems } from '../../lib/utils/storage'
 import { removeFromCart, updateToCart } from '../../lib/api'
-import { formatNumber } from '../../lib/utils/number-formatter'
+import { formatNumber } from '../../lib/utils/text-formatter'
 import {
 	StyledLi,
 	ProductImage,
@@ -35,7 +35,7 @@ function OrderButton({ productId, ...props }) {
 	const navigate = useNavigate()
 
 	const orderItemHandler = () => {
-		const { isSoldout, stock, qty } = cart[productId]
+		const { cartItemId, isSoldout, stock, qty } = cart[productId]
 		const isExceededStock = !isSoldout && qty > stock
 
 		if (isSoldout || isExceededStock) {
@@ -46,11 +46,13 @@ function OrderButton({ productId, ...props }) {
 		removeFormCartStore(productId)
 
 		const cartItem = {
+			order_kind: 'cart_one_order',
 			product_id: productId,
 			quantity: qty,
-			order_kind: 'cart_one_order',
+			is_active: true,
 		}
 
+		updateToCart(cartItemId, cartItem)
 		setOrderItems(cartItem)
 
 		return navigate('/checkout')
