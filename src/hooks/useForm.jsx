@@ -157,8 +157,7 @@ export const useForm = initialState => {
 		let validationResult = false
 
 		const validationFn = validate(name)
-		const trimmingValue = value.trim()
-		if (value) validationResult = validationFn(trimmingValue)
+		if (value) validationResult = validationFn(value)
 
 		if (typeof validationResult !== 'boolean') {
 			validationMessage = validationResult
@@ -173,7 +172,7 @@ export const useForm = initialState => {
 		dispatch({
 			type: ACTION_CREATOR.BLUR,
 			errorMessages: { [name]: validationMessage },
-			areValid: { [name]: true },
+			areValid: { [name]: validationResult },
 		})
 	}
 

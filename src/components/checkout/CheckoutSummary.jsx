@@ -4,7 +4,7 @@ import { FormContext } from '../../context/form-context'
 import { FormInput, SubmitButton } from '../@ui/Form'
 import { Accordion } from '../@ui/Accordion'
 import { DropdownSvg } from '../@svg/DropdownSvg'
-import { formatNumber } from '../../lib/utils/number-formatter'
+import { formatNumber } from '../../lib/utils/text-formatter'
 import {
 	StyledFieldset,
 	StyledLi,
@@ -109,18 +109,6 @@ function CheckoutSummary({ order, ...props }) {
 			receiverPhoneNumber,
 		} = values
 
-		// TODO:
-		const availableMethod = [
-			'CARD',
-			'DEPOSIT',
-			'PHONE_PAYMENT',
-			'NAVERPAY',
-			'KAKAOPAY',
-		]
-		const isAvailableMethod = availableMethod.find(
-			method => paymentMethod === method
-		)
-
 		const orderData = {
 			product_id: productId,
 			quantity: quantity,
@@ -130,7 +118,7 @@ function CheckoutSummary({ order, ...props }) {
 			receiver_phone_number: '0' + receiverPhoneNumber,
 			address: address,
 			address_message: deliveryRequest || '​',
-			payment_method: isAvailableMethod ? paymentMethod : 'NAVERPAY',
+			payment_method: paymentMethod,
 		}
 
 		e.target.value = JSON.stringify(orderData)

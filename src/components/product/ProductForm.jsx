@@ -4,7 +4,7 @@ import { FormContext } from '../../context/form-context'
 import { QuantitySpinner } from '.'
 import { Button } from '../@ui/Button'
 import { Flexbox } from '../@ui/Form'
-import { formatNumber } from '../../lib/utils/number-formatter'
+import { formatNumber } from '../../lib/utils/text-formatter'
 import { Wrapper, ShippingInfo } from './ProductForm.style.jsx'
 
 function ProductForm({ product, ...props }) {

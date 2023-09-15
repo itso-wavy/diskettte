@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Card } from '../@motion'
 import { Badge } from '../@ui/Badge'
-import { formatNumber } from '../../lib/utils/number-formatter'
+import { formatNumber } from '../../lib/utils/text-formatter'
 import {
 	Wrapper,
 	StyledUl,
