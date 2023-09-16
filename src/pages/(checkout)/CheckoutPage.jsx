@@ -2,39 +2,21 @@ import { redirect, useLoaderData } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import { FormProvider } from '../../context/form-context'
 import { CheckoutForm } from '../../components/checkout'
+import { Section } from '../../components/@motion'
 import { getProduct, createOrder } from '../../lib/api'
-import {
-	getOrderItems,
-	setOrderConfirm,
-	// removeOrderItems,
-} from '../../lib/utils/storage'
+import { getOrderItems, setOrderConfirm } from '../../lib/utils/storage'
 import { MinusPaddedWrapper } from './CheckoutPage.style.jsx'
 
 export const checkoutLoader = async () => {
 	const orderItem = getOrderItems()
 
-	// if (!orderItem) {
-	// 	alert('비정상적인 접근입니다.')
-
-	// 	return redirect('/')
-	// }
-
-	const {
-		product_id,
-		quantity,
-		order_kind,
-		// total_price,
-		cart,
-	} = orderItem
+	const { product_id, quantity, order_kind, cart } = orderItem
 
 	if (order_kind === 'direct_order' || order_kind === 'cart_one_order') {
 		const response = await getProduct(product_id)
-		// const price = response.price
-		// const totalPrice = total_price ? total_price : price * quantity
 
 		return {
 			order_kind,
-			// total_price: totalPrice,
 			product_id,
 			quantity,
 			cart: { ...response, quantity },
@@ -51,7 +33,6 @@ export const checkoutLoader = async () => {
 
 		return {
 			order_kind,
-			//  total_price,
 			cart: response,
 		}
 	}
@@ -59,18 +40,11 @@ export const checkoutLoader = async () => {
 
 export function CheckoutPage() {
 	const order = useLoaderData()
-	// removeOrderItems()
 
-	const {
-		order_kind,
-		// total_price, cart,
-		product_id,
-		quantity,
-	} = order
+	const { order_kind, product_id, quantity } = order
 
 	const initialState = {
 		order_kind,
-		// total_price,
 		receiver: '',
 		receiverPhoneNumber: '',
 		address: '',
@@ -87,9 +61,11 @@ export function CheckoutPage() {
 
 	return (
 		<MinusPaddedWrapper>
-			<FormProvider initialState={initialState}>
-				<CheckoutForm order={order} />
-			</FormProvider>
+			<Section sectionId='checkout' sectionTitle='배송/결제 정보 입력'>
+				<FormProvider initialState={initialState}>
+					<CheckoutForm order={order} />
+				</FormProvider>
+			</Section>
 		</MinusPaddedWrapper>
 	)
 }

@@ -1,6 +1,7 @@
 import { redirect, useLoaderData } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import { CartList, CartSummary } from '../../components/cart'
+import { Section } from '../../components/@motion'
 import { getCart, removeFromCart } from '../../lib/api'
 import { getAuthToken, getAccountType } from '../../lib/utils/storage'
 import { Wrapper } from './CartPage.style'
@@ -26,10 +27,12 @@ export function CartPage() {
 	useTitle('장바구니')
 
 	return (
-		<Wrapper>
-			<CartList cart={cart} />
-			<CartSummary />
-		</Wrapper>
+		<Section sectionId='cart' sectionTitle='장바구니 목록과 결제 금액'>
+			<Wrapper>
+				<CartList cart={cart} />
+				<CartSummary />
+			</Wrapper>
+		</Section>
 	)
 }
 
