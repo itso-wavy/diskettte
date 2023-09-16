@@ -1,32 +1,51 @@
 import { StyledTable } from './Table.style'
 
-// function TableBody({ data, ...props }) {
-// 	return (
-// 		<tbody {...props}>
-// 			<tr role='row'>
-// 				{data.map((cellData, index) => (
-// 					<td key={index} role='cell'>
-// 						{cellData}
-// 					</td>
-// 				))}
-// 			</tr>
-// 		</tbody>
-// 	)
-// }
+function TableBody({ contents, ...props }) {
+	return (
+		<tbody role='rowgroup' {...props}>
+			{contents.map((row, index) => (
+				<tr key={index} role='row'>
+					{row.map((content, index) => (
+						<td
+							key={index}
+							// key={row.field}
+							// headers={row.field}
+							// data-cell={row.header}
+							scope='row'
+							role='cell'
+						>
+							{content}
+						</td>
+					))}
+				</tr>
+			))}
+			{/* {row.map(cell => (
+									<td key={cell.field} headers={cell.field} role='cell'>
+										{cell.data}
+									</td>
+								))} */}
+		</tbody>
+	)
+}
 
-// function TableHead({ headers, ...props }) {
-// 	return (
-// 		<thead {...props}>
-// 			<tr>
-// 				{headers.map((header, index) => (
-// 					<th key={index} role='columnheader'>
-// 						{header}
-// 					</th>
-// 				))}
-// 			</tr>
-// 		</thead>
-// 	)
-// }
+function TableHead({ headers, ...props }) {
+	return (
+		<thead role='rowgroup' {...props}>
+			<tr role='row'>
+				{headers.map(header => (
+					<th
+						key={header.field}
+						id={header.field}
+						scope='col'
+						role='columnheader'
+					>
+						{header.header}
+					</th>
+				))}
+			</tr>
+		</thead>
+	)
+}
 
 // const headers = useMemo(() => [{field: '', title: ''}], [])
 // const data = useMemo(() => [{field: '', data: ''}], [])
@@ -37,6 +56,7 @@ function Table({
 	captionID,
 	align = 'column',
 	data,
+	children,
 	ariaLabel,
 	...props
 }) {
@@ -49,45 +69,47 @@ function Table({
 			{...props}
 		>
 			{caption && <caption id={captionID}>{caption}</caption>}
-			<thead role='rowgroup'>
-				<tr role='row'>
-					{data.map(header => (
-						<th
-							key={header.field}
-							id={header.field}
-							scope='col'
-							role='columnheader'
-						>
-							{header.title}
-						</th>
-					))}
-				</tr>
-			</thead>
-			<tbody role='rowgroup'>
-				<tr role='row'>
-					{data.map(row => (
-						<td
-							key={row.field}
-							headers={row.field}
-							data-cell={row.title}
-							scope='row'
-							role='cell'
-						>
-							{row.data}
-						</td>
-					))}
-					{/* {row.map(cell => (
-									<td key={cell.field} headers={cell.field} role='cell'>
-										{cell.data}
-									</td>
-								))} */}
-				</tr>
-			</tbody>
+			{children}
+			{!children && (
+				<>
+					<thead role='rowgroup'>
+						<tr role='row'>
+							{data.map(header => (
+								<th
+									key={header.field}
+									id={header.field}
+									scope='col'
+									role='columnheader'
+								>
+									{header.header}
+								</th>
+							))}
+						</tr>
+					</thead>
+					<tbody role='rowgroup'>
+						<tr role='row'>
+							{data.map(row => (
+								<td
+									key={row.field}
+									headers={row.field}
+									data-cell={row.header}
+									scope='row'
+									role='cell'
+								>
+									{row.content}
+								</td>
+							))}
+							{/* {row.map(cell => (
+    									<td key={cell.field} headers={cell.field} role='cell'>
+    										{cell.data}
+    									</td>
+    								))} */}
+						</tr>
+					</tbody>
+				</>
+			)}
 		</StyledTable>
 	)
 }
 
-export {
-	Table,
-	//  TableHead, TableBody
-}
+export { Table, TableHead, TableBody }

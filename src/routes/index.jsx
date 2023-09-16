@@ -23,7 +23,6 @@ import {
 	OrdersPage,
 	OrderDetailPage,
 	ProfilePage,
-	ProfileEditPage,
 	ProductsPage,
 	ProductCreatePage,
 	ProductEditPage,
@@ -34,7 +33,7 @@ import {
 } from '../pages'
 import {
 	productsLoader,
-	mypageInfoLoader,
+	// mypageInfoLoader,
 	sellerInfoLoader,
 } from '../components/@layout'
 import {
@@ -44,6 +43,8 @@ import {
 	productLoader,
 	cartLoader,
 	checkoutLoader,
+	orderConfirmLoader,
+	ordersLoader,
 } from '../pages'
 import {
 	signinAction,
@@ -155,6 +156,7 @@ const router = createBrowserRouter([
 						action: checkoutAction,
 					},
 					{
+						loader: orderConfirmLoader,
 						path: 'checkout/confirm',
 						element: <OrderConfirmPage />,
 					},
@@ -162,8 +164,8 @@ const router = createBrowserRouter([
 			},
 			{
 				path: 'mypage',
-				loader: mypageInfoLoader,
-				id: 'mypage-info',
+				// loader: mypageInfoLoader,
+				// id: 'mypage-info',
 				element: <MypageRootLayout />,
 				children: [
 					{
@@ -175,6 +177,7 @@ const router = createBrowserRouter([
 					// 	element: <ProfileEditPage />,
 					// },
 					{
+						loader: ordersLoader,
 						path: 'orders',
 						element: <OrdersPage />,
 					},

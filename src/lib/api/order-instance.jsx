@@ -1,8 +1,8 @@
 import { json } from 'react-router-dom'
 import { api, clientAPI } from '.'
 
-const getOrder = async () => {
-	const client = clientAPI('cart')
+const getOrder = async pageParam => {
+	const client = clientAPI(`order/?page=${pageParam}`)
 
 	const success = res => res.data
 

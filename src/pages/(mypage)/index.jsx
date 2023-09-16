@@ -1,4 +1,3 @@
-export * from './ProfilePage'
-export * from './ProfileEditPage'
+// export * from './ProfilePage'
 export * from './OrdersPage'
-export * from './OrderDetailPage'
+// export * from './OrderDetailPage'

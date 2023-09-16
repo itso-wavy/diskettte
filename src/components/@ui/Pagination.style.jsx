@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 export const StyledNav = styled.nav`
-	margin: 5em auto 0;
+	margin: 5em auto 5px;
 	width: fit-content;
 	display: flex;
 	justify-content: center;

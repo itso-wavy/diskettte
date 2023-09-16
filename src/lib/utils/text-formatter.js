@@ -10,4 +10,18 @@ const formatDate = (date, customOptions) => {
 	return new Date(date).toLocaleDateString('ko-KR', customOptions ?? options)
 }
 
-export { formatNumber, formatDate }
+const formatOrderNumber = (created_at, order_number) => {
+	const dateOpts = { year: '2-digit', month: '2-digit', day: '2-digit' }
+
+	const formattedOrderNumberDate = formatDate(created_at, dateOpts).replaceAll(
+		/[.\s]/g,
+		''
+	)
+
+	const orderNumber = `DSK${formattedOrderNumberDate}-
+${String(order_number).padStart('6', '0')}`
+
+	return orderNumber
+}
+
+export { formatNumber, formatDate, formatOrderNumber }

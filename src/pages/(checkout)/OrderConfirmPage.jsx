@@ -11,7 +11,11 @@ import {
 	removeOrderConfirm,
 	removeOrderItems,
 } from '../../lib/utils/storage'
-import { formatNumber, formatDate } from '../../lib/utils/text-formatter'
+import {
+	formatNumber,
+	formatDate,
+	formatOrderNumber,
+} from '../../lib/utils/text-formatter'
 import { StyledSection } from './OrderConfirmPage.style'
 
 export const orderConfirmLoader = async () => {
@@ -72,44 +76,51 @@ function OrderConfirmPage() {
 		}
 	})()
 
-	const dateOpts = { year: '2-digit', month: '2-digit', day: '2-digit' }
-	const formattedOrderNumberDate = formatDate(created_at, dateOpts).replaceAll(
-		/[.\s]/g,
-		''
-	)
-	const orderNumber = `DSK${formattedOrderNumberDate}-
-  ${String(order_number).padStart('6', '0')}`
+	// const dateOpts = { year: '2-digit', month: '2-digit', day: '2-digit' }
+	// const formattedOrderNumberDate = formatDate(created_at, dateOpts).replaceAll(
+	// 	/[.\s]/g,
+	// 	''
+	// )
+	// const orderNumber = `DSK${formattedOrderNumberDate}-
+	// ${String(order_number).padStart('6', '0')}`
 
 	const tableData = useMemo(
 		() => [
-			{ field: 'created_at', title: '주문 일시', data: formatDate(created_at) },
+			{
+				field: 'created_at',
+				header: '주문 일시',
+				content: formatDate(created_at),
+			},
 			{
 				field: 'delivery_status',
-				title: '주문 상태',
-				data: delivery_status === 'COMPLETE_PAYMENT' && '결제 완료',
+				header: '주문 상태',
+				content: delivery_status === 'COMPLETE_PAYMENT' && '결제 완료',
 			},
-			{ field: 'paymentMethod', title: '결제 수단', data: paymentMethod },
+			{ field: 'paymentMethod', header: '결제 수단', content: paymentMethod },
 			{
 				field: 'total_price',
-				title: '결제 금액',
-				data: `${formatNumber(total_price)}원`,
+				header: '결제 금액',
+				content: `${formatNumber(total_price)}원`,
 			},
 			{
 				field: 'order_items',
-				title: '주문 상품',
-				data: `${firstProduct.product_name} 외 ${order_items.length - 1}종`,
+				header: '주문 상품',
+				content:
+					order_items.length > 1
+						? `${firstProduct.product_name} 외 ${order_items.length - 1}종`
+						: firstProduct.product_name,
 			},
-			{ field: 'receiver', title: '수령인', data: receiver },
+			{ field: 'receiver', header: '수령인', content: receiver },
 			{
 				field: 'receiver_phone_number',
-				title: '수령인 휴대폰',
-				data: receiver_phone_number,
+				header: '수령인 휴대폰',
+				content: receiver_phone_number,
 			},
-			{ field: 'address', title: '주소', data: address },
+			{ field: 'address', header: '주소', content: address },
 			{
 				field: 'address_message',
-				title: '배송 요청 사항',
-				data: address_message,
+				header: '배송 요청 사항',
+				content: address_message,
 			},
 		],
 		[]
@@ -132,7 +143,8 @@ function OrderConfirmPage() {
 			<div className='order-number'>
 				<p>주문이 완료되었습니다.</p>
 				<p>
-					주문번호 <strong>{orderNumber}</strong>
+					주문번호{' '}
+					<strong>{formatOrderNumber(created_at, order_number)}</strong>
 				</p>
 				<Img src={QRCodeImg} alt='qrcode' className='qr-code' $size='4.5em' />
 			</div>
