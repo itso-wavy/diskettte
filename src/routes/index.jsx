@@ -5,8 +5,7 @@ import {
 	ProductRootLayout,
 	CategoriesRootLayout,
 	CheckoutRootLayout,
-	MypageRootLayout,
-	SellerRootLayout,
+	PrivateRootLayout,
 } from '../components/@layout'
 import {
 	HomePage,
@@ -21,8 +20,8 @@ import {
 	CheckoutPage,
 	OrderConfirmPage,
 	OrdersPage,
-	OrderDetailPage,
-	ProfilePage,
+	// OrderDetailPage,
+	// ProfilePage,
 	ProductsPage,
 	ProductCreatePage,
 	ProductEditPage,
@@ -34,7 +33,7 @@ import {
 import {
 	productsLoader,
 	// mypageInfoLoader,
-	sellerInfoLoader,
+	// sellerInfoLoader,
 } from '../components/@layout'
 import {
 	homeLoader,
@@ -45,6 +44,7 @@ import {
 	checkoutLoader,
 	orderConfirmLoader,
 	ordersLoader,
+	// orderDetailLoader,
 } from '../pages'
 import {
 	signinAction,
@@ -106,40 +106,6 @@ const router = createBrowserRouter([
 					},
 				],
 			},
-			// {
-			// 	path: 'categories',
-			// 	element: <CategoriesRootLayout />,
-			// 	children: [
-			// 		{
-			// 			path: 'all',
-			// 			loader: productsLoader,
-			// 			element: <AllProductsPage />,
-			// 		},
-			// 		{
-			// 			path: 'new-arrivals',
-			// 			element: <NewArrivalsPage />,
-			// 		},
-			// 		{
-			// 			path: 'exclusive',
-			// 			element: <ExclusivePage />,
-			// 		},
-			// 		{
-			// 			path: 'event',
-			// 			element: <EventPage />,
-			// 		},
-			// 	],
-			// },
-			// {
-			// 	path: 'brand/:brandId',
-			// 	loader: brandLoader,
-			// 	element: <BrandPage />,
-			// },
-			// {
-			// 	path: 'product/:productId',
-			// 	loader: productLoader,
-			// 	element: <ProductPage />,
-			// 	action: productAction,
-			// },
 			{
 				element: <CheckoutRootLayout />,
 				children: [
@@ -166,12 +132,12 @@ const router = createBrowserRouter([
 				path: 'mypage',
 				// loader: mypageInfoLoader,
 				// id: 'mypage-info',
-				element: <MypageRootLayout />,
+				element: <PrivateRootLayout />,
 				children: [
-					{
-						path: 'profile',
-						element: <ProfilePage />,
-					},
+					// {
+					// 	path: 'profile',
+					// 	element: <ProfilePage />,
+					// },
 					// {
 					// 	path: 'profile/edit',
 					// 	element: <ProfileEditPage />,
@@ -181,17 +147,18 @@ const router = createBrowserRouter([
 						path: 'orders',
 						element: <OrdersPage />,
 					},
-					{
-						path: 'orders/:orderId',
-						element: <OrderDetailPage />,
-					},
+					// {
+					// loader: orderDetailLoader,
+					// 	path: 'orders/:orderId',
+					// 	element: <OrderDetailPage />,
+					// },
 				],
 			},
 			{
 				path: 'seller',
-				loader: sellerInfoLoader,
-				id: 'seller-info',
-				element: <SellerRootLayout />,
+				// loader: sellerInfoLoader,
+				// id: 'seller-info',
+				element: <PrivateRootLayout />,
 				children: [
 					{
 						path: 'product',

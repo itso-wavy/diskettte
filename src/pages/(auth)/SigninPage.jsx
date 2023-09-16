@@ -14,7 +14,10 @@ export function SigninPage() {
 		if (authInfo?.token) {
 			signInHandler(authInfo)
 
-			return navigate('/mypage')
+			return navigate('/')
+			// return authInfo.user_type === 'SELLER'
+			// 	? navigate('/seller')
+			// 	: navigate('/mypage')
 		}
 	}, [authInfo, signInHandler, navigate])
 

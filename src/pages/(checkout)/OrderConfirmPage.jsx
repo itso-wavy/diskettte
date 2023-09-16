@@ -123,7 +123,7 @@ function OrderConfirmPage() {
 				content: address_message,
 			},
 		],
-		[]
+		[receipt]
 	)
 
 	useEffect(() => {
