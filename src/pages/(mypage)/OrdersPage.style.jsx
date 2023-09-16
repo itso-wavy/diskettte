@@ -1,7 +1,15 @@
 import styled from 'styled-components'
 
-export const Wrapper = styled.div`
-	width: 100%;
+export const StyledSection = styled.section`
+	/* width: 100%; */
+	position: relative;
+
+	h2 {
+		margin-bottom: 1.67rem;
+		font-size: 1.75rem;
+		font-weight: ${({ theme }) => theme.fw.bold};
+		text-transform: uppercase;
+	}
 
 	td:first-of-type {
 		font-weight: ${({ theme }) => theme.fw.medium};
@@ -15,7 +23,7 @@ export const Wrapper = styled.div`
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
-	td:has(img) > * {
+	td:has(img) * {
 		display: inline-block;
 	}
 
