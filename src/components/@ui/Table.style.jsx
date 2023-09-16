@@ -19,7 +19,8 @@ export const StyledTable = styled.table`
 		text-transform: uppercase;
 	}
 
-	thead {
+	thead,
+	td[scope='row'] {
 		font-weight: ${({ theme }) => theme.fw.bold};
 	}
 
@@ -33,31 +34,73 @@ export const StyledTable = styled.table`
 	}
 
 	tr > *:not(:first-child) {
-		border-left: ${({ theme }) => `1px solid ${theme.color.gray}`};
+		/* border-left: ${({ theme }) => `1px solid ${theme.color.gray}`}; */
 	}
+
+	${({ $align }) =>
+		$align === 'column' &&
+		css`
+			tr {
+				display: grid;
+				grid: auto / auto-flow 1fr;
+				grid-template-columns: min(18ch, 30%);
+			}
+		`}
 
 	${({ $align }) =>
 		$align === 'row' &&
 		css`
-			th {
-				display: none;
+			thead tr {
+				display: grid;
+				grid: auto / auto-flow 1fr;
+				grid-template-columns: min(18ch, 30%);
+			}
+
+			tbody {
+				width: 100%;
+				display: flex;
+			}
+
+			tr {
+				flex: 1 1 0%;
+				display: flex;
+				flex-direction: column;
 			}
 
 			tr > *:not(:first-child) {
 				border-left: none;
 			}
 
-			td {
-				display: grid;
-				gap: 1em;
-				grid-template-columns: min(30%, 15ch) auto;
-				padding: 0.8em 1em;
-				word-break: keep-all;
+			tr:not(:first-of-type) > td {
+				/* border-left: ${({ theme }) => `1px solid ${theme.color.gray}`}; */
 			}
-
-			td::before {
-				content: attr(data-cell);
-				font-weight: ${({ theme }) => theme.fw.bold};
-			}
+			/* 
+      td[scope='row'] {
+		font-weight: initial;
+	} */
 		`}
+`
+
+export const StyledThead = styled.thead`
+	tr {
+		display: flex !important;
+		flex-direction: row;
+	}
+
+	th {
+		flex: 1;
+	}
+`
+
+export const StyledTbody = styled.tbody`
+	flex-flow: column wrap;
+
+	tr {
+		flex-flow: row;
+	}
+
+	td {
+		flex: 1;
+		font-weight: initial;
+	}
 `

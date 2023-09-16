@@ -2,8 +2,11 @@ import { Suspense, useMemo } from 'react'
 import { Await, Link, defer, useLoaderData } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import { OrderLoading } from '../../components/common'
-import { Section } from '../../components/@motion'
-import { Table, TableBody, TableHead } from '../../components/@ui/Table'
+import {
+	Table,
+	ColumnTableHead,
+	ColumnTableBody,
+} from '../../components/@ui/Table'
 import { Pagination } from '../../components/@ui/Pagination'
 import { getOrder, getProduct } from '../../lib/api'
 import {
@@ -62,75 +65,53 @@ export function OrdersPage() {
 	const pageRange = isMobile ? 5 : 10
 	let itemsPerPage = 15 // 백엔드 설정
 
-	const updatedOrders = updatedOrdersLoader(orders)
-	//   const orderList = useMemo(() =>[
-	//     {
-	//     field:'',
-	//     header:'',
-	//     content: ''
-	//   },
-	//     {
-	//     field:'',
-	//     header:'',
-	//     content: ''
-	//   },
-	//     {
-	//     field:'',
-	//     header:'',
-	//     content: ''
-	//   },
-	//     {
-	//     field:'',
-	//     header:'',
-	//     content: ''
-	//   },
+	const updatedOrders = useMemo(() => updatedOrdersLoader(orders), [orders])
 
-	// ],[])
+	const tableHeaders = [
+		{ field: 'order_number', header: '주문 번호' },
+		{ field: 'created_at', header: '주문 일시' },
+		{ field: 'order_items', header: '주문 내역' },
+		{ field: 'delivery_status', header: '주문 상태' },
+		{ field: 'total_price', header: '결제 금액' },
+	]
 
-	const tableHeaders = useMemo(
-		() => [
-			{ field: 'order_number', header: '주문 번호' },
-			{ field: 'created_at', header: '주문 일시' },
-			{ field: 'order_items', header: '주문 내역' },
-			{ field: 'delivery_status', header: '주문 상태' },
-			{ field: 'total_price', header: '결제 금액' },
-		],
-		[]
-	)
+	const tableContents = array => {
+		return array.map(order => {
+			const {
+				order_number,
+				created_at,
+				order_items,
+				firstProduct,
+				delivery_status,
+				total_price,
+			} = order
 
-	// const tableContents = useMemo(
-	// 	() =>
-	// 		updatedOrders?.results.map(order => {
-	// 			const {
-	// 				order_number,
-	// 				created_at,
-	// 				order_items,
-	// 				firstProduct,
-	// 				delivery_status,
-	// 				total_price,
-	// 			} = order
+			return [
+				<Link to='' onClick={preventRedirectHandler}>
+					{formatOrderNumber(created_at, order_number)}
+				</Link>,
+				formatDate(created_at),
+				<Link to='' onClick={preventRedirectHandler}>
+					<img
+						src={firstProduct.image}
+						alt={firstProduct.product_name}
+						className='product-img'
+					/>
+					<p>
+						{order_items.length > 1
+							? `${firstProduct.product_name} 외 ${order_items.length - 1}종`
+							: firstProduct.product_name}
+					</p>
+				</Link>,
+				delivery_status === 'COMPLETE_PAYMENT' && '결제 완료',
+				`${formatNumber(total_price)}원`,
+			]
+		})
+	}
 
-	// 			return [
-	// 				<Link to=''>{formatOrderNumber(created_at, order_number)}</Link>,
-	// 				formatDate(created_at),
-	// 				<Link to=''>
-	// 					<img
-	// 						src={firstProduct.image}
-	// 						alt={firstProduct.product_name}
-	// 						className='product-img'
-	// 					/>
-	// 					<p>
-	// 						{order_items.length > 1
-	// 							? `${firstProduct.product_name} 외 ${order_items.length - 1}종`
-	// 							: firstProduct.product_name}
-	// 					</p>
-	// 				</Link>,
-	// 				delivery_status === 'COMPLETE_PAYMENT' && '결제 완료',
-	// 				`${formatNumber(total_price)}원`,
-	// 			]
-	// 		}),
-	// 	[updatedOrders?.results]
-	// )
+	const preventRedirectHandler = e => {
+		e.preventDefault()
+	}
 
 	useTitle('주문 목록')
 
@@ -139,86 +120,26 @@ export function OrdersPage() {
 			<h2 id='orderList'>주문 배송 조회</h2>
 			<Suspense fallback={<OrderLoading />}>
 				<Await resolve={updatedOrders}>
-					{updatedOrders => {
-						const tableContents = useMemo(
-							() =>
-								updatedOrders.data.results.map(order => {
-									const {
-										order_number,
-										created_at,
-										order_items,
-										firstProduct,
-										delivery_status,
-										total_price,
-									} = order
-
-									return [
-										<Link to=''>
-											{formatOrderNumber(created_at, order_number)}
-										</Link>,
-										formatDate(created_at),
-										<Link to=''>
-											<img
-												src={firstProduct.image}
-												alt={firstProduct.product_name}
-												className='product-img'
-											/>
-											<p>
-												{order_items.length > 1
-													? `${firstProduct.product_name} 외 ${
-															order_items.length - 1
-													  }종`
-													: firstProduct.product_name}
-											</p>
-										</Link>,
-										delivery_status === 'COMPLETE_PAYMENT' && '결제 완료',
-										`${formatNumber(total_price)}원`,
-									]
-								}),
-							[updatedOrders]
-						)
-
-						return (
-							<>
-								<Table ariaLabel='order list'>
-									<TableHead headers={tableHeaders} />
-									<TableBody contents={tableContents} />
-								</Table>
-								<Pagination
-									title='orders'
-									theme='#f3d6e6'
-									pageRange={pageRange}
-									currentPage={Number(currentPage)}
-									itemsPerPage={itemsPerPage}
-									totalItemsCount={orders.count}
+					{updatedOrders => (
+						<>
+							<Table $align='row' ariaLabel='order list'>
+								<ColumnTableHead headers={tableHeaders} />
+								<ColumnTableBody
+									contents={tableContents(updatedOrders.data.results)}
 								/>
-							</>
-						)
-					}}
+							</Table>
+							<Pagination
+								title='orders'
+								theme='#f3d6e6'
+								pageRange={pageRange}
+								currentPage={Number(currentPage)}
+								itemsPerPage={itemsPerPage}
+								totalItemsCount={orders.count}
+							/>
+						</>
+					)}
 				</Await>
 			</Suspense>
 		</StyledSection>
 	)
 }
-
-/* 		<Section sectionId='order-list' sectionTitle='주문 배송 조회'>
-			<Wrapper>
-				<Table
-					caption='주문 배송 조회'
-					captionID='order-list'
-					ariaLabel='order list'
-				>
-					<TableHead headers={tableHeaders} />
-					<TableBody contents={tableContents} />
-				</Table>
-			</Wrapper>
-			<Pagination
-				title='orders'
-				theme='#f3d6e6'
-				pageRange={pageRange}
-				currentPage={Number(currentPage)}
-				itemsPerPage={itemsPerPage}
-				totalItemsCount={orders.count}
-			/>
-		</Section>
-     */

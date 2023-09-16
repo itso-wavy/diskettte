@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const StyledSection = styled.section`
 	/* width: 100%; */
 	position: relative;
+	text-underline-offset: 3px;
 
 	h2 {
 		margin-bottom: 1.67rem;
@@ -11,8 +12,20 @@ export const StyledSection = styled.section`
 		text-transform: uppercase;
 	}
 
-	td:first-of-type {
+	/* td:first-of-type {
 		font-weight: ${({ theme }) => theme.fw.medium};
+	} */
+	th:nth-of-type(3),
+	td:has(img) {
+		flex-grow: 2;
+	}
+
+	tbody tr > *:first-of-type {
+		font-weight: ${({ theme }) => theme.fw.medium};
+	}
+
+	td:first-of-type:hover > a {
+		text-decoration: ${({ theme }) => `underline ${theme.color.black}`};
 	}
 
 	td:has(img) {
@@ -39,4 +52,8 @@ export const StyledSection = styled.section`
 		margin-left: 10px;
 		align-self: end;
 	}
+
+	/* .product-img ~ p:hover {
+		text-decoration: underline;
+	} */
 `

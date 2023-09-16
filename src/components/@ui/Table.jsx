@@ -1,56 +1,35 @@
-import { StyledTable } from './Table.style'
+import { StyledTable, StyledThead, StyledTbody } from './Table.style'
 
-function TableBody({ contents, ...props }) {
+function ColumnTableBody({ contents, ...props }) {
 	return (
-		<tbody role='rowgroup' {...props}>
+		<StyledTbody role='rowgroup' {...props}>
 			{contents.map((row, index) => (
 				<tr key={index} role='row'>
 					{row.map((content, index) => (
-						<td
-							key={index}
-							// key={row.field}
-							// headers={row.field}
-							// data-cell={row.header}
-							scope='row'
-							role='cell'
-						>
+						<td key={index} role='cell'>
 							{content}
 						</td>
 					))}
 				</tr>
 			))}
-			{/* {row.map(cell => (
-									<td key={cell.field} headers={cell.field} role='cell'>
-										{cell.data}
-									</td>
-								))} */}
-		</tbody>
+		</StyledTbody>
 	)
 }
 
-function TableHead({ headers, ...props }) {
+function ColumnTableHead({ headers, ...props }) {
 	return (
-		<thead role='rowgroup' {...props}>
+		<StyledThead role='rowgroup' {...props}>
 			<tr role='row'>
 				{headers.map(header => (
-					<th
-						key={header.field}
-						id={header.field}
-						scope='col'
-						role='columnheader'
-					>
+					<th key={header.field} scope='col' role='columnheader'>
 						{header.header}
 					</th>
 				))}
 			</tr>
-		</thead>
+		</StyledThead>
 	)
 }
 
-// const headers = useMemo(() => [{field: '', title: ''}], [])
-// const data = useMemo(() => [{field: '', data: ''}], [])
-
-// const data = useMemo(() => [{field: '', title: '', data: ''}], [])
 function Table({
 	caption,
 	captionID,
@@ -72,39 +51,17 @@ function Table({
 			{children}
 			{!children && (
 				<>
-					<thead role='rowgroup'>
-						<tr role='row'>
-							{data.map(header => (
-								<th
-									key={header.field}
-									id={header.field}
-									scope='col'
-									role='columnheader'
-								>
-									{header.header}
-								</th>
-							))}
-						</tr>
-					</thead>
 					<tbody role='rowgroup'>
-						<tr role='row'>
-							{data.map(row => (
-								<td
-									key={row.field}
-									headers={row.field}
-									data-cell={row.header}
-									scope='row'
-									role='cell'
-								>
-									{row.content}
-								</td>
-							))}
-							{/* {row.map(cell => (
-    									<td key={cell.field} headers={cell.field} role='cell'>
-    										{cell.data}
-    									</td>
-    								))} */}
-						</tr>
+						{data.map(row => (
+							<tr key={row.field} role='row'>
+								<td scope='row'>{row.header}</td>
+								{row.contents.map((content, index) => (
+									<td key={index + content} role='cell'>
+										{content}
+									</td>
+								))}
+							</tr>
+						))}
 					</tbody>
 				</>
 			)}
@@ -112,4 +69,4 @@ function Table({
 	)
 }
 
-export { Table, TableHead, TableBody }
+export { Table, ColumnTableHead, ColumnTableBody }
