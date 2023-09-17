@@ -91,9 +91,7 @@ export const StyledTable = styled.table`
       td[scope='row'] {
 		font-weight: initial;
 	} */
-		`}
-
-  &::-webkit-scrollbar {
+		`} /* &::-webkit-scrollbar {
 		height: 14px;
 		background-color: transparent;
 	}
@@ -107,9 +105,11 @@ export const StyledTable = styled.table`
 		border: 4px solid transparent;
 	}
 	&::-webkit-scrollbar-thumb:hover {
-		background: ${({ theme }) => theme.color.darkgray2};
+		background: ${({ theme }) => theme.color.darkgray};
+		background-image: ${({ theme }) =>
+		`linear-gradient(to right,${theme.color.gray}, ${theme.color.shadow})`};
 		background-clip: padding-box;
-	}
+	} */
 `
 
 export const StyledThead = styled.thead`
