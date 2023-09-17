@@ -80,9 +80,21 @@ const GlobalStyle = createGlobalStyle`
     font-size: 0;
     color: transparent;
   }
-  
+
   ::-webkit-scrollbar {
-    display: none;
+    /* height: 0; */
+    width: 0;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: ${({ theme }) => theme.color.darkgray2}; 
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.color.header}; 
+		background-clip: padding-box;
+		border: 1px solid transparent;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: ${({ theme }) => theme.color.shadow}; 
   }
 
   ::selection {
