@@ -45,6 +45,10 @@ export const StyledTable = styled.table`
 				grid: auto / auto-flow 1fr;
 				grid-template-columns: min(18ch, 30%);
 			}
+
+			td[scope='row'] {
+				word-break: keep-all;
+			}
 		`}
 
 	${({ $align }) =>

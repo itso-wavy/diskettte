@@ -3,10 +3,14 @@ import styled, { css } from 'styled-components'
 export const MinusPaddedWrapper = styled.div`
 	display: grid;
 	grid-template-columns: 300px auto;
-	margin-bottom: -250px;
+	/* margin-bottom: -250px; */
+	/* margin-bottom: -200px; */
 
 	& > *:last-child {
-		margin: 3.75rem 2.5rem 250px;
+		/* margin: 3.75rem 2.5rem 250px; */
+		/* margin: 3.75rem 2.5rem 200px; */
+		margin: 3.75rem 2.5rem 0;
+		/* width: fit-content; */
 	}
 
 	${({ theme }) => {
@@ -21,4 +25,8 @@ export const MinusPaddedWrapper = styled.div`
 			}
 		`
 	}}
+
+	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+		grid-auto-flow: column;
+	}
 `

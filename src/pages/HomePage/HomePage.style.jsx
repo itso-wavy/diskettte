@@ -7,7 +7,8 @@ import {
 import { entrance, shake } from '../../lib/utils/animation'
 
 export const MinusPaddedWrapper = styled.div`
-	margin-bottom: -250px;
+	/* margin-bottom: -250px; */
+	margin-bottom: -200px;
 `
 
 export const HeroWrapper = styled.div`
