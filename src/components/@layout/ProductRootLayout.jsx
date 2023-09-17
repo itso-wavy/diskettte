@@ -26,7 +26,7 @@ export const productsLoader = async ({ request }) => {
 }
 
 export function ProductRootLayout() {
-	useRedirect('categories', 'all')
+	useRedirect('categories', 'categories/all')
 
 	return (
 		<>

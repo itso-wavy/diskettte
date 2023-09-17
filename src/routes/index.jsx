@@ -3,7 +3,6 @@ import {
 	RootLayout,
 	AuthRootLayout,
 	ProductRootLayout,
-	CategoriesRootLayout,
 	CheckoutRootLayout,
 	PrivateRootLayout,
 } from '../components/@layout'
@@ -44,7 +43,7 @@ import {
 	checkoutLoader,
 	orderConfirmLoader,
 	ordersLoader,
-	// orderDetailLoader,
+	sellerProductsLoader,
 } from '../pages'
 import {
 	signinAction,
@@ -72,7 +71,6 @@ const router = createBrowserRouter([
 				children: [
 					{
 						path: 'categories',
-						// element: <CategoriesRootLayout />,
 						children: [
 							{
 								path: 'all',
@@ -130,37 +128,21 @@ const router = createBrowserRouter([
 			},
 			{
 				path: 'mypage',
-				// loader: mypageInfoLoader,
-				// id: 'mypage-info',
 				element: <PrivateRootLayout />,
 				children: [
-					// {
-					// 	path: 'profile',
-					// 	element: <ProfilePage />,
-					// },
-					// {
-					// 	path: 'profile/edit',
-					// 	element: <ProfileEditPage />,
-					// },
 					{
 						loader: ordersLoader,
 						path: 'orders',
 						element: <OrdersPage />,
 					},
-					// {
-					// loader: orderDetailLoader,
-					// 	path: 'orders/:orderId',
-					// 	element: <OrderDetailPage />,
-					// },
 				],
 			},
 			{
 				path: 'seller',
-				// loader: sellerInfoLoader,
-				// id: 'seller-info',
 				element: <PrivateRootLayout />,
 				children: [
 					{
+						loader: sellerProductsLoader,
 						path: 'product',
 						element: <ProductsPage />,
 					},
@@ -195,7 +177,6 @@ const router = createBrowserRouter([
 			{
 				path: 'signin',
 				element: <SigninPage />,
-				// id: 'auth-info',
 				action: signinAction,
 			},
 			{

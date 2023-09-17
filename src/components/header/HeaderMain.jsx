@@ -106,14 +106,14 @@ export function HeaderMain({ $transparent, children, ...props }) {
 							/>
 							{isSeller ? (
 								<HeaderMenuItem
-									href='/seller'
+									href='/seller/product'
 									src={<MypageSvg />}
 									text='셀러페이지'
 									ariaLabel='go to seller`s page'
 								/>
 							) : (
 								<HeaderMenuItem
-									href='/mypage'
+									href='/mypage/orders'
 									src={<MypageSvg />}
 									text='마이페이지'
 									ariaLabel='go to mypage'
