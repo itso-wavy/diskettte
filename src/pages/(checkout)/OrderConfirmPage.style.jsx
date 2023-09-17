@@ -4,9 +4,22 @@ export const StyledSection = styled.section`
 	max-width: 400px;
 	margin: 0 auto;
 	padding: 1.875rem;
+	position: relative;
 	background-color: ${({ theme }) => theme.color.lightgray};
 	box-shadow: inset -24px -24px 48px #dcdfe2, inset 0px 0px 6px #e7f2f9,
 		6px 10px 7px #cfd4d1;
+
+	&::before {
+		content: '';
+		position: absolute;
+		display: block;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-image: url(/assets/images/paper-texture.png);
+		mix-blend-mode: multiply;
+	}
 
 	h2 {
 		font-size: 2.8125rem;

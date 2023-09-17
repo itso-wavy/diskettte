@@ -23,22 +23,6 @@ export const ordersLoader = async ({ request }) => {
 
 	const orders = await getOrder(pageParam)
 
-	// for (let i = 0; i < orders.results.length; i++) {
-	// 	const receipt = orders.results[i]
-	// 	let firstProduct = {}
-
-	// 	if (receipt.order_items[0]) {
-	// 		const { product_name, image } = await getProduct(receipt.order_items[0])
-	// 		firstProduct = { product_name, image }
-	// 	}
-
-	// 	orders.results[i].firstProduct = firstProduct
-	// }
-	// return defer({
-	//   orders: ordersLoader(),
-	//   updatedOrders: await updatedOrdersLoader(eventId),
-	// });
-
 	return { currentPage: pageParam, orders }
 }
 
