@@ -14,7 +14,7 @@ import {
 	formatNumber,
 	formatOrderNumber,
 } from '../../lib/utils/text-formatter'
-import { StyledSection } from './OrdersPage.style'
+import { StyledSection, TableWrapper } from './OrdersPage.style'
 import useStore from '../../store'
 
 export const ordersLoader = async ({ request }) => {
@@ -105,7 +105,7 @@ export function OrdersPage() {
 			<Suspense fallback={<OrderLoading />}>
 				<Await resolve={updatedOrders}>
 					{updatedOrders => (
-						<>
+						<TableWrapper>
 							<Table $align='row' ariaLabel='order list'>
 								<ColumnTableHead headers={tableHeaders} />
 								<ColumnTableBody
@@ -120,7 +120,7 @@ export function OrdersPage() {
 								itemsPerPage={itemsPerPage}
 								totalItemsCount={orders.count}
 							/>
-						</>
+						</TableWrapper>
 					)}
 				</Await>
 			</Suspense>

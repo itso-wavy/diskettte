@@ -28,5 +28,10 @@ export const MinusPaddedWrapper = styled.div`
 
 	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
 		grid-auto-flow: column;
+		grid-template: 1fr auto / 1fr;
+
+		& > *:last-child {
+			margin: 3.75rem 0 0;
+		}
 	}
 `

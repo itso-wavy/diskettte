@@ -17,6 +17,10 @@ export const StyledUl = styled.ul`
 	overflow: scroll;
 	height: 100%;
 	order: 1;
+
+	&::-webkit-scrollbar {
+		width: 0;
+	}
 `
 
 export const StyledLi = styled.li`

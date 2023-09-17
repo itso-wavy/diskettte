@@ -6,6 +6,8 @@ export const StyledTable = styled.table`
 	border-collapse: collapse;
 	border-top: ${({ theme }) => `2px solid ${theme.color.black}`};
 	border-bottom: ${({ theme }) => `2px solid ${theme.color.black}`};
+	display: flow-root;
+	overflow-x: auto;
 
 	caption,
 	thead {
@@ -58,7 +60,14 @@ export const StyledTable = styled.table`
 				display: grid;
 				grid: auto / auto-flow 1fr;
 				grid-template-columns: min(18ch, 30%);
+				word-break: keep-all;
 			}
+			/* 
+			th {
+				height: fit-content;
+				position: sticky;
+				top: 0;
+			} */
 
 			tbody {
 				width: 100%;
@@ -83,6 +92,24 @@ export const StyledTable = styled.table`
 		font-weight: initial;
 	} */
 		`}
+
+  &::-webkit-scrollbar {
+		height: 14px;
+		background-color: transparent;
+	}
+	&::-webkit-scrollbar-track {
+		background-color: transparent;
+	}
+	&::-webkit-scrollbar-thumb {
+		border-radius: 8px;
+		background: ${({ theme }) => theme.color.gray};
+		background-clip: padding-box;
+		border: 4px solid transparent;
+	}
+	&::-webkit-scrollbar-thumb:hover {
+		background: ${({ theme }) => theme.color.darkgray2};
+		background-clip: padding-box;
+	}
 `
 
 export const StyledThead = styled.thead`

@@ -68,23 +68,6 @@ export function MobileNav({ ...props }) {
 							text='Event'
 						/>
 						<StyledHr />
-						{!isSignedIn ? (
-							<MobileNavItem
-								url='/auth'
-								ariaLabel='signin or signup'
-								text='로그인 / 회원가입'
-								icon={<LoginSvg />}
-								style={$itemStyle}
-							/>
-						) : (
-							<MobileNavItem
-								url='/auth/logout'
-								ariaLabel='logout'
-								text='로그아웃'
-								icon={<LogoutSvg />}
-								style={$itemStyle}
-							/>
-						)}
 						{isSeller ? (
 							<MobileNavItem
 								url='/seller/product'
@@ -99,6 +82,23 @@ export function MobileNav({ ...props }) {
 								ariaLabel='go to mypage'
 								text='마이페이지'
 								icon={<MypageSvg />}
+								style={$itemStyle}
+							/>
+						)}
+						{!isSignedIn ? (
+							<MobileNavItem
+								url='/auth'
+								ariaLabel='signin or signup'
+								text='로그인 / 회원가입'
+								icon={<LoginSvg />}
+								style={$itemStyle}
+							/>
+						) : (
+							<MobileNavItem
+								url='/auth/logout'
+								ariaLabel='logout'
+								text='로그아웃'
+								icon={<LogoutSvg />}
 								style={$itemStyle}
 							/>
 						)}

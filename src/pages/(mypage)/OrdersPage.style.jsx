@@ -57,3 +57,12 @@ export const StyledSection = styled.section`
 		text-decoration: underline;
 	} */
 `
+
+export const TableWrapper = styled.div`
+	position: relative;
+	overflow: hidden;
+
+	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+		width: calc(100vw - 40px - 17px);
+	}
+`

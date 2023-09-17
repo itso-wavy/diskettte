@@ -82,8 +82,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   ::-webkit-scrollbar {
-    /* height: 0; */
-    width: 0;
+    height: 0;
+    /* width: 0; */
   }
   ::-webkit-scrollbar-track {
     background-color: ${({ theme }) => theme.color.darkgray2}; 
