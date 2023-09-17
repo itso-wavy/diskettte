@@ -1,26 +1,40 @@
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import { Section } from '../../components/@motion'
-import { ProductList, ProductItem } from '../../components/product'
-import { Wrapper } from './ExclusivePage.style'
+import { Button } from '../../components/@ui/Button'
 
 export function ExclusivePage() {
+	const navigate = useNavigate()
+	useEffect(() => {
+		alert(
+			'👷‍♂더 좋은 코드를 위해 공사 중입니다.🚧\n프로젝트 2차 진행시 백엔드 구축 후 구현 예정.'
+		)
+	}, [])
+
 	useTitle('Exclusive')
 
 	return (
 		<>
-			<Section sectionId='exclusiveHero' sectionTitle='exclusive hero'>
-				<Wrapper $bg='/public/assets/images/chrome-spring.png'></Wrapper>
+			<Section
+				sectionId='exclusiveHero'
+				sectionTitle='exclusive hero'
+				style={{
+					background: 'black',
+					height: '80vh',
+					display: 'grid',
+					placeItems: 'center',
+					margin: '0 0 -250px',
+				}}
+			>
+				<Button
+					$style='secondary'
+					style={{ width: '250px' }}
+					onClick={() => navigate(-1)}
+				>
+					뒤로 가기
+				</Button>
 			</Section>
-			<section aria-labelledby='product list'>
-				<h2 className='sr-only' id='product list'>
-					product list
-				</h2>
-				<ProductList>
-					{/* {products.map(product => (
-						<ProductItem key={product.id} product={product} />
-					))} */}
-				</ProductList>
-			</section>
 		</>
 	)
 }
