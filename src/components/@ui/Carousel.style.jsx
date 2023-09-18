@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
 	flex-direction: column;
 	position: relative;
 	height: 100%;
+	max-width: calc(100vw - 14px);
 `
 
 export const ShowBox = styled.div`
@@ -19,7 +20,7 @@ export const StyledUl = styled.ul`
 	order: 1;
 
 	&::-webkit-scrollbar {
-		width: 0;
+		display: none;
 	}
 `
 

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Link, json, useLoaderData, useNavigate } from 'react-router-dom'
+import { Link, useLoaderData, useNavigate } from 'react-router-dom'
 import { useTitle, useHeaderHeight, useScrollTransition } from '../../hooks'
 import { Section, Card, RotatedFigureCard } from '../../components/@motion'
 import {
@@ -17,6 +17,7 @@ import HeartImg from '/assets/icons/wavy_growing-heart.svg'
 import ArrowImg from '/assets/icons/wavy_arrow-forward-sharp.svg'
 import ArrowThinImg from '/assets/icons/wavy_arrow-forward-thin.svg'
 import UmbrellaImg from '/assets/images/chrome-umbrella.png'
+import { getBrands } from '../../lib/api'
 import {
 	MinusPaddedWrapper,
 	HeroWrapper,
@@ -28,25 +29,9 @@ import {
 	PreviewMotion,
 } from './HomePage.style'
 import useStore from '../../store'
-import { api, firebaseAPI } from '../../lib/api'
-// import axios from 'axios'
 
 export const homeLoader = async () => {
-	const brands = firebaseAPI('brands.json')
-
-	const success = res => res.data
-	const error = err => {
-		const res = err.response
-		throw json({ message: res.data.error }, { status: res.status })
-	}
-
-	return api(brands)(success, error)
-	// const response = await axios('/data/brands.json')
-	// try {
-	// 	if (response.status === 200) return response.data
-	// } catch (err) {
-	// 	throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
-	// }
+	return getBrands()
 }
 
 export function HomePage() {
@@ -57,7 +42,7 @@ export function HomePage() {
 	const { ref: transitionRef, state: view } = useScrollTransition([0, 1])
 
 	const BrandsChunk = []
-	const { isMobile, isTablet } = useStore()
+	const { isMini, isMobile, isTablet } = useStore()
 	const [brandsPerScreen, setBrandsPerScreen] = useState(3)
 
 	const createArrChunk = useCallback((targetArr, brankArr, n) => {
@@ -67,9 +52,8 @@ export function HomePage() {
 	}, [])
 
 	useEffect(() => {
-		setBrandsPerScreen(isMobile ? 4 : isTablet ? 6 : 8)
-		// setBrandsPerScreen(isMobile ? 2 : isTablet ? 3 : 4)
-	}, [isMobile, isTablet])
+		setBrandsPerScreen(isMini ? 2 : isMobile ? 4 : isTablet ? 6 : 8)
+	}, [isMini, isMobile, isTablet])
 
 	createArrChunk(brands, BrandsChunk, brandsPerScreen)
 

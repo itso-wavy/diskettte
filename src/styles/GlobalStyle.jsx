@@ -84,6 +84,7 @@ const GlobalStyle = createGlobalStyle`
   ::-webkit-scrollbar {
 		height: 14px;
     /* width: 0; */
+    /* display: none; */
   }
   ::-webkit-scrollbar-track {
     /* background-color: ${({ theme }) => theme.color.darkgray2}; */
@@ -114,7 +115,6 @@ const GlobalStyle = createGlobalStyle`
 		background-image: ${({ theme }) =>
 			`linear-gradient(to right,${theme.color.gray}, ${theme.color.shadow})`};
 	}
-
 
   ::selection {
     background-color: #555adc55;

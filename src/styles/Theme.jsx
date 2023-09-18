@@ -1,4 +1,5 @@
 const breakpoints = {
+	mini: '26.875rem', // 430px
 	mobile: '48rem', // 768px
 	tablet: '80rem', // 1280px
 	desktop: '120rem', // 1920px

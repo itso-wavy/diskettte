@@ -5,6 +5,8 @@ const getViewport = () => {
 		document.body.clientWidth
 
 	switch (true) {
+		case width <= 430:
+			return 'mini'
 		case width <= 768:
 			return 'mobile'
 		case width <= 1280:
@@ -15,7 +17,8 @@ const getViewport = () => {
 }
 
 const initialState = {
-	isMobile: getViewport() === 'mobile',
+	isMini: getViewport() === 'mini',
+	isMobile: getViewport() === 'mini' || getViewport() === 'mobile',
 	isTablet: getViewport() === 'tablet',
 	isDesktop: getViewport() === 'desktop',
 }
@@ -24,7 +27,8 @@ export const createViewportSlice = set => ({
 	...initialState,
 	recheckViewport: () =>
 		set({
-			isMobile: getViewport() === 'mobile',
+			isMini: getViewport() === 'mini',
+			isMobile: getViewport() === 'mini' || getViewport() === 'mobile',
 			isTablet: getViewport() === 'tablet',
 			isDesktop: getViewport() === 'desktop',
 		}),

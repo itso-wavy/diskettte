@@ -116,6 +116,14 @@ export const HeroWrapper = styled.div`
 			left: -25%;
 		}
 	}
+
+	@media (max-width: ${({ theme }) => theme.breakpoints.mini}) {
+		margin: 0;
+
+		#mainHero {
+			font-size: 4.5rem;
+		}
+	}
 `
 
 export const GridWarpper = styled.div`
