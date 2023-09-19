@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { Button } from '../@ui/Button'
-import TopImg from '/public/assets/icons/wavy_scroll-to-top.svg'
+import TopImg from '/assets/icons/wavy_scroll-to-top.svg'
 
 const BaseButton = ({ ...props }) => (
 	<Button $type='square' $img={TopImg} $style='tertiary' {...props} />

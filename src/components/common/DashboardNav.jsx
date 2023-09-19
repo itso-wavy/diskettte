@@ -1,7 +1,7 @@
-import { NavLink, useMatch } from 'react-router-dom'
-import { StyledNav, MiniProfile, StyledUl } from './MypageNav.style'
-import useStore from '../../store'
 import { useMemo } from 'react'
+import { NavLink, useMatch } from 'react-router-dom'
+import { StyledNav, MiniProfile, StyledUl } from './DashboardNav.style'
+import useStore from '../../store'
 
 const NavItem = ({ url, ariaLabel, text, ...props }) => {
 	const match = useMatch(url)
@@ -20,11 +20,11 @@ const NavItem = ({ url, ariaLabel, text, ...props }) => {
 	)
 }
 
-export function MypageNav({ privatePageType, ...props }) {
+export function DashboardNav({ dashboardType, ...props }) {
 	const { accountNumber, accountType } = useStore()
 
 	const navMenu = useMemo(() => {
-		if (privatePageType === 'SELLER') {
+		if (dashboardType === 'SELLER') {
 			return [
 				{
 					url: '/seller/product',
@@ -53,7 +53,7 @@ export function MypageNav({ privatePageType, ...props }) {
 				},
 			]
 		}
-		if (privatePageType === 'BUYER') {
+		if (dashboardType === 'BUYER') {
 			return [
 				{
 					url: '/mypage/orders',
@@ -72,7 +72,7 @@ export function MypageNav({ privatePageType, ...props }) {
 				},
 			]
 		}
-	}, [privatePageType])
+	}, [dashboardType])
 
 	return (
 		<StyledNav aria-label='mypage categories' {...props}>

@@ -1,67 +1,12 @@
 import { useMemo } from 'react'
-import {
-	json,
-	useLoaderData,
-	useParams,
-	useRouteLoaderData,
-} from 'react-router-dom'
+import { useParams, useRouteLoaderData } from 'react-router-dom'
 import { useHeaderHeight, useTitle } from '../../hooks'
 import { Section } from '../../components/@motion'
 import { Pagination } from '../../components/@ui/Pagination'
 import { ProductList, ProductItem } from '../../components/product'
 import { StyledImg, StyledSection } from './BrandPage.style'
-import { api, clientAPI, firebaseAPI } from '../../lib/api'
 import useStore from '../../store'
-// import axios from 'axios'
 
-// export const brandLoader = async ({ request, params }) => {
-// 	const searchParams = new URL(request.url).searchParams
-// 	const pageParam = searchParams.get('page') ?? '1'
-// 	const { brandId } = params
-
-// 	const firebase = firebaseAPI('banners.json')
-// 	const client = clientAPI(`products/?page=${pageParam}`)
-
-// 	const success = res => res.data // data || null
-// 	const error = err => {
-// 		throw json(
-// 			{ message: err.message || err.response?.statusText },
-// 			{ status: err.response.status }
-// 		)
-// 	}
-
-// 	const banners = await api(firebase)(success, error)
-// 	const products = await api(client)(success, error)
-// 	const noBanner = {
-// 		ariaLabel: 'brand',
-// 		src: '/assets/banners/banner7.png',
-// 		alt: '.',
-// 	}
-// 	const banner =
-// 		banners.find(banner => banner.id === Number(brandId)) ?? noBanner
-
-// 	return { currentPage: pageParam, banner, products }
-// 	// {
-// 	// 	/* 	const client = clientAPI('seller')
-
-// 	// 	const success = res => res.data
-// 	// 	const error = () => {
-// 	// 		throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
-// 	// 	}
-
-// 	// 	return api(client)(success, error) */
-
-// 	// 	// const response = await axios(
-// 	// 	// 	`https://openmarket.weniv.co.kr/seller/${brandId}`
-// 	// 	// )
-
-// 	// 	// try {
-// 	// 	// 	if (response.status === 200) return response.data
-// 	// 	// } catch (err) {
-// 	// 	// 	throw json({ message: `Couldn't fetch data from server.` }, { status: 500 })
-// 	// 	// }
-// 	// }
-// }
 const getBrandBanner = ({ banners, brandId }) => {
 	const noBanner = {
 		ariaLabel: 'brand',
@@ -75,7 +20,6 @@ const getBrandBanner = ({ banners, brandId }) => {
 }
 
 export function BrandPage() {
-	// const { currentPage, banner, products } = useLoaderData()
 	const { currentPage, banners, products } = useRouteLoaderData('all-products')
 	const { brandId } = useParams()
 	const productsPerPage = products.results

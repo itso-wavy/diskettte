@@ -40,7 +40,7 @@ export const StyledLi = styled.li`
 				position: relative;
 				top: 1px;
 				background: no-repeat center/cover
-					url('/public/assets/icons/wavy_chevron-gray.svg');
+					url('/assets/icons/wavy_chevron-gray.svg');
 				width: 1rem;
 				height: 1rem;
 				margin: 0 10px;

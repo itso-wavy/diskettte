@@ -5,9 +5,9 @@ import { QuantitySpinner } from '.'
 import { Button } from '../@ui/Button'
 import { Flexbox } from '../@ui/Form'
 import { formatNumber } from '../../lib/utils/text-formatter'
-import { Wrapper, ShippingInfo } from './ProductForm.style.jsx'
+import { Wrapper, ShippingInfo } from './ProductOrderForm.style.jsx'
 
-function ProductForm({ product, ...props }) {
+function ProductOrderForm({ product, ...props }) {
 	const {
 		seller: brandId,
 		store_name: brandName,
@@ -88,4 +88,4 @@ function ProductForm({ product, ...props }) {
 	)
 }
 
-export { ProductForm }
+export { ProductOrderForm }

@@ -1,8 +1,8 @@
 import { Button } from '../@ui/Button'
 import { Img } from '../@ui/Img'
-import GoogleImg from '/public/assets/icons/flat-color-icons_google.svg'
-import KakaotalkImg from '/public/assets/icons/simple-icons_kakaotalk.svg'
-import NaverImg from '/public/assets/icons/simple-icons_naver.svg'
+import GoogleImg from '/assets/icons/flat-color-icons_google.svg'
+import KakaotalkImg from '/assets/icons/simple-icons_kakaotalk.svg'
+import NaverImg from '/assets/icons/simple-icons_naver.svg'
 
 function SnsLoginButton({ src, text, ...props }) {
 	return (

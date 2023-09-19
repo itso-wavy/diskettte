@@ -40,7 +40,7 @@ export const BlockLabel = styled.label`
 				content: '';
 				display: inline-block;
 				background: no-repeat center/cover
-					url('/public/assets/icons/ri_check-fill.svg');
+					url('/assets/icons/ri_check-fill.svg');
 				width: 1rem;
 				height: 1rem;
 				margin-left: 5px;

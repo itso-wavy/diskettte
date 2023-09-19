@@ -1,19 +1,19 @@
 import { useMemo } from 'react'
-import { Link, redirect, useLoaderData, useNavigate } from 'react-router-dom'
+import { Link, redirect, useLoaderData } from 'react-router-dom'
 import { FormProvider } from '../../context/form-context'
 import { useHeaderHeight, useTitle } from '../../hooks'
 import { Card } from '../../components/@motion'
 import { Badge } from '../../components/@ui/Badge'
 import { Tabs } from '../../components/@ui/Tabs'
 import { DropdownSvg } from '../../components/@svg/DropdownSvg'
-import { ProductForm } from '../../components/product'
+import { ProductOrderForm } from '../../components/product'
 import { getCart, addToCart, getProduct } from '../../lib/api'
 import {
 	getAuthToken,
 	getAccountType,
 	setOrderItems,
 } from '../../lib/utils/storage'
-import { formatNumber } from '../../lib/utils/number-formatter'
+import { formatNumber } from '../../lib/utils/text-formatter'
 import {
 	LayoutWrapper,
 	OverviewWrapper,
@@ -29,10 +29,8 @@ export const productLoader = async ({ request, params }) => {
 }
 
 export function ProductPage() {
-	const navigate = useNavigate()
 	const headerHeight = useHeaderHeight()
 	const product = useLoaderData()
-	/* 	const newInCart = useActionData() */
 
 	const {
 		seller: brandId,
@@ -84,7 +82,7 @@ export function ProductPage() {
 								qty: 1,
 							}}
 						>
-							<ProductForm product={product} />
+							<ProductOrderForm product={product} />
 						</FormProvider>
 					</PricingInfo>
 				</Card>
