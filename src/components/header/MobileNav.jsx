@@ -78,7 +78,8 @@ export function MobileNav({ ...props }) {
 							/>
 						) : (
 							<MobileNavItem
-								url='/mypage/orders'
+								// url='/mypage/orders'
+								url='/mypage'
 								ariaLabel='go to mypage'
 								text='마이페이지'
 								icon={<MypageSvg />}

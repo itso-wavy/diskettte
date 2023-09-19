@@ -113,7 +113,8 @@ export function HeaderMain({ $transparent, children, ...props }) {
 								/>
 							) : (
 								<HeaderMenuItem
-									href='/mypage/orders'
+									// href='/mypage/orders'
+									href='/mypage'
 									src={<MypageSvg />}
 									text='마이페이지'
 									ariaLabel='go to mypage'

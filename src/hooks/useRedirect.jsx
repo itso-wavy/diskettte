@@ -15,5 +15,5 @@ export const useRedirect = (currentPath, redirectTo) => {
 			navigate(redirectTo, {
 				replace: true,
 			})
-	}, [])
+	}, [trimmedPathname])
 }
