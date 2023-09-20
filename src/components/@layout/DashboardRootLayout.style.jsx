@@ -6,7 +6,7 @@ export const MinusPaddedWrapper = styled.div`
 	/* margin-bottom: -250px; */
 	/* margin-bottom: -200px; */
 
-	& > *:last-child {
+	& > *:nth-child(2) {
 		/* margin: 3.75rem 2.5rem 250px; */
 		/* margin: 3.75rem 2.5rem 200px; */
 		margin: 3.75rem 2.5rem 0;
@@ -30,7 +30,7 @@ export const MinusPaddedWrapper = styled.div`
 		grid-auto-flow: column;
 		grid-template: 1fr auto / 1fr;
 
-		& > *:last-child {
+		& > *:nth-child(2) {
 			margin: 3.75rem 0 0;
 		}
 	}

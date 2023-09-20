@@ -4,7 +4,7 @@ import {
 	AuthRootLayout,
 	ProductRootLayout,
 	CheckoutRootLayout,
-	PrivateRootLayout,
+	DashboardRootLayout,
 } from '../components/@layout'
 import {
 	HomePage,
@@ -24,7 +24,7 @@ import {
 	ProductsPage,
 	ProductCreatePage,
 	ProductEditPage,
-	ProductDeletePage,
+	// ProductDeletePage,
 	SigninPage,
 	SignupPage,
 	LogoutPage,
@@ -36,9 +36,9 @@ import {
 } from '../components/@layout'
 import {
 	homeLoader,
-	// productsLoader,
+	// productLoader,
 	// brandLoader,
-	productLoader,
+	productDetailLoader,
 	cartLoader,
 	checkoutLoader,
 	orderConfirmLoader,
@@ -51,6 +51,7 @@ import {
 	productAction,
 	cartAction,
 	checkoutAction,
+	productCreateAction,
 } from '../pages'
 
 const router = createBrowserRouter([
@@ -98,7 +99,7 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'product/:productId',
-						loader: productLoader,
+						loader: productDetailLoader,
 						element: <ProductPage />,
 						action: productAction,
 					},
@@ -128,7 +129,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: 'mypage',
-				element: <PrivateRootLayout />,
+				element: <DashboardRootLayout />,
 				children: [
 					{
 						loader: ordersLoader,
@@ -139,7 +140,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: 'seller',
-				element: <PrivateRootLayout />,
+				element: <DashboardRootLayout />,
 				children: [
 					{
 						loader: sellerProductsLoader,
@@ -149,22 +150,17 @@ const router = createBrowserRouter([
 					{
 						path: 'product/create',
 						element: <ProductCreatePage />,
+						action: productCreateAction,
 					},
 					{
-						path: 'product/:productId',
-						element: <ProductPage />,
-						id: 'product-detail',
-						children: [
-							{
-								path: 'edit',
-								element: <ProductEditPage />,
-							},
-							{
-								path: 'delete',
-								element: <ProductDeletePage />,
-							},
-						],
+						loader: productDetailLoader,
+						path: 'product/edit/:productId',
+						element: <ProductEditPage />,
 					},
+					// {
+					// 	path: 'product/delete/:productId',
+					// 	element: <ProductDeletePage />,
+					// },
 				],
 			},
 		],
