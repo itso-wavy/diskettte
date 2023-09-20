@@ -64,6 +64,12 @@ function ShippingInfoFieldset({ ...props }) {
 						name='deliveryRequest'
 						placeholder='ex. 부재시 문 앞에 놓아주세요.'
 					/>
+					{errorMessages.deliveryRequest && (
+						<FormValidationMessage
+							text={errorMessages.deliveryRequest}
+							className='invalid'
+						/>
+					)}
 				</div>
 			</GridWrapper>
 		</StyledFieldset>

@@ -9,11 +9,6 @@ const accountSchema = {
 		message:
 			'비밀번호는 8-16자이고 영문자, 숫자, 특수문자만을 각각 한자리 이상 포함해야 합니다.',
 	},
-	// passwordConfirm: {
-	// 	pattern:
-	// 		/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!?@#$%^&*_-])[a-zA-Z\d!?@#$%^&*_-]{8,16}$/,
-	// 	message: '비밀번호가 일치하지 않습니다.',
-	// },
 }
 
 const personalInfoSchema = {

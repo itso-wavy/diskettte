@@ -62,6 +62,6 @@ export const GridWrapper = styled.div`
 `
 
 export const ButtonsWrapper = styled.div`
-	margin-top: 2em;
+	margin-top: calc(2em - 0.5em);
 	grid-column: 2;
 `

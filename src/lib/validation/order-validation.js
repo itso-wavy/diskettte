@@ -12,8 +12,8 @@ const shippingInfoSchema = {
 		message: '주소를 입력해주세요.',
 	},
 	deliveryRequest: {
-		pattern: /.*/,
-		message: '',
+		pattern: /^(?!.*트롤).*$/m,
+		message: '바르고 고운 말을 사용해주세요...',
 	},
 }
 

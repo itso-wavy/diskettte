@@ -31,7 +31,6 @@ function ProductAdminForm({ ...props }) {
 						accept='.jpg, .gif, .png'
 					/>
 				</div>
-				{/* //TODO: */}
 				<GridWrapper className='info-box'>
 					<SpanLabel id='productName' label='상품명' />
 					<div className='shrink'>
@@ -43,7 +42,7 @@ function ProductAdminForm({ ...props }) {
 							/>
 						)}
 					</div>
-					<SpanLabel id='sellingPrice' label='판매가' />
+					<SpanLabel id='sellingPrice' label='판매가(&#8361;)' />
 					<div className='shrink'>
 						<FormInput type='number' id='sellingPrice' name='sellingPrice' />
 						{errorMessages.sellingPrice && (
@@ -71,7 +70,7 @@ function ProductAdminForm({ ...props }) {
 							/>
 						)}
 					</div>
-					<SpanLabel id='shippingFee' label='배송비' />
+					<SpanLabel id='shippingFee' label='배송비(&#8361;)' />
 					<div className='shrink'>
 						<FormInput type='number' id='shippingFee' name='shippingFee' />
 						{errorMessages.shippingFee && (
@@ -94,6 +93,12 @@ function ProductAdminForm({ ...props }) {
 					<SpanLabel id='productInfo' label='상품 상세' />
 					<div>
 						<FormInput type='textarea' id='productInfo' name='productInfo' />
+						{errorMessages.productInfo && (
+							<FormValidationMessage
+								text={errorMessages.productInfo}
+								className='invalid'
+							/>
+						)}
 					</div>
 					<ButtonsWrapper className='shrink'>
 						<Flexbox $direction='row'>
@@ -112,21 +117,6 @@ function ProductAdminForm({ ...props }) {
 					</ButtonsWrapper>
 				</GridWrapper>
 			</OverviewWrapper>
-			{/* <ButtonsWrapper>
-				<Flexbox $direction='row'>
-					<Button
-						$style='secondary'
-						type='button'
-						name='submitter'
-						onClick={() => navigate(-1)}
-					>
-						취소
-					</Button>
-					<SubmitButton name='submitter' onClick={e => {}}>
-						완료
-					</SubmitButton>
-				</Flexbox>
-			</ButtonsWrapper> */}
 		</Form>
 	)
 }
