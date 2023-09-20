@@ -24,6 +24,7 @@ export const StyledTable = styled.table`
 	thead,
 	td[scope='row'] {
 		font-weight: ${({ theme }) => theme.fw.bold};
+		word-break: keep-all;
 	}
 
 	th,

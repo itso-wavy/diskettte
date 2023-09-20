@@ -9,7 +9,7 @@ import {
 } from 'react'
 import { FormContext } from '../../context/form-context'
 import { useInput, useScript } from '../../hooks'
-import { HiddenLabel, ButtonLabel } from './Label'
+import { HiddenLabel, ButtonLabel, ImageLabel } from './Label'
 import { Button } from './Button'
 import { Img } from './Img'
 import { Flexbox } from './Form'
@@ -50,7 +50,7 @@ function TextInput({
 					ref={ref}
 					id={id}
 					name={name}
-					type={type}
+					type={type === 'number' ? 'text' : type}
 					value={value || ''}
 					placeholder={placeholder}
 					onInput={e => onInputHandler(e, { type })}
@@ -74,6 +74,29 @@ function TextInput({
 				</div>
 			</InputWrapper>
 		</>
+	)
+}
+
+function Textarea({ id, name, label, placeholder, ...props }) {
+	const { ref } = useInput()
+	const { values, onInputHandler, onBlurHandler } = useContext(FormContext)
+
+	const value = values[name]
+	/* Textarea {...{ id, name, label, placeholder, ...props }} */
+	return (
+		<InputWrapper>
+			{label && <HiddenLabel id={id} label={label} />}
+			<textarea
+				ref={ref}
+				id={id}
+				name={name}
+				value={value || ''}
+				placeholder={placeholder}
+				onInput={e => onInputHandler(e)}
+				onBlur={onBlurHandler}
+				{...props}
+			/>
+		</InputWrapper>
 	)
 }
 
@@ -293,12 +316,55 @@ function AddressInput({ id, name, label, placeholder, ...props }) {
 	)
 }
 
+function ImageInput({ id, name, accept, ...props }) {
+	const [image, setImage] = useState()
+
+	const imageChangeHandler = e => {
+		console.log('click!')
+		// const selectedImage = e.target.files[0]
+
+		// // 이미지 확장자 검사
+		// if (selectedImage && /\.(jpg|jpeg|gif|png)$/i.test(selectedImage.name)) {
+		// 	const reader = new FileReader()
+
+		// 	reader.onload = () => {
+		// 		setImage(reader.result)
+		// 	}
+
+		// 	reader.readAsDataURL(selectedImage)
+		// } else {
+		// 	alert('올바른 이미지 파일을 선택하세요. (jpg, gif, png)')
+		// }
+	}
+
+	return (
+		<>
+			<ImageLabel
+				id={id}
+				preview={image}
+				// alt='이미지 미리보기'
+				onClick={imageChangeHandler}
+				{...props}
+			/>
+			<input
+				type='file'
+				className='sr-only'
+				id={id}
+				name={name}
+				accept={accept ?? 'image/*'}
+			/>
+		</>
+	)
+}
+
 const RefCheckbox = forwardRef(Checkbox)
 
 export {
 	TextInput,
+	Textarea,
 	NumberInput,
 	RefCheckbox as Checkbox,
 	RadioInput,
 	AddressInput,
+	ImageInput,
 }

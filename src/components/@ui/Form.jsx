@@ -6,6 +6,8 @@ import {
 	NumberInput,
 	RadioInput,
 	AddressInput,
+	ImageInput,
+	Textarea,
 } from '../@ui/Input'
 import { Button } from '../@ui/Button'
 import {
@@ -62,6 +64,7 @@ function FormInput({
 	children,
 	info,
 	option,
+	accept,
 	...props
 }) {
 	const { areTouched, areValid } = useContext(FormContext)
@@ -104,6 +107,14 @@ function FormInput({
 				<RadioInput option={option} name={name} {...props} />
 			</GridWrapper>
 		)
+	}
+
+	if (type === 'file-image') {
+		return <ImageInput id={id} name={name} accept={accept} {...props} />
+	}
+
+	if (type === 'textarea') {
+		return <Textarea {...{ id, name, label, placeholder, ...props }} />
 	}
 
 	return (

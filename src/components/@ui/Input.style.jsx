@@ -6,7 +6,8 @@ export const InputWrapper = styled.div`
 	margin-bottom: 0.5em;
 
 	${({ theme }) => css`
-		& input {
+		& input,
+		& textarea {
 			height: 3rem;
 			width: 100%;
 			padding: 1rem calc(0.8rem + 1.7rem) 1rem 0.8rem;
@@ -25,6 +26,12 @@ export const InputWrapper = styled.div`
 				color: inherit;
 				outline: 1px solid ${theme.color.error};
 			}
+		}
+
+		& textarea {
+			height: auto;
+			min-height: 15rem;
+			resize: none;
 		}
 	`}
 
