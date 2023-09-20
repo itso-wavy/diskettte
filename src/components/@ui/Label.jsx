@@ -1,4 +1,4 @@
-import { StyledSpanLabel, BlockLabel } from './Label.style'
+import { StyledSpanLabel, BlockLabel, ImgLabel } from './Label.style'
 
 function HiddenLabel({ id, label, ...props }) {
 	return (
@@ -29,4 +29,12 @@ function ButtonLabel({ id, label, checked, ...props }) {
 	)
 }
 
-export { HiddenLabel, SpanLabel, ButtonLabel }
+function ImageLabel({ id, preview, ...props }) {
+	return (
+		<ImgLabel htmlFor={id} $bg={preview} {...props}>
+			{preview && <img src={preview} alt='preview' />}
+		</ImgLabel>
+	)
+}
+
+export { HiddenLabel, SpanLabel, ButtonLabel, ImageLabel }

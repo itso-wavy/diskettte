@@ -23,7 +23,6 @@ export const OverviewWrapper = styled.div`
 	/* width: 100%; */
 	/* height: ${({ $top }) => `calc(100vh - ${$top}px - 6em)`}; */
 	/* height: 32.5em; */
-	border: 1px solid gold;
 	display: flex;
 	gap: 3em;
 
@@ -31,16 +30,22 @@ export const OverviewWrapper = styled.div`
 		margin: 0 auto;
 		flex: 0 0 47%;
 		min-height: 300px;
+		max-height: 600px;
 		width: 100%;
 	}
 
 	.info-box {
 		flex: 1;
+		align-self: start;
 	}
 
 	@media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
 		height: auto;
 		flex-direction: column;
+
+		.info-box {
+			align-self: auto;
+		}
 	}
 `
 

@@ -47,3 +47,24 @@ export const BlockLabel = styled.label`
 			}
 		`}
 `
+
+export const ImgLabel = styled.label`
+	display: block;
+	width: 100%;
+	height: inherit;
+	min-height: inherit;
+	max-height: inherit;
+	background: no-repeat center/cover;
+	/* background-image: ${({ $bg }) =>
+		$bg ? 'none' : 'url(/assets/images/paper-texture.png)'}; */
+	background-color: ${({ $bg }) => ($bg ? 'none' : '#dedede')};
+	border-radius: 15px;
+	overflow-y: hidden;
+	cursor: pointer;
+
+	& img {
+		width: 100%;
+		max-height: 100%;
+		object-fit: cover;
+	}
+`

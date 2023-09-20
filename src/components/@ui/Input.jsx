@@ -317,41 +317,27 @@ function AddressInput({ id, name, label, placeholder, ...props }) {
 }
 
 function ImageInput({ id, name, accept, ...props }) {
-	const [image, setImage] = useState()
+	const [image, setImage] = useState('')
 
 	const imageChangeHandler = e => {
-		console.log('click!')
-		// const selectedImage = e.target.files[0]
-
-		// // 이미지 확장자 검사
-		// if (selectedImage && /\.(jpg|jpeg|gif|png)$/i.test(selectedImage.name)) {
-		// 	const reader = new FileReader()
-
-		// 	reader.onload = () => {
-		// 		setImage(reader.result)
-		// 	}
-
-		// 	reader.readAsDataURL(selectedImage)
-		// } else {
-		// 	alert('올바른 이미지 파일을 선택하세요. (jpg, gif, png)')
-		// }
+		const selectedImage = e.target.files[0]
+		const fileReader = new FileReader()
+		fileReader.onload = () => {
+			setImage(fileReader.result)
+		}
+		fileReader.readAsDataURL(selectedImage)
 	}
 
 	return (
 		<>
-			<ImageLabel
-				id={id}
-				preview={image}
-				// alt='이미지 미리보기'
-				onClick={imageChangeHandler}
-				{...props}
-			/>
+			<ImageLabel id={id} preview={image} {...props} />
 			<input
 				type='file'
 				className='sr-only'
 				id={id}
 				name={name}
 				accept={accept ?? 'image/*'}
+				onChange={imageChangeHandler}
 			/>
 		</>
 	)
