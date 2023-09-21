@@ -54,11 +54,12 @@ export const ImgLabel = styled.label`
 	height: inherit;
 	min-height: inherit;
 	max-height: inherit;
-	background: no-repeat center/cover;
-	/* background-image: ${({ $bg }) =>
-		$bg ? 'none' : 'url(/assets/images/paper-texture.png)'}; */
-	background-color: ${({ $bg }) => ($bg ? 'none' : '#dedede')};
-	border-radius: 15px;
+	position: relative;
+	margin-bottom: calc(0.8em / 2);
+	/* background: no-repeat center/cover; */
+	background-color: ${({ $bg, theme }) =>
+		$bg ? 'none' : theme.color.lightgray};
+	border-radius: 0.7rem;
 	overflow-y: hidden;
 	cursor: pointer;
 
@@ -66,5 +67,16 @@ export const ImgLabel = styled.label`
 		width: 100%;
 		max-height: 100%;
 		object-fit: cover;
+		position: relative;
+	}
+
+	&::before {
+		content: url('/assets/icons/wavy_image-sharp.svg');
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		display: grid;
+		place-items: center;
 	}
 `

@@ -1,4 +1,8 @@
 const productInfoSchema = {
+	productImage: {
+		pattern: /\.(jpg|gif|png)$/i,
+		message: '.jpg, .gif, .png 확장자만 업로드 가능합니다.',
+	},
 	productName: {
 		pattern: /.*/,
 		message: '상품명을 입력해주세요.',

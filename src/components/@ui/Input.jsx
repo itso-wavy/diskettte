@@ -318,19 +318,24 @@ function AddressInput({ id, name, label, placeholder, ...props }) {
 
 function ImageInput({ id, name, accept, ...props }) {
 	const [image, setImage] = useState('')
+	const { areValid, onInputHandler, onBlurHandler } = useContext(FormContext)
+	const isValid = areValid[name]
 
 	const imageChangeHandler = e => {
 		const selectedImage = e.target.files[0]
 		const fileReader = new FileReader()
+
 		fileReader.onload = () => {
 			setImage(fileReader.result)
+			onBlurHandler({ target: { name, value: selectedImage.name } })
+			onInputHandler({ target: { name, value: selectedImage } })
 		}
 		fileReader.readAsDataURL(selectedImage)
 	}
 
 	return (
 		<>
-			<ImageLabel id={id} preview={image} {...props} />
+			<ImageLabel id={id} preview={isValid && image} {...props} />
 			<input
 				type='file'
 				className='sr-only'
