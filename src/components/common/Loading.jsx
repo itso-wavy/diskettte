@@ -5,7 +5,7 @@ import ShoppingBagImg from '/assets/images/shoppingBag.png'
 import ChromeBallImg from '/assets/images/chromeBall.png'
 import { RotateWrapper, Wrapper } from './Loading.style'
 
-function OrderLoading() {
+function DashboardLoading() {
 	return (
 		<Wrapper>
 			<Img src={ChromeBallImg} alt='' $size='5em' />
@@ -33,4 +33,4 @@ function Loading() {
 	)
 }
 
-export { Loading, CartLoading, OrderLoading }
+export { Loading, CartLoading, DashboardLoading }

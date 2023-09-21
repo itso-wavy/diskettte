@@ -8,6 +8,7 @@ export const StyledTable = styled.table`
 	border-bottom: ${({ theme }) => `2px solid ${theme.color.black}`};
 	display: grid;
 	overflow-x: auto;
+	white-space: nowrap;
 
 	caption,
 	thead {

@@ -29,7 +29,7 @@ export function DashboardNav({ dashboardType, ...props }) {
 				{
 					url: '/seller/product',
 					ariaLabel: 'products in sale',
-					text: '판매 중인 상품',
+					text: '판매 상품 조회',
 				},
 				{
 					url: '/seller/product',
