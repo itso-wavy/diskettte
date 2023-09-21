@@ -13,16 +13,21 @@ const clientAPI = axios.create({
 	},
 })
 
+const clientFormAPI = axios.create({ ...clientAPI.defaults })
+
+clientFormAPI.defaults.headers['content-type'] = 'multipart/form-data'
+
+/* 
+const clientFormAPI = axios.create({
+	baseURL: baseURL.client,
+	headers: {
+		'content-type': 'multipart/form-data',
+	},
+}) */
+
 const firebaseAPI = axios.create({
 	baseURL: baseURL.firebase,
 })
-
-// export const axiosInstanceMultiForm = axios.create({
-//   baseURL: baseUrl,
-//   headers: {
-//     "Content-Type": "multipart/form-data",
-//   },
-// });
 
 const api = axiosInstance => {
 	const request = async (success, error) => {
@@ -41,9 +46,9 @@ const api = axiosInstance => {
 	return request
 }
 
-export { api, clientAPI, firebaseAPI }
+export { api, clientAPI, clientFormAPI, firebaseAPI }
 
-clientAPI.interceptors.request.use(
+const requestAuth = [
 	config => {
 		// 요청 보내기 전 실행
 		const token = getAuthToken()
@@ -52,8 +57,23 @@ clientAPI.interceptors.request.use(
 
 		return config
 	},
+	error => Promise.reject(error),
+]
+
+clientAPI.interceptors.request.use(...requestAuth)
+clientFormAPI.interceptors.request.use(...requestAuth)
+
+/* 
+clientAPI.interceptors.request.use(
+	config => {
+		const token = getAuthToken()
+
+		if (token) config.headers.Authorization = `JWT ${token}`
+
+		return config
+	},
 	error => Promise.reject(error)
-)
+) */
 
 // clientAPI.interceptors.response.use(
 // 	response => {
@@ -74,17 +94,3 @@ clientAPI.interceptors.request.use(
 // 		return Promise.reject(error)
 // 	}
 // )
-
-// axiosInstanceMultiForm.interceptors.request.use(
-//   (config) => {
-//     const token = localStorage.getItem("token");
-//     if (token) {
-//       config = { ...config };
-//       config.headers = { ...config.headers } || {};
-//       config.headers.Authorization = `JWT  ${token}`;
-//     }
-
-//     return config;
-//   },
-//   (error) => Promise.reject(error)
-// );

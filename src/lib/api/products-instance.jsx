@@ -1,5 +1,17 @@
 import { json } from 'react-router-dom'
-import { api, clientAPI } from '../api'
+import { api, firebaseAPI, clientAPI, clientFormAPI } from '../api'
+
+const getBrands = async () => {
+	const brands = firebaseAPI('brands.json')
+
+	const success = res => res.data
+	const error = err => {
+		const res = err.response
+		throw json({ message: res.data.error }, { status: res.status })
+	}
+
+	return api(brands)(success, error)
+}
 
 const getProducts = async () => {
 	let page = 1
@@ -28,23 +40,6 @@ const getProducts = async () => {
 	return getAllProducts(chunkedProducts)
 }
 
-// const ignorePaging = (page, firstPageResponse, success, error) => {
-// 	const array = []
-
-// 	const getAllItems = async response => {
-// 		array.push(...response.results)
-
-// 		if (!response.next) return array
-
-// 		++page
-// 		const newChunked = await api(client(page))(success, error)
-
-// 		return getAllItems(newChunked)
-// 	}
-
-// 	return getAllItems(firstPageResponse)
-// }
-
 const getProduct = async product_id => {
 	const client = clientAPI(`products/${product_id}`)
 
@@ -59,12 +54,69 @@ const getProduct = async product_id => {
 	return await api(client)(success, error)
 }
 
-export { getProducts, getProduct }
+const getSellerProducts = async pageParam => {
+	const client = clientAPI(`seller/?page=${pageParam}`)
 
-// GET /products/
+	const success = res => res.data
 
-// POST /products/
-// GET /products/<int:product_id>/
-// PUT /products/<int:product_id>/
-// DELETE /products/<int:product_id>/
-// GET /products/?search=입력값
+	const error = err => {
+		throw json({ message: err.message }, { status: err.response.status })
+	}
+
+	return api(client)(success, error)
+}
+
+const createProduct = async (productData, success) => {
+	const client = clientFormAPI.post('products/', productData)
+
+	const error = err => {
+		throw json(
+			{ message: JSON.stringify(err.response.data) },
+			{ status: err.response.status }
+		)
+	}
+
+	return api(client)(success, error)
+}
+
+const updateProduct = async (productId, productData) => {
+	const client = clientFormAPI.put(`products/${productId}`, productData)
+
+	const success = res => res.data
+	const error = err => {
+		throw json(
+			{ message: JSON.stringify(err.response.data) },
+			{ status: err.response.status }
+		)
+	}
+
+	return api(client)(success, error)
+}
+
+const deleteProduct = async productId => {
+	const client = clientAPI.delete(`products/${productId}`)
+
+	const success = res => res.data
+	const error = err => {
+		throw json(
+			{ message: JSON.stringify(err.response.data) },
+			{ status: err.response.status }
+		)
+	}
+
+	return api(client)(success, error)
+}
+
+// GET /products/?search=입력값 검색
+
+export {
+	getBrands,
+	getProducts,
+	getProduct,
+	getSellerProducts,
+	createProduct,
+	updateProduct,
+	deleteProduct,
+}
+
+// firebase

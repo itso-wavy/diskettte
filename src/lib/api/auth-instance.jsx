@@ -13,8 +13,7 @@ const serverLogin = async (authData, success) => {
 const serverLogout = async () => {
 	const client = clientAPI.post('accounts/logout/')
 
-	const success = res => console.log(res)
-
+	const success = res => res.data.detail
 	const error = err => {
 		return err.response.data
 	}
