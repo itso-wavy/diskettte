@@ -22,7 +22,7 @@ import {
 	DescriptionWrapper,
 } from './ProductPage.style'
 
-export const productLoader = async ({ request, params }) => {
+export const productDetailLoader = async ({ request, params }) => {
 	const { productId } = params
 
 	return getProduct(productId)

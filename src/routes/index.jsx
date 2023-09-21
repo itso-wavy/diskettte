@@ -52,6 +52,7 @@ import {
 	cartAction,
 	checkoutAction,
 	productCreateAction,
+	productEditAction,
 } from '../pages'
 
 const router = createBrowserRouter([
@@ -156,6 +157,7 @@ const router = createBrowserRouter([
 						loader: productDetailLoader,
 						path: 'product/edit/:productId',
 						element: <ProductEditPage />,
+						action: productEditAction,
 					},
 					// {
 					// 	path: 'product/delete/:productId',

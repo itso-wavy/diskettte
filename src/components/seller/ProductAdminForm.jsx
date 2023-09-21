@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { Form, useNavigate } from 'react-router-dom'
 import { FormContext, FormProvider } from '../../context/form-context'
 import { SpanLabel } from '../@ui/Label'
@@ -18,18 +18,38 @@ import {
 
 function ProductAdminForm({ ...props }) {
 	const navigate = useNavigate()
-	const { errorMessages } = useContext(FormContext)
+	const { values, onManuallyValidateHandler, errorMessages } =
+		useContext(FormContext)
+
+	const onSubmitHandler = e => {
+		const { productId } = values
+		e.target.value = JSON.stringify({ productId })
+	}
+
+	useEffect(() => {
+		const providerValues = ['productId']
+
+		providerValues.forEach(name =>
+			onManuallyValidateHandler({ name, isValid: true })
+		)
+	}, [])
 
 	return (
-		<Form method='POST' {...props}>
+		<Form method='POST' encType='multipart/form-data' {...props}>
 			<OverviewWrapper>
 				<div className='image-box'>
 					<FormInput
 						type='file-image'
-						id='image'
-						name='image'
+						id='productImage'
+						name='productImage'
 						accept='.jpg, .gif, .png'
 					/>
+					{errorMessages.productImage && (
+						<FormValidationMessage
+							text={errorMessages.productImage}
+							className='invalid'
+						/>
+					)}
 				</div>
 				<GridWrapper className='info-box'>
 					<SpanLabel id='productName' label='상품명' />
@@ -110,7 +130,7 @@ function ProductAdminForm({ ...props }) {
 							>
 								취소
 							</Button>
-							<SubmitButton name='submitter' onClick={e => {}}>
+							<SubmitButton name='submitter' onClick={onSubmitHandler}>
 								완료
 							</SubmitButton>
 						</Flexbox>
@@ -133,7 +153,7 @@ function ProductAdminFormSection({
 			? {
 					productId: 0,
 					productName: '',
-					image: '',
+					productImage: '',
 					sellingPrice: '', // 변경 불가?
 					shippingMethod: '',
 					shippingFee: '',

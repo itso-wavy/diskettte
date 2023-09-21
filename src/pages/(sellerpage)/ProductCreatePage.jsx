@@ -1,5 +1,7 @@
+import { redirect } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import { ProductAdminFormSection } from '../../components/seller'
+import { createProduct } from '../../lib/api'
 
 export function ProductCreatePage() {
 	useTitle('상품 등록')
@@ -14,19 +16,38 @@ export function ProductCreatePage() {
 }
 
 export const productCreateAction = async ({ request, params }) => {
-	// const isSignedIn = !!getAuthToken()
-	// const accountType = getAccountType()
-	// if (!isSignedIn) {
-	// 	return confirm(
-	// 		'구매 계정만 이용할 수 있는 서비스입니다.\n로그인 하시겠습니까?'
-	// 	)
-	// 		? redirect('/auth/signin')
-	// 		: null
+	const {
+		productName,
+		productImage,
+		sellingPrice,
+		shippingMethod,
+		shippingFee,
+		stock,
+		productInfo,
+		submitter,
+	} = Object.fromEntries(await request.formData())
+	const { productId } = JSON.parse(submitter)
+
+	const productData = {
+		product_name: productName,
+		image: productImage,
+		price: Number(sellingPrice),
+		shipping_method: shippingMethod,
+		shipping_fee: Number(shippingFee),
+		stock: Number(stock),
+		product_info: productInfo,
+	}
+
+	const seccess = () => redirect('/seller')
+
+	return createProduct(productData, seccess)
+
+	// if (request.method === 'DELETE') {
+	// 	const cartItemId = JSON.parse(data.cartItemId)
+
+	// 	cartItemId.forEach(cartItemId => removeFromCart(cartItemId))
 	// }
-	// if (accountType === 'SELLER') {
-	// 	alert('구매 계정만 이용할 수 있는 서비스입니다.')
-	// 	return null
-	// }
+
 	// const productId = Number(params.productId)
 	// const data = await request.formData()
 	// const eventType = data.get('submitter')
