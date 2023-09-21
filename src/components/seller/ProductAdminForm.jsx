@@ -16,18 +16,30 @@ import {
 	ButtonsWrapper,
 } from './ProductAdminForm.style.jsx'
 
-function ProductAdminForm({ ...props }) {
+function ProductAdminForm({ type, ...props }) {
 	const navigate = useNavigate()
-	const { values, onManuallyValidateHandler, errorMessages } =
+	const { values, areValid, onManuallyValidateHandler, errorMessages } =
 		useContext(FormContext)
 
 	const onSubmitHandler = e => {
-		const { productId } = values
-		e.target.value = JSON.stringify({ productId })
+		const { shippingMethod, productImage } = values
+		e.target.value = JSON.stringify({ shippingMethod, productImage }) // FIXME: eventType이거 필요없을지도??
 	}
 
 	useEffect(() => {
 		const providerValues = ['productId']
+		if (type === 'edit')
+			providerValues.push(
+				...[
+					'productImage',
+					'productInfo',
+					'productName',
+					'sellingPrice',
+					'shippingFee',
+					'shippingMethod',
+					'stock',
+				]
+			)
 
 		providerValues.forEach(name =>
 			onManuallyValidateHandler({ name, isValid: true })
@@ -173,7 +185,7 @@ function ProductAdminFormSection({
 				)}
 			</h2>
 			<FormProvider initialState={initialState}>
-				<ProductAdminForm />
+				<ProductAdminForm type={type} />
 			</FormProvider>
 		</StyledSection>
 	)

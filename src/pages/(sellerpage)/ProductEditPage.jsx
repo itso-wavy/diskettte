@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
-import { useLoaderData, useNavigate } from 'react-router-dom'
+import { redirect, useLoaderData, useNavigate } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import { ProductAdminFormSection } from '../../components/seller'
+import { updateProduct } from '../../lib/api'
 import useStore from '../../store'
 
 export function ProductEditPage() {
@@ -19,12 +20,12 @@ export function ProductEditPage() {
 		product_info,
 	} = useLoaderData()
 
-	// useEffect(() => {
-	// 	if (accountNumber !== brandId) {
-	// 		alert('권한이 없습니다.')
-	// 		return navigate(-1)
-	// 	}
-	// }, [accountNumber, brandId])
+	useEffect(() => {
+		if (accountNumber !== brandId) {
+			alert('권한이 없습니다.')
+			return navigate(-1)
+		}
+	}, [accountNumber, brandId])
 
 	useTitle('상품 편집')
 
@@ -36,7 +37,7 @@ export function ProductEditPage() {
 			product={{
 				productId: product_id,
 				productName: product_name,
-				image,
+				productImage: image,
 				sellingPrice: price,
 				shippingMethod: shipping_method,
 				shippingFee: shipping_fee,
@@ -47,4 +48,31 @@ export function ProductEditPage() {
 	)
 }
 
-export const ProductEditAction = async ({ request, params }) => {}
+export const productEditAction = async ({ request, params }) => {
+	const productId = params.productId
+	const {
+		productName,
+		productImage,
+		sellingPrice,
+		shippingFee,
+		stock,
+		productInfo,
+		submitter,
+	} = Object.fromEntries(await request.formData())
+	const shippingMethod = JSON.parse(submitter).shippingMethod
+	const preProductImage = JSON.parse(submitter).productImage
+
+	const productData = {
+		product_name: productName,
+		image: productImage,
+		price: Number(sellingPrice),
+		shipping_method: shippingMethod,
+		shipping_fee: Number(shippingFee),
+		stock: Number(stock),
+		product_info: productInfo,
+	}
+
+	const seccess = () => redirect('/seller')
+
+	return updateProduct(productId, productData, seccess)
+}

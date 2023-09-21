@@ -79,10 +79,9 @@ const createProduct = async (productData, success) => {
 	return api(client)(success, error)
 }
 
-const updateProduct = async (productId, productData) => {
-	const client = clientFormAPI.put(`products/${productId}`, productData)
+const updateProduct = async (productId, productData, success) => {
+	const client = clientFormAPI.put(`products/${productId}/`, productData)
 
-	const success = res => res.data
 	const error = err => {
 		throw json(
 			{ message: JSON.stringify(err.response.data) },

@@ -67,7 +67,7 @@ function FormInput({
 	accept,
 	...props
 }) {
-	const { areTouched, areValid } = useContext(FormContext)
+	const { values, areTouched, areValid } = useContext(FormContext)
 	const [isTouched, isValid] = [areTouched[name], areValid[name]]
 
 	if (type === 'checkbox') {
@@ -110,7 +110,15 @@ function FormInput({
 	}
 
 	if (type === 'file-image') {
-		return <ImageInput id={id} name={name} accept={accept} {...props} />
+		return (
+			<ImageInput
+				id={id}
+				name={name}
+				accept={accept}
+				image={values[name]}
+				{...props}
+			/>
+		)
 	}
 
 	if (type === 'textarea') {

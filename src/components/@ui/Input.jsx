@@ -316,8 +316,8 @@ function AddressInput({ id, name, label, placeholder, ...props }) {
 	)
 }
 
-function ImageInput({ id, name, accept, ...props }) {
-	const [image, setImage] = useState('')
+function ImageInput({ id, name, accept, image = '', ...props }) {
+	const [preview, setPreview] = useState(image)
 	const { areValid, onInputHandler, onBlurHandler } = useContext(FormContext)
 	const isValid = areValid[name]
 
@@ -326,7 +326,7 @@ function ImageInput({ id, name, accept, ...props }) {
 		const fileReader = new FileReader()
 
 		fileReader.onload = () => {
-			setImage(fileReader.result)
+			setPreview(fileReader.result)
 			onBlurHandler({ target: { name, value: selectedImage.name } })
 			onInputHandler({ target: { name, value: selectedImage } })
 		}
@@ -335,7 +335,7 @@ function ImageInput({ id, name, accept, ...props }) {
 
 	return (
 		<>
-			<ImageLabel id={id} preview={isValid && image} {...props} />
+			<ImageLabel id={id} preview={(image || isValid) && preview} {...props} />
 			<input
 				type='file'
 				className='sr-only'

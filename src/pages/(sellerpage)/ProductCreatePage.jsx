@@ -24,9 +24,9 @@ export const productCreateAction = async ({ request, params }) => {
 		shippingFee,
 		stock,
 		productInfo,
-		submitter,
+		// submitter,
 	} = Object.fromEntries(await request.formData())
-	const { productId } = JSON.parse(submitter)
+	// const { productId } = JSON.parse(submitter)
 
 	const productData = {
 		product_name: productName,
