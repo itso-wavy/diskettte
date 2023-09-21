@@ -6,7 +6,7 @@ export const StyledTable = styled.table`
 	border-collapse: collapse;
 	border-top: ${({ theme }) => `2px solid ${theme.color.black}`};
 	border-bottom: ${({ theme }) => `2px solid ${theme.color.black}`};
-	display: flow-root;
+	display: grid;
 	overflow-x: auto;
 
 	caption,
