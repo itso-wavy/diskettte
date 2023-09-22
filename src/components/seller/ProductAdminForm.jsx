@@ -19,12 +19,12 @@ import { deleteProduct } from '../../lib/api'
 
 function ProductAdminForm({ type, ...props }) {
 	const navigate = useNavigate()
-	const { values, areValid, onManuallyValidateHandler, errorMessages } =
+	const { values, onManuallyValidateHandler, errorMessages } =
 		useContext(FormContext)
 
 	const onSubmitHandler = e => {
-		const { shippingMethod, productImage } = values
-		e.target.value = JSON.stringify({ shippingMethod, productImage }) // FIXME: eventType이거 필요없을지도??
+		const { shippingMethod } = values
+		e.target.value = JSON.stringify({ shippingMethod })
 	}
 
 	useEffect(() => {

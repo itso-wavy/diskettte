@@ -4,8 +4,8 @@ const productInfoSchema = {
 		message: '.jpg, .gif, .png 확장자만 업로드 가능합니다.',
 	},
 	productName: {
-		pattern: /.*/,
-		message: '상품명을 입력해주세요.',
+		pattern: /^.{1,20}$/,
+		message: '상품명은 20자 이하로 입력해주세요.',
 	},
 	sellingPrice: {
 		pattern: /^\d{0,9}$/,

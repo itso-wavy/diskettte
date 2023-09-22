@@ -60,17 +60,17 @@ export const productEditAction = async ({ request, params }) => {
 		submitter,
 	} = Object.fromEntries(await request.formData())
 	const shippingMethod = JSON.parse(submitter).shippingMethod
-	const preProductImage = JSON.parse(submitter).productImage
 
 	const productData = {
 		product_name: productName,
-		image: productImage,
 		price: Number(sellingPrice),
 		shipping_method: shippingMethod,
 		shipping_fee: Number(shippingFee),
 		stock: Number(stock),
 		product_info: productInfo,
 	}
+
+	if (productImage.name) productData.image = productImage
 
 	const seccess = () => redirect('/seller')
 
