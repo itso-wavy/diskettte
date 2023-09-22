@@ -125,21 +125,22 @@ function Pagination({
 }) {
 	const totalPages = Math.ceil(totalItemsCount / itemsPerPage)
 
-	return (
-		<PageController
-			title={title}
-			currentPage={currentPage}
-			totalPages={totalPages}
-			{...props}
-		>
-			<PageNavigation
-				pageRange={pageRange}
+	if (totalPages > 0)
+		return (
+			<PageController
+				title={title}
 				currentPage={currentPage}
 				totalPages={totalPages}
-				theme={theme}
-			/>
-		</PageController>
-	)
+				{...props}
+			>
+				<PageNavigation
+					pageRange={pageRange}
+					currentPage={currentPage}
+					totalPages={totalPages}
+					theme={theme}
+				/>
+			</PageController>
+		)
 }
 
 export { Pagination }
