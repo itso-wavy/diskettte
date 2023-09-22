@@ -51,14 +51,14 @@ function TextInput({
 					id={id}
 					name={name}
 					type={type === 'number' ? 'text' : type}
-					value={value || ''}
+					value={value ?? ''}
 					placeholder={placeholder}
 					onInput={e => onInputHandler(e, { type })}
 					onBlur={onBlurHandler}
 					{...props}
 				/>
 				<div className='btn-box'>
-					{value && (
+					{(value || value === 0) && (
 						<Button
 							$type='icon'
 							$size='1.3rem'
