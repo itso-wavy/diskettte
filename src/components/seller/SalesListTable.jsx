@@ -1,17 +1,23 @@
 import { useMemo } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSubmit } from 'react-router-dom'
 import { Table, ColumnTableHead, ColumnTableBody } from '../@ui/Table'
 import { Button } from '../@ui/Button'
 import { Pagination } from '../@ui/Pagination'
 import { formatNumber } from '../../lib/utils/text-formatter'
 import { Wrapper } from './SalesListTable.style'
 import useStore from '../../store'
+import { deleteProduct } from '../../lib/api'
 
 export function SalesListTable({ currentPage, products, ...props }) {
 	const navigate = useNavigate()
 	const { isMobile } = useStore()
 	const pageRange = isMobile ? 5 : 10
 	let itemsPerPage = 15 // 백엔드 설정
+
+	const deleteHandler = product_id => {
+		const success = () => navigate('/seller')
+		deleteProduct(product_id, success)
+	}
 
 	const tableHeaders = [
 		{ field: 'product_id', header: '상품 번호' },
@@ -56,13 +62,20 @@ export function SalesListTable({ currentPage, products, ...props }) {
 					</p>,
 					<>
 						<Button
+							type='button'
 							$size='sm'
 							$style='secondary'
 							onClick={() => navigate(`edit/${product_id}`)}
 						>
 							수정
 						</Button>
-						<Button $size='sm'>삭제</Button>
+						<Button
+							type='button'
+							$size='sm'
+							onClick={() => deleteHandler(product_id)}
+						>
+							삭제
+						</Button>
 					</>,
 				]
 			}),
@@ -77,7 +90,7 @@ export function SalesListTable({ currentPage, products, ...props }) {
 			</Table>
 			<Pagination
 				title='products'
-				theme='#f3d6e6'
+				theme='#FFEAB0'
 				pageRange={pageRange}
 				currentPage={Number(currentPage)}
 				itemsPerPage={itemsPerPage}

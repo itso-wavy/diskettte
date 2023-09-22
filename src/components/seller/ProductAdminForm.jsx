@@ -15,6 +15,7 @@ import {
 	GridWrapper,
 	ButtonsWrapper,
 } from './ProductAdminForm.style.jsx'
+import { deleteProduct } from '../../lib/api'
 
 function ProductAdminForm({ type, ...props }) {
 	const navigate = useNavigate()
@@ -160,13 +161,19 @@ function ProductAdminFormSection({
 	product,
 	...props
 }) {
+	const navigate = useNavigate()
+	const deleteHandler = product_id => {
+		const success = () => navigate('/seller')
+		deleteProduct(product_id, success)
+	}
+
 	const initialState =
 		type === 'create'
 			? {
 					productId: 0,
 					productName: '',
 					productImage: '',
-					sellingPrice: '', // 변경 불가?
+					sellingPrice: '',
 					shippingMethod: '',
 					shippingFee: '',
 					stock: '',
@@ -179,7 +186,12 @@ function ProductAdminFormSection({
 			<h2 id={sectionId}>
 				{sectionTitle}
 				{type !== 'create' && (
-					<Button $size='md' onClick={() => {}}>
+					<Button
+						$size='md'
+						type='button'
+						name='submitter'
+						onClick={() => deleteHandler(product.productId)}
+					>
 						상품 삭제
 					</Button>
 				)}

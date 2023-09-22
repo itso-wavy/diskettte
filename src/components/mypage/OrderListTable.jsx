@@ -69,7 +69,7 @@ export function OrderListTable({
 			</Table>
 			<Pagination
 				title='orders'
-				theme='#f3d6e6'
+				theme='#FFEAB0'
 				pageRange={pageRange}
 				currentPage={Number(currentPage)}
 				itemsPerPage={itemsPerPage}

@@ -92,10 +92,9 @@ const updateProduct = async (productId, productData, success) => {
 	return api(client)(success, error)
 }
 
-const deleteProduct = async productId => {
+const deleteProduct = async (productId, success) => {
 	const client = clientAPI.delete(`products/${productId}`)
 
-	const success = res => res.data
 	const error = err => {
 		throw json(
 			{ message: JSON.stringify(err.response.data) },
