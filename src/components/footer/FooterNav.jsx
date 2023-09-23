@@ -18,9 +18,6 @@ function FooterNavMenu({ title, children, ...props }) {
 	const [collapsed, setCollapsed] = useState(false)
 
 	useEffect(() => {
-		// console.log('FooterNavMenu rendering')
-		// TODO: url 변경시 footer 아코디언 모두 닫기
-		// collapsed로 관리 중
 		setCollapsed(false)
 	}, [])
 

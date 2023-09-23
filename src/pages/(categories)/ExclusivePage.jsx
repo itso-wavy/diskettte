@@ -24,7 +24,7 @@ export function ExclusivePage() {
 					height: '80vh',
 					display: 'grid',
 					placeItems: 'center',
-					margin: '0 0 -250px',
+					margin: '0 0 -200px',
 				}}
 			>
 				<Button

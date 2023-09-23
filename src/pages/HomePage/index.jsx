@@ -35,7 +35,6 @@ export const homeLoader = async () => {
 }
 
 export function HomePage() {
-	useTitle('')
 	const brands = useLoaderData()
 	const navigate = useNavigate()
 	const headerHeight = useHeaderHeight()
@@ -56,6 +55,8 @@ export function HomePage() {
 	}, [isMini, isMobile, isTablet])
 
 	createArrChunk(brands, BrandsChunk, brandsPerScreen)
+
+	useTitle('')
 
 	return (
 		<MinusPaddedWrapper>
@@ -92,14 +93,18 @@ export function HomePage() {
 						>
 							<p className='bl big-font'>Collection for Your Wardrobe</p>
 							<TagBox className='tl'>
-								<Tag>Clothes</Tag>
-								<Tag>Food</Tag>
-								<Tag>Kidult</Tag>
-								<Tag>Electronics</Tag>
-								<Tag>Interior</Tag>
-								<Tag>Culture</Tag>
-								<Tag>Leisure</Tag>
-								<Tag>Pet</Tag>
+								{[
+									'Clothes',
+									'Food',
+									'Kidult',
+									'Electronics',
+									'Interior',
+									'Culture',
+									'Leisure',
+									'Pet',
+								].map(tag => (
+									<Tag key={tag}>{tag}</Tag>
+								))}
 							</TagBox>
 							<div className='tr touch'>
 								<Img src={DiskImg} alt='' $size='2.25em' />
@@ -197,10 +202,10 @@ export function HomePage() {
 					{BrandsChunk.map((chunk, index) => (
 						<CarouselItem key={index}>
 							<ListWrapper $itemsPerScreen={brandsPerScreen / 2}>
-								{chunk.map(({ id, brand, url, src, alt }) => (
-									<Link to={url} key={id}>
+								{chunk.map(({ product_id, brand, src }) => (
+									<Link to={`/product/${product_id}`} key={product_id}>
 										<ItemWrapper>
-											<RotatedFigureCard src={src} alt={alt}>
+											<RotatedFigureCard src={src} alt={brand}>
 												{brand}
 											</RotatedFigureCard>
 										</ItemWrapper>

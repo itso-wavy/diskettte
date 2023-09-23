@@ -91,41 +91,6 @@ const fw = {
 	bold: 700,
 }
 
-// const height = '3.125rem' // 50px
-
-// const lh = {
-// 	sm: '1.3em',
-// 	md: '1.6em',
-// 	lg: '1.8em',
-// }
-
-// const fs = {
-// 	xs: '0.5625rem', // 9px
-// 	sm: '0.875rem', // 14px
-// 	md: '1rem', // 16px
-// 	lg: '1.125rem', // 18px
-// 	xl: '1.25rem', // 20px
-// 	'2xl': '1.5rem', // 24px
-// 	'3xl': '2.25rem', // 36px
-// }
-
-// const dx = {
-// 	xs: '0.5625rem', // 9px
-// 	sm: '0.875rem', // 14px
-// 	md: '1rem', // 16px
-// 	lg: '1.125rem', // 18px
-// 	xl: '1.25rem', // 20px
-// 	'2xl': '1.5rem', // 24px
-// 	'3xl': '2.25rem', // 36px
-// }
-
-// const is = {
-// 	small: '0.625rem', // 10px
-// 	normal: '1.5rem', // 24px
-// 	large: '1.8rem', // 32px
-// 	square: '1.8rem', // 40px
-// }
-
 export default {
 	breakpoints,
 	spacing,

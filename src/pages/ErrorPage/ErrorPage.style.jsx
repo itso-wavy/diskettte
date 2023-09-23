@@ -37,10 +37,6 @@ export const Wrapper = styled.div`
 		filter: blur(10px);
 	}
 
-	/* h1 + * {
-		margin-top: 1.5em;
-	} */
-
 	.info {
 		height: 3.125rem;
 		width: 250px;

@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useRedirect } from '../../hooks'
-import { DashboardNav } from '../common'
+import { DashboardNav } from '../dashboard'
 import { MinusPaddedWrapper } from './DashboardRootLayout.style'
 import useStore from '../../store'
 

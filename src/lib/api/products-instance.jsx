@@ -116,5 +116,3 @@ export {
 	updateProduct,
 	deleteProduct,
 }
-
-// firebase

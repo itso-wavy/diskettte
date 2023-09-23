@@ -95,7 +95,6 @@ export function HeaderMain({ $transparent, children, ...props }) {
 					) : (
 						<>
 							<div>
-								{/* <SearchInput ref={inputRef} /> */}
 								<SearchInput />
 							</div>
 							<HeaderMenuItem
@@ -113,7 +112,6 @@ export function HeaderMain({ $transparent, children, ...props }) {
 								/>
 							) : (
 								<HeaderMenuItem
-									// href='/mypage/orders'
 									href='/mypage'
 									src={<MypageSvg />}
 									text='마이페이지'
@@ -129,7 +127,6 @@ export function HeaderMain({ $transparent, children, ...props }) {
 								/>
 							) : (
 								<HeaderMenuItem
-									// onClick={logoutHandler}
 									href='/auth/logout'
 									src={<LogoutSvg />}
 									text='로그아웃'

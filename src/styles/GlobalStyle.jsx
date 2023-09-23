@@ -83,17 +83,11 @@ const GlobalStyle = createGlobalStyle`
 
   ::-webkit-scrollbar {
 		height: 14px;
-    /* width: 0; */
-    /* display: none; */
   }
   ::-webkit-scrollbar-track {
-    /* background-color: ${({ theme }) => theme.color.darkgray2}; */
 		background-color: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    /* background-color: ${({ theme }) => theme.color.header};  */
-		/* background-clip: padding-box;
-		border: 1px solid transparent; */
     border-radius: 8px;
     background-image: ${({ theme }) =>
 			`linear-gradient(${theme.color.darkgray}, ${theme.color.bluegray})`}; 
@@ -101,8 +95,6 @@ const GlobalStyle = createGlobalStyle`
 		border: 4px solid transparent;
   }
   ::-webkit-scrollbar-thumb:hover {
-    /* background-color: ${({ theme }) => theme.color.shadow};  */
-    /* background: ${({ theme }) => theme.color.darkgray2}; */
     background-image: ${({ theme }) =>
 			`linear-gradient(${theme.color.sora}, ${theme.color.lightblue})`}; 
 		background-clip: padding-box;

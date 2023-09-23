@@ -15,7 +15,6 @@ export const StyledAside = styled.aside`
 		margin: 0 0.5rem;
 		position: relative;
 		bottom: -1px;
-		/* bottom: 1px; */
 	}
 
 	a::after {
@@ -27,13 +26,7 @@ export const StyledAside = styled.aside`
 		background-color: white;
 		height: 1px;
 		width: calc(100% - 5px);
-		/* bottom: -1px;
-		width: calc(100% + 3px); */
 	}
-
-	/* .heart {
-		left: 4px;
-	} */
 
 	.close {
 		position: absolute;

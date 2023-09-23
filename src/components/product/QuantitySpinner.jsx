@@ -29,12 +29,6 @@ function QuantitySpinner({ name, stock, ...props }, ref) {
 		})
 	}
 
-	// useImperativeHandle(ref, () => ({
-	// 	// inputValue: ref.current.value,
-	// 	// value,
-	// 	// setSelected: selected => setSelected(selected),
-	// }))
-
 	return (
 		<Wrapper {...props}>
 			<Button

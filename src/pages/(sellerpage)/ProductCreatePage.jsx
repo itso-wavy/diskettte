@@ -1,6 +1,6 @@
 import { redirect } from 'react-router-dom'
 import { useTitle } from '../../hooks'
-import { ProductAdminFormSection } from '../../components/seller'
+import { ProductAdminFormSection } from '../../components/dashboard'
 import { createProduct } from '../../lib/api'
 
 export function ProductCreatePage() {

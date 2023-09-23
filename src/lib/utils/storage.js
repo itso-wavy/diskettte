@@ -1,7 +1,6 @@
 const storage = {
 	storage: {
 		auth: localStorage,
-		// cart: sessionStorage,
 		order: sessionStorage,
 		order_confirm: sessionStorage,
 	},
@@ -41,9 +40,6 @@ export {
 	storage,
 	getAuthToken,
 	getAccountType,
-	// getSessionCart,
-	// setSessionCart,
-	// removeSessionCart,
 	getOrderItems,
 	setOrderItems,
 	removeOrderItems,

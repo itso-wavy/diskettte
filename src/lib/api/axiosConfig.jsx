@@ -17,14 +17,6 @@ const clientFormAPI = axios.create({ ...clientAPI.defaults })
 
 clientFormAPI.defaults.headers['content-type'] = 'multipart/form-data'
 
-/* 
-const clientFormAPI = axios.create({
-	baseURL: baseURL.client,
-	headers: {
-		'content-type': 'multipart/form-data',
-	},
-}) */
-
 const firebaseAPI = axios.create({
 	baseURL: baseURL.firebase,
 })
@@ -62,18 +54,6 @@ const requestAuth = [
 
 clientAPI.interceptors.request.use(...requestAuth)
 clientFormAPI.interceptors.request.use(...requestAuth)
-
-/* 
-clientAPI.interceptors.request.use(
-	config => {
-		const token = getAuthToken()
-
-		if (token) config.headers.Authorization = `JWT ${token}`
-
-		return config
-	},
-	error => Promise.reject(error)
-) */
 
 // clientAPI.interceptors.response.use(
 // 	response => {

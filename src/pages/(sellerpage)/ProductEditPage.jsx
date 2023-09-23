@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { redirect, useLoaderData, useNavigate } from 'react-router-dom'
 import { useTitle } from '../../hooks'
-import { ProductAdminFormSection } from '../../components/seller'
+import { ProductAdminFormSection } from '../../components/dashboard'
 import { updateProduct } from '../../lib/api'
 import useStore from '../../store'
 

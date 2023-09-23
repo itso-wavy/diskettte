@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	/* gap: 0.625rem; */
 	border-bottom: 1px solid ${({ theme }) => theme.color.lightgray};
 
 	& > * {

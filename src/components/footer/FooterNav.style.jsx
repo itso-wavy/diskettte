@@ -11,7 +11,6 @@ export const StyledNav = styled.nav`
 	summary,
 	.moveout-link {
 		font-weight: ${({ theme }) => theme.fw.bold};
-		/* padding: 1.2em 0; */
 	}
 
 	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {

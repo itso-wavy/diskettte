@@ -15,9 +15,6 @@ export function SigninPage() {
 			signInHandler(authInfo)
 
 			return navigate('/')
-			// return authInfo.user_type === 'SELLER'
-			// 	? navigate('/seller')
-			// 	: navigate('/mypage')
 		}
 	}, [authInfo, signInHandler, navigate])
 

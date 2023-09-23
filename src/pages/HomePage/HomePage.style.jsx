@@ -7,7 +7,6 @@ import {
 import { entrance, shake } from '../../lib/utils/animation'
 
 export const MinusPaddedWrapper = styled.div`
-	/* margin-bottom: -250px; */
 	margin-bottom: -200px;
 `
 
@@ -133,7 +132,6 @@ export const GridWarpper = styled.div`
 	grid:
 		'image image2 text' 1fr
 		'. transition transition' auto / 1fr 1fr 1fr;
-	/* grid: 'image image2 text' 1fr / 1fr 1fr 1fr; */
 	gap: 1em;
 
 	${({ $view, theme }) => {
@@ -182,7 +180,6 @@ export const GridWarpper = styled.div`
 		display: flex;
 		justify-content: end;
 		gap: 0.8em;
-		/* text-wrap: balance; */
 	}
 
 	& > *:last-child {
@@ -195,10 +192,6 @@ export const GridWarpper = styled.div`
 		font-weight: ${({ theme }) => theme.fw.bold};
 		text-wrap: balance;
 	}
-
-	// .big-font:last-child {
-	// 	margin-top: 0.8em;
-	// }
 
 	.big-arrow {
 		border-radius: 50%;
@@ -250,7 +243,6 @@ export const GridWarpper = styled.div`
 
 	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
 		padding: 4em 1.25rem;
-		/* margin: 0 1.25rem; */
 		grid-template:
 			'image' 1fr
 			'image2' 1fr
@@ -292,8 +284,6 @@ export const ListWrapper = styled.div`
 	display: grid;
 	grid-template-columns: ${({ $itemsPerScreen }) =>
 		`repeat(${$itemsPerScreen}, 1fr)`};
-	/* grid-template: ${({ $itemsPerScreen }) =>
-		`repeat(2, 1fr) / repeat(${$itemsPerScreen}, 1fr)`}; */
 	grid-auto-rows: 1fr;
 `
 
