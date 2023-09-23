@@ -13,7 +13,21 @@ const getBrands = async () => {
 	return api(brands)(success, error)
 }
 
-const getProducts = async () => {
+const getProduct = async product_id => {
+	const client = clientAPI(`products/${product_id}`)
+
+	const success = res => res.data
+	const error = err => {
+		throw json(
+			{ message: err.response.statusText },
+			{ status: err.response.status }
+		)
+	}
+
+	return await api(client)(success, error)
+}
+
+const getProducts = async pageLimit => {
 	let page = 1
 	const client = page => clientAPI(`products/?page=${page}`)
 
@@ -29,7 +43,7 @@ const getProducts = async () => {
 	const getAllProducts = async response => {
 		products.push(...response.results)
 
-		if (!response.next) return products
+		if (!response.next || page === pageLimit) return products
 
 		++page
 		const newChunked = await api(client(page))(success, error)
@@ -38,20 +52,6 @@ const getProducts = async () => {
 	}
 
 	return getAllProducts(chunkedProducts)
-}
-
-const getProduct = async product_id => {
-	const client = clientAPI(`products/${product_id}`)
-
-	const success = res => res.data
-	const error = err => {
-		throw json(
-			{ message: err.response.statusText },
-			{ status: err.response.status }
-		)
-	}
-
-	return await api(client)(success, error)
 }
 
 const getSellerProducts = async pageParam => {

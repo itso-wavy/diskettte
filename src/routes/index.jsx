@@ -37,7 +37,7 @@ import {
 import {
 	homeLoader,
 	// productLoader,
-	// brandLoader,
+	brandLoader,
 	productDetailLoader,
 	cartLoader,
 	checkoutLoader,
@@ -95,7 +95,7 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'brand/:brandId',
-						// loader: brandLoader,
+						loader: brandLoader,
 						element: <BrandPage />,
 					},
 					{

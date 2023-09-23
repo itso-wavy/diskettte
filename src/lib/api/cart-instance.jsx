@@ -8,8 +8,6 @@ const getCart = async () => {
 	const success = res => res.data
 	const error = err => {
 		throw json({ message: err.message }, { status: err.response.status })
-		// console.error('😪' + err.message)
-		// return
 	}
 
 	const cart = []

@@ -1,11 +1,47 @@
 import { useMemo } from 'react'
-import { useParams, useRouteLoaderData } from 'react-router-dom'
+import { useLoaderData, useParams, useRouteLoaderData } from 'react-router-dom'
 import { useHeaderHeight, useTitle } from '../../hooks'
 import { Section } from '../../components/@motion'
 import { Pagination } from '../../components/@ui/Pagination'
 import { ProductList, ProductItem } from '../../components/product'
+import { getProducts } from '../../lib/api'
 import { StyledImg, StyledSection } from './BrandPage.style'
 import useStore from '../../store'
+
+export const brandLoader = async ({ request, params }) => {
+	const brandId = params.brandId
+	const productsOnFivePage = await getProducts(5)
+	const searchParams = new URL(request.url).searchParams
+	const pageParam = searchParams.get('page') ?? '1'
+
+	const brandProductsResults = productsOnFivePage.filter(
+		product => product.seller === Number(brandId)
+	)
+
+	const chunkedBrandProductsResults = brandProductsResults.reduce(
+		(acc, cur, index) => {
+			const chunkedIndex = Math.floor(index / 15)
+
+			if (!acc[chunkedIndex]) acc[chunkedIndex] = []
+			acc[chunkedIndex].push(cur)
+
+			return acc
+		},
+		[]
+	)
+
+	const brandProducts = {
+		count: brandProductsResults.length,
+		next: chunkedBrandProductsResults[pageParam],
+		results: chunkedBrandProductsResults[pageParam - 1],
+	}
+
+	return {
+		brandName: brandProductsResults[0].store_name,
+		brandId,
+		brandProducts,
+	}
+}
 
 const getBrandBanner = ({ banners, brandId }) => {
 	const noBanner = {
@@ -21,19 +57,19 @@ const getBrandBanner = ({ banners, brandId }) => {
 
 export function BrandPage() {
 	const { currentPage, banners, products } = useRouteLoaderData('all-products')
-	const { brandId } = useParams()
-	const productsPerPage = products.results
+	const { brandName, brandId, brandProducts } = useLoaderData()
+	const productsPerPage = brandProducts.results
 	const headerHeight = useHeaderHeight()
 	const { isMobile } = useStore()
 	const pageRange = isMobile ? 5 : 10
-	let itemsPerPage = 15 // 백엔드 설정
+	let itemsPerPage = 15 // 클라이언트 설정
 
 	const banner = useMemo(
 		() => getBrandBanner({ banners, brandId }),
 		[banners, brandId]
 	)
 
-	useTitle(`Brand`) // 동적 업데이트 예정
+	useTitle(brandName)
 
 	return (
 		<>
@@ -46,17 +82,16 @@ export function BrandPage() {
 			</Section>
 
 			<StyledSection aria-labelledby='product list'>
-				{/* FIXME: */}
-				<h2 id='product list'>{`brand`}</h2>
+				<h2 id='product list'>{brandName}</h2>
 				<ProductList
 					pagination={
 						<Pagination
 							title='products'
-							theme='#AFCCF8'
+							theme='#c4e8db'
 							pageRange={pageRange}
 							currentPage={Number(currentPage)}
 							itemsPerPage={itemsPerPage}
-							totalItemsCount={products.count}
+							totalItemsCount={brandProducts.count}
 						/>
 					}
 				>
