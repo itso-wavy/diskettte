@@ -1,11 +1,5 @@
-src/components/@ui/Popup.jsx
-src/components/@ui/Popup.style.jsx
-
 .env*
 _diskettte.code-workspace
-public/assets/images/*
-createBearFishSlice.jsx
-public/assets/icons/test
 
 # Logs
 logs
