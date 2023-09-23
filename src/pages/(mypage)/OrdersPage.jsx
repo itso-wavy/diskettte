@@ -2,8 +2,8 @@ import { Suspense, useMemo } from 'react'
 import { Await, defer, useLoaderData } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import { DashboardLoading } from '../../components/common'
+import { OrderListTable } from '../../components/dashboard'
 import { getOrder, getProduct } from '../../lib/api'
-import { OrderListTable } from '../../components/mypage'
 import { StyledSection } from './OrdersPage.style'
 
 export const ordersLoader = async ({ request }) => {

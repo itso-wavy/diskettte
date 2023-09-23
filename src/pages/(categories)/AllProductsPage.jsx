@@ -6,8 +6,8 @@ import {
 	NavigationArrows,
 	CarouselIndicator,
 } from '../../components/@ui/Carousel'
-import { Pagination } from '../../components/@ui/Pagination'
 import { Section } from '../../components/@motion'
+import { ConfiguredPagination } from '../../components/common'
 import { ProductList, ProductItem } from '../../components/product'
 import {
 	HeroWrapper,
@@ -16,14 +16,10 @@ import {
 	ContentsWrapper,
 	LNB,
 } from './AllProductsPage.style'
-import useStore from '../../store'
 
 export function AllProductsPage() {
 	const { currentPage, banners, products } = useRouteLoaderData('all-products')
 	const productsPerPage = products.results
-	const { isMobile } = useStore()
-	const pageRange = isMobile ? 5 : 10
-	let itemsPerPage = 15 // 백엔드 설정
 
 	useTitle('All')
 
@@ -69,12 +65,10 @@ export function AllProductsPage() {
 						</h3>
 						<ProductList
 							pagination={
-								<Pagination
+								<ConfiguredPagination
 									title='products'
-									theme='#E8EAB1'
-									pageRange={pageRange}
-									currentPage={Number(currentPage)}
-									itemsPerPage={itemsPerPage}
+									theme='#C4DBE2'
+									currentPage={currentPage}
 									totalItemsCount={products.count}
 								/>
 							}

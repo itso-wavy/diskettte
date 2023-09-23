@@ -1,7 +1,7 @@
 import { useLoaderData, useNavigate } from 'react-router-dom'
 import { useTitle } from '../../hooks'
 import { Button } from '../../components/@ui/Button'
-import { SalesListTable } from '../../components/seller'
+import { SalesListTable } from '../../components/dashboard'
 import { getSellerProducts } from '../../lib/api'
 import { StyledSection } from './ProductsPage.style'
 

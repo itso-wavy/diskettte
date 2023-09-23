@@ -1,18 +1,14 @@
 import { useMemo } from 'react'
-import { Link, useNavigate, useSubmit } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Table, ColumnTableHead, ColumnTableBody } from '../@ui/Table'
 import { Button } from '../@ui/Button'
-import { Pagination } from '../@ui/Pagination'
+import { ConfiguredPagination } from '../common'
 import { formatNumber } from '../../lib/utils/text-formatter'
-import { Wrapper } from './SalesListTable.style'
-import useStore from '../../store'
 import { deleteProduct } from '../../lib/api'
+import { Wrapper } from './SalesListTable.style'
 
 export function SalesListTable({ currentPage, products, ...props }) {
 	const navigate = useNavigate()
-	const { isMobile } = useStore()
-	const pageRange = isMobile ? 5 : 10
-	let itemsPerPage = 15 // 백엔드 설정
 
 	const deleteHandler = product_id => {
 		const success = () => navigate('/seller')
@@ -88,12 +84,10 @@ export function SalesListTable({ currentPage, products, ...props }) {
 				<ColumnTableHead headers={tableHeaders} />
 				<ColumnTableBody contents={tableContents} />
 			</Table>
-			<Pagination
+			<ConfiguredPagination
 				title='products'
 				theme='#FFEAB0'
-				pageRange={pageRange}
-				currentPage={Number(currentPage)}
-				itemsPerPage={itemsPerPage}
+				currentPage={currentPage}
 				totalItemsCount={products.count}
 			/>
 		</Wrapper>

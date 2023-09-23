@@ -1,8 +1,6 @@
 import styled from 'styled-components'
 
 export const StyledNav = styled.nav`
-	/* height: fit-content;
-	position: sticky; */
 	padding: 0 1.5em;
 
 	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {

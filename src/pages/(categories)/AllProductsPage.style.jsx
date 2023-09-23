@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components'
 
 export const HeroWrapper = styled.div`
 	height: min(530px, 70vh);
-	/* margin-bottom: 7.5rem; */
 `
 
 export const Heading = styled.div`
@@ -11,7 +10,6 @@ export const Heading = styled.div`
 	gap: 0.625rem;
 	width: 31.25rem;
 	position: absolute;
-	/* bottom: 1.2em; */
 	bottom: 2.3em;
 	font-size: 1.8rem;
 	line-height: 1.2em;
@@ -56,20 +54,7 @@ export const StyledSection = styled.section`
 				padding-right: ${width.mobile};
 			}
 		`
-	}}/* padding: ${({ theme }) =>
-		`${theme.spacing.height.marginTop} ${theme.spacing.width.desktop} 0`};
-
-	h2 {
-		margin-bottom: 1.67rem;
-		font-size: 1.75rem;
-		font-weight: ${({ theme }) => theme.fw.bold};
-		text-transform: uppercase;
-	}
-
-	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-		padding-left: ${({ theme }) => theme.spacing.width.mobile};
-		padding-right: ${({ theme }) => theme.spacing.width.mobile};
-	} */
+	}}
 `
 
 export const ContentsWrapper = styled.div`

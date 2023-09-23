@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom'
 import { Table, ColumnTableHead, ColumnTableBody } from '../@ui/Table'
-import { Pagination } from '../@ui/Pagination'
+import { ConfiguredPagination } from '../common'
 import {
 	formatDate,
 	formatNumber,
 	formatOrderNumber,
 } from '../../lib/utils/text-formatter'
 import { Wrapper } from './OrderListTable.style'
-import useStore from '../../store'
 
 export function OrderListTable({
 	currentPage,
@@ -15,10 +14,6 @@ export function OrderListTable({
 	updatedOrders,
 	...props
 }) {
-	const { isMobile } = useStore()
-	const pageRange = isMobile ? 5 : 10
-	let itemsPerPage = 15 // 백엔드 설정
-
 	const tableHeaders = [
 		{ field: 'order_number', header: '주문 번호' },
 		{ field: 'created_at', header: '주문 일시' },
@@ -67,12 +62,10 @@ export function OrderListTable({
 				<ColumnTableHead headers={tableHeaders} />
 				<ColumnTableBody contents={tableContents(updatedOrders.data.results)} />
 			</Table>
-			<Pagination
+			<ConfiguredPagination
 				title='orders'
 				theme='#FFEAB0'
-				pageRange={pageRange}
-				currentPage={Number(currentPage)}
-				itemsPerPage={itemsPerPage}
+				currentPage={currentPage}
 				totalItemsCount={orders.count}
 			/>
 		</Wrapper>

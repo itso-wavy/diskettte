@@ -1,11 +1,10 @@
 import { useRef } from 'react'
 import { useLoaderData, useRouteLoaderData } from 'react-router-dom'
 import { useHeaderHeight, useTitle } from '../../hooks'
-import { Pagination } from '../../components/@ui/Pagination'
+import { ConfiguredPagination } from '../../components/common'
 import { ProductList, ProductItem } from '../../components/product'
 import { getProducts } from '../../lib/api'
 import { CarouselSection, ProductsSection } from './NewArrivalsPage.style'
-import useStore from '../../store'
 import { motion, useTransform, useScroll } from 'framer-motion'
 
 export const newArrivalsLoader = async ({ request, params }) => {
@@ -47,12 +46,7 @@ export const newArrivalsLoader = async ({ request, params }) => {
 export function NewArrivalsPage() {
 	const { currentPage } = useRouteLoaderData('all-products')
 	const { brandName, newArrivals, brandProducts } = useLoaderData()
-
 	const productsPerPage = brandProducts.results
-
-	const { isMobile } = useStore()
-	const pageRange = isMobile ? 5 : 10
-	let ITEMS_PER_PAGE = 15 // 클라이언트 설정
 
 	const targetRef = useRef()
 	const headerHeight = useHeaderHeight()
@@ -95,12 +89,10 @@ export function NewArrivalsPage() {
 				<h2 id='newArrivals list'>New Arrivals</h2>
 				<ProductList
 					pagination={
-						<Pagination
+						<ConfiguredPagination
 							title='products'
 							theme='#D7D8F4'
-							pageRange={pageRange}
-							currentPage={Number(currentPage)}
-							itemsPerPage={ITEMS_PER_PAGE}
+							currentPage={currentPage}
 							totalItemsCount={brandProducts.count}
 						/>
 					}

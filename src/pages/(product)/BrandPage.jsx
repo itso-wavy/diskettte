@@ -1,12 +1,11 @@
 import { useMemo } from 'react'
-import { useLoaderData, useParams, useRouteLoaderData } from 'react-router-dom'
+import { useLoaderData, useRouteLoaderData } from 'react-router-dom'
 import { useHeaderHeight, useTitle } from '../../hooks'
 import { Section } from '../../components/@motion'
-import { Pagination } from '../../components/@ui/Pagination'
+import { ConfiguredPagination } from '../../components/common'
 import { ProductList, ProductItem } from '../../components/product'
 import { getProducts } from '../../lib/api'
 import { StyledImg, StyledSection } from './BrandPage.style'
-import useStore from '../../store'
 
 export const brandLoader = async ({ request, params }) => {
 	const brandId = params.brandId
@@ -56,13 +55,10 @@ const getBrandBanner = ({ banners, brandId }) => {
 }
 
 export function BrandPage() {
-	const { currentPage, banners, products } = useRouteLoaderData('all-products')
+	const { currentPage, banners } = useRouteLoaderData('all-products')
 	const { brandName, brandId, brandProducts } = useLoaderData()
 	const productsPerPage = brandProducts.results
 	const headerHeight = useHeaderHeight()
-	const { isMobile } = useStore()
-	const pageRange = isMobile ? 5 : 10
-	let ITEMS_PER_PAGE = 15 // 클라이언트 설정
 
 	const banner = useMemo(
 		() => getBrandBanner({ banners, brandId }),
@@ -85,12 +81,10 @@ export function BrandPage() {
 				<h2 id='product list'>{brandName}</h2>
 				<ProductList
 					pagination={
-						<Pagination
+						<ConfiguredPagination
 							title='products'
-							theme='#c4e8db'
-							pageRange={pageRange}
-							currentPage={Number(currentPage)}
-							itemsPerPage={ITEMS_PER_PAGE}
+							theme='#C4E8DB'
+							currentPage={currentPage}
 							totalItemsCount={brandProducts.count}
 						/>
 					}
