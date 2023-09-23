@@ -37,6 +37,7 @@ import {
 import {
 	homeLoader,
 	// productLoader,
+	newArrivalsLoader,
 	brandLoader,
 	productDetailLoader,
 	cartLoader,
@@ -81,6 +82,7 @@ const router = createBrowserRouter([
 							},
 							{
 								path: 'new-arrivals',
+								loader: newArrivalsLoader,
 								element: <NewArrivalsPage />,
 							},
 							{

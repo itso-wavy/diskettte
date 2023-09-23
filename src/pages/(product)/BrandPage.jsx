@@ -62,7 +62,7 @@ export function BrandPage() {
 	const headerHeight = useHeaderHeight()
 	const { isMobile } = useStore()
 	const pageRange = isMobile ? 5 : 10
-	let itemsPerPage = 15 // 클라이언트 설정
+	let ITEMS_PER_PAGE = 15 // 클라이언트 설정
 
 	const banner = useMemo(
 		() => getBrandBanner({ banners, brandId }),
@@ -90,7 +90,7 @@ export function BrandPage() {
 							theme='#c4e8db'
 							pageRange={pageRange}
 							currentPage={Number(currentPage)}
-							itemsPerPage={itemsPerPage}
+							itemsPerPage={ITEMS_PER_PAGE}
 							totalItemsCount={brandProducts.count}
 						/>
 					}

@@ -3,6 +3,8 @@ import { useRedirect } from '../../hooks'
 import { api, clientAPI, firebaseAPI } from '../../lib/api'
 
 export const productsLoader = async ({ request }) => {
+	// console.log('불러온다🥵🥵🥵🥵🥵🥵')
+
 	const searchParams = new URL(request.url).searchParams
 	const pageParam = searchParams.get('page') ?? '1'
 
