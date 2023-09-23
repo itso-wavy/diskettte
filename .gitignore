@@ -1,10 +1,6 @@
 src/components/@ui/Popup.jsx
 src/components/@ui/Popup.style.jsx
 
-src/components/@ui/Table.jsx
-src/components/@ui/Table copy.jsx
-src/components/@ui/Table.style.jsx
-
 .env*
 _diskettte.code-workspace
 public/assets/images/*

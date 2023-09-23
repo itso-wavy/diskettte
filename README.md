@@ -3,74 +3,72 @@
 - 자체 컨벤션
 - 컴포넌트 세분화
 
-# diskettte
+## 목표
 
-- router 28
+- 이 프로젝트는 효율성보다 디테일에 무게를 두고 있다.
+- 리액트로 자유롭게 내가 하고픈 거 다 해보면서 충분히 익숙해지기
+  - 리액트의 라이프사이클, 내장 훅, 컨텍스트, 외부상태관리 툴 등 가능한 모든 지식을 적용
+- 바텀 업 방식의 구현 경험
+
+  - axios 인스턴스 없이 필요한 모든 컴포넌트에서 직접 import하여 기능 구현. 이후 모듈 형태를 구상하여 인스턴스로 교체 작업 진행
+  - 마크업과 스타일링(UI), 로직(훅), 페이지(라우터 레이아웃), 코드(util) 재활용 극대화
+    - 일종의 디자인 시스템 구축. 모든 ui를 재활용 가능한 형태로 손수 구현함. 미래의 재활용 가능성을 염두하다보니 마크업의 중첩이 심화되기도 함
+
+- 리액트 라우트의 적극적인 활용
+
+  - 효과적인 라우트 형태와 url 구조를 구상
+  - 라우트 객체를 이용해 레이아웃 중첩
+  - 꼼꼼한 로딩, 에러 처리. 에러 발생시 에러 페이지로 이동하여 에러 코드와 상태 메시지를 보여줌
+
+- 토큰을 이용한 인증, 인가 처리
+- UX/UI를 고려한 디자인. 최신 디자인 트렌드를 반영
+  - 애니메이티드 메시 그라데이션
+  - 스크롤에 반응하는 불투명 네브바
+  - 프레이머 모션으로 스크롤에 반응하는 랜딩 페이지 스타일링
+  - 모든 페이지 데스크탑/모바일 맞춤 반응형 레이아웃 지원
+  - 비밀번호 생성 조건을 바로 피드백 해주는 에러메시지
+- 최신 html, css 스펙을 활용
+- 접근성을 위한 `aria-*` 속성 적극 활용
+
 - auth
 
 ## url
 
 http://localhost:5173/product/501
 
-## code
+https://diskettte-00-default-rtdb.firebaseio.com/
 
-// {
-// "compilerOptions": {
-// "target": "es6"
-// }
-// }
+## order
 
-## 홍보 문구
+`**order_kind**`를 서버에 보내주셔야 합니다.
 
-1. "Curated Pieces for Diverse Tastes"
-   "Curated Collection for Diverse Tastes"
-   "다양한 취향을 위한 선별된 소품"
-2. "A Collection of Pieces for Every Preference"
-   "모든 취향을 위한 소품 컬렉션"
-3. "Elevate Your Wardrobe Handpicked Pieces"
-   "핸드픽된 소품으로 Wardrobe를 업그레이드하세요"
-4. "Discover Unique Pieces for Every Style"
-5. "A Range of Pieces"
-   "당신의 취향에 맞는 다양한 소품 컬렉션"
-6. "Curated Pieces Tailored to Your Unique Taste"
-   "독특한 취향에 맞춘 소품을 만나보세요"
-7. "Personalize Your Style with Curated Pieces"
+1. `direct_order`: 바로 주문하기
+2. `cart_order`: 카트에서 주문
+3. `cart_one_order`: 카트에서 바로 주문
 
-## deco
+## 설정
 
-```jsx
-import starImg from '/assets/icons/test/game-icons_european-flag.svg'
-import decoImg from '/assets/icons/test/game-icons_spotted-mushroom.svg'
-;<div className='tr touch'>
-	<Img src={decoImg} alt='' $size='2.25em' />
-	<Img
-		src={starImg}
-		alt=''
-		$size='6.5em'
-		style={{
-			position: 'absolute',
-			top: '-15%',
-			right: 0,
-		}}
-	/>
-</div>
-```
-
-```css
-.touch {
-	/* width: 3.25em; */
-	height: fit-content;
-	aspect-ratio: 1;
-	padding: 1.5em;
-	display: grid;
-	place-items: center;
-	border-radius: 50%;
-
-	/* border: 1px solid black; */
-	/* outline: 1px solid white;
-		outline-offset: -3px; */
-	/* background-color: white;
-		background-color: black; */
-	position: relative;
+```json
+{
+	"compilerOptions": {
+		"target": "es6"
+	}
 }
 ```
+
+## 스타일링
+
+```css
+box-shadow: inset 20px 12px 24px #e7f2f9, inset -24px -24px 48px #dcdfe2,
+	0 35px 68px 0 #88aede6b, 24px 24px 48px #c4d1c8;
+```
+
+## 발견 에러
+
+1. 카트 업데이트
+2. 이미지 미수정시 게시글 수정 안 됨(백엔드 문제)
+3. 회원가입 폼 미입력시에도 버튼 활성화
+
+## 개선하면 좋을 점
+
+인풋 엔터하면 전송
