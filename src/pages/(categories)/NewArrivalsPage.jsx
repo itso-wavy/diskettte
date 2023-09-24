@@ -37,7 +37,6 @@ export const newArrivalsLoader = async ({ request, params }) => {
 
 	return {
 		brandName: brandProductsResults[0].store_name,
-		// brandId: BRAND_ID,
 		newArrivals: brandProductsResults,
 		brandProducts: brandProducts,
 	}
@@ -53,7 +52,9 @@ export function NewArrivalsPage() {
 	const { scrollYProgress } = useScroll({
 		target: targetRef,
 	})
-	const x = useTransform(scrollYProgress, [0, 1], ['1%', '-64%']) // FIXME: 61%
+
+	const outputRangeY = 95 - Math.floor((window.innerWidth - 230) / 124.3)
+	const x = useTransform(scrollYProgress, [0, 1], ['0%', `-${outputRangeY}%`])
 
 	useTitle('New Arrivals')
 
@@ -62,12 +63,10 @@ export function NewArrivalsPage() {
 			<CarouselSection
 				ref={targetRef}
 				$top={headerHeight}
-				aria-labelledby='newArrivals introduce'
+				aria-labelledby='newArrivalsIntroduce'
 			>
-				<h2 className='sr-only' id='newArrivals introduce'>
-					{brandName}
-				</h2>
 				<div className='sticky-box'>
+					<h2 id='newArrivalsIntroduce'>{brandName}</h2>
 					<motion.ul style={{ x }}>
 						{newArrivals.map(product => (
 							<li key={product.product_id}>

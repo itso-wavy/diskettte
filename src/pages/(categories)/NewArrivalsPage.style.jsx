@@ -59,11 +59,27 @@ export const CarouselSection = styled.section`
 				mix-blend-mode: exclusion;
 			}
 
+			.sticky-box h2 {
+				position: absolute;
+				width: calc(100vw - 14px);
+				height: 1.5em;
+				padding-top: 0.5em;
+				top: ${$top}px;
+				color: ${theme.color.white};
+				font-size: clamp(2.5em, 12vw, 12em);
+				font-weight: ${theme.fw.bold};
+				text-align: center;
+				text-transform: uppercase;
+				background: linear-gradient(179deg, #fff 50%, #f1b0b999, #ddfa5b21 90%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
+
 			ul {
 				display: flex;
 				width: fit-content;
 				gap: var(--item-gap);
-				padding: 0 ${({ theme }) => theme.spacing.width.desktop};
+				z-index: 10;
 			}
 
 			li {
@@ -88,7 +104,7 @@ export const CarouselSection = styled.section`
 				inset: 0;
 				display: grid;
 				place-content: center;
-				z-index: 10;
+				z-index: 20;
 			}
 
 			.blur-box p {
@@ -116,10 +132,6 @@ export const CarouselSection = styled.section`
 					left: -40%;
 					background: ${`linear-gradient(${theme.color.shadow}, ${theme.color.white})`};
 					filter: blur(64px);
-				}
-
-				ul {
-					padding: 0 ${theme.spacing.width.mobile};
 				}
 
 				.blur-box p {
