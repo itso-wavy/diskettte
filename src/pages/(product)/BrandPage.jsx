@@ -9,7 +9,7 @@ import { StyledImg, StyledSection } from './BrandPage.style'
 
 export const brandLoader = async ({ request, params }) => {
 	const brandId = params.brandId
-	const productsOnFivePage = await getProducts(5)
+	const productsOnFivePage = await getProducts(null, 5)
 	const searchParams = new URL(request.url).searchParams
 	const pageParam = searchParams.get('page') ?? '1'
 

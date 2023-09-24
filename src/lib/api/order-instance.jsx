@@ -5,7 +5,6 @@ const getOrder = async pageParam => {
 	const client = clientAPI(`order/?page=${pageParam}`)
 
 	const success = res => res.data
-
 	const error = err => {
 		throw json({ message: err.message }, { status: err.response.status })
 	}

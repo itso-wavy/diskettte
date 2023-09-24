@@ -9,7 +9,7 @@ import { motion, useTransform, useScroll } from 'framer-motion'
 
 export const newArrivalsLoader = async ({ request, params }) => {
 	const BRAND_ID = 15 // brand: VINYL_LOVE
-	const productsOnFivePage = await getProducts(5)
+	const productsOnFivePage = await getProducts(null, 5)
 	const searchParams = new URL(request.url).searchParams
 	const pageParam = searchParams.get('page') ?? '1'
 

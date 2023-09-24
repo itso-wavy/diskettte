@@ -17,7 +17,6 @@ export const StyledFigure = styled.figure`
 		width: min(80px, 100%);
 		background-color: inherit;
 		color: inherit;
-		/* padding: 5px; */
 		font-size: 1.375rem;
 		font-weight: ${({ theme }) => theme.fw.medium};
 		text-transform: uppercase;

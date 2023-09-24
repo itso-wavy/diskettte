@@ -217,12 +217,6 @@ export function HomePage() {
 				</Carousel>
 			</Section>
 
-			{/* <Section
-				sectionId='exclusive'
-				sectionTitle='exclusive articles'
-				top='0'
-			></Section> */}
-
 			<Section sectionId='lastBanner' sectionTitle='lastBanner grid'>
 				<SignupWrapper>
 					<Link to='/auth/signup'>

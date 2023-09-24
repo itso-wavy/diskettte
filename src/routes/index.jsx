@@ -19,24 +19,16 @@ import {
 	CheckoutPage,
 	OrderConfirmPage,
 	OrdersPage,
-	// OrderDetailPage,
-	// ProfilePage,
 	ProductsPage,
 	ProductCreatePage,
 	ProductEditPage,
-	// ProductDeletePage,
 	SigninPage,
 	SignupPage,
 	LogoutPage,
 } from '../pages'
-import {
-	productsLoader,
-	// mypageInfoLoader,
-	// sellerInfoLoader,
-} from '../components/@layout'
+import { productsLoader } from '../components/@layout'
 import {
 	homeLoader,
-	// productLoader,
 	newArrivalsLoader,
 	brandLoader,
 	productDetailLoader,
@@ -77,7 +69,6 @@ const router = createBrowserRouter([
 						children: [
 							{
 								path: 'all',
-								// loader: productsLoader,
 								element: <AllProductsPage />,
 							},
 							{
@@ -161,10 +152,6 @@ const router = createBrowserRouter([
 						element: <ProductEditPage />,
 						action: productEditAction,
 					},
-					// {
-					// 	path: 'product/delete/:productId',
-					// 	element: <ProductDeletePage />,
-					// },
 				],
 			},
 		],

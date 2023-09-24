@@ -213,8 +213,8 @@ export const GridWarpper = styled.div`
 		bottom: 0.1em;
 		padding: 0.3em;
 		margin-right: 0.6em;
-		border: 2px solid white;
-		outline-color: white;
+		border: ${({ theme }) => `2px solid ${theme.color.white}`};
+		outline-color: ${({ theme }) => theme.color.white};
 		outline-offset: -4px;
 	}
 
@@ -291,6 +291,14 @@ export const ItemWrapper = styled.div`
 	height: 300px; /* point */
 	border: 1px solid ${({ theme }) => theme.color.black};
 	border-left: 0;
+
+	figure {
+		background: ${({ theme }) => theme.color.orange};
+	}
+
+	figcaption {
+		background: ${({ theme }) => theme.color.white};
+	}
 `
 
 export const SignupWrapper = styled.div`
@@ -313,7 +321,7 @@ export const SignupWrapper = styled.div`
 	}
 
 	&:hover p {
-		background-color: black;
+		background-color: ${({ theme }) => theme.color.black};
 		-webkit-text-stroke: 0;
 	}
 
