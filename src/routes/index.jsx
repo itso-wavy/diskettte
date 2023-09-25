@@ -29,8 +29,6 @@ import {
 import { productsLoader } from '../components/@layout'
 import {
 	homeLoader,
-	newArrivalsLoader,
-	brandLoader,
 	productDetailLoader,
 	cartLoader,
 	checkoutLoader,
@@ -65,30 +63,23 @@ const router = createBrowserRouter([
 				element: <ProductRootLayout />,
 				children: [
 					{
-						path: 'categories',
-						children: [
-							{
-								path: 'all',
-								element: <AllProductsPage />,
-							},
-							{
-								path: 'new-arrivals',
-								loader: newArrivalsLoader,
-								element: <NewArrivalsPage />,
-							},
-							{
-								path: 'exclusive',
-								element: <ExclusivePage />,
-							},
-							{
-								path: 'event',
-								element: <EventPage />,
-							},
-						],
+						path: 'categories/all',
+						element: <AllProductsPage />,
+					},
+					{
+						path: 'categories/new-arrivals',
+						element: <NewArrivalsPage />,
+					},
+					{
+						path: 'categories/exclusive',
+						element: <ExclusivePage />,
+					},
+					{
+						path: 'categories/event',
+						element: <EventPage />,
 					},
 					{
 						path: 'brand/:brandId',
-						loader: brandLoader,
 						element: <BrandPage />,
 					},
 					{

@@ -44,33 +44,35 @@ const getProduct = async product_id => {
 	return await api(client)(success, error)
 }
 
-const getProducts = async (curPage, pageLimit) => {
-	const client = page => clientAPI(`products/?page=${page}`)
+const getProducts = async page => {
+	const client = clientAPI(`products/?page=${page}`)
 
 	const success = res => res.data
 	const error = err => {
 		throw json({ message: err.message }, { status: err.response.status })
 	}
 
-	if (curPage) return api(client(curPage))(success, error)
+	return api(client)(success, error)
+}
 
+const getAllProductsResults = async pageLimit => {
 	let page = 1
 	const products = []
-	const chunkedProducts = await api(client(1))(success, error)
+	const chunkedProducts = await getProducts(page)
 
 	// 페이징 처리 제거하는 재귀 함수
-	const getAllProducts = async response => {
+	const getProductsRecursively = async response => {
 		products.push(...response.results)
 
 		if (!response.next || page === pageLimit) return products
 
 		++page
-		const newChunked = await api(client(page))(success, error)
+		const newChunked = await getProducts(page)
 
-		return getAllProducts(newChunked)
+		return getProductsRecursively(newChunked)
 	}
 
-	return getAllProducts(chunkedProducts)
+	return getProductsRecursively(chunkedProducts)
 }
 
 const getSellerProducts = async pageParam => {
@@ -134,8 +136,9 @@ const searchProduct = async (keyword, success, debounceTime) => {
 export {
 	getBanners,
 	getBrands,
-	getProducts,
 	getProduct,
+	getProducts,
+	getAllProductsResults,
 	getSellerProducts,
 	createProduct,
 	updateProduct,

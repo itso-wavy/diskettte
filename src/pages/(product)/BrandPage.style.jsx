@@ -14,7 +14,7 @@ export const StyledSection = styled.section`
 
 		return css`
 			padding: ${`${height.marginTop} ${width.desktop} 0`};
-			width: ${({ theme }) => `min(100%, ${theme.breakpoints.tablet})`};
+			width: ${`min(100%, ${theme.breakpoints.tablet})`};
 
 			h2 {
 				margin-bottom: 1.67rem;

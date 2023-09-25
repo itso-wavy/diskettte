@@ -1,25 +1,20 @@
-import { useRef } from 'react'
-import { useLoaderData, useRouteLoaderData } from 'react-router-dom'
+import { useMemo, useRef } from 'react'
+import { useRouteLoaderData, useSearchParams } from 'react-router-dom'
 import { useHeaderHeight, useTitle } from '../../hooks'
 import { ConfiguredPagination } from '../../components/common'
 import { ProductList, ProductItem } from '../../components/product'
-import { getProducts } from '../../lib/api'
 import { CarouselSection, ProductsSection } from './NewArrivalsPage.style'
 import { motion, useTransform, useScroll } from 'framer-motion'
 
-export const newArrivalsLoader = async ({ request, params }) => {
-	const BRAND_ID = 15 // brand: VINYL_LOVE
-	const productsOnFivePage = await getProducts(null, 5)
-	const searchParams = new URL(request.url).searchParams
-	const pageParam = searchParams.get('page') ?? '1'
-
-	const brandProductsResults = productsOnFivePage.filter(
-		product => product.seller === Number(BRAND_ID)
+const getNewArrivals = ({ allProductsResults, brandId, pageParam }) => {
+	const brandProductsResults = allProductsResults.filter(
+		product => product.seller === Number(brandId)
 	)
 
 	const chunkedBrandProductsResults = brandProductsResults.reduce(
 		(acc, cur, index) => {
-			const chunkedIndex = Math.floor(index / 15)
+			let ITEMS_PER_PAGE = 15 // 백엔드, 클라이언트 설정 통일
+			const chunkedIndex = Math.floor(index / ITEMS_PER_PAGE)
 
 			if (!acc[chunkedIndex]) acc[chunkedIndex] = []
 			acc[chunkedIndex].push(cur)
@@ -43,8 +38,15 @@ export const newArrivalsLoader = async ({ request, params }) => {
 }
 
 export function NewArrivalsPage() {
-	const { currentPage } = useRouteLoaderData('all-products')
-	const { brandName, newArrivals, brandProducts } = useLoaderData()
+	const [searchParams] = useSearchParams()
+	const pageParam = searchParams.get('page') ?? '1'
+	const { currentPage, allProductsResults } = useRouteLoaderData('all-products')
+
+	const BRAND_ID = 15 // brand: VINYL_LOVE
+	const { brandName, newArrivals, brandProducts } = useMemo(
+		() => getNewArrivals({ allProductsResults, brandId: BRAND_ID, pageParam }),
+		[allProductsResults, BRAND_ID, pageParam]
+	)
 	const productsPerPage = brandProducts.results
 
 	const targetRef = useRef()

@@ -61,7 +61,7 @@ export const CarouselSection = styled.section`
 
 			.sticky-box h2 {
 				position: absolute;
-				width: calc(100vw - 14px);
+				width: calc(100vw - 17px); // scroll
 				height: 1.5em;
 				padding-top: 0.5em;
 				top: ${$top}px;

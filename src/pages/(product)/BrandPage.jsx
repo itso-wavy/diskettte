@@ -1,25 +1,24 @@
 import { useMemo } from 'react'
-import { useLoaderData, useRouteLoaderData } from 'react-router-dom'
+import {
+	useRouteLoaderData,
+	useParams,
+	useSearchParams,
+} from 'react-router-dom'
 import { useHeaderHeight, useTitle } from '../../hooks'
 import { Section } from '../../components/@motion'
 import { ConfiguredPagination } from '../../components/common'
 import { ProductList, ProductItem } from '../../components/product'
-import { getProducts } from '../../lib/api'
 import { StyledImg, StyledSection } from './BrandPage.style'
 
-export const brandLoader = async ({ request, params }) => {
-	const brandId = params.brandId
-	const productsOnFivePage = await getProducts(null, 5)
-	const searchParams = new URL(request.url).searchParams
-	const pageParam = searchParams.get('page') ?? '1'
-
-	const brandProductsResults = productsOnFivePage.filter(
+const getBrandProducts = ({ allProductsResults, brandId, pageParam }) => {
+	const brandProductsResults = allProductsResults.filter(
 		product => product.seller === Number(brandId)
 	)
 
 	const chunkedBrandProductsResults = brandProductsResults.reduce(
 		(acc, cur, index) => {
-			const chunkedIndex = Math.floor(index / 15)
+			let ITEMS_PER_PAGE = 15 // 백엔드, 클라이언트 설정 통일
+			const chunkedIndex = Math.floor(index / ITEMS_PER_PAGE)
 
 			if (!acc[chunkedIndex]) acc[chunkedIndex] = []
 			acc[chunkedIndex].push(cur)
@@ -37,7 +36,6 @@ export const brandLoader = async ({ request, params }) => {
 
 	return {
 		brandName: brandProductsResults[0].store_name,
-		brandId,
 		brandProducts,
 	}
 }
@@ -55,15 +53,22 @@ const getBrandBanner = ({ banners, brandId }) => {
 }
 
 export function BrandPage() {
-	const { currentPage, banners } = useRouteLoaderData('all-products')
-	const { brandName, brandId, brandProducts } = useLoaderData()
-	const productsPerPage = brandProducts.results
+	const { brandId } = useParams()
+	const [searchParams] = useSearchParams()
+	const pageParam = searchParams.get('page') ?? '1'
 	const headerHeight = useHeaderHeight()
+	const { currentPage, banners, allProductsResults } =
+		useRouteLoaderData('all-products')
 
 	const banner = useMemo(
 		() => getBrandBanner({ banners, brandId }),
 		[banners, brandId]
 	)
+	const { brandName, brandProducts } = useMemo(
+		() => getBrandProducts({ allProductsResults, brandId, pageParam }),
+		[allProductsResults, brandId, pageParam]
+	)
+	const productsPerPage = brandProducts.results
 
 	useTitle(brandName)
 
@@ -74,7 +79,7 @@ export function BrandPage() {
 				sectionTitle='brand banner'
 				top={headerHeight * 2}
 			>
-				<StyledImg src={banner.src} alt={banner.alt} />
+				<StyledImg src={banner.src} alt={banner.alt} loading='lazy' />
 			</Section>
 
 			<StyledSection aria-labelledby='product list'>

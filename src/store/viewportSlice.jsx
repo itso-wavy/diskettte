@@ -1,8 +1,7 @@
 const getViewport = () => {
-	const width =
-		window.innerWidth ||
-		document.documentElement.clientWidth ||
-		document.body.clientWidth
+	const width = window.innerWidth
+	// || document.documentElement.clientWidth
+	// || document.body.clientWidth
 
 	switch (true) {
 		case width <= 430:
