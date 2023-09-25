@@ -57,7 +57,7 @@ export function ProductPage() {
 		<LayoutWrapper>
 			<OverviewWrapper $top={headerHeight}>
 				<div className='image-box'>
-					<img src={image} alt={product_name} />
+					<img src={image} alt={product_name} loading='lazy' />
 				</div>
 
 				<Card className='info-box'>
