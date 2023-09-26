@@ -14,6 +14,7 @@ function ProductFilterForm({ sortChangeHandler, ...props }) {
 	const { values, onInitHandler } = useContext(FormContext)
 	const freeShippingRef = useRef()
 	const excludeSoldOutRef = useRef()
+	const priceRangeRef = useRef()
 
 	const order = useMemo(
 		() => [
@@ -26,12 +27,12 @@ function ProductFilterForm({ sortChangeHandler, ...props }) {
 				value: 'price_desc',
 			},
 			{
-				label: '신상품순',
-				value: 'newest',
+				label: '등록순',
+				value: 'oldest',
 			},
 			{
-				label: '상품 등록순',
-				value: 'oldest',
+				label: '신상품순',
+				value: 'newest',
 			},
 		],
 		[]
@@ -40,11 +41,11 @@ function ProductFilterForm({ sortChangeHandler, ...props }) {
 	const resetFilter = () => {
 		freeShippingRef.current.setSelected(false)
 		excludeSoldOutRef.current.setSelected(false)
+		priceRangeRef.current.initRangeSlider()
 		onInitHandler()
 	}
 
 	useEffect(() => {
-		console.log('😎values: ', values)
 		sortChangeHandler(values)
 	}, [values])
 
@@ -61,6 +62,7 @@ function ProductFilterForm({ sortChangeHandler, ...props }) {
 			<div className='filter-box'>
 				<p className='filter-title'>가격대</p>
 				<DoubleRangeSlider
+					ref={priceRangeRef}
 					id='priceRange'
 					name='priceRange'
 					min={values.minPrice}
