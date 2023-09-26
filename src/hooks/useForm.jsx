@@ -52,6 +52,13 @@ export const useForm = initialState => {
 		errorMessages: blankState,
 	})
 
+	const onInitHandler = () => {
+		dispatch({
+			type: ACTION_CREATOR.INPUT,
+			values: { ...initialState },
+		})
+	}
+
 	const onInputHandler = (e, options) => {
 		let { value, name } = e.target
 
@@ -187,6 +194,7 @@ export const useForm = initialState => {
 		errorMessages: state.errorMessages,
 		state,
 		dispatch,
+		onInitHandler,
 		onInputHandler,
 		onBlurHandler,
 		onManuallyValidateHandler,

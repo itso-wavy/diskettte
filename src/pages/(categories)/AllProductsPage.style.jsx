@@ -14,13 +14,13 @@ export const Heading = styled.div`
 	font-size: 1.8rem;
 	line-height: 1.2em;
 	font-weight: ${({ theme }) => theme.fw.medium};
-	color: white;
+	color: ${({ theme }) => theme.color.white};
 
 	& * {
 		height: 5rem;
 		display: flex;
 		align-items: center;
-		background-color: #000;
+		background-color: ${({ theme }) => theme.color.black};
 		padding: 0 3.75rem;
 	}
 
@@ -67,16 +67,3 @@ export const ContentsWrapper = styled.div`
 		grid-template-columns: initial;
 	}
 `
-
-export const LNB = styled.aside`
-	// 에셋으로 만들까?
-	background-color: #ddd;
-
-	/* && + * {
-		 margin-left: 3.75rem;
-	} */
-`
-
-// export const ProductsWrapper = styled.div`
-// 	width: 100%;
-// `
