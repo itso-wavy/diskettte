@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Card } from '../@motion'
 import { Badge } from '../@ui/Badge'
-import { formatNumber } from '../../lib/utils/text-formatter'
+import { formatPrice } from '../../lib/utils/text-formatter'
 import {
 	Wrapper,
 	StyledUl,
@@ -20,7 +20,7 @@ function ProductCardInfo({ brand, name, price, $soldout, ...props }) {
 			{name && <ProductName>{name}</ProductName>}
 			{price && (
 				<ProductPrice>
-					{formatNumber(price)}
+					{formatPrice(price)}
 					<span className='currency'>원</span>
 				</ProductPrice>
 			)}

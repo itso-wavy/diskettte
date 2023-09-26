@@ -4,7 +4,7 @@ import { FormContext } from '../../context/form-context'
 import { QuantitySpinner } from '.'
 import { Button } from '../@ui/Button'
 import { Flexbox } from '../@ui/Form'
-import { formatNumber } from '../../lib/utils/text-formatter'
+import { formatPrice } from '../../lib/utils/text-formatter'
 import { Wrapper, ShippingInfo } from './ProductOrderForm.style.jsx'
 
 function ProductOrderForm({ product, ...props }) {
@@ -43,7 +43,7 @@ function ProductOrderForm({ product, ...props }) {
 				<Flexbox $direction='row' className='total-price'>
 					<p className='title'>총 상품 금액</p>
 					<p>
-						{formatNumber(price * qty)}
+						{formatPrice(price * qty)}
 						<span className='currency'>원</span>
 					</p>
 				</Flexbox>
@@ -53,7 +53,7 @@ function ProductOrderForm({ product, ...props }) {
 					<p>
 						{shipping_method === 'PARCEL' ? '직배송' : '택배배송'} / 배송비{' '}
 						{shipping_fee ? (
-							<strong>{formatNumber(shipping_fee)}</strong>
+							<strong>{formatPrice(shipping_fee)}</strong>
 						) : (
 							'무료'
 						)}

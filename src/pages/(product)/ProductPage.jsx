@@ -13,7 +13,7 @@ import {
 	getAccountType,
 	setOrderItems,
 } from '../../lib/utils/storage'
-import { formatNumber } from '../../lib/utils/text-formatter'
+import { formatPrice } from '../../lib/utils/text-formatter'
 import {
 	LayoutWrapper,
 	OverviewWrapper,
@@ -72,7 +72,7 @@ export function ProductPage() {
 						</div>
 						<h2 className='product-name'>{product_name}</h2>
 						<p className='product-price'>
-							{formatNumber(price)}
+							{formatPrice(price)}
 							<span className='currency'>원</span>
 						</p>
 					</KeyInfo>

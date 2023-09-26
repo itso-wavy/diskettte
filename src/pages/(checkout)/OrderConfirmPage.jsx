@@ -11,7 +11,7 @@ import {
 	removeOrderItems,
 } from '../../lib/utils/storage'
 import {
-	formatNumber,
+	formatPrice,
 	formatDate,
 	formatOrderNumber,
 } from '../../lib/utils/text-formatter'
@@ -95,7 +95,7 @@ function OrderConfirmPage() {
 			{
 				field: 'total_price',
 				header: '결제 금액',
-				contents: [`${formatNumber(total_price)}원`],
+				contents: [`${formatPrice(total_price)}원`],
 			},
 			{
 				field: 'order_items',

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Table, ColumnTableHead, ColumnTableBody } from '../@ui/Table'
 import { Button } from '../@ui/Button'
 import { ConfiguredPagination } from '../common'
-import { formatNumber } from '../../lib/utils/text-formatter'
+import { formatPrice } from '../../lib/utils/text-formatter'
 import { deleteProduct } from '../../lib/api'
 import { Wrapper } from './SalesListTable.style'
 
@@ -43,14 +43,14 @@ export function SalesListTable({ currentPage, products, ...props }) {
 						<img src={image} alt={product_name} />
 						<p>{product_name}</p>
 					</Link>,
-					`${formatNumber(price)}원`,
+					`${formatPrice(price)}원`,
 					stock,
 					<p className='shipping-info'>
 						<span>{shipping_method === 'PARCEL' ? '직배송' : '택배배송'}</span>
 						<span>
 							/{' '}
 							{shipping_fee ? (
-								<strong>{formatNumber(shipping_fee)}</strong>
+								<strong>{formatPrice(shipping_fee)}</strong>
 							) : (
 								'무료'
 							)}

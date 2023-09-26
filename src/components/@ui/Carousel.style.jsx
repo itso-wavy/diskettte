@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
 	flex-direction: column;
 	position: relative;
 	height: 100%;
-	max-width: calc(100vw - 14px);
+	max-width: calc(100vw - 17px);
 `
 
 export const ShowBox = styled.div`

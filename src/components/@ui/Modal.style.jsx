@@ -11,7 +11,7 @@ export const ModalOverlay = styled.div`
 	width: calc(100vw - 2.5rem);
 	min-width: 280px;
 	height: 100vh;
-	padding: 20px;
+	padding: 1.25rem;
 	background-color: ${({ theme }) => theme.color.black};
 	color: ${({ theme }) => theme.color.white};
 	position: fixed;

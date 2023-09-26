@@ -3,7 +3,7 @@ import { Table, ColumnTableHead, ColumnTableBody } from '../@ui/Table'
 import { ConfiguredPagination } from '../common'
 import {
 	formatDate,
-	formatNumber,
+	formatPrice,
 	formatOrderNumber,
 } from '../../lib/utils/text-formatter'
 import { Wrapper } from './OrderListTable.style'
@@ -47,7 +47,7 @@ export function OrderListTable({
 					</p>
 				</Link>,
 				delivery_status === 'COMPLETE_PAYMENT' && '결제 완료',
-				`${formatNumber(total_price)}원`,
+				`${formatPrice(total_price)}원`,
 			]
 		})
 	}

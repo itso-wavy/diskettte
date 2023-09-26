@@ -1,4 +1,4 @@
-const formatNumber = price => {
+const formatPrice = price => {
 	return new Intl.NumberFormat('ko-KR', {
 		style: 'decimal',
 	}).format(price)
@@ -24,4 +24,4 @@ ${String(order_number).padStart('6', '0')}`
 	return orderNumber
 }
 
-export { formatNumber, formatDate, formatOrderNumber }
+export { formatPrice, formatDate, formatOrderNumber }

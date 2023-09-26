@@ -4,7 +4,7 @@ import { FormContext } from '../../context/form-context'
 import { FormInput, SubmitButton } from '../@ui/Form'
 import { Accordion } from '../@ui/Accordion'
 import { DropdownSvg } from '../@svg/DropdownSvg'
-import { formatNumber } from '../../lib/utils/text-formatter'
+import { formatPrice } from '../../lib/utils/text-formatter'
 import {
 	StyledFieldset,
 	StyledLi,
@@ -22,7 +22,7 @@ function CheckoutItem({ item, ...props }) {
 				<p className='store'>{store_name}</p>
 				<p className='product'>{product_name}</p>
 				<p>
-					<span className='price'>{formatNumber(price * quantity)}</span>
+					<span className='price'>{formatPrice(price * quantity)}</span>
 					<span className='unit'>원</span>
 					<span className='qty'>
 						{' '}
@@ -148,19 +148,19 @@ function CheckoutSummary({ order, ...props }) {
 					<StyledFlexbox>
 						<dt>총 주문 금액</dt>
 						<dd>
-							<strong>{formatNumber(summary.totalProductPrice)}</strong>원
+							<strong>{formatPrice(summary.totalProductPrice)}</strong>원
 						</dd>
 					</StyledFlexbox>
 					<StyledFlexbox>
 						<dt>총 배송비</dt>
 						<dd>
-							<strong>{formatNumber(summary.totalShippingFee)}</strong>원
+							<strong>{formatPrice(summary.totalShippingFee)}</strong>원
 						</dd>
 					</StyledFlexbox>
 					<StyledFlexbox>
 						<dt>총 할인 금액</dt>
 						<dd>
-							<strong>{formatNumber(summary.totalDiscount)}</strong>원
+							<strong>{formatPrice(summary.totalDiscount)}</strong>원
 						</dd>
 					</StyledFlexbox>
 				</dl>
@@ -168,7 +168,7 @@ function CheckoutSummary({ order, ...props }) {
 					<StyledFlexbox>
 						<dt>총 결제 금액</dt>
 						<dd>
-							<strong>{formatNumber(summary.totalPayment)}</strong>원
+							<strong>{formatPrice(summary.totalPayment)}</strong>원
 						</dd>
 					</StyledFlexbox>
 				</dl>

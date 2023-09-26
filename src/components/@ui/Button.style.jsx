@@ -12,14 +12,14 @@ const $typeStyles = ({ $type, $img, $size }) => {
 		case 'square':
 			return css`
 				background: transparent center/contain no-repeat url(${$img});
-				width: 2.5rem;
-				height: 2.5rem;
+				width: ${$size ?? '2.5rem'};
+				height: ${$size ?? '2.5rem'};
 			`
 		case 'icon':
 			return css`
 				margin: 0;
-				width: ${$size || '1.5rem'};
-				height: ${$size || '1.5rem'};
+				width: ${$size ?? '1.5rem'};
+				height: ${$size ?? '1.5rem'};
 				color: inherit;
 				background: transparent center/contain no-repeat url(${$img});
 			`

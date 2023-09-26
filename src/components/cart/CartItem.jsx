@@ -8,7 +8,7 @@ import { QuantitySpinner } from '../product'
 import DeleteImg from '/assets/icons/wavy_menu-close.svg'
 import { setOrderItems } from '../../lib/utils/storage'
 import { removeFromCart, updateToCart } from '../../lib/api'
-import { formatNumber } from '../../lib/utils/text-formatter'
+import { formatPrice } from '../../lib/utils/text-formatter'
 import {
 	StyledLi,
 	ProductImage,
@@ -25,7 +25,7 @@ function ShippingInfo({ shippingMethod, shippingFee, ...props }) {
 	return (
 		<StyledP {...props}>
 			{shippingMethod === 'PARCEL' ? '직배송' : '택배배송'} / 배송비{' '}
-			{shippingFee ? <strong>{formatNumber(shippingFee)}</strong> : '무료'}
+			{shippingFee ? <strong>{formatPrice(shippingFee)}</strong> : '무료'}
 		</StyledP>
 	)
 }
@@ -133,7 +133,7 @@ function CartItemInfo({
 				)}
 				{price && (
 					<ProductPrice>
-						{formatNumber(price)}
+						{formatPrice(price)}
 						<span className='currency'>원</span>
 					</ProductPrice>
 				)}
@@ -147,7 +147,7 @@ function CartItemInfo({
 			</div>
 			{price && (
 				<TotalPrice>
-					{isSoldout ? 0 : formatNumber(price * qty)}
+					{isSoldout ? 0 : formatPrice(price * qty)}
 					<span className='currency'>원</span>
 				</TotalPrice>
 			)}

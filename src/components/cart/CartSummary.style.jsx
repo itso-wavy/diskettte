@@ -2,7 +2,6 @@ import { Flexbox } from '../@ui/Form.style'
 import styled from 'styled-components'
 
 export const StyledArticle = styled.article`
-	/* min-width: 280px; // 개발용 */
 	height: fit-content;
 	position: sticky;
 	top: 25%;
@@ -32,12 +31,10 @@ export const StyledArticle = styled.article`
 export const Wrapper = styled.div`
 	padding: 2.2em;
 	padding-bottom: 5em;
-	/* padding-bottom: 6.5em; */
 	font-size: 0.875rem;
 
 	& dl {
 		border-top: 1px dashed black;
-		/* padding: 1.9rem 0; */
 		padding: 1.5rem 0;
 		line-height: 1.8em;
 	}
@@ -49,7 +46,6 @@ export const Wrapper = styled.div`
 
 	& dl:last-of-type dd {
 		font-style: italic;
-		/* color: ${({ theme }) => theme.color.error}; */
 	}
 
 	& dd > strong {
@@ -67,7 +63,6 @@ export const StyledFlexbox = styled(Flexbox)`
 	white-space: nowrap;
 
 	.amount-box {
-		/* padding: 0 2em; */
 		padding-left: 2em;
 		min-width: 33.33%;
 		font-weight: ${({ theme }) => theme.fw.medium};
