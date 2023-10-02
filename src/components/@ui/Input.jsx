@@ -152,8 +152,6 @@ function Checkbox(
 
 	let checked = selected
 	let toggleCheckboxHandler = e => {
-		window.scrollTo(0, window.scrollY)
-
 		if (e.target.name) setSelected(selected => !selected)
 	}
 
@@ -167,7 +165,7 @@ function Checkbox(
 		checked,
 		setSelected: selected => setSelected(selected),
 	}))
-
+	// TODO:  체크박스 연결
 	return (
 		<CheckboxWrapper {...props}>
 			<label htmlFor={id} onClick={toggleCheckboxHandler}>

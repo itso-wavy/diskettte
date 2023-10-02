@@ -73,10 +73,12 @@ const GlobalStyle = createGlobalStyle`
 		outline-offset: 4px;
 	}
 
-  .sr-only {
+  .sr-only { 
+    width: 0;
+    height: 0;
     position: absolute;
-    top: -9999px;
-    left: -9999px;
+    overflow: hidden;
+    visibility: hidden;
     font-size: 0;
     color: transparent;
   }

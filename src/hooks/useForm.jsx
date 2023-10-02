@@ -141,8 +141,6 @@ export const useForm = initialState => {
 	}
 
 	const onCheckHandler = (e, required) => {
-		window.scrollTo(0, window.scrollY)
-
 		const { name } = e.target
 		if (!name) return
 
@@ -156,8 +154,6 @@ export const useForm = initialState => {
 	}
 
 	const onRadioChangeHandler = e => {
-		window.scrollTo(0, window.scrollY)
-
 		const { name, value } = e.target
 
 		let validationMessage = ''
