@@ -51,8 +51,7 @@ function AuthForm({ type }) {
 	const [searchParams] = useSearchParams()
 	const userParam = searchParams.get('user')
 	const [isBuyer, setIsBuyer] = useState(userParam !== 'seller')
-	const [initialState, setInitialState] = useState({ id: '', password: '' })
-
+	// const [initialState, setInitialState] = useState({ id: '', password: '' })
 	useEffect(() => {
 		setIsBuyer(userParam !== 'seller')
 	}, [userParam])
@@ -68,6 +67,8 @@ function AuthForm({ type }) {
 	}
 
 	if (type === 'signin') {
+		const initialState = { id: '', password: '' }
+
 		return (
 			<FormSection
 				id={`${type} form`}
@@ -92,28 +93,49 @@ function AuthForm({ type }) {
 			</FormSection>
 		)
 	} else if (type === 'signup') {
-		useEffect(() => {
-			isBuyer
-				? setInitialState({
-						id: '',
-						password: '',
-						passwordConfirm: '',
-						username: '',
-						phoneNumber: '',
-						email: '',
-						termsAgree: '',
-				  })
-				: setInitialState({
-						id: '',
-						password: '',
-						passwordConfirm: '',
-						username: '',
-						phoneNumber: '',
-						email: '',
-						businessNumber: '',
-						brandName: '',
-				  })
-		}, [isBuyer])
+		const initialState = isBuyer
+			? {
+					id: '',
+					password: '',
+					passwordConfirm: '',
+					username: '',
+					phoneNumber: '',
+					email: '',
+					termsAgree: '',
+			  }
+			: {
+					id: '',
+					password: '',
+					passwordConfirm: '',
+					username: '',
+					phoneNumber: '',
+					email: '',
+					businessNumber: '',
+					brandName: '',
+			  }
+
+		// useEffect(() => {
+		// 	isBuyer
+		// 		? setInitialState({
+		// 				id: '',
+		// 				password: '',
+		// 				passwordConfirm: '',
+		// 				username: '',
+		// 				phoneNumber: '',
+		// 				email: '',
+		// 				termsAgree: '',
+		// 		  })
+		// 		: setInitialState({
+		// 				id: '',
+		// 				password: '',
+		// 				passwordConfirm: '',
+		// 				username: '',
+		// 				phoneNumber: '',
+		// 				email: '',
+		// 				businessNumber: '',
+		// 				brandName: '',
+		// 		  })
+		// }, [isBuyer])
 
 		return (
 			<FormSection

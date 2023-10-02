@@ -20,11 +20,7 @@ export function SigninPage() {
 
 	useTitle('Sign In')
 
-	return (
-		<>
-			<AuthForm type='signin' />
-		</>
-	)
+	return <AuthForm type='signin' />
 }
 
 export const signinAction = async ({ request }) => {

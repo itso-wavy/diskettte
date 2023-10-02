@@ -15,11 +15,7 @@ export function SignupPage() {
 		if (isSignedIn) return navigate(-1)
 	}, [])
 
-	return (
-		<>
-			<AuthForm type='signup' />
-		</>
-	)
+	return <AuthForm type='signup' />
 }
 
 export const signupAction = async ({ request }) => {
