@@ -145,71 +145,17 @@ function NumberInput({ label, id, name, placeholder, ...props }) {
 }
 
 function Checkbox(
-	{ isActive = true, required, id, name, info, ...props },
-	ref
-) {
-	const [selected, setSelected] = useState(isActive)
-
-	let checked = selected
-	let toggleCheckboxHandler = e => {
-		if (e.target.name) setSelected(selected => !selected)
-	}
-
-	if (required) {
-		const { areValid, onCheckHandler } = useContext(FormContext)
-		checked = areValid[name]
-		toggleCheckboxHandler = e => onCheckHandler(e, required)
-	}
-
-	useImperativeHandle(ref, () => ({
-		checked,
-		setSelected: selected => setSelected(selected),
-	}))
-	// TODO:  체크박스 연결
-	return (
-		<CheckboxWrapper {...props}>
-			<label htmlFor={id} onClick={toggleCheckboxHandler}>
-				<Img src={!checked ? UncheckedImg : CheckedImg} $size='1.1rem' />
-				{info}
-			</label>
-			<input
-				id={id}
-				ref={ref}
-				type='checkbox'
-				name={name}
-				checked={checked}
-				onChange={toggleCheckboxHandler}
-				className='sr-only'
-			/>
-		</CheckboxWrapper>
-	)
-}
-
-function Checkbox2(
 	{ isChecked = true, required, id, name, info, ...props },
 	ref
 ) {
-	// const [checked, setChecked] = useState(isChecked)
-
-	// let toggleCheckboxHandler = e => {
-	// 	if (e.target.name) setChecked(checked => !checked)
-	// }
-
-	// if (required) {
-	// 	const { areValid, onCheckHandler2 } = useContext(FormContext)
-	// 	checked = areValid[name]
-	// 	toggleCheckboxHandler = e => onCheckHandler2(e, required)
-	// }
-
-	const { values, onCheckHandler2 } = useContext(FormContext)
+	const { values, onCheckHandler } = useContext(FormContext)
 	const checked = values[name]
-	const toggleCheckboxHandler = e => onCheckHandler2(e, required)
+	const toggleCheckboxHandler = e => onCheckHandler(e, required)
 
 	useImperativeHandle(ref, () => ({
 		checked,
-		// setChecked: checked => setChecked(checked),
 		setChecked: checked => {
-			const event = { target: { name, value: checked } }
+			const event = { target: { name, checked } }
 			toggleCheckboxHandler(event, required)
 		},
 	}))
@@ -395,14 +341,12 @@ function ImageInput({ id, name, accept, image = '', ...props }) {
 }
 
 const RefCheckbox = forwardRef(Checkbox)
-const RefCheckbox2 = forwardRef(Checkbox2)
 
 export {
 	TextInput,
 	Textarea,
 	NumberInput,
 	RefCheckbox as Checkbox,
-	RefCheckbox2 as Checkbox2,
 	RadioInput,
 	AddressInput,
 	ImageInput,

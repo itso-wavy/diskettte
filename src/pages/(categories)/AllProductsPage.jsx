@@ -181,7 +181,7 @@ export function AllProductsPage() {
 									title='products'
 									theme='#C4DBE2'
 									currentPage={currentPage}
-									totalItemsCount={paginatedProducts.results.length}
+									totalItemsCount={paginatedProducts.count}
 								/>
 							}
 						>

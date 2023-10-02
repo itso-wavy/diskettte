@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useMemo, useRef } from 'react'
+import { Suspense, useMemo, useRef } from 'react'
 import { Await, useFetcher, useNavigate } from 'react-router-dom'
 import { FormProvider } from '../../context/form-context'
 import { CartLoading } from '../common'
@@ -12,18 +12,13 @@ import useStore from '../../store'
 
 const updatedCartLoader = async cart => {
 	// cart 내 아이템이 있을 때, 아이템 정보까지 가져오는 함수
-	// if (cart.length > 0) {
 	await Promise.all(
 		cart.map(async (item, index) => {
 			const product = await getProduct(item.product_id)
 
-			// case 1. 기존 cart에 상품 정보를 추가한 객체 생성
 			cart[index].product = product
-			// case 2. 위가 너무 헤비하다면 product만 뽑아낸다.
-			// return product
 		})
 	)
-	// }
 
 	return cart
 }
@@ -58,12 +53,10 @@ function EmptyList({ type, ...props }) {
 }
 
 function ListTitle({ ...props }) {
-	// const submit = useSubmit()
 	const fetcher = useFetcher()
 
 	const checkboxRef = useRef()
-	const { cart, isSelectAll, removeFormCartStore, toggleAllSelected } =
-		useStore()
+	const { cart, removeFormCartStore, toggleAllSelected } = useStore()
 
 	const selectAllHandler = () => {
 		const selectAll = !checkboxRef.current.checked
@@ -115,7 +108,6 @@ function ListTitle({ ...props }) {
 				id='selectAll'
 				name='selectAll'
 				info='전체 선택'
-				// isActive={isSelectAll}
 				onClick={selectAllHandler}
 			/>
 			<SmallMenus style={{ fontSize: '.75rem' }}>
@@ -134,7 +126,13 @@ function CartList({ cart, ...props }) {
 
 	return (
 		<Wrapper {...props}>
-			<ListTitle />
+			<FormProvider
+				initialState={{
+					selectAll: true,
+				}}
+			>
+				<ListTitle />
+			</FormProvider>
 			{!cart && <EmptyList type='needSignin' />}
 			{cart && (
 				<ul>
@@ -146,10 +144,8 @@ function CartList({ cart, ...props }) {
 									updatedCart.map(item => (
 										<FormProvider
 											initialState={{
-												// cartItemId: item.cart_item_id,
-												// productId: item.product_id,
 												qty: item.quantity,
-												// isActive: true,
+												isActive: item.is_active,
 											}}
 											key={item.product_id}
 										>

@@ -229,13 +229,12 @@ function CartItem({ item, ...props }) {
 	}, [])
 
 	useEffect(() => {
-		checkboxRef.current.setSelected(isSelectAll)
+		checkboxRef.current.setChecked(isSelectAll)
 	}, [isSelectAll])
 
 	const onCheckHandler = () => {
 		const checked = checkboxRef.current.checked
 		updateCartStore({ productId, isActive: !checked })
-		// checkboxRef.current.setSelected(!checked)
 	}
 
 	return (
@@ -246,7 +245,6 @@ function CartItem({ item, ...props }) {
 					ref={checkboxRef}
 					id={productId}
 					name='isActive'
-					// isActive={true}
 					onClick={onCheckHandler}
 				/>
 				<CartItemImg
