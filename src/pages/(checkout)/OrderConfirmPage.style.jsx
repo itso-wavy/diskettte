@@ -8,6 +8,8 @@ export const StyledSection = styled.section`
 	background-color: ${({ theme }) => theme.color.lightgray};
 	box-shadow: inset -24px -24px 48px #dcdfe2, inset 0px 0px 6px #e7f2f9,
 		6px 10px 7px #cfd4d1;
+	background-image: url(/assets/images/paper-texture.png);
+	z-index: -1;
 
 	&::before {
 		content: '';
@@ -33,6 +35,10 @@ export const StyledSection = styled.section`
 		display: inline-block;
 		position: relative;
 		top: 10px;
+	}
+
+	table {
+		white-space: normal;
 	}
 
 	.order-number {
