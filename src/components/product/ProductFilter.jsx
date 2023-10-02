@@ -4,7 +4,7 @@ import { FormContext, FormProvider } from '../../context/form-context'
 import { useHeaderHeight } from '../../hooks'
 import { Accordion } from '../@ui/Accordion'
 import { FormInput } from '../@ui/Form'
-import { Checkbox } from '../@ui/Input'
+import { Checkbox2 } from '../@ui/Input'
 import { Button } from '../@ui/Button'
 import { DoubleRangeSlider } from '../@ui/DoubleRangeSlider'
 import { StyledAside } from './ProductFilter.style'
@@ -39,8 +39,8 @@ function ProductFilterForm({ sortChangeHandler, ...props }) {
 	)
 
 	const resetFilter = () => {
-		freeShippingRef.current.setSelected(false)
-		excludeSoldOutRef.current.setSelected(false)
+		// freeShippingRef.current.setChecked(false)
+		// excludeSoldOutRef.current.setChecked(false)
 		priceRangeRef.current.initRangeSlider()
 		onInitHandler()
 	}
@@ -72,17 +72,19 @@ function ProductFilterForm({ sortChangeHandler, ...props }) {
 
 			<div className='filter-box'>
 				<p className='filter-title'>상품 정보</p>
-				<Checkbox
+				<Checkbox2
 					ref={freeShippingRef}
 					id='freeShipping'
 					name='freeShipping'
 					info='무료배송'
+					isChecked={false}
 				/>
-				<Checkbox
+				<Checkbox2
 					ref={excludeSoldOutRef}
 					id='excludeSoldOut'
 					name='excludeSoldOut'
 					info='품절상품 제외'
+					isChecked={false}
 				/>
 			</div>
 		</Form>

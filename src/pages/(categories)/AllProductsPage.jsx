@@ -22,42 +22,76 @@ import {
 } from './AllProductsPage.style'
 
 const sortProducts = (allProductsResults, sortOptions) => {
-	// const pageParam = searchParams.get('page') ?? '1'
-	const {
-		currentPage,
-		order,
-		minPrice,
-		maxPrice,
-		freeShipping,
-		excludeSoldOut,
-	} = sortOptions
+	let allResultsCopy = [...allProductsResults]
+	const { order, priceRange, freeShipping, excludeSoldOut } = sortOptions
 
-	// TODO: 솔팅!!
+	if (freeShipping) {
+		allResultsCopy = allResultsCopy.filter(
+			product => product.shipping_fee === 0
+		)
+	}
 
-	const chunkedProductsResults = allProductsResults.reduce(
-		(acc, cur, index) => {
-			let ITEMS_PER_PAGE = 15 // 백엔드, 클라이언트 설정 통일
-			const chunkedIndex = Math.floor(index / ITEMS_PER_PAGE)
+	if (excludeSoldOut) {
+		allResultsCopy = allResultsCopy.filter(product => product.stock === 0)
+	}
 
-			if (!acc[chunkedIndex]) acc[chunkedIndex] = []
-			acc[chunkedIndex].push(cur)
+	if (priceRange.start && priceRange.end) {
+		allResultsCopy = allResultsCopy.filter(
+			product =>
+				product.price >= priceRange.start && product.price <= priceRange.end
+		)
+	}
 
-			return acc
-		},
-		[]
-	)
+	if (order) {
+		switch (order) {
+			case 'price_asc':
+				allResultsCopy.sort((a, b) => a.price - b.price)
+				break
+			case 'price_desc':
+				allResultsCopy.sort((a, b) => b.price - a.price)
+				break
+			case 'oldest':
+				allResultsCopy.sort((a, b) => a.product_id - b.product_id)
+				break
+			case 'newest':
+				allResultsCopy.sort((a, b) => b.product_id - a.product_id)
+				break
+			default:
+				allResultsCopy
+		}
+	}
 
-	const sortedProducts = {
+	return allResultsCopy
+}
+
+const paginateProducts = (allProductsResults, sortOptions) => {
+	const sortedProducts = sortProducts(allProductsResults, sortOptions)
+
+	const chunkedProductsResults = sortedProducts.reduce((acc, cur, index) => {
+		let ITEMS_PER_PAGE = 15 // 백엔드, 클라이언트 설정 통일
+		const chunkedIndex = Math.floor(index / ITEMS_PER_PAGE)
+
+		if (!acc[chunkedIndex]) acc[chunkedIndex] = []
+		acc[chunkedIndex].push(cur)
+
+		return acc
+	}, [])
+
+	const currentPage = sortOptions.currentPage
+
+	const paginatedProducts = {
 		count: allProductsResults.length,
-		next: chunkedProductsResults[currentPage],
+		next: !!chunkedProductsResults[currentPage],
 		results: chunkedProductsResults[currentPage - 1],
 	}
 
-	return sortedProducts
+	return paginatedProducts
 }
 
 const calculatePriceRange = allProductsResults => {
-	const sortedProducts = allProductsResults.sort((a, b) => a.price - b.price)
+	const sortedProducts = [...allProductsResults].sort(
+		(a, b) => a.price - b.price
+	)
 
 	return {
 		minPrice: sortedProducts[0].price,
@@ -80,18 +114,25 @@ export function AllProductsPage() {
 		order: null,
 		freeShipping: false,
 		excludeSoldOut: false,
+		priceRange: { start: minPrice, end: maxPrice },
 	}
 	const [sortOptions, setSortOptions] = useState(initialState)
-	const [sortedProducts, setSortedProducts] = useState(
-		sortProducts(allProductsResults, sortOptions)
+	const [paginatedProducts, setPaginatedProducts] = useState(
+		useMemo(() => paginateProducts(allProductsResults, sortOptions), [])
 	)
 
-	const sortChangeHandler = newSortOptions => {
-		setSortOptions(sortOptions => ({ ...sortOptions, ...newSortOptions }))
+	const sortChangeHandler = sortOptions => {
+		sortOptions.priceRange.start = Number(sortOptions.priceRange.start)
+		sortOptions.priceRange.end = Number(sortOptions.priceRange.end)
 
-		const newSortedProducts = sortProducts(allProductsResults, sortOptions)
+		setSortOptions(sortOptions)
 
-		setSortedProducts(newSortedProducts)
+		const newPaginatedProducts = paginateProducts(
+			allProductsResults,
+			sortOptions
+		)
+
+		setPaginatedProducts(newPaginatedProducts)
 	}
 
 	useTitle('All')
@@ -128,7 +169,6 @@ export function AllProductsPage() {
 				<ContentsWrapper>
 					<ProductFilter
 						initialState={initialState}
-						// sortOptions={sortOptions}
 						sortChangeHandler={sortChangeHandler}
 					/>
 					<section aria-labelledby='productList'>
@@ -141,11 +181,11 @@ export function AllProductsPage() {
 									title='products'
 									theme='#C4DBE2'
 									currentPage={currentPage}
-									totalItemsCount={allProductsResults.length}
+									totalItemsCount={paginatedProducts.results.length}
 								/>
 							}
 						>
-							{sortedProducts.results.map(product => (
+							{paginatedProducts.results.map(product => (
 								<ProductItem key={product.product_id} product={product} />
 							))}
 						</ProductList>

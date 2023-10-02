@@ -6,6 +6,7 @@ export const ACTION_CREATOR = {
 	BLUR: 'BLUR',
 	CLEAR: 'CLEAR',
 	CHECK: 'CHECK',
+	CHECK2: 'CHECK2',
 }
 
 const reducer = (state, action) => {
@@ -34,6 +35,14 @@ const reducer = (state, action) => {
 				values: { ...state.values, [name]: !state.values[name] },
 				areValid: { ...state.areValid, ...areValid },
 			}
+		case ACTION_CREATOR.CHECK2:
+			return {
+				...state,
+				// values: { ...state.values, [name]: !state.values[name] },
+				values: { ...state.values, ...values },
+				areValid: { ...state.areValid, ...areValid },
+			}
+
 		default:
 			return state
 	}
@@ -153,6 +162,20 @@ export const useForm = initialState => {
 		})
 	}
 
+	const onCheckHandler2 = (e, required) => {
+		const { name, checked } = e.target
+
+		const isValid = required ? checked : true
+		// let isValid = checked
+		// if (required) isValid = !state.areValid[name]
+
+		dispatch({
+			type: ACTION_CREATOR.CHECK2,
+			values: { [name]: checked },
+			areValid: { [name]: isValid },
+		})
+	}
+
 	const onRadioChangeHandler = e => {
 		const { name, value } = e.target
 
@@ -197,6 +220,7 @@ export const useForm = initialState => {
 		checkUniquenessHandler,
 		clearInputHandler,
 		onCheckHandler,
+		onCheckHandler2,
 		onRadioChangeHandler,
 		ableSubmit,
 	}
