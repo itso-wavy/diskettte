@@ -62,6 +62,17 @@ export const ContentsWrapper = styled.div`
 	grid-template-columns: max(320px, 30%) auto;
 	gap: 3.75rem;
 
+	.no-result {
+		height: 100%;
+		display: grid;
+		place-items: center;
+
+		p {
+			font-size: 1.125rem;
+			font-weight: ${({ theme }) => theme.fw.medium};
+		}
+	}
+
 	@media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
 		grid-auto-flow: row;
 		grid-template-columns: initial;

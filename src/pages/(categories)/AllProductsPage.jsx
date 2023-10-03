@@ -175,20 +175,27 @@ export function AllProductsPage() {
 						<h3 className='sr-only' id='productList'>
 							product list
 						</h3>
-						<ProductList
-							pagination={
-								<ConfiguredPagination
-									title='products'
-									theme='#C4DBE2'
-									currentPage={currentPage}
-									totalItemsCount={paginatedProducts.count}
-								/>
-							}
-						>
-							{paginatedProducts.results.map(product => (
-								<ProductItem key={product.product_id} product={product} />
-							))}
-						</ProductList>
+						{!paginatedProducts.results && (
+							<div className='no-result'>
+								<p>해당되는 상품이 없습니다.</p>
+							</div>
+						)}
+						{paginatedProducts.results && (
+							<ProductList
+								pagination={
+									<ConfiguredPagination
+										title='products'
+										theme='#C4DBE2'
+										currentPage={currentPage}
+										totalItemsCount={paginatedProducts.count}
+									/>
+								}
+							>
+								{paginatedProducts.results.map(product => (
+									<ProductItem key={product.product_id} product={product} />
+								))}
+							</ProductList>
+						)}
 					</section>
 				</ContentsWrapper>
 			</StyledSection>
