@@ -59,14 +59,17 @@ function DoubleRangeSlider({ id, name, min, max, ...props }, ref) {
 				onChange={onChangeHandler}
 			/>
 			<TrackBox
-				$left={position.start}
-				$right={position.end}
+				// $left={position.start}
+				// $right={position.end}
 				className='track-box'
 			>
 				<div id='track' />
-				<div id='range-between' />
-				<div className='handle start' />
-				<div className='handle end' />
+				<div
+					id='range-between'
+					style={{ left: position.start + '%', right: position.end + '%' }}
+				/>
+				<div className='handle start' style={{ left: position.start + '%' }} />
+				<div className='handle end' style={{ right: position.end + '%' }} />
 			</TrackBox>
 
 			<div className='labels-box'>

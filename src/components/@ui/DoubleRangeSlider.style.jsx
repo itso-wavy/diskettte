@@ -60,8 +60,10 @@ export const Wrapper = styled.div`
 export const TrackBox = styled.div`
 	--height: 0.25rem; // 4px
 	--handle-size: calc(var(--height) * 4); // 16px
-	--left: ${({ $left }) => `${$left}%`};
-	--right: ${({ $right }) => `${$right}%`};
+	/* --left: ${({ $left }) => `${$left}%`};
+	--right: ${({ $right }) => `${$right}%`}; */
+	/* --left: ${({ $left }) => $left + '%'};
+	--right: ${({ $right }) => $right + '%'}; */
 
 	height: var(--height);
 	margin: 0 calc(var(--handle-size) / 2);
@@ -81,8 +83,8 @@ export const TrackBox = styled.div`
 		inset: 0;
 		z-index: 2;
 		background-color: ${({ theme }) => theme.color.black};
-		left: var(--left);
-		right: var(--right);
+		/* left: var(--left);
+		right: var(--right); */
 	}
 
 	.handle {
@@ -95,12 +97,12 @@ export const TrackBox = styled.div`
 
 		&.start {
 			transform: translate(calc(var(--handle-size) / -2), 0px);
-			left: var(--left);
+			/* left: var(--left); */
 		}
 
 		&.end {
 			transform: translate(calc(var(--handle-size) / 2), 0px);
-			right: var(--right);
+			/* right: var(--right); */
 		}
 	}
 `
