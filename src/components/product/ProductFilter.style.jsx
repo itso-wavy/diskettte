@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const StyledAside = styled.aside`
 	padding: 1.25rem;
 	font-size: 0.875rem;
-	background-color: ${({ theme }) => theme.color.orange};
+	background-color: ${({ theme }) => theme.color.beige};
 	z-index: 10;
 
 	.filter-init {

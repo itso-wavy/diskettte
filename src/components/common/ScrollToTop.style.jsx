@@ -14,6 +14,7 @@ export const StyledButton = styled(BaseButton)`
 	visibility: ${({ $show }) => ($show ? 'visible' : 'hidden')};
 	opacity: ${({ $show }) => ($show ? 1 : 0)};
 	transition: all 0.5s, background-color 0.3s;
+	z-index: 100;
 
 	&:hover {
 		background-color: ${({ theme }) => theme.color.lightgray};

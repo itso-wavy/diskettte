@@ -78,4 +78,46 @@ const rolling = keyframes`
   }
 `
 
-export { entrance, shake, slideIn, floating, swing, rotate, rolling }
+const neon = keyframes`
+  from {
+    text-shadow: 0 0 6px rgba(202, 228, 225, 0.92),
+      0 0 30px rgba(202, 228, 225, 0.34), 0 0 12px rgba(242, 72, 30, 0.52),
+      0 0 21px rgba(242, 72, 30, 0.92), 0 0 34px rgba(242, 30, 30, 0.78),
+      0 0 54px rgba(242, 30, 30, 0.92);
+  }
+  to {
+    text-shadow: 0 0 6px rgba(202, 228, 225, 0.98),
+      0 0 30px rgba(202, 228, 225, 0.42), 0 0 12px rgba(242, 30, 30, 0.58),
+      0 0 22px rgba(242, 72, 30, 0.84), 0 0 36px rgba(242, 30, 30, 0.88),
+      0 0 60px rgba(242, 30, 30, 1);
+    filter: saturate(60%), brightness(0.1%);
+  }
+`
+
+const neon2 = keyframes`
+  from {
+    text-shadow: 0 0 6px rgba(202, 228, 225, 0.92),
+      0 0 30px rgba(202, 228, 225, 0.34), 0 0 12px rgba(30, 132, 242, 0.52),
+      0 0 11px rgba(30, 132, 242, 0.92), 0 0 18px rgba(30, 132, 242, 0.78),
+      0 0 30px rgba(30, 132, 242, 0.92);
+  }
+  to {
+    text-shadow: 0 0 6px rgba(202, 228, 225, 0.98),
+      0 0 30px rgba(202, 228, 225, 0.42), 0 0 12px rgba(30, 132, 242, 0.52),
+      0 0 12px rgba(30, 132, 242, 0.92), 0 0 20px rgba(30, 132, 242, 0.78),
+      0 0 32px rgba(30, 132, 242, 0.92);
+    filter: saturate(60%), brightness(0.1%);
+  }
+  `
+
+export {
+	entrance,
+	shake,
+	slideIn,
+	floating,
+	swing,
+	rotate,
+	rolling,
+	neon,
+	neon2,
+}

@@ -293,7 +293,7 @@ export const ItemWrapper = styled.div`
 	border-left: 0;
 
 	figure {
-		background: ${({ theme }) => theme.color.orange};
+		background: ${({ theme }) => theme.color.beige};
 	}
 
 	figcaption {
