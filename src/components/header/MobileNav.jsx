@@ -58,7 +58,9 @@ export function MobileNav({ ...props }) {
               text='New arrivals'
             />
             <MobileNavItem
-              onClick={() => window.location.assign('http://52.79.147.250')}
+              onClick={() =>
+                window.location.assign('http://diskettte-exclusive.my.to')
+              }
               ariaLabel='go to exclusive category'
               text='Exclusive'
             />

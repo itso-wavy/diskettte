@@ -43,7 +43,7 @@ export function HeaderCategories() {
           text='New arrivals'
         />
         <CategoriesItem
-          url='http://52.79.147.250'
+          url='http://diskettte-exclusive.my.to'
           ariaLabel='go to exclusive
 			categorie'
           text='Exclusive'
